@@ -25,6 +25,7 @@ class TextField
     {
         $this->myId = 'form-' . $name;
         $this->myName = $name;
+        $this->myValue = '';
     }
 
     /**
@@ -40,6 +41,18 @@ class TextField
     }
 
     /**
+     * Returns the value of the text field.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value of the text field.
+     */
+    public function getValue()
+    {
+        return $this->myValue;
+    }
+
+    /**
      * @var string My id.
      */
     private $myId;
@@ -48,4 +61,9 @@ class TextField
      * @var string My name.
      */
     private $myName;
+
+    /**
+     * @var string My value.
+     */
+    private $myValue;
 }

@@ -14,6 +14,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         $textField = new TextField('foo');
 
+        self::assertSame('', $textField->getValue());
         self::assertSame('<input type="text" id="form-foo" name="foo">', $textField->getElementHtml());
     }
 }
