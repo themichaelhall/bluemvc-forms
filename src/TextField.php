@@ -35,7 +35,7 @@ class TextField
      *
      * @return string The element html.
      */
-    public function getElementHtml()
+    public function getHtml()
     {
         return '<input type="text" id="' . htmlspecialchars($this->myId) . '" name="' . htmlspecialchars($this->myName) . '">';
     }
