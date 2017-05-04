@@ -37,7 +37,7 @@ class TextField
      */
     public function getHtml()
     {
-        return '<input type="text" id="' . htmlspecialchars($this->myId) . '" name="' . htmlspecialchars($this->myName) . '">';
+        return '<input type="text" id="' . htmlspecialchars($this->myId) . '" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . '>';
     }
 
     /**
@@ -50,6 +50,18 @@ class TextField
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Sets the value from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     */
+    public function setFormValue($value)
+    {
+        $this->myValue = $value;
     }
 
     /**
