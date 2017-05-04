@@ -15,6 +15,15 @@ namespace BlueMvc\Forms\Interfaces;
 interface FormElementInterface
 {
     /**
+     * Returns the element error or null if element has no error.
+     *
+     * @since 1.0.0
+     *
+     * @return string|null The element error or null if element has no error.
+     */
+    public function getError();
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0

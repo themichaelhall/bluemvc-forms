@@ -37,6 +37,18 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Returns the element error or null if element has no error.
+     *
+     * @since 1.0.0
+     *
+     * @return string|null The element error or null if element has no error.
+     */
+    public function getError()
+    {
+        return $this->myError;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0

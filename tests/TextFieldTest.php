@@ -129,4 +129,14 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
 
         self::assertFalse($textField->hasError());
     }
+
+    /**
+     * Test getError method.
+     */
+    public function testGetError()
+    {
+        $textField = new TextField('foo');
+
+        self::assertNull($textField->getError());
+    }
 }
