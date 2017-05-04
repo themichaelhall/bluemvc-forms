@@ -33,6 +33,15 @@ interface FormElementInterface
     public function getName();
 
     /**
+     * Returns true if element has an error, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element has an error, false otherwise.
+     */
+    public function hasError();
+
+    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0

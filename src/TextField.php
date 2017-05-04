@@ -33,6 +33,7 @@ class TextField implements FormElementInterface
 
         $this->myName = $name;
         $this->myValue = '';
+        $this->myError = null;
     }
 
     /**
@@ -69,6 +70,18 @@ class TextField implements FormElementInterface
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Returns true if element has an error, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element has an error, false otherwise.
+     */
+    public function hasError()
+    {
+        return $this->myError !== null;
     }
 
     /**
@@ -122,4 +135,9 @@ class TextField implements FormElementInterface
      * @var string My value.
      */
     private $myValue;
+
+    /**
+     * @var string|null My error or null if no error.
+     */
+    private $myError;
 }
