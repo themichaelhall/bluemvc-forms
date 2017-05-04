@@ -23,7 +23,6 @@ class TextField
      */
     public function __construct($name)
     {
-        $this->myId = 'form-' . $name;
         $this->myName = $name;
         $this->myValue = '';
     }
@@ -37,7 +36,7 @@ class TextField
      */
     public function getHtml()
     {
-        return '<input type="text" id="' . htmlspecialchars($this->myId) . '" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . '>';
+        return '<input type="text" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . '>';
     }
 
     /**
@@ -63,11 +62,6 @@ class TextField
     {
         $this->myValue = $value;
     }
-
-    /**
-     * @var string My id.
-     */
-    private $myId;
 
     /**
      * @var string My name.
