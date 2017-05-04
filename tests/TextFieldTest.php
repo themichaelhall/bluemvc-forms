@@ -40,4 +40,16 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $textField->getValue());
         self::assertSame('<input type="text" name="foo" value="bar">', $textField->getHtml());
     }
+
+    /**
+     * Test setFormValue method with invalid value parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value parameter is not a string.
+     */
+    public function testSetFormValueWithInvalidValueParameterType()
+    {
+        $textField = new TextField('foo');
+        $textField->setFormValue(true);
+    }
 }
