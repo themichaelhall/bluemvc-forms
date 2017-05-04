@@ -86,7 +86,7 @@ class TextField implements FormElementInterface
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        $this->myValue = $value;
+        $this->myValue = trim($value);
     }
 
     /**
