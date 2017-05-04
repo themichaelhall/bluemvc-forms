@@ -48,6 +48,18 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Returns the element name.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element name.
+     */
+    public function getName()
+    {
+        return $this->myName;
+    }
+
+    /**
      * Returns the value of the text field.
      *
      * @since 1.0.0

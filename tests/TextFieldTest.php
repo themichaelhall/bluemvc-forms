@@ -14,7 +14,6 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         $textField = new TextField('foo');
 
-        self::assertSame('', $textField->getValue());
         self::assertSame('<input type="text" name="foo">', $textField->getHtml());
     }
 
@@ -27,6 +26,26 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     public function testConstructorWithInvalidNameParameterType()
     {
         new TextField(0);
+    }
+
+    /**
+     * Test getName method.
+     */
+    public function testGetName()
+    {
+        $textField = new TextField('foo');
+
+        self::assertSame('foo', $textField->getName());
+    }
+
+    /**
+     * Test getValue method.
+     */
+    public function testGetValue()
+    {
+        $textField = new TextField('foo');
+
+        self::assertSame('', $textField->getValue());
     }
 
     /**

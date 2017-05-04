@@ -24,6 +24,15 @@ interface FormElementInterface
     public function getHtml();
 
     /**
+     * Returns the element name.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element name.
+     */
+    public function getName();
+
+    /**
      * Sets the value from form.
      *
      * @since 1.0.0
