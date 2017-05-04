@@ -98,4 +98,25 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<input type="text" name="&lt;Foo&gt;" value="&lt;Bar&gt;" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="&lt;Foo&gt;" value="&lt;Bar&gt;" required>', $textField->__toString());
     }
+
+    /**
+     * Test isEmpty method for empty value.
+     */
+    public function testIsEmptyForEmptyValue()
+    {
+        $textField = new TextField('foo');
+
+        self::assertTrue($textField->isEmpty());
+    }
+
+    /**
+     * Test isEmpty method for non-empty value.
+     */
+    public function testIsEmptyForNonEmptyValue()
+    {
+        $textField = new TextField('foo');
+        $textField->setFormValue('bar');
+
+        self::assertFalse($textField->isEmpty());
+    }
 }

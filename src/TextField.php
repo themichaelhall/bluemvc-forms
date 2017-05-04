@@ -72,6 +72,18 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Returns true if element value is empty, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is empty, false otherwise.
+     */
+    public function isEmpty()
+    {
+        return $this->myValue === '';
+    }
+
+    /**
      * Sets the value from form.
      *
      * @since 1.0.0
