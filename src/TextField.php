@@ -90,6 +90,18 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element html.
+     */
+    public function __toString()
+    {
+        return $this->getHtml();
+    }
+
+    /**
      * @var string My name.
      */
     private $myName;
