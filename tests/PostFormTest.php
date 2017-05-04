@@ -15,10 +15,25 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
     public function testProcessWithGetRequest()
     {
         $request = new FakeRequest('/', 'GET');
+
         $isProcessed = $this->form->process($request);
 
         self::assertFalse($isProcessed);
         self::assertSame('', $this->form->getTextField()->getValue());
+    }
+
+    /**
+     * Test process with post request.
+     */
+    public function testProcessWithPostRequest()
+    {
+        $request = new FakeRequest('/', 'POST');
+        $request->setFormParameter('text', 'My text value');
+
+        $isProcessed = $this->form->process($request);
+
+        self::assertTrue($isProcessed);
+        self::assertSame('My text value', $this->form->getTextField()->getValue());
     }
 
     /**

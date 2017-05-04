@@ -19,6 +19,8 @@ interface FormInterface
     /**
      * Processes the form.
      *
+     * @since 1.0.0
+     *
      * @param RequestInterface $request The request.
      *
      * @return bool True if form was sucessfully processed, false otherwise.
