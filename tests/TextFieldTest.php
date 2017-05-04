@@ -14,7 +14,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         $textField = new TextField('foo');
 
-        self::assertSame('<input type="text" name="foo">', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" required>', $textField->getHtml());
     }
 
     /**
@@ -57,7 +57,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField->setFormValue('bar');
 
         self::assertSame('bar', $textField->getValue());
-        self::assertSame('<input type="text" name="foo" value="bar">', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
     }
 
     /**
@@ -69,7 +69,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField->setFormValue(' bar ');
 
         self::assertSame('bar', $textField->getValue());
-        self::assertSame('<input type="text" name="foo" value="bar">', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
     }
 
     /**
@@ -92,6 +92,6 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField = new TextField('<Foo>');
         $textField->setFormValue('<Bar>');
 
-        self::assertSame('<input type="text" name="&lt;Foo&gt;" value="&lt;Bar&gt;">', $textField->getHtml());
+        self::assertSame('<input type="text" name="&lt;Foo&gt;" value="&lt;Bar&gt;" required>', $textField->getHtml());
     }
 }

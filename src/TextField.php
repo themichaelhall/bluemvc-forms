@@ -44,7 +44,7 @@ class TextField implements FormElementInterface
      */
     public function getHtml()
     {
-        return '<input type="text" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . '>';
+        return '<input type="text" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . ' required>';
     }
 
     /**
