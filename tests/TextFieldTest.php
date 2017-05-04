@@ -52,4 +52,15 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField = new TextField('foo');
         $textField->setFormValue(true);
     }
+
+    /**
+     * Test that output is html-encoded.
+     */
+    public function testOutputIsHtmlEncoded()
+    {
+        $textField = new TextField('<Foo>');
+        $textField->setFormValue('<Bar>');
+
+        self::assertSame('<input type="text" name="&lt;Foo&gt;" value="&lt;Bar&gt;">', $textField->getHtml());
+    }
 }
