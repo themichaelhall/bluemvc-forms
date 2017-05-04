@@ -19,6 +19,17 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test constructor with invalid name parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $name parameter is not a string.
+     */
+    public function testConstructorWithInvalidNameParameterType()
+    {
+        new TextField(0);
+    }
+
+    /**
      * Test setFormValue method.
      */
     public function testSetFormValue()

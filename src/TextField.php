@@ -20,9 +20,15 @@ class TextField
      * @since 1.0.0
      *
      * @param string $name The name.
+     *
+     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
     public function __construct($name)
     {
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException('$name parameter is not a string.');
+        }
+
         $this->myName = $name;
         $this->myValue = '';
     }
