@@ -33,13 +33,48 @@ abstract class PostForm implements FormInterface
             return false;
         }
 
-        foreach (get_object_vars($this) as $element) {
-            if ($element instanceof FormElementInterface) {
-                $formValue = $request->getFormParameter($element->getName());
-                $element->setFormValue($formValue);
+        $elements = $this->myGetElementsToProcess();
+
+        // Set form values for elements.
+        foreach ($elements as $element) {
+            $formValue = $request->getFormParameter($element->getName()) ?: '';
+            $element->setFormValue($formValue);
+        }
+
+        // Validate elements.
+        foreach ($elements as $element) {
+            if ($element->isEmpty()) {
+                $element->setError('Value is required.');
             }
         }
 
-        return true;
+        // Check for errors.
+        $hasError = false;
+        foreach ($elements as $element) {
+            if ($element->hasError()) {
+                $hasError = true;
+                break;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    /**
+     * Returns the elements to process.
+     *
+     * @return FormElementInterface[] The elements to process.
+     */
+    private function myGetElementsToProcess()
+    {
+        $result = [];
+
+        foreach (get_object_vars($this) as $element) {
+            if ($element instanceof FormElementInterface) {
+                $result[] = $element;
+            }
+        }
+
+        return $result;
     }
 }

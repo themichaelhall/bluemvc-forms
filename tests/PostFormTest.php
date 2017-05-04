@@ -19,7 +19,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertFalse($isProcessed);
+
         self::assertSame('', $this->form->getTextField()->getValue());
+        self::assertFalse($this->form->getTextField()->hasError());
     }
 
     /**
@@ -33,7 +35,25 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertTrue($isProcessed);
+
         self::assertSame('My text value', $this->form->getTextField()->getValue());
+        self::assertFalse($this->form->getTextField()->hasError());
+    }
+
+    /**
+     * Test process with empty post request.
+     */
+    public function testProcessWithEmptyPostRequest()
+    {
+        $request = new FakeRequest('/', 'POST');
+
+        $isProcessed = $this->form->process($request);
+
+        self::assertFalse($isProcessed);
+
+        self::assertSame('', $this->form->getTextField()->getValue());
+        self::assertTrue($this->form->getTextField()->hasError());
+        self::assertSame('Value is required.', $this->form->getTextField()->getError());
     }
 
     /**
