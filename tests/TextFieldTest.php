@@ -139,4 +139,28 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($textField->getError());
     }
+
+    /**
+     * Test setError method.
+     */
+    public function testSetError()
+    {
+        $textField = new TextField('foo');
+        $textField->setError('My Error');
+
+        self::assertTrue($textField->hasError());
+        self::assertSame('My Error', $textField->getError());
+    }
+
+    /**
+     * Test setError method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $error parameter is not a string.
+     */
+    public function testSetErrorWithInvalidParameterType()
+    {
+        $textField = new TextField('foo');
+        $textField->setError(1.2);
+    }
 }

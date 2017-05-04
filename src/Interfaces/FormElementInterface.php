@@ -60,13 +60,20 @@ interface FormElementInterface
     public function isEmpty();
 
     /**
+     * Sets the element error.
+     *
+     * @since 1.0.0
+     *
+     * @param string $error The element error.
+     */
+    public function setError($error);
+
+    /**
      * Sets the value from form.
      *
      * @since 1.0.0
      *
      * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
      */
     public function setFormValue($value);
 }

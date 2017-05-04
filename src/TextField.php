@@ -109,6 +109,24 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Sets the element error.
+     *
+     * @since 1.0.0
+     *
+     * @param string $error The element error.
+     *
+     * @throws \InvalidArgumentException If the $error parameter is not a string.
+     */
+    public function setError($error)
+    {
+        if (!is_string($error)) {
+            throw new \InvalidArgumentException('$error parameter is not a string.');
+        }
+
+        $this->myError = $error;
+    }
+
+    /**
      * Sets the value from form.
      *
      * @since 1.0.0
