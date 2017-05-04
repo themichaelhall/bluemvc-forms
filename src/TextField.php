@@ -7,12 +7,14 @@
 
 namespace BlueMvc\Forms;
 
+use BlueMvc\Forms\Interfaces\FormElementInterface;
+
 /**
  * Class representing a text field.
  *
  * @since 1.0.0
  */
-class TextField
+class TextField implements FormElementInterface
 {
     /**
      * Constructs the text field.
