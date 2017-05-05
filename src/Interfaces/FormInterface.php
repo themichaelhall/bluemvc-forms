@@ -23,7 +23,7 @@ interface FormInterface
      *
      * @param RequestInterface $request The request.
      *
-     * @return bool True if form was sucessfully processed, false otherwise.
+     * @return bool True if form was successfully processed, false otherwise.
      */
     public function process(RequestInterface $request);
 }

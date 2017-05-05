@@ -27,6 +27,18 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Called when form elements should be validated.
+     */
+    protected function onValidate()
+    {
+        parent::onValidate();
+
+        if ($this->myTextField->getValue() === 'invalid') {
+            $this->myTextField->setError('Value is invalid.');
+        }
+    }
+
+    /**
      * @var TextField My text field.
      */
     protected $myTextField;

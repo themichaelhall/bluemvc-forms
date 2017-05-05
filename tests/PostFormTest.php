@@ -18,10 +18,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        self::assertFalse($isProcessed);
+        $this->assertFalse($isProcessed);
 
-        self::assertSame('', $this->form->getTextField()->getValue());
-        self::assertFalse($this->form->getTextField()->hasError());
+        $this->assertSame('', $this->form->getTextField()->getValue());
+        $this->assertFalse($this->form->getTextField()->hasError());
     }
 
     /**
@@ -34,10 +34,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        self::assertTrue($isProcessed);
+        $this->assertTrue($isProcessed);
 
-        self::assertSame('My text value', $this->form->getTextField()->getValue());
-        self::assertFalse($this->form->getTextField()->hasError());
+        $this->assertSame('My text value', $this->form->getTextField()->getValue());
+        $this->assertFalse($this->form->getTextField()->hasError());
     }
 
     /**
@@ -49,11 +49,28 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        self::assertFalse($isProcessed);
+        $this->assertFalse($isProcessed);
 
-        self::assertSame('', $this->form->getTextField()->getValue());
-        self::assertTrue($this->form->getTextField()->hasError());
-        self::assertSame('Value is required.', $this->form->getTextField()->getError());
+        $this->assertSame('', $this->form->getTextField()->getValue());
+        $this->assertTrue($this->form->getTextField()->hasError());
+        $this->assertSame('Value is required.', $this->form->getTextField()->getError());
+    }
+
+    /**
+     * Test process with invalid values in post request.
+     */
+    public function testProcessWithInvalidValuesInPostRequest()
+    {
+        $request = new FakeRequest('/', 'POST');
+        $request->setFormParameter('text', 'invalid');
+
+        $isProcessed = $this->form->process($request);
+
+        $this->assertFalse($isProcessed);
+
+        $this->assertSame('invalid', $this->form->getTextField()->getValue());
+        $this->assertTrue($this->form->getTextField()->hasError());
+        $this->assertSame('Value is invalid.', $this->form->getTextField()->getError());
     }
 
     /**

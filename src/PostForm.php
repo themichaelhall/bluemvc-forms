@@ -25,7 +25,7 @@ abstract class PostForm implements FormInterface
      *
      * @param RequestInterface $request The request.
      *
-     * @return bool True if form was sucessfully processed, false otherwise.
+     * @return bool True if form was successfully processed, false otherwise.
      */
     public function process(RequestInterface $request)
     {
@@ -48,6 +48,8 @@ abstract class PostForm implements FormInterface
             }
         }
 
+        $this->onValidate();
+
         // Check for errors.
         $hasError = false;
         foreach ($elements as $element) {
@@ -58,6 +60,15 @@ abstract class PostForm implements FormInterface
         }
 
         return !$hasError;
+    }
+
+    /**
+     * Called when form elements should be validated.
+     *
+     * @since 1.0.0
+     */
+    protected function onValidate()
+    {
     }
 
     /**
