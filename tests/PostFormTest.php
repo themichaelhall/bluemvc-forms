@@ -1,6 +1,9 @@
 <?php
 
+namespace BlueMvc\Forms\Tests;
+
 use BlueMvc\Fakes\FakeRequest;
+use BlueMvc\Forms\Tests\Helpers\TestForms\BasicTestPostForm;
 
 require_once __DIR__ . '/Helpers/TestForms/BasicTestPostForm.php';
 

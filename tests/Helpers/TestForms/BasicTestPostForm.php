@@ -1,5 +1,7 @@
 <?php
 
+namespace BlueMvc\Forms\Tests\Helpers\TestForms;
+
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\TextField;
 
