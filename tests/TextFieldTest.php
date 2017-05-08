@@ -165,4 +165,27 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField = new TextField('foo');
         $textField->setError(1.2);
     }
+
+    /**
+     * Test constructor with default value.
+     */
+    public function testConstructorWithDefaultValue()
+    {
+        $textField = new TextField('foo', 'bar');
+
+        self::assertSame('bar', $textField->getValue());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
+    }
+
+    /**
+     * Test constructor with default value with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value parameter is not a string.
+     */
+    public function testConstructorWithDefaultValueWithInvalidParameterType()
+    {
+        new TextField('foo', false);
+    }
 }
