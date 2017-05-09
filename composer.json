@@ -29,6 +29,11 @@
       "BlueMvc\\Forms\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "BlueMvc\\Forms\\Tests\\": "tests"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }

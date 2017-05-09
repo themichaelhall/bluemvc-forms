@@ -5,8 +5,6 @@ namespace BlueMvc\Forms\Tests;
 use BlueMvc\Fakes\FakeRequest;
 use BlueMvc\Forms\Tests\Helpers\TestForms\BasicTestPostForm;
 
-require_once __DIR__ . '/Helpers/TestForms/BasicTestPostForm.php';
-
 /**
  * Test PostForm class.
  */
@@ -21,10 +19,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        $this->assertFalse($isProcessed);
+        self::assertFalse($isProcessed);
 
-        $this->assertSame('', $this->form->getTextField()->getValue());
-        $this->assertFalse($this->form->getTextField()->hasError());
+        self::assertSame('', $this->form->getTextField()->getValue());
+        self::assertFalse($this->form->getTextField()->hasError());
     }
 
     /**
@@ -37,10 +35,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        $this->assertTrue($isProcessed);
+        self::assertTrue($isProcessed);
 
-        $this->assertSame('My text value', $this->form->getTextField()->getValue());
-        $this->assertFalse($this->form->getTextField()->hasError());
+        self::assertSame('My text value', $this->form->getTextField()->getValue());
+        self::assertFalse($this->form->getTextField()->hasError());
     }
 
     /**
@@ -52,11 +50,11 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        $this->assertFalse($isProcessed);
+        self::assertFalse($isProcessed);
 
-        $this->assertSame('', $this->form->getTextField()->getValue());
-        $this->assertTrue($this->form->getTextField()->hasError());
-        $this->assertSame('Value is required.', $this->form->getTextField()->getError());
+        self::assertSame('', $this->form->getTextField()->getValue());
+        self::assertTrue($this->form->getTextField()->hasError());
+        self::assertSame('Value is required.', $this->form->getTextField()->getError());
     }
 
     /**
@@ -69,11 +67,11 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         $isProcessed = $this->form->process($request);
 
-        $this->assertFalse($isProcessed);
+        self::assertFalse($isProcessed);
 
-        $this->assertSame('invalid', $this->form->getTextField()->getValue());
-        $this->assertTrue($this->form->getTextField()->hasError());
-        $this->assertSame('Value is invalid.', $this->form->getTextField()->getError());
+        self::assertSame('invalid', $this->form->getTextField()->getValue());
+        self::assertTrue($this->form->getTextField()->hasError());
+        self::assertSame('Value is invalid.', $this->form->getTextField()->getError());
     }
 
     /**
