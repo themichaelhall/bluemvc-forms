@@ -58,17 +58,22 @@ class TextField implements FormElementInterface
      *
      * @since 1.0.0
      *
+     * @param array $attributes The attributes.
+     *
      * @return string The element html.
      */
-    public function getHtml()
+    public function getHtml(array $attributes = [])
     {
         return $this->buildTag('input',
-            [
-                'type'     => 'text',
-                'name'     => $this->myName,
-                'value'    => $this->myValue !== '' ? $this->myValue : null,
-                'required' => true,
-            ]
+            array_merge(
+                [
+                    'type'     => 'text',
+                    'name'     => $this->myName,
+                    'value'    => $this->myValue !== '' ? $this->myValue : null,
+                    'required' => true,
+                ],
+                $attributes
+            )
         );
     }
 

@@ -28,9 +28,11 @@ interface FormElementInterface
      *
      * @since 1.0.0
      *
+     * @param array $attributes The attributes.
+     *
      * @return string The element html.
      */
-    public function getHtml();
+    public function getHtml(array $attributes = []);
 
     /**
      * Returns the element name.

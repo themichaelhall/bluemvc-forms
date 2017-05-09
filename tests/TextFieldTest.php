@@ -188,4 +188,14 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         new TextField('foo', false);
     }
+
+    /**
+     * Test getHtml method with attributes.
+     */
+    public function testGetHtmlWithAttributes()
+    {
+        $textField = new TextField('foo', 'bar');
+
+        self::assertSame('<input type="text" name="foo" value="bar" required id="baz" readonly>', $textField->getHtml(['id' => 'baz', 'readonly' => true]));
+    }
 }
