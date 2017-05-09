@@ -62,7 +62,14 @@ class TextField implements FormElementInterface
      */
     public function getHtml()
     {
-        return '<input type="text" name="' . htmlspecialchars($this->myName) . '"' . ($this->myValue !== '' ? ' value="' . htmlspecialchars($this->myValue) . '"' : '') . ' required>';
+        return $this->buildTag('input',
+            [
+                'type'     => 'text',
+                'name'     => $this->myName,
+                'value'    => $this->myValue !== '' ? $this->myValue : null,
+                'required' => true
+            ]
+        );
     }
 
     /**
@@ -159,6 +166,33 @@ class TextField implements FormElementInterface
     public function __toString()
     {
         return $this->getHtml();
+    }
+
+    /**
+     * Builds a tag from a name and attributes array.
+     *
+     * @param string $name       The name.
+     * @param array  $attributes The attributes.
+     *
+     * @return string The tag.
+     */
+    protected function buildTag($name, $attributes = [])
+    {
+        $result = '<' . htmlspecialchars($name);
+        foreach ($attributes as $attributeName => $attributeValue) {
+            if ($attributeValue === null || $attributeValue === false) {
+                continue;
+            }
+
+            $result .= ' ' . htmlspecialchars($attributeName);
+            if ($attributeValue === true) {
+                continue;
+            }
+
+            $result .= '="' . htmlspecialchars($attributeValue) . '"';
+        }
+
+        return $result . '>';
     }
 
     /**
