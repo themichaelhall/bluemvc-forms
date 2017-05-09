@@ -67,7 +67,7 @@ class TextField implements FormElementInterface
                 'type'     => 'text',
                 'name'     => $this->myName,
                 'value'    => $this->myValue !== '' ? $this->myValue : null,
-                'required' => true
+                'required' => true,
             ]
         );
     }
@@ -170,6 +170,8 @@ class TextField implements FormElementInterface
 
     /**
      * Builds a tag from a name and attributes array.
+     *
+     * @since 1.0.0
      *
      * @param string $name       The name.
      * @param array  $attributes The attributes.
