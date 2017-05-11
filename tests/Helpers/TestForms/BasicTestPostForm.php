@@ -16,16 +16,29 @@ class BasicTestPostForm extends PostForm
     public function __construct()
     {
         $this->myTextField = new TextField('text');
+
+        $this->myNotRequiredField = new TextField('not-required');
+        $this->myNotRequiredField->setRequired(false);
     }
 
     /**
      * Returns my text field.
      *
-     * @return TextField My test field.
+     * @return TextField My text field.
      */
     public function getTextField()
     {
         return $this->myTextField;
+    }
+
+    /**
+     * Returns my form field that not requires a value.
+     *
+     * @return TextField My form field that not requires a value.
+     */
+    public function getNotRequiredField()
+    {
+        return $this->myNotRequiredField;
     }
 
     /**
@@ -36,7 +49,11 @@ class BasicTestPostForm extends PostForm
         parent::onValidate();
 
         if ($this->myTextField->getValue() === 'invalid') {
-            $this->myTextField->setError('Value is invalid.');
+            $this->myTextField->setError('Value of text field is invalid.');
+        }
+
+        if ($this->myNotRequiredField->getValue() === 'invalid') {
+            $this->myNotRequiredField->setError('Value of not required field is invalid.');
         }
     }
 
@@ -44,4 +61,9 @@ class BasicTestPostForm extends PostForm
      * @var TextField My text field.
      */
     protected $myTextField;
+
+    /**
+     * @var TextField My form field that not requires a value.
+     */
+    protected $myNotRequiredField;
 }

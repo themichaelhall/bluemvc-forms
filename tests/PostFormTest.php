@@ -23,6 +23,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getTextField()->getValue());
         self::assertFalse($this->form->getTextField()->hasError());
+
+        self::assertSame('', $this->form->getNotRequiredField()->getValue());
+        self::assertFalse($this->form->getNotRequiredField()->hasError());
     }
 
     /**
@@ -32,6 +35,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
     {
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('text', 'My text value');
+        $request->setFormParameter('not-required', 'My not required value');
 
         $isProcessed = $this->form->process($request);
 
@@ -39,6 +43,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('My text value', $this->form->getTextField()->getValue());
         self::assertFalse($this->form->getTextField()->hasError());
+
+        self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
+        self::assertFalse($this->form->getNotRequiredField()->hasError());
     }
 
     /**
@@ -55,6 +62,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getTextField()->getValue());
         self::assertTrue($this->form->getTextField()->hasError());
         self::assertSame('Value is required.', $this->form->getTextField()->getError());
+
+        self::assertSame('', $this->form->getNotRequiredField()->getValue());
+        self::assertFalse($this->form->getNotRequiredField()->hasError());
     }
 
     /**
@@ -64,6 +74,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
     {
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('text', 'invalid');
+        $request->setFormParameter('not-required', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -71,7 +82,11 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('invalid', $this->form->getTextField()->getValue());
         self::assertTrue($this->form->getTextField()->hasError());
-        self::assertSame('Value is invalid.', $this->form->getTextField()->getError());
+        self::assertSame('Value of text field is invalid.', $this->form->getTextField()->getError());
+
+        self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
+        self::assertTrue($this->form->getNotRequiredField()->hasError());
+        self::assertSame('Value of not required field is invalid.', $this->form->getNotRequiredField()->getError());
     }
 
     /**
