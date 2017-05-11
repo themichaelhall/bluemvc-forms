@@ -39,6 +39,7 @@ class TextField implements FormElementInterface
         $this->myName = $name;
         $this->myValue = $value;
         $this->myError = null;
+        $this->myIsRequired = true;
     }
 
     /**
@@ -69,8 +70,8 @@ class TextField implements FormElementInterface
                 [
                     'type'     => 'text',
                     'name'     => $this->myName,
-                    'value'    => $this->myValue !== '' ? $this->myValue : null,
-                    'required' => true,
+                    'value'    => $this->myValue !== '' ? $this->myValue : false,
+                    'required' => $this->myIsRequired,
                 ],
                 $attributes
             )
@@ -134,7 +135,7 @@ class TextField implements FormElementInterface
      */
     public function isRequired()
     {
-        return true;
+        return $this->myIsRequired;
     }
 
     /**
@@ -171,6 +172,18 @@ class TextField implements FormElementInterface
         }
 
         $this->myValue = trim($value);
+    }
+
+    /**
+     * Sets whether element value is required.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isRequired True if element value is required, false otherwise.
+     */
+    public function setRequired($isRequired)
+    {
+        $this->myIsRequired = $isRequired;
     }
 
     /**
@@ -228,4 +241,9 @@ class TextField implements FormElementInterface
      * @var string|null My error or null if no error.
      */
     private $myError;
+
+    /**
+     * @var bool If true element value is required, false otherwise.
+     */
+    private $myIsRequired;
 }
