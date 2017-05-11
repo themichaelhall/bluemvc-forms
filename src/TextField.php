@@ -126,6 +126,18 @@ class TextField implements FormElementInterface
     }
 
     /**
+     * Returns true if element value is required, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is required, false otherwise.
+     */
+    public function isRequired()
+    {
+        return true;
+    }
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0

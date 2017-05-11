@@ -62,6 +62,15 @@ interface FormElementInterface
     public function isEmpty();
 
     /**
+     * Returns true if element value is required, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is required, false otherwise.
+     */
+    public function isRequired();
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0

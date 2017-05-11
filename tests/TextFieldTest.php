@@ -198,4 +198,14 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('<input type="text" name="foo" value="bar" required id="baz" readonly>', $textField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
+
+    /**
+     * Test isRequired method.
+     */
+    public function testIsRequired()
+    {
+        $textField = new TextField('foo');
+
+        self::assertTrue($textField->isRequired());
+    }
 }
