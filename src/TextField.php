@@ -180,9 +180,15 @@ class TextField implements FormElementInterface
      * @since 1.0.0
      *
      * @param bool $isRequired True if element value is required, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
      */
     public function setRequired($isRequired)
     {
+        if (!is_bool($isRequired)) {
+            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
+        }
+
         $this->myIsRequired = $isRequired;
     }
 

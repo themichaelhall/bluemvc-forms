@@ -221,4 +221,16 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<input type="text" name="foo" value="bar">', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar">', $textField->__toString());
     }
+
+    /**
+     * Test setRequired method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     */
+    public function testSetRequiredWithInvalidParameterType()
+    {
+        $textField = new TextField('foo');
+        $textField->setRequired(0);
+    }
 }
