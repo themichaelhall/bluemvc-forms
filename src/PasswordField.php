@@ -7,14 +7,14 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Interfaces\FormElementInterface;
+use BlueMvc\Forms\Base\AbstractInputField;
 
 /**
  * Class representing a password field.
  *
  * @since 1.0.0
  */
-class PasswordField implements FormElementInterface
+class PasswordField extends AbstractInputField
 {
     /**
      * Constructs the password field.
