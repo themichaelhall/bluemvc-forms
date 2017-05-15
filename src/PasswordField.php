@@ -27,27 +27,34 @@ class PasswordField extends AbstractInputField
      */
     public function __construct($name)
     {
-        parent::__construct($name);
+        parent::__construct($name, '');
+
+        $this->myValue = '';
     }
 
     /**
-     * Returns the element html.
+     * Returns the value of the password field.
      *
      * @since 1.0.0
      *
-     * @param array $attributes The attributes.
-     *
-     * @return string The element html.
+     * @return string The value of the password field.
      */
-    public function getHtml(array $attributes = [])
+    public function getValue()
     {
-        return parent::getHtml(
-            array_merge(
-                [
-                    'value' => false,
-                ],
-                $attributes)
-        );
+        return $this->myValue;
+    }
+
+    /** @noinspection PhpMissingParentCallCommonInspection */
+    /**
+     * Returns true if element value is empty, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is empty, false otherwise.
+     */
+    public function isEmpty()
+    {
+        return $this->myValue === '';
     }
 
     /**
@@ -71,6 +78,12 @@ class PasswordField extends AbstractInputField
      */
     protected function onSetFormValue($value)
     {
-        $this->setValue($value);
+        $this->myValue = $value;
+        $this->setDisplayValue('');
     }
+
+    /**
+     * @var string My value.
+     */
+    private $myValue;
 }

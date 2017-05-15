@@ -29,6 +29,20 @@ class TextField extends AbstractInputField
     public function __construct($name, $value = '')
     {
         parent::__construct($name, $value);
+
+        $this->myValue = $value;
+    }
+
+    /**
+     * Returns the value of the text field.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value of the text field.
+     */
+    public function getValue()
+    {
+        return $this->myValue;
     }
 
     /**
@@ -52,6 +66,12 @@ class TextField extends AbstractInputField
      */
     protected function onSetFormValue($value)
     {
-        $this->setValue(trim($value));
+        $this->myValue = trim($value);
+        $this->setDisplayValue($this->myValue);
     }
+
+    /**
+     * @var string My value.
+     */
+    private $myValue;
 }

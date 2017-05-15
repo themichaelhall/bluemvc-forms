@@ -43,9 +43,9 @@ abstract class AbstractInputField implements FormElementInterface
             array_merge(
                 [
                     'type'     => $this->getType(),
-                    'name'     => $this->getName(),
-                    'value'    => $this->getValue(),
-                    'required' => $this->isRequired(),
+                    'name'     => $this->myName,
+                    'value'    => $this->myDisplayValue,
+                    'required' => $this->myIsRequired,
                 ],
                 $attributes
             )
@@ -62,18 +62,6 @@ abstract class AbstractInputField implements FormElementInterface
     public function getName()
     {
         return $this->myName;
-    }
-
-    /**
-     * Returns the value of the text field.
-     *
-     * @since 1.0.0
-     *
-     * @return string The value of the text field.
-     */
-    public function getValue()
-    {
-        return $this->myValue;
     }
 
     /**
@@ -97,7 +85,7 @@ abstract class AbstractInputField implements FormElementInterface
      */
     public function isEmpty()
     {
-        return $this->myValue === '';
+        return $this->myDisplayValue === '';
     }
 
     /**
@@ -184,7 +172,7 @@ abstract class AbstractInputField implements FormElementInterface
      * @since 1.0.0
      *
      * @param string $name  The name.
-     * @param string $value The value.
+     * @param string $value The value to display in input field.
      *
      * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
      */
@@ -199,7 +187,7 @@ abstract class AbstractInputField implements FormElementInterface
         }
 
         $this->myName = $name;
-        $this->myValue = $value;
+        $this->myDisplayValue = $value;
         $this->myError = null;
         $this->myIsRequired = true;
     }
@@ -223,15 +211,15 @@ abstract class AbstractInputField implements FormElementInterface
     abstract protected function onSetFormValue($value);
 
     /**
-     * Sets the value.
+     * Sets the display value.
      *
      * @since 1.0.0
      *
      * @param string $value The value.
      */
-    protected function setValue($value)
+    protected function setDisplayValue($value)
     {
-        $this->myValue = $value;
+        $this->myDisplayValue = $value;
     }
 
     /**
@@ -269,9 +257,9 @@ abstract class AbstractInputField implements FormElementInterface
     private $myName;
 
     /**
-     * @var string My value.
+     * @var string My display value.
      */
-    private $myValue;
+    private $myDisplayValue;
 
     /**
      * @var string|null My error or null if no error.
