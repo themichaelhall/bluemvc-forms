@@ -17,6 +17,18 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
 abstract class AbstractInputField implements FormElementInterface
 {
     /**
+     * Returns the element error or null if element has no error.
+     *
+     * @since 1.0.0
+     *
+     * @return string|null The element error or null if element has no error.
+     */
+    public function getError()
+    {
+        return $this->myError;
+    }
+
+    /**
      * Returns the element name.
      *
      * @since 1.0.0
@@ -38,6 +50,36 @@ abstract class AbstractInputField implements FormElementInterface
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Returns true if element has an error, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element has an error, false otherwise.
+     */
+    public function hasError()
+    {
+        return $this->myError !== null;
+    }
+
+    /**
+     * Sets the element error.
+     *
+     * @since 1.0.0
+     *
+     * @param string $error The element error.
+     *
+     * @throws \InvalidArgumentException If the $error parameter is not a string.
+     */
+    public function setError($error)
+    {
+        if (!is_string($error)) {
+            throw new \InvalidArgumentException('$error parameter is not a string.');
+        }
+
+        $this->myError = $error;
     }
 
     /**
@@ -80,6 +122,7 @@ abstract class AbstractInputField implements FormElementInterface
 
         $this->myName = $name;
         $this->myValue = $value;
+        $this->myError = null;
     }
 
     /**
@@ -112,4 +155,9 @@ abstract class AbstractInputField implements FormElementInterface
      * @var string My value.
      */
     private $myValue;
+
+    /**
+     * @var string|null My error or null if no error.
+     */
+    private $myError;
 }
