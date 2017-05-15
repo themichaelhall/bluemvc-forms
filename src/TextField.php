@@ -36,30 +36,6 @@ class TextField extends AbstractInputField
      *
      * @since 1.0.0
      *
-     * @param array $attributes The attributes.
-     *
-     * @return string The element html.
-     */
-    public function getHtml(array $attributes = [])
-    {
-        return self::buildTag('input',
-            array_merge(
-                [
-                    'type'     => 'text',
-                    'name'     => $this->getName(),
-                    'value'    => $this->getValue() !== '' ? $this->getValue() : false,
-                    'required' => $this->isRequired(),
-                ],
-                $attributes
-            )
-        );
-    }
-
-    /**
-     * Returns the element html.
-     *
-     * @since 1.0.0
-     *
      * @return string The element html.
      */
     public function __toString()

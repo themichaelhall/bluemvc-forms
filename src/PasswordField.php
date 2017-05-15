@@ -41,15 +41,13 @@ class PasswordField extends AbstractInputField
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('input',
+        return parent::getHtml(
             array_merge(
                 [
-                    'type'     => 'password',
-                    'name'     => $this->getName(),
-                    'required' => $this->isRequired(),
+                    'type'  => 'password',
+                    'value' => false,
                 ],
-                $attributes
-            )
+                $attributes)
         );
     }
 

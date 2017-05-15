@@ -29,6 +29,30 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The element html.
+     */
+    public function getHtml(array $attributes = [])
+    {
+        return self::buildTag('input',
+            array_merge(
+                [
+                    'type'     => 'text',
+                    'name'     => $this->getName(),
+                    'value'    => $this->getValue(),
+                    'required' => $this->isRequired(),
+                ],
+                $attributes
+            )
+        );
+    }
+
+    /**
      * Returns the element name.
      *
      * @since 1.0.0
@@ -203,7 +227,7 @@ abstract class AbstractInputField implements FormElementInterface
     {
         $result = '<' . htmlspecialchars($name);
         foreach ($attributes as $attributeName => $attributeValue) {
-            if ($attributeValue === null || $attributeValue === false) {
+            if ($attributeValue === null || $attributeValue === false || $attributeValue === '') {
                 continue;
             }
 
