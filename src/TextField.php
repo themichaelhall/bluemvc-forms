@@ -30,7 +30,6 @@ class TextField extends AbstractInputField
     {
         parent::__construct($name, $value);
 
-        $this->myValue = $value;
         $this->myError = null;
         $this->myIsRequired = true;
     }
@@ -63,24 +62,12 @@ class TextField extends AbstractInputField
                 [
                     'type'     => 'text',
                     'name'     => $this->getName(),
-                    'value'    => $this->myValue !== '' ? $this->myValue : false,
+                    'value'    => $this->getValue() !== '' ? $this->getValue() : false,
                     'required' => $this->myIsRequired,
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns the value of the text field.
-     *
-     * @since 1.0.0
-     *
-     * @return string The value of the text field.
-     */
-    public function getValue()
-    {
-        return $this->myValue;
     }
 
     /**
@@ -104,7 +91,7 @@ class TextField extends AbstractInputField
      */
     public function isEmpty()
     {
-        return $this->myValue === '';
+        return $this->getValue() === '';
     }
 
     /**
@@ -135,24 +122,6 @@ class TextField extends AbstractInputField
         }
 
         $this->myError = $error;
-    }
-
-    /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->myValue = trim($value);
     }
 
     /**
@@ -215,9 +184,16 @@ class TextField extends AbstractInputField
     }
 
     /**
-     * @var string My value.
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
      */
-    private $myValue;
+    protected function onSetFormValue($value)
+    {
+        $this->setValue(trim($value));
+    }
 
     /**
      * @var string|null My error or null if no error.

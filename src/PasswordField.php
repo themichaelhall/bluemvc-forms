@@ -29,7 +29,6 @@ class PasswordField extends AbstractInputField
     {
         parent::__construct($name);
 
-        $this->myValue = '';
         $this->myError = null;
         $this->myIsRequired = true;
     }
@@ -70,18 +69,6 @@ class PasswordField extends AbstractInputField
     }
 
     /**
-     * Returns the value of the text field.
-     *
-     * @since 1.0.0
-     *
-     * @return string The value of the text field.
-     */
-    public function getValue()
-    {
-        return $this->myValue;
-    }
-
-    /**
      * Returns true if element has an error, false otherwise.
      *
      * @since 1.0.0
@@ -102,7 +89,7 @@ class PasswordField extends AbstractInputField
      */
     public function isEmpty()
     {
-        return $this->myValue === '';
+        return $this->getValue() === '';
     }
 
     /**
@@ -133,24 +120,6 @@ class PasswordField extends AbstractInputField
         }
 
         $this->myError = $error;
-    }
-
-    /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->myValue = $value;
     }
 
     /**
@@ -213,9 +182,16 @@ class PasswordField extends AbstractInputField
     }
 
     /**
-     * @var string My value.
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
      */
-    private $myValue;
+    protected function onSetFormValue($value)
+    {
+        $this->setValue($value);
+    }
 
     /**
      * @var string|null My error or null if no error.

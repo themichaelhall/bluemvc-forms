@@ -17,6 +17,48 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
 abstract class AbstractInputField implements FormElementInterface
 {
     /**
+     * Returns the element name.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element name.
+     */
+    public function getName()
+    {
+        return $this->myName;
+    }
+
+    /**
+     * Returns the value of the text field.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value of the text field.
+     */
+    public function getValue()
+    {
+        return $this->myValue;
+    }
+
+    /**
+     * Sets the value from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     *
+     * @throws \InvalidArgumentException If the $value parameter is not a string.
+     */
+    public function setFormValue($value)
+    {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
+        $this->onSetFormValue($value);
+    }
+
+    /**
      * Constructs the input field.
      *
      * @since 1.0.0
@@ -37,22 +79,37 @@ abstract class AbstractInputField implements FormElementInterface
         }
 
         $this->myName = $name;
+        $this->myValue = $value;
     }
 
     /**
-     * Returns the element name.
+     * Called when value is set from form.
      *
      * @since 1.0.0
      *
-     * @return string The element name.
+     * @param string $value The value from form.
      */
-    public function getName()
+    abstract protected function onSetFormValue($value);
+
+    /**
+     * Sets the value.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value.
+     */
+    protected function setValue($value)
     {
-        return $this->myName;
+        $this->myValue = $value;
     }
 
     /**
      * @var string My name.
      */
     private $myName;
+
+    /**
+     * @var string My value.
+     */
+    private $myValue;
 }

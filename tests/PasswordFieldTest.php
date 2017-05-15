@@ -70,9 +70,9 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
     public function testSetFormValueDoesNotTrimInput()
     {
         $passwordField = new PasswordField('foo');
-        $passwordField->setFormValue('bar');
+        $passwordField->setFormValue(' bar ');
 
-        self::assertSame('bar', $passwordField->getValue());
+        self::assertSame(' bar ', $passwordField->getValue());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
     }
