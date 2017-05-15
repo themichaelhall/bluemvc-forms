@@ -26,6 +26,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
+
+        self::assertSame('', $this->form->getPasswordField()->getValue());
+        self::assertFalse($this->form->getPasswordField()->hasError());
     }
 
     /**
@@ -36,6 +39,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('text', 'My text value');
         $request->setFormParameter('not-required', 'My not required value');
+        $request->setFormParameter('password', 'My password');
 
         $isProcessed = $this->form->process($request);
 
@@ -46,6 +50,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
+
+        self::assertSame('My password', $this->form->getPasswordField()->getValue());
+        self::assertFalse($this->form->getPasswordField()->hasError());
     }
 
     /**
@@ -65,6 +72,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
+
+        self::assertSame('', $this->form->getPasswordField()->getValue());
+        self::assertTrue($this->form->getPasswordField()->hasError());
+        self::assertSame('Value is required.', $this->form->getPasswordField()->getError());
     }
 
     /**
@@ -75,6 +86,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('text', 'invalid');
         $request->setFormParameter('not-required', 'invalid');
+        $request->setFormParameter('password', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -87,6 +99,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
         self::assertTrue($this->form->getNotRequiredField()->hasError());
         self::assertSame('Value of not required field is invalid.', $this->form->getNotRequiredField()->getError());
+
+        self::assertSame('invalid', $this->form->getPasswordField()->getValue());
+        self::assertTrue($this->form->getPasswordField()->hasError());
+        self::assertSame('Value of password field is invalid.', $this->form->getPasswordField()->getError());
     }
 
     /**

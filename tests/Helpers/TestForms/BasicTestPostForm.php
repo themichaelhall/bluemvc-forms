@@ -2,6 +2,7 @@
 
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
+use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\TextField;
 
@@ -16,6 +17,7 @@ class BasicTestPostForm extends PostForm
     public function __construct()
     {
         $this->myTextField = new TextField('text');
+        $this->myPasswordField = new PasswordField('password');
 
         $this->myNotRequiredField = new TextField('not-required');
         $this->myNotRequiredField->setRequired(false);
@@ -29,6 +31,16 @@ class BasicTestPostForm extends PostForm
     public function getTextField()
     {
         return $this->myTextField;
+    }
+
+    /**
+     * Returns my password field.
+     *
+     * @return PasswordField My password field.
+     */
+    public function getPasswordField()
+    {
+        return $this->myPasswordField;
     }
 
     /**
@@ -55,12 +67,21 @@ class BasicTestPostForm extends PostForm
         if ($this->myNotRequiredField->getValue() === 'invalid') {
             $this->myNotRequiredField->setError('Value of not required field is invalid.');
         }
+
+        if ($this->myPasswordField->getValue() === 'invalid') {
+            $this->myPasswordField->setError('Value of password field is invalid.');
+        }
     }
 
     /**
      * @var TextField My text field.
      */
     protected $myTextField;
+
+    /**
+     * @var PasswordField My password field.
+     */
+    protected $myPasswordField;
 
     /**
      * @var TextField My form field that not requires a value.
