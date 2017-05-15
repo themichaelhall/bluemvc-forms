@@ -167,6 +167,18 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element html.
+     */
+    public function __toString()
+    {
+        return $this->getHtml();
+    }
+
+    /**
      * Constructs the input field.
      *
      * @since 1.0.0

@@ -52,18 +52,6 @@ class PasswordField extends AbstractInputField
     }
 
     /**
-     * Returns the element html.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element html.
-     */
-    public function __toString()
-    {
-        return $this->getHtml();
-    }
-
-    /**
      * Called when value is set from form.
      *
      * @since 1.0.0
