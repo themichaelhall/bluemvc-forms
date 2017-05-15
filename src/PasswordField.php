@@ -45,6 +45,7 @@ class PasswordField extends AbstractInputField
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection */
+
     /**
      * Returns true if element value is empty, false otherwise.
      *
