@@ -32,6 +32,18 @@ class TextField extends AbstractInputField
     }
 
     /**
+     * Returns the input type.
+     *
+     * @since 1.0.0
+     *
+     * @return string The input type.
+     */
+    protected function getType()
+    {
+        return 'text';
+    }
+
+    /**
      * Called when value is set from form.
      *
      * @since 1.0.0

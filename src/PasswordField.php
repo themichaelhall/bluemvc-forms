@@ -44,11 +44,22 @@ class PasswordField extends AbstractInputField
         return parent::getHtml(
             array_merge(
                 [
-                    'type'  => 'password',
                     'value' => false,
                 ],
                 $attributes)
         );
+    }
+
+    /**
+     * Returns the input type.
+     *
+     * @since 1.0.0
+     *
+     * @return string The input type.
+     */
+    protected function getType()
+    {
+        return 'password';
     }
 
     /**

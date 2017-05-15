@@ -42,7 +42,7 @@ abstract class AbstractInputField implements FormElementInterface
         return self::buildTag('input',
             array_merge(
                 [
-                    'type'     => 'text',
+                    'type'     => $this->getType(),
                     'name'     => $this->getName(),
                     'value'    => $this->getValue(),
                     'required' => $this->isRequired(),
@@ -203,6 +203,15 @@ abstract class AbstractInputField implements FormElementInterface
         $this->myError = null;
         $this->myIsRequired = true;
     }
+
+    /**
+     * Returns the input type.
+     *
+     * @since 1.0.0
+     *
+     * @return string The input type.
+     */
+    abstract protected function getType();
 
     /**
      * Called when value is set from form.
