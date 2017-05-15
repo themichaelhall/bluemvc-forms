@@ -190,6 +190,35 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Builds a tag from a name and attributes array.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name       The name.
+     * @param array  $attributes The attributes.
+     *
+     * @return string The tag.
+     */
+    protected static function buildTag($name, $attributes = [])
+    {
+        $result = '<' . htmlspecialchars($name);
+        foreach ($attributes as $attributeName => $attributeValue) {
+            if ($attributeValue === null || $attributeValue === false) {
+                continue;
+            }
+
+            $result .= ' ' . htmlspecialchars($attributeName);
+            if ($attributeValue === true) {
+                continue;
+            }
+
+            $result .= '="' . htmlspecialchars($attributeValue) . '"';
+        }
+
+        return $result . '>';
+    }
+
+    /**
      * @var string My name.
      */
     private $myName;

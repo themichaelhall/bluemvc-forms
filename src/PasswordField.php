@@ -41,7 +41,7 @@ class PasswordField extends AbstractInputField
      */
     public function getHtml(array $attributes = [])
     {
-        return $this->buildTag('input',
+        return self::buildTag('input',
             array_merge(
                 [
                     'type'     => 'password',
@@ -63,35 +63,6 @@ class PasswordField extends AbstractInputField
     public function __toString()
     {
         return $this->getHtml();
-    }
-
-    /**
-     * Builds a tag from a name and attributes array.
-     *
-     * @since 1.0.0
-     *
-     * @param string $name       The name.
-     * @param array  $attributes The attributes.
-     *
-     * @return string The tag.
-     */
-    protected function buildTag($name, $attributes = [])
-    {
-        $result = '<' . htmlspecialchars($name);
-        foreach ($attributes as $attributeName => $attributeValue) {
-            if ($attributeValue === null || $attributeValue === false) {
-                continue;
-            }
-
-            $result .= ' ' . htmlspecialchars($attributeName);
-            if ($attributeValue === true) {
-                continue;
-            }
-
-            $result .= '="' . htmlspecialchars($attributeValue) . '"';
-        }
-
-        return $result . '>';
     }
 
     /**
