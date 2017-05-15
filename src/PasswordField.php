@@ -27,11 +27,8 @@ class PasswordField extends AbstractInputField
      */
     public function __construct($name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
+        parent::__construct($name);
 
-        $this->myName = $name;
         $this->myValue = '';
         $this->myError = null;
         $this->myIsRequired = true;
@@ -64,24 +61,12 @@ class PasswordField extends AbstractInputField
             array_merge(
                 [
                     'type'     => 'password',
-                    'name'     => $this->myName,
+                    'name'     => $this->getName(),
                     'required' => $this->myIsRequired,
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns the element name.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element name.
-     */
-    public function getName()
-    {
-        return $this->myName;
     }
 
     /**
@@ -226,11 +211,6 @@ class PasswordField extends AbstractInputField
 
         return $result . '>';
     }
-
-    /**
-     * @var string My name.
-     */
-    private $myName;
 
     /**
      * @var string My value.

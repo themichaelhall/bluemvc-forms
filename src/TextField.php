@@ -28,15 +28,8 @@ class TextField extends AbstractInputField
      */
     public function __construct($name, $value = '')
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
+        parent::__construct($name, $value);
 
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->myName = $name;
         $this->myValue = $value;
         $this->myError = null;
         $this->myIsRequired = true;
@@ -69,25 +62,13 @@ class TextField extends AbstractInputField
             array_merge(
                 [
                     'type'     => 'text',
-                    'name'     => $this->myName,
+                    'name'     => $this->getName(),
                     'value'    => $this->myValue !== '' ? $this->myValue : false,
                     'required' => $this->myIsRequired,
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns the element name.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element name.
-     */
-    public function getName()
-    {
-        return $this->myName;
     }
 
     /**
@@ -232,11 +213,6 @@ class TextField extends AbstractInputField
 
         return $result . '>';
     }
-
-    /**
-     * @var string My name.
-     */
-    private $myName;
 
     /**
      * @var string My value.
