@@ -65,6 +65,18 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Returns true if element value is empty, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is empty, false otherwise.
+     */
+    public function isEmpty()
+    {
+        return $this->myValue === '';
+    }
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0

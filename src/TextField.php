@@ -58,18 +58,6 @@ class TextField extends AbstractInputField
     }
 
     /**
-     * Returns true if element value is empty, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is empty, false otherwise.
-     */
-    public function isEmpty()
-    {
-        return $this->getValue() === '';
-    }
-
-    /**
      * Returns true if element value is required, false otherwise.
      *
      * @since 1.0.0
