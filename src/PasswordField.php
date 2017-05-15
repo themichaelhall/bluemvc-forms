@@ -28,8 +28,6 @@ class PasswordField extends AbstractInputField
     public function __construct($name)
     {
         parent::__construct($name);
-
-        $this->myIsRequired = true;
     }
 
     /**
@@ -48,41 +46,11 @@ class PasswordField extends AbstractInputField
                 [
                     'type'     => 'password',
                     'name'     => $this->getName(),
-                    'required' => $this->myIsRequired,
+                    'required' => $this->isRequired(),
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns true if element value is required, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is required, false otherwise.
-     */
-    public function isRequired()
-    {
-        return $this->myIsRequired;
-    }
-
-    /**
-     * Sets whether element value is required.
-     *
-     * @since 1.0.0
-     *
-     * @param bool $isRequired True if element value is required, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
-     */
-    public function setRequired($isRequired)
-    {
-        if (!is_bool($isRequired)) {
-            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
-        }
-
-        $this->myIsRequired = $isRequired;
     }
 
     /**
@@ -137,9 +105,4 @@ class PasswordField extends AbstractInputField
     {
         $this->setValue($value);
     }
-
-    /**
-     * @var bool If true element value is required, false otherwise.
-     */
-    private $myIsRequired;
 }

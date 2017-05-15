@@ -29,8 +29,6 @@ class TextField extends AbstractInputField
     public function __construct($name, $value = '')
     {
         parent::__construct($name, $value);
-
-        $this->myIsRequired = true;
     }
 
     /**
@@ -50,41 +48,11 @@ class TextField extends AbstractInputField
                     'type'     => 'text',
                     'name'     => $this->getName(),
                     'value'    => $this->getValue() !== '' ? $this->getValue() : false,
-                    'required' => $this->myIsRequired,
+                    'required' => $this->isRequired(),
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns true if element value is required, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is required, false otherwise.
-     */
-    public function isRequired()
-    {
-        return $this->myIsRequired;
-    }
-
-    /**
-     * Sets whether element value is required.
-     *
-     * @since 1.0.0
-     *
-     * @param bool $isRequired True if element value is required, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
-     */
-    public function setRequired($isRequired)
-    {
-        if (!is_bool($isRequired)) {
-            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
-        }
-
-        $this->myIsRequired = $isRequired;
     }
 
     /**
@@ -139,9 +107,4 @@ class TextField extends AbstractInputField
     {
         $this->setValue(trim($value));
     }
-
-    /**
-     * @var bool If true element value is required, false otherwise.
-     */
-    private $myIsRequired;
 }

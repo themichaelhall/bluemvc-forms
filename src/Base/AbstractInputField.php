@@ -77,6 +77,18 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Returns true if element value is required, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is required, false otherwise.
+     */
+    public function isRequired()
+    {
+        return $this->myIsRequired;
+    }
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0
@@ -113,6 +125,24 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Sets whether element value is required.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isRequired True if element value is required, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
+     */
+    public function setRequired($isRequired)
+    {
+        if (!is_bool($isRequired)) {
+            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
+        }
+
+        $this->myIsRequired = $isRequired;
+    }
+
+    /**
      * Constructs the input field.
      *
      * @since 1.0.0
@@ -135,6 +165,7 @@ abstract class AbstractInputField implements FormElementInterface
         $this->myName = $name;
         $this->myValue = $value;
         $this->myError = null;
+        $this->myIsRequired = true;
     }
 
     /**
@@ -172,4 +203,9 @@ abstract class AbstractInputField implements FormElementInterface
      * @var string|null My error or null if no error.
      */
     private $myError;
+
+    /**
+     * @var bool If true element value is required, false otherwise.
+     */
+    private $myIsRequired;
 }
