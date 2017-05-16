@@ -46,6 +46,20 @@ class TextField extends AbstractInputField
     }
 
     /**
+     * Formats the text.
+     *
+     * @since 1.0.0
+     *
+     * @param string $text The text.
+     *
+     * @return string The formatted text.
+     */
+    protected function formatText($text)
+    {
+        return $text;
+    }
+
+    /**
      * Returns the input type.
      *
      * @since 1.0.0
@@ -66,7 +80,7 @@ class TextField extends AbstractInputField
      */
     protected function onSetFormValue($value)
     {
-        $this->myValue = trim($value);
+        $this->myValue = $this->formatText(trim($value));
         $this->setDisplayValue($this->myValue);
     }
 
