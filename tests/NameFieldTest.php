@@ -70,11 +70,11 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
     public function testSetFormValueFormatsInput()
     {
         $nameField = new NameField('foo');
-        $nameField->setFormValue(' foo   Bar-baz ');
+        $nameField->setFormValue(' foo   Bar  baz ');
 
-        self::assertSame('Foo Bar-Baz', $nameField->getValue());
-        self::assertSame('<input type="text" name="foo" value="Foo Bar-Baz" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="Foo Bar-Baz" required>', $nameField->__toString());
+        self::assertSame('Foo Bar Baz', $nameField->getValue());
+        self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->__toString());
     }
 
     /**

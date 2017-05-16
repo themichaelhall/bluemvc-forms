@@ -21,7 +21,7 @@ class NameField extends TextField
     {
         $text = parent::formatText($text);
         $text = preg_replace('/\s+/', ' ', $text);
-        $text = ucwords($text, ' -');
+        $text = ucwords($text);
 
         return $text;
     }
