@@ -4,6 +4,7 @@ namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
+use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextField;
 
 /**
@@ -16,11 +17,22 @@ class BasicTestPostForm extends PostForm
      */
     public function __construct()
     {
-        $this->myTextField = new TextField('text');
-        $this->myPasswordField = new PasswordField('password');
-
         $this->myNotRequiredField = new TextField('not-required');
         $this->myNotRequiredField->setRequired(false);
+
+        $this->myTextField = new TextField('text');
+        $this->myPasswordField = new PasswordField('password');
+        $this->myNameField = new NameField('name');
+    }
+
+    /**
+     * Returns my form field that not requires a value.
+     *
+     * @return TextField My form field that not requires a value.
+     */
+    public function getNotRequiredField()
+    {
+        return $this->myNotRequiredField;
     }
 
     /**
@@ -44,13 +56,13 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
-     * Returns my form field that not requires a value.
+     * Returns my name field.
      *
-     * @return TextField My form field that not requires a value.
+     * @return NameField My name field.
      */
-    public function getNotRequiredField()
+    public function getNameField()
     {
-        return $this->myNotRequiredField;
+        return $this->myNameField;
     }
 
     /**
@@ -60,18 +72,27 @@ class BasicTestPostForm extends PostForm
     {
         parent::onValidate();
 
-        if ($this->myTextField->getValue() === 'invalid') {
-            $this->myTextField->setError('Value of text field is invalid.');
-        }
-
         if ($this->myNotRequiredField->getValue() === 'invalid') {
             $this->myNotRequiredField->setError('Value of not required field is invalid.');
+        }
+
+        if ($this->myTextField->getValue() === 'invalid') {
+            $this->myTextField->setError('Value of text field is invalid.');
         }
 
         if ($this->myPasswordField->getValue() === 'invalid') {
             $this->myPasswordField->setError('Value of password field is invalid.');
         }
+
+        if ($this->myNameField->getValue() === 'Invalid') {
+            $this->myNameField->setError('Value of name field is invalid.');
+        }
     }
+
+    /**
+     * @var TextField My form field that not requires a value.
+     */
+    protected $myNotRequiredField;
 
     /**
      * @var TextField My text field.
@@ -84,7 +105,7 @@ class BasicTestPostForm extends PostForm
     protected $myPasswordField;
 
     /**
-     * @var TextField My form field that not requires a value.
+     * @var NameField My name field.
      */
-    protected $myNotRequiredField;
+    protected $myNameField;
 }
