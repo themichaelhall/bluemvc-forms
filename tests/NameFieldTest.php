@@ -233,4 +233,14 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
         $nameField = new NameField('foo');
         $nameField->setRequired(0);
     }
+
+    /**
+     * Test isValid method.
+     */
+    public function testIsValid()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertTrue($nameField->isValid());
+    }
 }

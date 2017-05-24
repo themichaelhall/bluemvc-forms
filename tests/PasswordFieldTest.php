@@ -209,4 +209,14 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
         $passwordField = new PasswordField('foo');
         $passwordField->setRequired(0);
     }
+
+    /**
+     * Test isValid method.
+     */
+    public function testIsValid()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertTrue($passwordField->isValid());
+    }
 }

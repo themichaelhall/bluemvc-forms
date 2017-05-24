@@ -233,4 +233,14 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField = new TextField('foo');
         $textField->setRequired(0);
     }
+
+    /**
+     * Test isValid method.
+     */
+    public function testIsValid()
+    {
+        $textField = new TextField('foo');
+
+        self::assertTrue($textField->isValid());
+    }
 }

@@ -71,6 +71,15 @@ interface FormElementInterface
     public function isRequired();
 
     /**
+     * Returns true if element value is valid, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if element value is valid, false otherwise.
+     */
+    public function isValid();
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0
