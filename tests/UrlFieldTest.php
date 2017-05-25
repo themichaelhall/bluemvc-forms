@@ -233,4 +233,15 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
 
         self::assertTrue($urlField->isValid());
     }
+
+    /**
+     * Test isValid method with invalid form value set.
+     */
+    public function testIsValidWithInvalidFormValue()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setFormValue('bar');
+
+        self::assertFalse($urlField->isValid());
+    }
 }

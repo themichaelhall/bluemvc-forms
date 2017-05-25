@@ -236,6 +236,18 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Sets whether element value is valid.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isValid True if element value is valid, false otherwise.
+     */
+    protected function setValid($isValid)
+    {
+        $this->myIsValid = $isValid;
+    }
+
+    /**
      * Builds a tag from a name and attributes array.
      *
      * @since 1.0.0

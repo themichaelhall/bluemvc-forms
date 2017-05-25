@@ -69,7 +69,9 @@ class UrlField extends AbstractInputField
     protected function onSetFormValue($value)
     {
         $value = trim($value);
-        $this->myValue = Url::tryParse($value); // fixme: validation
+        $this->myValue = Url::tryParse($value);
+
+        $this->setValid($this->myValue !== null);
         $this->setDisplayValue($value);
     }
 
