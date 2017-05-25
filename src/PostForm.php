@@ -45,6 +45,8 @@ abstract class PostForm implements FormInterface
         foreach ($elements as $element) {
             if ($element->isRequired() && $element->isEmpty()) {
                 $element->setError('Value is required.');
+            } elseif (!$element->isValid()) {
+                $element->setError('Value is invalid.');
             }
         }
 

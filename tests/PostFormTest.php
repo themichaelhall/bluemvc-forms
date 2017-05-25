@@ -32,6 +32,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getNameField()->getValue());
         self::assertFalse($this->form->getNameField()->hasError());
+
+        self::assertSame(null, $this->form->getUrlField()->getValue());
+        self::assertFalse($this->form->getUrlField()->hasError());
     }
 
     /**
@@ -44,6 +47,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('text', 'My text value');
         $request->setFormParameter('password', 'My password');
         $request->setFormParameter('name', 'My name');
+        $request->setFormParameter('url', 'https://domain.com/foo');
 
         $isProcessed = $this->form->process($request);
 
@@ -60,6 +64,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('My Name', $this->form->getNameField()->getValue());
         self::assertFalse($this->form->getNameField()->hasError());
+
+        self::assertSame('https://domain.com/foo', $this->form->getUrlField()->getValue()->__toString());
+        self::assertFalse($this->form->getUrlField()->hasError());
     }
 
     /**
@@ -87,6 +94,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getNameField()->getValue());
         self::assertTrue($this->form->getNameField()->hasError());
         self::assertSame('Value is required.', $this->form->getNameField()->getError());
+
+        self::assertNull($this->form->getUrlField()->getValue());
+        self::assertTrue($this->form->getUrlField()->hasError());
+        self::assertSame('Value is required.', $this->form->getUrlField()->getError());
     }
 
     /**
@@ -99,6 +110,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('text', 'invalid');
         $request->setFormParameter('password', 'invalid');
         $request->setFormParameter('name', 'invalid');
+        $request->setFormParameter('url', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -119,6 +131,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('Invalid', $this->form->getNameField()->getValue());
         self::assertTrue($this->form->getNameField()->hasError());
         self::assertSame('Value of name field is invalid.', $this->form->getNameField()->getError());
+
+        self::assertNull($this->form->getUrlField()->getValue());
+        self::assertTrue($this->form->getUrlField()->hasError());
+        self::assertSame('Value is invalid.', $this->form->getUrlField()->getError());
     }
 
     /**

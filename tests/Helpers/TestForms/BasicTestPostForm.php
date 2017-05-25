@@ -6,6 +6,7 @@ use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextField;
+use BlueMvc\Forms\UrlField;
 
 /**
  * A basic test post form.
@@ -23,6 +24,7 @@ class BasicTestPostForm extends PostForm
         $this->myTextField = new TextField('text');
         $this->myPasswordField = new PasswordField('password');
         $this->myNameField = new NameField('name');
+        $this->myUrlField = new UrlField('url');
     }
 
     /**
@@ -63,6 +65,16 @@ class BasicTestPostForm extends PostForm
     public function getNameField()
     {
         return $this->myNameField;
+    }
+
+    /**
+     * Returns my url field.
+     *
+     * @return UrlField My url field.
+     */
+    public function getUrlField()
+    {
+        return $this->myUrlField;
     }
 
     /**
@@ -108,4 +120,9 @@ class BasicTestPostForm extends PostForm
      * @var NameField My name field.
      */
     protected $myNameField;
+
+    /**
+     * @var UrlField My url field.
+     */
+    protected $myUrlField;
 }
