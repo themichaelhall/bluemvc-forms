@@ -24,6 +24,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
 
+        self::assertSame('', $this->form->getCustomValidatedField()->getValue());
+        self::assertFalse($this->form->getCustomValidatedField()->hasError());
+
         self::assertSame('', $this->form->getTextField()->getValue());
         self::assertFalse($this->form->getTextField()->hasError());
 
@@ -44,6 +47,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
     {
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('not-required', 'My not required value');
+        $request->setFormParameter('custom-validated', 'My custom validated value');
         $request->setFormParameter('text', 'My text value');
         $request->setFormParameter('password', 'My password');
         $request->setFormParameter('name', 'My name');
@@ -55,6 +59,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
+
+        self::assertSame('My custom validated value', $this->form->getCustomValidatedField()->getValue());
+        self::assertFalse($this->form->getCustomValidatedField()->hasError());
 
         self::assertSame('My text value', $this->form->getTextField()->getValue());
         self::assertFalse($this->form->getTextField()->hasError());
@@ -83,6 +90,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
 
+        self::assertSame('', $this->form->getCustomValidatedField()->getValue());
+        self::assertTrue($this->form->getCustomValidatedField()->hasError());
+        self::assertSame('Value is required.', $this->form->getCustomValidatedField()->getError());
+
         self::assertSame('', $this->form->getTextField()->getValue());
         self::assertTrue($this->form->getTextField()->hasError());
         self::assertSame('Value is required.', $this->form->getTextField()->getError());
@@ -107,6 +118,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
     {
         $request = new FakeRequest('/', 'POST');
         $request->setFormParameter('not-required', 'invalid');
+        $request->setFormParameter('custom-validated', 'invalid');
         $request->setFormParameter('text', 'invalid');
         $request->setFormParameter('password', 'invalid');
         $request->setFormParameter('name', 'invalid');
@@ -119,6 +131,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
         self::assertTrue($this->form->getNotRequiredField()->hasError());
         self::assertSame('Value of not required field is invalid.', $this->form->getNotRequiredField()->getError());
+
+        self::assertSame('invalid', $this->form->getCustomValidatedField()->getValue());
+        self::assertTrue($this->form->getCustomValidatedField()->hasError());
+        self::assertSame('Value of custom validated field is invalid.', $this->form->getCustomValidatedField()->getError());
 
         self::assertSame('invalid', $this->form->getTextField()->getValue());
         self::assertTrue($this->form->getTextField()->hasError());

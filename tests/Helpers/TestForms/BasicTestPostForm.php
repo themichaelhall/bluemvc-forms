@@ -4,6 +4,7 @@ namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
+use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextField;
 use BlueMvc\Forms\UrlField;
@@ -20,6 +21,7 @@ class BasicTestPostForm extends PostForm
     {
         $this->myNotRequiredField = new TextField('not-required');
         $this->myNotRequiredField->setRequired(false);
+        $this->myCustomValidatedField = new CustomValidatedField('custom-validated');
 
         $this->myTextField = new TextField('text');
         $this->myPasswordField = new PasswordField('password');
@@ -35,6 +37,16 @@ class BasicTestPostForm extends PostForm
     public function getNotRequiredField()
     {
         return $this->myNotRequiredField;
+    }
+
+    /**
+     * Returns my field that has a custom validation.
+     *
+     * @return CustomValidatedField My field that has a custom validation.
+     */
+    public function getCustomValidatedField()
+    {
+        return $this->myCustomValidatedField;
     }
 
     /**
@@ -105,6 +117,11 @@ class BasicTestPostForm extends PostForm
      * @var TextField My form field that not requires a value.
      */
     protected $myNotRequiredField;
+
+    /**
+     * @var CustomValidatedField My field that has a custom validation.
+     */
+    protected $myCustomValidatedField;
 
     /**
      * @var TextField My text field.

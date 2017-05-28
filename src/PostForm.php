@@ -48,6 +48,8 @@ abstract class PostForm implements FormInterface
             } elseif (!$element->isValid()) {
                 $element->setError('Value is invalid.');
             }
+
+            $element->onValidate();
         }
 
         $this->onValidate();

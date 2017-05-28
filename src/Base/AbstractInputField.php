@@ -113,6 +113,15 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
+     * Called when form element should be validated.
+     *
+     * @since 1.0.0
+     */
+    public function onValidate()
+    {
+    }
+
+    /**
      * Sets the element error.
      *
      * @since 1.0.0
