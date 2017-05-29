@@ -64,6 +64,18 @@ class TextField extends AbstractInputField
     }
 
     /**
+     * Returns the name of the display value parameter.
+     *
+     * @since 1.0.0
+     *
+     * @return string The name of the display value parameter.
+     */
+    protected function getDisplayValueName()
+    {
+        return 'value';
+    }
+
+    /**
      * Returns the input type.
      *
      * @since 1.0.0

@@ -10,52 +10,43 @@ namespace BlueMvc\Forms;
 use BlueMvc\Forms\Base\AbstractInputField;
 
 /**
- * Class representing a password field.
+ * Class representing a checkbox.
  *
  * @since 1.0.0
  */
-class PasswordField extends AbstractInputField
+class Checkbox extends AbstractInputField
 {
     /**
-     * Constructs the password field.
+     * Constructs the checkbox.
      *
      * @since 1.0.0
      *
-     * @param string $name The name.
+     * @param string $name  The name.
+     * @param bool   $value The value.
      *
-     * @throws \InvalidArgumentException If the $value parameters is not a string.
+     * @throws \InvalidArgumentException If any of the $name or $value parameters is not the correct type.
      */
-    public function __construct($name)
+    public function __construct($name, $value = false)
     {
-        parent::__construct($name, '');
+        if (!is_bool($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a boolean.');
+        }
 
-        $this->myValue = '';
+        parent::__construct($name, $value);
+
+        $this->myValue = $value;
     }
 
     /**
-     * Returns the value of the password field.
+     * Returns the value of the checkbox.
      *
      * @since 1.0.0
      *
-     * @return string The value of the password field.
+     * @return bool The value of the checkbox.
      */
     public function getValue()
     {
         return $this->myValue;
-    }
-
-    /** @noinspection PhpMissingParentCallCommonInspection */
-
-    /**
-     * Returns true if element value is empty, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is empty, false otherwise.
-     */
-    public function isEmpty()
-    {
-        return $this->myValue === '';
     }
 
     /**
@@ -67,7 +58,7 @@ class PasswordField extends AbstractInputField
      */
     protected function getDisplayValueName()
     {
-        return 'value';
+        return 'checked';
     }
 
     /**
@@ -79,7 +70,7 @@ class PasswordField extends AbstractInputField
      */
     protected function getType()
     {
-        return 'password';
+        return 'checkbox';
     }
 
     /**
@@ -91,12 +82,12 @@ class PasswordField extends AbstractInputField
      */
     protected function onSetFormValue($value)
     {
-        $this->myValue = $value;
-        $this->setDisplayValue('');
+        $this->myValue = strtolower($value) === 'on';
+        $this->setDisplayValue($this->myValue);
     }
 
     /**
-     * @var string My value.
+     * @var bool My value.
      */
     private $myValue;
 }

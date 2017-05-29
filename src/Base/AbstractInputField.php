@@ -42,10 +42,10 @@ abstract class AbstractInputField implements FormElementInterface
         return self::buildTag('input',
             array_merge(
                 [
-                    'type'     => $this->getType(),
-                    'name'     => $this->myName,
-                    'value'    => $this->myDisplayValue,
-                    'required' => $this->myIsRequired,
+                    'type'                       => $this->getType(),
+                    'name'                       => $this->myName,
+                    $this->getDisplayValueName() => $this->myDisplayValue,
+                    'required'                   => $this->myIsRequired,
                 ],
                 $attributes
             )
@@ -209,6 +209,15 @@ abstract class AbstractInputField implements FormElementInterface
         $this->myIsRequired = true;
         $this->myIsValid = true;
     }
+
+    /**
+     * Returns the name of the display value parameter.
+     *
+     * @since 1.0.0
+     *
+     * @return string The name of the display value parameter.
+     */
+    abstract protected function getDisplayValueName();
 
     /**
      * Returns the input type.
