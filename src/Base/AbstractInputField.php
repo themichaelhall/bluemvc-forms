@@ -85,7 +85,7 @@ abstract class AbstractInputField implements FormElementInterface
      */
     public function isEmpty()
     {
-        return $this->myDisplayValue === '';
+        return $this->myDisplayValue === null || $this->myDisplayValue === false || $this->myDisplayValue === '';
     }
 
     /**
@@ -193,18 +193,14 @@ abstract class AbstractInputField implements FormElementInterface
      * @since 1.0.0
      *
      * @param string $name  The name.
-     * @param string $value The value to display in input field.
+     * @param mixed  $value The value to display in input field.
      *
-     * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
+     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    protected function __construct($name, $value = '')
+    protected function __construct($name, $value)
     {
         if (!is_string($name)) {
             throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
-
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
         $this->myName = $name;
@@ -237,7 +233,7 @@ abstract class AbstractInputField implements FormElementInterface
      *
      * @since 1.0.0
      *
-     * @param string $value The value.
+     * @param mixed $value The value.
      */
     protected function setDisplayValue($value)
     {
@@ -291,7 +287,7 @@ abstract class AbstractInputField implements FormElementInterface
     private $myName;
 
     /**
-     * @var string My display value.
+     * @var mixed My display value.
      */
     private $myDisplayValue;
 

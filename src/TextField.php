@@ -28,6 +28,10 @@ class TextField extends AbstractInputField
      */
     public function __construct($name, $value = '')
     {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
         parent::__construct($name, $value);
 
         $this->myValue = $value;
