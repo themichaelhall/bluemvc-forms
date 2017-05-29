@@ -38,6 +38,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame(null, $this->form->getUrlField()->getValue());
         self::assertFalse($this->form->getUrlField()->hasError());
+
+        self::assertSame(false, $this->form->getCheckbox()->getValue());
+        self::assertFalse($this->form->getCheckbox()->hasError());
     }
 
     /**
@@ -52,6 +55,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('password', 'My password');
         $request->setFormParameter('name', 'My name');
         $request->setFormParameter('url', 'https://domain.com/foo');
+        $request->setFormParameter('checkbox', 'on');
 
         $isProcessed = $this->form->process($request);
 
@@ -74,6 +78,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('https://domain.com/foo', $this->form->getUrlField()->getValue()->__toString());
         self::assertFalse($this->form->getUrlField()->hasError());
+
+        self::assertTrue($this->form->getCheckbox()->getValue());
+        self::assertFalse($this->form->getCheckbox()->hasError());
     }
 
     /**
@@ -109,6 +116,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getUrlField()->getValue());
         self::assertTrue($this->form->getUrlField()->hasError());
         self::assertSame('Value is required.', $this->form->getUrlField()->getError());
+
+        self::assertFalse($this->form->getCheckbox()->getValue());
+        self::assertTrue($this->form->getCheckbox()->hasError());
+        self::assertSame('Value is required.', $this->form->getCheckbox()->getError());
     }
 
     /**
@@ -123,6 +134,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('password', 'invalid');
         $request->setFormParameter('name', 'invalid');
         $request->setFormParameter('url', 'invalid');
+        $request->setFormParameter('checkbox', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -151,6 +163,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getUrlField()->getValue());
         self::assertTrue($this->form->getUrlField()->hasError());
         self::assertSame('Value is invalid.', $this->form->getUrlField()->getError());
+
+        self::assertFalse($this->form->getCheckbox()->getValue());
+        self::assertTrue($this->form->getCheckbox()->hasError());
+        self::assertSame('Value is required.', $this->form->getCheckbox()->getError());
     }
 
     /**
