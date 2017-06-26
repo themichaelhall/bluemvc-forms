@@ -7,6 +7,7 @@ use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
+use BlueMvc\Forms\TextArea;
 use BlueMvc\Forms\TextField;
 use BlueMvc\Forms\UrlField;
 
@@ -29,6 +30,7 @@ class BasicTestPostForm extends PostForm
         $this->myNameField = new NameField('name');
         $this->myUrlField = new UrlField('url');
         $this->myCheckbox = new Checkbox('checkbox');
+        $this->myTextArea = new TextArea('textarea');
     }
 
     /**
@@ -102,6 +104,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my text area.
+     *
+     * @return TextArea My text area.
+     */
+    public function getTextArea()
+    {
+        return $this->myTextArea;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -122,6 +134,10 @@ class BasicTestPostForm extends PostForm
 
         if ($this->myNameField->getValue() === 'Invalid') {
             $this->myNameField->setError('Value of name field is invalid.');
+        }
+
+        if ($this->myTextArea->getValue() === 'invalid') {
+            $this->myTextArea->setError('Value of text area is invalid.');
         }
     }
 
@@ -159,4 +175,9 @@ class BasicTestPostForm extends PostForm
      * @var Checkbox My checkbox.
      */
     protected $myCheckbox;
+
+    /**
+     * @var TextArea My text area.
+     */
+    protected $myTextArea;
 }
