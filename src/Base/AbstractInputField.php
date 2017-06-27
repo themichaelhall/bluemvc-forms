@@ -7,27 +7,13 @@
 
 namespace BlueMvc\Forms\Base;
 
-use BlueMvc\Forms\Interfaces\FormElementInterface;
-
 /**
  * Abstract class representing an input type="..." field.
  *
  * @since 1.0.0
  */
-abstract class AbstractInputField implements FormElementInterface
+abstract class AbstractInputField extends AbstractFormElement
 {
-    /**
-     * Returns the element error or null if element has no error.
-     *
-     * @since 1.0.0
-     *
-     * @return string|null The element error or null if element has no error.
-     */
-    public function getError()
-    {
-        return $this->myError;
-    }
-
     /**
      * Returns the element html.
      *
@@ -39,41 +25,17 @@ abstract class AbstractInputField implements FormElementInterface
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('input',
+        return self::buildTag('input', null,
             array_merge(
                 [
                     'type'                       => $this->getType(),
-                    'name'                       => $this->myName,
+                    'name'                       => $this->getName(),
                     $this->getDisplayValueName() => $this->myDisplayValue,
-                    'required'                   => $this->myIsRequired,
+                    'required'                   => $this->isRequired(),
                 ],
                 $attributes
             )
         );
-    }
-
-    /**
-     * Returns the element name.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element name.
-     */
-    public function getName()
-    {
-        return $this->myName;
-    }
-
-    /**
-     * Returns true if element has an error, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element has an error, false otherwise.
-     */
-    public function hasError()
-    {
-        return $this->myError !== null;
     }
 
     /**
@@ -86,57 +48,6 @@ abstract class AbstractInputField implements FormElementInterface
     public function isEmpty()
     {
         return $this->myDisplayValue === null || $this->myDisplayValue === false || $this->myDisplayValue === '';
-    }
-
-    /**
-     * Returns true if element value is required, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is required, false otherwise.
-     */
-    public function isRequired()
-    {
-        return $this->myIsRequired;
-    }
-
-    /**
-     * Returns true if element value is valid, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is valid, false otherwise.
-     */
-    public function isValid()
-    {
-        return $this->myIsValid;
-    }
-
-    /**
-     * Called when form element should be validated.
-     *
-     * @since 1.0.0
-     */
-    public function onValidate()
-    {
-    }
-
-    /**
-     * Sets the element error.
-     *
-     * @since 1.0.0
-     *
-     * @param string $error The element error.
-     *
-     * @throws \InvalidArgumentException If the $error parameter is not a string.
-     */
-    public function setError($error)
-    {
-        if (!is_string($error)) {
-            throw new \InvalidArgumentException('$error parameter is not a string.');
-        }
-
-        $this->myError = $error;
     }
 
     /**
@@ -158,36 +69,6 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
-     * Sets whether element value is required.
-     *
-     * @since 1.0.0
-     *
-     * @param bool $isRequired True if element value is required, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
-     */
-    public function setRequired($isRequired)
-    {
-        if (!is_bool($isRequired)) {
-            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
-        }
-
-        $this->myIsRequired = $isRequired;
-    }
-
-    /**
-     * Returns the element html.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element html.
-     */
-    public function __toString()
-    {
-        return $this->getHtml();
-    }
-
-    /**
      * Constructs the input field.
      *
      * @since 1.0.0
@@ -199,15 +80,9 @@ abstract class AbstractInputField implements FormElementInterface
      */
     protected function __construct($name, $value)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
+        parent::__construct($name);
 
-        $this->myName = $name;
         $this->myDisplayValue = $value;
-        $this->myError = null;
-        $this->myIsRequired = true;
-        $this->myIsValid = true;
     }
 
     /**
@@ -250,68 +125,7 @@ abstract class AbstractInputField implements FormElementInterface
     }
 
     /**
-     * Sets whether element value is valid.
-     *
-     * @since 1.0.0
-     *
-     * @param bool $isValid True if element value is valid, false otherwise.
-     */
-    protected function setValid($isValid)
-    {
-        $this->myIsValid = $isValid;
-    }
-
-    /**
-     * Builds a tag from a name and attributes array.
-     *
-     * @since 1.0.0
-     *
-     * @param string $name       The name.
-     * @param array  $attributes The attributes.
-     *
-     * @return string The tag.
-     */
-    protected static function buildTag($name, $attributes = [])
-    {
-        $result = '<' . htmlspecialchars($name);
-        foreach ($attributes as $attributeName => $attributeValue) {
-            if ($attributeValue === null || $attributeValue === false || $attributeValue === '') {
-                continue;
-            }
-
-            $result .= ' ' . htmlspecialchars($attributeName);
-            if ($attributeValue === true) {
-                continue;
-            }
-
-            $result .= '="' . htmlspecialchars($attributeValue) . '"';
-        }
-
-        return $result . '>';
-    }
-
-    /**
-     * @var string My name.
-     */
-    private $myName;
-
-    /**
      * @var mixed My display value.
      */
     private $myDisplayValue;
-
-    /**
-     * @var string|null My error or null if no error.
-     */
-    private $myError;
-
-    /**
-     * @var bool If true element value is required, false otherwise.
-     */
-    private $myIsRequired;
-
-    /**
-     * @var bool If true element valid is valid, false otherwise.
-     */
-    private $myIsValid;
 }
