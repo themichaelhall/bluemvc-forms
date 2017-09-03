@@ -31,6 +31,18 @@ class BasicTestPostForm extends PostForm
         $this->myUrlField = new UrlField('url');
         $this->myCheckbox = new Checkbox('checkbox');
         $this->myTextArea = new TextArea('textarea');
+
+        $this->myEventMethodsCalled = [];
+    }
+
+    /**
+     * Returns the names of the event methods called.
+     *
+     * @return string[] The names of the event methods called.
+     */
+    public function getEventMethodsCalled()
+    {
+        return $this->myEventMethodsCalled;
     }
 
     /**
@@ -120,6 +132,8 @@ class BasicTestPostForm extends PostForm
     {
         parent::onValidate();
 
+        $this->myEventMethodsCalled[] = 'onValidate';
+
         if ($this->myNotRequiredField->getValue() === 'invalid') {
             $this->myNotRequiredField->setError('Value of not required field is invalid.');
         }
@@ -139,6 +153,16 @@ class BasicTestPostForm extends PostForm
         if ($this->myTextArea->getValue() === 'invalid') {
             $this->myTextArea->setError('Value of text area is invalid.');
         }
+    }
+
+    /**
+     * Called if form processing was successful.
+     */
+    protected function onSuccess()
+    {
+        parent::onSuccess();
+
+        $this->myEventMethodsCalled[] = 'onSuccess';
     }
 
     /**
@@ -180,4 +204,9 @@ class BasicTestPostForm extends PostForm
      * @var TextArea My text area.
      */
     protected $myTextArea;
+
+    /**
+     * @var string[] The names of the event methods called.
+     */
+    private $myEventMethodsCalled;
 }

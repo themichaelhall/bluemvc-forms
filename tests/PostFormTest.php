@@ -20,6 +20,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertFalse($isProcessed);
+        self::assertSame([], $this->form->getEventMethodsCalled());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -64,6 +65,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertTrue($isProcessed);
+        self::assertSame(['onValidate', 'onSuccess'], $this->form->getEventMethodsCalled());
 
         self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -100,6 +102,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertFalse($isProcessed);
+        self::assertSame(['onValidate'], $this->form->getEventMethodsCalled());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -151,6 +154,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $isProcessed = $this->form->process($request);
 
         self::assertFalse($isProcessed);
+        self::assertSame(['onValidate'], $this->form->getEventMethodsCalled());
 
         self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
         self::assertTrue($this->form->getNotRequiredField()->hasError());
