@@ -166,6 +166,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Called if form processing was not successful.
+     */
+    protected function onError()
+    {
+        parent::onError();
+
+        $this->myEventMethodsCalled[] = 'onError';
+    }
+
+    /**
      * @var TextField My form field that not requires a value.
      */
     protected $myNotRequiredField;
