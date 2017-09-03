@@ -176,6 +176,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Called when form processing finishes, regardless if processing was successful or not.
+     */
+    protected function onProcessed()
+    {
+        parent::onProcessed();
+
+        $this->myEventMethodsCalled[] = 'onProcessed';
+    }
+
+    /**
      * @var TextField My form field that not requires a value.
      */
     protected $myNotRequiredField;

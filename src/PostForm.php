@@ -69,6 +69,8 @@ abstract class PostForm implements FormInterface
             $this->onError();
         }
 
+        $this->onProcessed();
+
         return !$hasError;
     }
 
@@ -96,6 +98,15 @@ abstract class PostForm implements FormInterface
      * @since 1.0.0
      */
     protected function onError()
+    {
+    }
+
+    /**
+     * Called when form processing finishes, regardless if processing was successful or not.
+     *
+     * @since 1.0.0
+     */
+    protected function onProcessed()
     {
     }
 
