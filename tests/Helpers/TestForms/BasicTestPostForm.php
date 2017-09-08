@@ -2,7 +2,7 @@
 
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
-use BlueMvc\Forms\Checkbox;
+use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
@@ -29,7 +29,7 @@ class BasicTestPostForm extends PostForm
         $this->myPasswordField = new PasswordField('password');
         $this->myNameField = new NameField('name');
         $this->myUrlField = new UrlField('url');
-        $this->myCheckbox = new Checkbox('checkbox');
+        $this->myCheckBox = new CheckBox('checkbox');
         $this->myTextArea = new TextArea('textarea');
 
         $this->myEventMethodsCalled = [];
@@ -108,11 +108,11 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my checkbox.
      *
-     * @return Checkbox My checkbox.
+     * @return CheckBox My checkbox.
      */
-    public function getCheckbox()
+    public function getCheckBox()
     {
-        return $this->myCheckbox;
+        return $this->myCheckBox;
     }
 
     /**
@@ -216,9 +216,9 @@ class BasicTestPostForm extends PostForm
     protected $myUrlField;
 
     /**
-     * @var Checkbox My checkbox.
+     * @var CheckBox My checkbox.
      */
-    protected $myCheckbox;
+    protected $myCheckBox;
 
     /**
      * @var TextArea My text area.

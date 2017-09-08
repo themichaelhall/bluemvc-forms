@@ -2,19 +2,19 @@
 
 namespace BlueMvc\Forms\Tests;
 
-use BlueMvc\Forms\Checkbox;
+use BlueMvc\Forms\CheckBox;
 
 /**
- * Test Checkbox class.
+ * Test CheckBox class.
  */
-class CheckboxTest extends \PHPUnit_Framework_TestCase
+class CheckBoxTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test basic constructor.
      */
     public function testBasicConstructor()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertSame('<input type="checkbox" name="foo" required>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" required>', $checkbox->__toString());
@@ -28,7 +28,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithInvalidNameParameterType()
     {
-        new Checkbox(0);
+        new CheckBox(0);
     }
 
     /**
@@ -36,7 +36,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertSame('foo', $checkbox->getName());
     }
@@ -46,7 +46,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValue()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertFalse($checkbox->getValue());
     }
@@ -56,7 +56,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormValue()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setFormValue('on');
 
         self::assertTrue($checkbox->getValue());
@@ -72,7 +72,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormValueWithInvalidValueParameterType()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setFormValue(true);
     }
 
@@ -81,7 +81,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutputIsHtmlEncoded()
     {
-        $checkbox = new Checkbox('<p>');
+        $checkbox = new CheckBox('<p>');
 
         self::assertSame('<input type="checkbox" name="&lt;p&gt;" required>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="&lt;p&gt;" required>', $checkbox->__toString());
@@ -92,7 +92,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmptyForEmptyValue()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertTrue($checkbox->isEmpty());
     }
@@ -102,7 +102,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmptyForNonEmptyValue()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setFormValue('on');
 
         self::assertFalse($checkbox->isEmpty());
@@ -113,7 +113,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasError()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertFalse($checkbox->hasError());
     }
@@ -123,7 +123,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetError()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertNull($checkbox->getError());
     }
@@ -133,7 +133,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetError()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setError('My Error');
 
         self::assertTrue($checkbox->hasError());
@@ -148,7 +148,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetErrorWithInvalidParameterType()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setError(1.2);
     }
 
@@ -157,7 +157,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithDefaultValue()
     {
-        $checkbox = new Checkbox('foo', true);
+        $checkbox = new CheckBox('foo', true);
 
         self::assertTrue($checkbox->getValue());
         self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->getHtml());
@@ -172,7 +172,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithDefaultValueWithInvalidParameterType()
     {
-        new Checkbox('foo', 42);
+        new CheckBox('foo', 42);
     }
 
     /**
@@ -180,7 +180,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHtmlWithAttributes()
     {
-        $checkbox = new Checkbox('foo', true);
+        $checkbox = new CheckBox('foo', true);
 
         self::assertSame('<input type="checkbox" name="foo" checked required id="baz" readonly>', $checkbox->getHtml(['id' => 'baz', 'readonly' => true]));
     }
@@ -190,7 +190,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsRequired()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertTrue($checkbox->isRequired());
     }
@@ -200,7 +200,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRequired()
     {
-        $checkbox = new Checkbox('foo', true);
+        $checkbox = new CheckBox('foo', true);
         $checkbox->setRequired(false);
 
         self::assertFalse($checkbox->isRequired());
@@ -216,7 +216,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRequiredWithInvalidParameterType()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
         $checkbox->setRequired(0);
     }
 
@@ -225,7 +225,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValid()
     {
-        $checkbox = new Checkbox('foo');
+        $checkbox = new CheckBox('foo');
 
         self::assertTrue($checkbox->isValid());
     }

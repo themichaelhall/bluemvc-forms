@@ -14,7 +14,7 @@ use BlueMvc\Forms\Base\AbstractFormElement;
  *
  * @since 1.0.0
  */
-class Checkbox extends AbstractFormElement
+class CheckBox extends AbstractFormElement
 {
     /**
      * Constructs the checkbox.
