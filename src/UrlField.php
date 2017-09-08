@@ -26,7 +26,7 @@ class UrlField extends AbstractInputField
      * @param string            $name  The name.
      * @param UrlInterface|null $value The value.
      *
-     * @throws \InvalidArgumentException If any of the $name parameter is not a string.
+     * @throws \InvalidArgumentException If any the $name parameter is not a string.
      */
     public function __construct($name, UrlInterface $value = null)
     {
@@ -45,18 +45,6 @@ class UrlField extends AbstractInputField
     public function getValue()
     {
         return $this->myValue;
-    }
-
-    /**
-     * Returns the name of the display value parameter.
-     *
-     * @since 1.0.0
-     *
-     * @return string The name of the display value parameter.
-     */
-    protected function getDisplayValueName()
-    {
-        return 'value';
     }
 
     /**

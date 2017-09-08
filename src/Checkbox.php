@@ -7,14 +7,14 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Base\AbstractInputField;
+use BlueMvc\Forms\Base\AbstractFormElement;
 
 /**
  * Class representing a checkbox.
  *
  * @since 1.0.0
  */
-class Checkbox extends AbstractInputField
+class Checkbox extends AbstractFormElement
 {
     /**
      * Constructs the checkbox.
@@ -32,9 +32,33 @@ class Checkbox extends AbstractInputField
             throw new \InvalidArgumentException('$value parameter is not a boolean.');
         }
 
-        parent::__construct($name, $value);
+        parent::__construct($name);
 
         $this->myValue = $value;
+    }
+
+    /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The element html.
+     */
+    public function getHtml(array $attributes = [])
+    {
+        return self::buildTag('input', null,
+            array_merge(
+                [
+                    'type'     => 'checkbox',
+                    'name'     => $this->getName(),
+                    'checked'  => $this->myValue,
+                    'required' => $this->isRequired(),
+                ],
+                $attributes
+            )
+        );
     }
 
     /**
@@ -50,40 +74,33 @@ class Checkbox extends AbstractInputField
     }
 
     /**
-     * Returns the name of the display value parameter.
+     * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
      *
-     * @return string The name of the display value parameter.
+     * @return bool True if element value is empty, false otherwise.
      */
-    protected function getDisplayValueName()
+    public function isEmpty()
     {
-        return 'checked';
+        return !$this->myValue;
     }
 
     /**
-     * Returns the input type.
-     *
-     * @since 1.0.0
-     *
-     * @return string The input type.
-     */
-    protected function getType()
-    {
-        return 'checkbox';
-    }
-
-    /**
-     * Called when value is set from form.
+     * Sets the value from form.
      *
      * @since 1.0.0
      *
      * @param string $value The value from form.
+     *
+     * @throws \InvalidArgumentException If the $value parameter is not a string.
      */
-    protected function onSetFormValue($value)
+    public function setFormValue($value)
     {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
         $this->myValue = strtolower($value) === 'on';
-        $this->setDisplayValue($this->myValue);
     }
 
     /**

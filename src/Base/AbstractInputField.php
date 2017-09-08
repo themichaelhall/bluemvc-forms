@@ -28,10 +28,10 @@ abstract class AbstractInputField extends AbstractFormElement
         return self::buildTag('input', null,
             array_merge(
                 [
-                    'type'                       => $this->getType(),
-                    'name'                       => $this->getName(),
-                    $this->getDisplayValueName() => $this->myDisplayValue,
-                    'required'                   => $this->isRequired(),
+                    'type'     => $this->getType(),
+                    'name'     => $this->getName(),
+                    'value'    => $this->myDisplayValue,
+                    'required' => $this->isRequired(),
                 ],
                 $attributes
             )
@@ -47,7 +47,7 @@ abstract class AbstractInputField extends AbstractFormElement
      */
     public function isEmpty()
     {
-        return $this->myDisplayValue === null || $this->myDisplayValue === false || $this->myDisplayValue === '';
+        return $this->myDisplayValue === null || $this->myDisplayValue === '';
     }
 
     /**
@@ -84,15 +84,6 @@ abstract class AbstractInputField extends AbstractFormElement
 
         $this->myDisplayValue = $value;
     }
-
-    /**
-     * Returns the name of the display value parameter.
-     *
-     * @since 1.0.0
-     *
-     * @return string The name of the display value parameter.
-     */
-    abstract protected function getDisplayValueName();
 
     /**
      * Returns the input type.
