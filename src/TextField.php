@@ -7,14 +7,14 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Base\AbstractInputField;
+use BlueMvc\Forms\Base\AbstractTextInputField;
 
 /**
  * Class representing a text field.
  *
  * @since 1.0.0
  */
-class TextField extends AbstractInputField
+class TextField extends AbstractTextInputField
 {
     /**
      * Constructs the text field.

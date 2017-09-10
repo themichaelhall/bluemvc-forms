@@ -12,7 +12,7 @@ namespace BlueMvc\Forms\Base;
  *
  * @since 1.0.0
  */
-abstract class AbstractInputField extends AbstractFormElement
+abstract class AbstractTextInputField extends AbstractFormElement
 {
     /**
      * Returns the element html.
