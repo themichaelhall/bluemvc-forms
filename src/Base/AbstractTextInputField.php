@@ -83,7 +83,7 @@ abstract class AbstractTextInputField extends AbstractFormElement
     {
         parent::__construct($name);
 
-        $this->myText = $text;
+        $this->myText = $this->formatText($text);
     }
 
     /**

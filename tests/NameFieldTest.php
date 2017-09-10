@@ -171,11 +171,22 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithDefaultValue()
     {
-        $nameField = new NameField('foo', 'bar');
+        $nameField = new NameField('foo', 'Bar');
 
-        self::assertSame('bar', $nameField->getValue());
-        self::assertSame('<input type="text" name="foo" value="bar" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="bar" required>', $nameField->__toString());
+        self::assertSame('Bar', $nameField->getValue());
+        self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->__toString());
+    }
+
+    /**
+     * Test that value is formatted in constructor.
+     */
+    public function testValueIsFormattedInConstructor()
+    {
+        $textField = new NameField('foo', ' bar  baz ');
+
+        self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->__toString());
     }
 
     /**
@@ -194,9 +205,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHtmlWithAttributes()
     {
-        $nameField = new NameField('foo', 'bar');
+        $nameField = new NameField('foo', 'Bar');
 
-        self::assertSame('<input type="text" name="foo" value="bar" required id="baz" readonly>', $nameField->getHtml(['id' => 'baz', 'readonly' => true]));
+        self::assertSame('<input type="text" name="foo" value="Bar" required id="baz" readonly>', $nameField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
 
     /**
@@ -214,12 +225,12 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRequired()
     {
-        $nameField = new NameField('foo', 'bar');
+        $nameField = new NameField('foo', 'Bar');
         $nameField->setRequired(false);
 
         self::assertFalse($nameField->isRequired());
-        self::assertSame('<input type="text" name="foo" value="bar">', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="bar">', $nameField->__toString());
+        self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->__toString());
     }
 
     /**

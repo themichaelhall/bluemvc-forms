@@ -179,6 +179,17 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that value is formatted in constructor.
+     */
+    public function testValueIsFormattedInConstructor()
+    {
+        $textField = new TextField('foo', ' bar ');
+
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
+    }
+
+    /**
      * Test constructor with default value with invalid parameter type.
      *
      * @expectedException \InvalidArgumentException
