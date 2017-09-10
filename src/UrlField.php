@@ -30,7 +30,7 @@ class UrlField extends AbstractTextInputField
      */
     public function __construct($name, UrlInterface $value = null)
     {
-        parent::__construct($name, $value);
+        parent::__construct($name, $value !== null ? $value->__toString() : '');
 
         $this->myValue = $value;
     }
@@ -45,6 +45,22 @@ class UrlField extends AbstractTextInputField
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Formats the text.
+     *
+     * @since 1.0.0
+     *
+     * @param string $text The text.
+     *
+     * @return string The formatted text.
+     */
+    protected function formatText($text)
+    {
+        $text = parent::formatText($text);
+
+        return trim($text);
     }
 
     /**
@@ -68,11 +84,8 @@ class UrlField extends AbstractTextInputField
      */
     protected function onSetFormValue($value)
     {
-        $value = trim($value);
         $this->myValue = Url::tryParse($value);
-
         $this->setValid($this->myValue !== null);
-        $this->setDisplayValue($value);
     }
 
     /**

@@ -30,7 +30,7 @@ abstract class AbstractTextInputField extends AbstractFormElement
                 [
                     'type'     => $this->getType(),
                     'name'     => $this->getName(),
-                    'value'    => $this->myDisplayValue,
+                    'value'    => $this->myText,
                     'required' => $this->isRequired(),
                 ],
                 $attributes
@@ -47,7 +47,7 @@ abstract class AbstractTextInputField extends AbstractFormElement
      */
     public function isEmpty()
     {
-        return $this->myDisplayValue === null || $this->myDisplayValue === '';
+        return $this->myText === '';
     }
 
     /**
@@ -65,7 +65,8 @@ abstract class AbstractTextInputField extends AbstractFormElement
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        $this->onSetFormValue($value);
+        $this->myText = $this->formatText($value);
+        $this->onSetFormValue($this->myText);
     }
 
     /**
@@ -73,16 +74,28 @@ abstract class AbstractTextInputField extends AbstractFormElement
      *
      * @since 1.0.0
      *
-     * @param string $name  The name.
-     * @param mixed  $value The value to display in input field.
+     * @param string $name The name.
+     * @param string $text The value to display in input field.
      *
      * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    protected function __construct($name, $value)
+    protected function __construct($name, $text)
     {
         parent::__construct($name);
 
-        $this->myDisplayValue = $value;
+        $this->myText = $text;
+    }
+
+    /**
+     * Returns the value to dipslay in input field.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value to display in input field.
+     */
+    protected function getText()
+    {
+        return $this->myText;
     }
 
     /**
@@ -95,28 +108,32 @@ abstract class AbstractTextInputField extends AbstractFormElement
     abstract protected function getType();
 
     /**
+     * Formats the text.
+     *
+     * @since 1.0.0
+     *
+     * @param string $text The text.
+     *
+     * @return string The formatted text.
+     */
+    protected function formatText($text)
+    {
+        return $text;
+    }
+
+    /**
      * Called when value is set from form.
      *
      * @since 1.0.0
      *
      * @param string $value The value from form.
      */
-    abstract protected function onSetFormValue($value);
-
-    /**
-     * Sets the display value.
-     *
-     * @since 1.0.0
-     *
-     * @param mixed $value The value.
-     */
-    protected function setDisplayValue($value)
+    protected function onSetFormValue($value)
     {
-        $this->myDisplayValue = $value;
     }
 
     /**
-     * @var mixed My display value.
+     * @var string My text to display in input form.
      */
-    private $myDisplayValue;
+    private $myText;
 }

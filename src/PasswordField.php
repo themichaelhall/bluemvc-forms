@@ -28,8 +28,23 @@ class PasswordField extends AbstractTextInputField
     public function __construct($name)
     {
         parent::__construct($name, '');
+    }
 
-        $this->myValue = '';
+    /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The element html.
+     */
+    public function getHtml(array $attributes = [])
+    {
+        // Hide value from displaying.
+        $attributes['value'] = null;
+
+        return parent::getHtml($attributes);
     }
 
     /**
@@ -41,21 +56,7 @@ class PasswordField extends AbstractTextInputField
      */
     public function getValue()
     {
-        return $this->myValue;
-    }
-
-    /** @noinspection PhpMissingParentCallCommonInspection */
-
-    /**
-     * Returns true if element value is empty, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is empty, false otherwise.
-     */
-    public function isEmpty()
-    {
-        return $this->myValue === '';
+        return $this->getText();
     }
 
     /**
@@ -69,22 +70,4 @@ class PasswordField extends AbstractTextInputField
     {
         return 'password';
     }
-
-    /**
-     * Called when value is set from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     */
-    protected function onSetFormValue($value)
-    {
-        $this->myValue = $value;
-        $this->setDisplayValue('');
-    }
-
-    /**
-     * @var string My value.
-     */
-    private $myValue;
 }

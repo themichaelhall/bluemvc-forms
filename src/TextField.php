@@ -33,8 +33,6 @@ class TextField extends AbstractTextInputField
         }
 
         parent::__construct($name, $value);
-
-        $this->myValue = $value;
     }
 
     /**
@@ -46,7 +44,7 @@ class TextField extends AbstractTextInputField
      */
     public function getValue()
     {
-        return $this->myValue;
+        return $this->getText();
     }
 
     /**
@@ -60,7 +58,9 @@ class TextField extends AbstractTextInputField
      */
     protected function formatText($text)
     {
-        return $text;
+        $text = parent::formatText($text);
+
+        return trim($text);
     }
 
     /**
@@ -74,22 +74,4 @@ class TextField extends AbstractTextInputField
     {
         return 'text';
     }
-
-    /**
-     * Called when value is set from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     */
-    protected function onSetFormValue($value)
-    {
-        $this->myValue = $this->formatText(trim($value));
-        $this->setDisplayValue($this->myValue);
-    }
-
-    /**
-     * @var string My value.
-     */
-    private $myValue;
 }
