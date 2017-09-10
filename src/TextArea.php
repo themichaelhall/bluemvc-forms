@@ -7,14 +7,14 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Base\AbstractFormElement;
+use BlueMvc\Forms\Base\AbstractTextElement;
 
 /**
  * Class representing a text area.
  *
  * @since 1.0.0
  */
-class TextArea extends AbstractFormElement
+class TextArea extends AbstractTextElement
 {
     /**
      * Constructs the text area.
@@ -28,13 +28,11 @@ class TextArea extends AbstractFormElement
      */
     public function __construct($name, $value = '')
     {
-        parent::__construct($name);
-
         if (!is_string($value)) {
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        $this->myValue = $value;
+        parent::__construct($name, $value);
     }
 
     /**
@@ -46,7 +44,7 @@ class TextArea extends AbstractFormElement
      */
     public function getValue()
     {
-        return $this->myValue;
+        return $this->getText();
     }
 
     /**
@@ -60,7 +58,7 @@ class TextArea extends AbstractFormElement
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('textarea', $this->myValue,
+        return self::buildTag('textarea', $this->getText(),
             array_merge(
                 [
                     'name'     => $this->getName(),
@@ -72,37 +70,18 @@ class TextArea extends AbstractFormElement
     }
 
     /**
-     * Returns true if element value is empty, false otherwise.
+     * Formats the text.
      *
      * @since 1.0.0
      *
-     * @return bool True if element value is empty, false otherwise.
+     * @param string $text The text.
+     *
+     * @return string The formatted text.
      */
-    public function isEmpty()
+    protected function formatText($text)
     {
-        return $this->myValue === '';
+        $text = parent::formatText($text);
+
+        return trim($text);
     }
-
-    /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->myValue = trim($value);
-    }
-
-    /**
-     * @var string My value.
-     */
-    private $myValue;
 }
