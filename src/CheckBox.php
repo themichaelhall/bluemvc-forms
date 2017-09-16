@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractFormElement;
+use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
  * Class representing a checkbox.
@@ -16,6 +17,8 @@ use BlueMvc\Forms\Base\AbstractFormElement;
  */
 class CheckBox extends AbstractFormElement
 {
+    use BuildTagTrait;
+
     /**
      * Constructs the checkbox.
      *
@@ -48,7 +51,7 @@ class CheckBox extends AbstractFormElement
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('input', null,
+        return self::myBuildTag('input', null,
             array_merge(
                 [
                     'type'     => 'checkbox',

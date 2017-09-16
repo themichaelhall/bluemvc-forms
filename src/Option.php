@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Interfaces\OptionInterface;
+use BlueMvc\Forms\Traits\BuildTagTrait;
 use Prophecy\Exception\InvalidArgumentException;
 
 /**
@@ -17,6 +18,8 @@ use Prophecy\Exception\InvalidArgumentException;
  */
 class Option implements OptionInterface
 {
+    use BuildTagTrait;
+
     /**
      * Constructs the option.
      *
@@ -52,7 +55,7 @@ class Option implements OptionInterface
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('option', $this->getLabel(),
+        return self::myBuildTag('option', $this->getLabel(),
             array_merge(
                 [
                     'value' => $this->getValue(),
@@ -95,40 +98,6 @@ class Option implements OptionInterface
     public function __toString()
     {
         return $this->getHtml();
-    }
-
-    /**
-     * Builds a tag from a name and attributes array.
-     *
-     * @param string      $name       The name.
-     * @param string|null $content    The content or null if no content.
-     * @param array       $attributes The attributes.
-     *
-     * @return string The tag.
-     */
-    private static function buildTag($name, $content = null, $attributes = [])
-    {
-        $result = '<' . htmlspecialchars($name);
-        foreach ($attributes as $attributeName => $attributeValue) {
-            if ($attributeValue === null || $attributeValue === false || $attributeValue === '') {
-                continue;
-            }
-
-            $result .= ' ' . htmlspecialchars($attributeName);
-            if ($attributeValue === true) {
-                continue;
-            }
-
-            $result .= '="' . htmlspecialchars($attributeValue) . '"';
-        }
-
-        $result .= '>';
-
-        if ($content !== null) {
-            $result .= htmlspecialchars($content) . '</' . htmlspecialchars($name) . '>';
-        }
-
-        return $result;
     }
 
     /**

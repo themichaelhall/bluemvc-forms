@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextElement;
+use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
  * Class representing a text area.
@@ -16,6 +17,8 @@ use BlueMvc\Forms\Base\AbstractTextElement;
  */
 class TextArea extends AbstractTextElement
 {
+    use BuildTagTrait;
+
     /**
      * Constructs the text area.
      *
@@ -58,7 +61,7 @@ class TextArea extends AbstractTextElement
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('textarea', $this->getText(),
+        return self::myBuildTag('textarea', $this->getText(),
             array_merge(
                 [
                     'name'     => $this->getName(),

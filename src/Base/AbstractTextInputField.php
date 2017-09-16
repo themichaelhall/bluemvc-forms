@@ -7,6 +7,8 @@
 
 namespace BlueMvc\Forms\Base;
 
+use BlueMvc\Forms\Traits\BuildTagTrait;
+
 /**
  * Abstract class representing an input type="..." field.
  *
@@ -14,6 +16,8 @@ namespace BlueMvc\Forms\Base;
  */
 abstract class AbstractTextInputField extends AbstractTextElement
 {
+    use BuildTagTrait;
+
     /**
      * Returns the element html.
      *
@@ -25,7 +29,7 @@ abstract class AbstractTextInputField extends AbstractTextElement
      */
     public function getHtml(array $attributes = [])
     {
-        return self::buildTag('input', null,
+        return self::myBuildTag('input', null,
             array_merge(
                 [
                     'type'     => $this->getType(),
