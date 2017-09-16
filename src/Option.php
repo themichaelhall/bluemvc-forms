@@ -31,6 +31,19 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns the option as a string.
+     *
+     * @since 1.0.0
+     *
+     * @return string The option as a string.
+     */
+    public function __toString()
+    {
+        // fixme: Use buildTag.
+        return '<option value="' . $this->myValue . '">' . $this->myLabel . '</option>';
+    }
+
+    /**
      * @var string My value.
      */
     private $myValue;

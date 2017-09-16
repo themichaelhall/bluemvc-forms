@@ -14,4 +14,12 @@ namespace BlueMvc\Forms\Interfaces;
  */
 interface OptionInterface
 {
+    /**
+     * Returns the option as a string.
+     *
+     * @since 1.0.0
+     *
+     * @return string The option as a string.
+     */
+    public function __toString();
 }
