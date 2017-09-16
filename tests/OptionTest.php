@@ -51,4 +51,14 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('foo', $option->getValue());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertSame('bar', $option->getLabel());
+    }
 }

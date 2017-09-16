@@ -57,6 +57,18 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns the label.
+     *
+     * @since 1.0.0
+     *
+     * @return string The label.
+     */
+    public function getLabel()
+    {
+        return $this->myLabel;
+    }
+
+    /**
      * Returns the value.
      *
      * @since 1.0.0

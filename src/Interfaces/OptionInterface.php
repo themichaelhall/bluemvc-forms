@@ -26,6 +26,24 @@ interface OptionInterface
     public function getHtml(array $attributes = []);
 
     /**
+     * Returns the label.
+     *
+     * @since 1.0.0
+     *
+     * @return string The label.
+     */
+    public function getLabel();
+
+    /**
+     * Returns the value.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value.
+     */
+    public function getValue();
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0
