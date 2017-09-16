@@ -53,7 +53,7 @@ class Option implements OptionInterface
     public function getHtml(array $attributes = [])
     {
         // fixme: Use buildTag.
-        return '<option value="' . $this->myValue . '">' . $this->myLabel . '</option>';
+        return '<option value="' . htmlentities($this->myValue) . '">' . htmlentities($this->myLabel) . '</option>';
     }
 
     /**

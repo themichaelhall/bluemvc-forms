@@ -61,4 +61,15 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('bar', $option->getLabel());
     }
+
+    /**
+     * Test that output is html-encoded..
+     */
+    public function testOutputIsHtmlEncoded()
+    {
+        $option = new Option('<h1>foo</h1>', 'Foo & Bar');
+
+        self::assertSame('<option value="&lt;h1&gt;foo&lt;/h1&gt;">Foo &amp; Bar</option>', $option->getHtml());
+        self::assertSame('<option value="&lt;h1&gt;foo&lt;/h1&gt;">Foo &amp; Bar</option>', $option->__toString());
+    }
 }
