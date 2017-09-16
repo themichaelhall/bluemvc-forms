@@ -57,6 +57,18 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns the value.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value.
+     */
+    public function getValue()
+    {
+        return $this->myValue;
+    }
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0

@@ -41,4 +41,14 @@ class OptionTest extends \PHPUnit_Framework_TestCase
     {
         new Option('foo', null);
     }
+
+    /**
+     * Test getValue method.
+     */
+    public function testGetValue()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertSame('foo', $option->getValue());
+    }
 }
