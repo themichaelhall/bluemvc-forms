@@ -59,6 +59,18 @@ class Select
     }
 
     /**
+     * Returns the element name.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element name.
+     */
+    public function getName()
+    {
+        return $this->myName;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0

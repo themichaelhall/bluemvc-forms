@@ -30,4 +30,14 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         new Select(true);
     }
+
+    /**
+     * Test getName method.
+     */
+    public function testGetName()
+    {
+        $select = new Select('foo');
+
+        self::assertSame('foo', $select->getName());
+    }
 }
