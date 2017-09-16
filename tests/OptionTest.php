@@ -19,4 +19,26 @@ class OptionTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<option value="foo">bar</option>', $option->getHtml());
         self::assertSame('<option value="foo">bar</option>', $option->__toString());
     }
+
+    /**
+     * Test constructor with invalid value parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value parameter is not a string.
+     */
+    public function testConstructorWithInvalidValueParameterType()
+    {
+        new Option(false, 'bar');
+    }
+
+    /**
+     * Test constructor with invalid label parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $label parameter is not a string.
+     */
+    public function testConstructorWithInvalidLabelParameterType()
+    {
+        new Option('foo', null);
+    }
 }

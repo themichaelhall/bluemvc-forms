@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Interfaces\OptionInterface;
+use Prophecy\Exception\InvalidArgumentException;
 
 /**
  * Class representing a select option.
@@ -23,9 +24,19 @@ class Option implements OptionInterface
      *
      * @param string $value The value.
      * @param string $label The label.
+     *
+     * @throws \InvalidArgumentException If any of the parameters is not a string.
      */
     public function __construct($value, $label)
     {
+        if (!is_string($value)) {
+            throw new InvalidArgumentException('$value parameter is not a string.');
+        }
+
+        if (!is_string($label)) {
+            throw new InvalidArgumentException('$label parameter is not a string.');
+        }
+
         $this->myValue = $value;
         $this->myLabel = $label;
     }
