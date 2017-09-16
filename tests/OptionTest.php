@@ -72,4 +72,14 @@ class OptionTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<option value="&lt;h1&gt;foo&lt;/h1&gt;">Foo &amp; Bar</option>', $option->getHtml());
         self::assertSame('<option value="&lt;h1&gt;foo&lt;/h1&gt;">Foo &amp; Bar</option>', $option->__toString());
     }
+
+    /**
+     * Test getHtml method with attributes.
+     */
+    public function testGetHtmlWithAttributes()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertSame('<option value="foo" class="baz" disabled>bar</option>', $option->getHtml(['class' => 'baz', 'disabled' => true]));
+    }
 }
