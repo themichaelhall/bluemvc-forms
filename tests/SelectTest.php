@@ -40,4 +40,14 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('foo', $select->getName());
     }
+
+    /**
+     * Test getValue method.
+     */
+    public function testGetValue()
+    {
+        $select = new Select('foo');
+
+        self::assertSame('', $select->getValue());
+    }
 }

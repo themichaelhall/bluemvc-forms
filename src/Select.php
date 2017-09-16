@@ -34,6 +34,7 @@ class Select
         }
 
         $this->myName = $name;
+        $this->myValue = '';
     }
 
     /**
@@ -71,6 +72,18 @@ class Select
     }
 
     /**
+     * Returns the element value.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element value.
+     */
+    public function getValue()
+    {
+        return $this->myValue;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0
@@ -86,4 +99,9 @@ class Select
      * @var string My name.
      */
     private $myName;
+
+    /**
+     * @var string My value.
+     */
+    private $myValue;
 }
