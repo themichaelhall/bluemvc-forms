@@ -16,6 +16,7 @@ class OptionTest extends \PHPUnit_Framework_TestCase
     {
         $option = new Option('foo', 'bar');
 
+        self::assertSame('<option value="foo">bar</option>', $option->getHtml());
         self::assertSame('<option value="foo">bar</option>', $option->__toString());
     }
 }

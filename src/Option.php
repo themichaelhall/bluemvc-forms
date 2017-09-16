@@ -31,6 +31,21 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns the option html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The option html.
+     */
+    public function getHtml(array $attributes = [])
+    {
+        // fixme: Use buildTag.
+        return '<option value="' . $this->myValue . '">' . $this->myLabel . '</option>';
+    }
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0
@@ -39,8 +54,7 @@ class Option implements OptionInterface
      */
     public function __toString()
     {
-        // fixme: Use buildTag.
-        return '<option value="' . $this->myValue . '">' . $this->myLabel . '</option>';
+        return $this->getHtml();
     }
 
     /**

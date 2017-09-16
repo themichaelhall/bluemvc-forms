@@ -15,6 +15,17 @@ namespace BlueMvc\Forms\Interfaces;
 interface OptionInterface
 {
     /**
+     * Returns the option html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The option html.
+     */
+    public function getHtml(array $attributes = []);
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0
