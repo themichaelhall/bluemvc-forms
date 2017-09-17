@@ -45,6 +45,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getTextArea()->getValue());
         self::assertFalse($this->form->getTextArea()->hasError());
+
+        self::assertSame('', $this->form->getSelect()->getValue());
+        self::assertFalse($this->form->getSelect()->hasError());
     }
 
     /**
@@ -61,6 +64,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('url', 'https://domain.com/foo');
         $request->setFormParameter('checkbox', 'on');
         $request->setFormParameter('textarea', "My\nText");
+        $request->setFormParameter('select', 'bar');
 
         $isProcessed = $this->form->process($request);
 
@@ -90,6 +94,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame("My\nText", $this->form->getTextArea()->getValue());
         self::assertFalse($this->form->getTextArea()->hasError());
+
+        self::assertSame('bar', $this->form->getSelect()->getValue());
+        self::assertFalse($this->form->getSelect()->hasError());
     }
 
     /**
@@ -134,6 +141,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getTextArea()->getValue());
         self::assertTrue($this->form->getTextArea()->hasError());
         self::assertSame('Value is required.', $this->form->getTextArea()->getError());
+
+        self::assertSame('', $this->form->getSelect()->getValue());
+        self::assertTrue($this->form->getSelect()->hasError());
+        self::assertSame('Value is required.', $this->form->getSelect()->getError());
     }
 
     /**
@@ -150,6 +161,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('url', 'invalid');
         $request->setFormParameter('checkbox', 'invalid');
         $request->setFormParameter('textarea', 'invalid');
+        $request->setFormParameter('select', 'baz');
 
         $isProcessed = $this->form->process($request);
 
@@ -187,6 +199,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('invalid', $this->form->getTextArea()->getValue());
         self::assertTrue($this->form->getTextArea()->hasError());
         self::assertSame('Value of text area is invalid.', $this->form->getTextArea()->getError());
+
+        self::assertSame('', $this->form->getSelect()->getValue());
+        self::assertTrue($this->form->getSelect()->hasError());
+        self::assertSame('Value is required.', $this->form->getSelect()->getError());
     }
 
     /**

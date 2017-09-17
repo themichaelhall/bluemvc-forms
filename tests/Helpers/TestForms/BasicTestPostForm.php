@@ -3,8 +3,10 @@
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
+use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
+use BlueMvc\Forms\Select;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextArea;
@@ -31,6 +33,9 @@ class BasicTestPostForm extends PostForm
         $this->myUrlField = new UrlField('url');
         $this->myCheckBox = new CheckBox('checkbox');
         $this->myTextArea = new TextArea('textarea');
+        $this->mySelect = new Select('select');
+        $this->mySelect->addOption(new Option('foo', 'Foo option'));
+        $this->mySelect->addOption(new Option('bar', 'Bar option'));
 
         $this->myEventMethodsCalled = [];
     }
@@ -123,6 +128,16 @@ class BasicTestPostForm extends PostForm
     public function getTextArea()
     {
         return $this->myTextArea;
+    }
+
+    /**
+     * Returns my select.
+     *
+     * @return Select My select.
+     */
+    public function getSelect()
+    {
+        return $this->mySelect;
     }
 
     /**
@@ -224,6 +239,11 @@ class BasicTestPostForm extends PostForm
      * @var TextArea My text area.
      */
     protected $myTextArea;
+
+    /**
+     * @var Select My select.
+     */
+    protected $mySelect;
 
     /**
      * @var string[] The names of the event methods called.
