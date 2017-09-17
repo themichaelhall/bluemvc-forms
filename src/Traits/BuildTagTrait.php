@@ -28,7 +28,7 @@ trait BuildTagTrait
     {
         $result = '<' . htmlspecialchars($name);
         foreach ($attributes as $attributeName => $attributeValue) {
-            if ($attributeValue === null || $attributeValue === false || $attributeValue === '') {
+            if ($attributeValue === null || $attributeValue === false) {
                 continue;
             }
 
