@@ -64,4 +64,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
     }
+
+    /**
+     * Test addOption method with one option selected.
+     */
+    public function testAddOptionWithOneOptionSelected()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('', 'None'));
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+
+        self::assertSame('<select name="foo" required><option selected>None</option><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option selected>None</option><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
+    }
 }

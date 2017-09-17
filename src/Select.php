@@ -65,7 +65,9 @@ class Select
         $optionsHtml = '';
         foreach ($this->myOptions as $option) {
             /** @var OptionInterface $option */
-            $optionsHtml .= $option->getHtml();
+            $optionsHtml .= $option->getHtml(
+                ['selected' => $option->getValue() === $this->myValue]
+            );
         }
 
         return self::myBuildTag('select', $optionsHtml,
