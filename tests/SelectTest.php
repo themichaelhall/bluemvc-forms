@@ -122,4 +122,42 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select->addOption(new Option('2', 'Two'));
         $select->setFormValue(2);
     }
+
+    /**
+     * Test that output is html-encoded.
+     */
+    public function testOutputIsHtmlEncoded()
+    {
+        $select = new Select('<p>foo</p>');
+        $select->addOption(new Option('<span>1</span>', '<h1>One</h1>'));
+
+        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;" required><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->getHtml());
+        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;" required><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->__toString());
+        self::assertSame('', $select->getValue());
+    }
+
+    /**
+     * Test isEmpty method for empty value.
+     */
+    public function testIsEmptyForEmptyValue()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('', 'None'));
+        $select->addOption(new Option('1', 'One'));
+
+        self::assertTrue($select->isEmpty());
+    }
+
+    /**
+     * Test isEmpty method for non-empty value.
+     */
+    public function testIsEmptyForNonEmptyValue()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('', 'None'));
+        $select->addOption(new Option('1', 'One'));
+        $select->setFormValue('1');
+
+        self::assertFalse($select->isEmpty());
+    }
 }
