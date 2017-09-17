@@ -137,6 +137,17 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test getHtml method with attributes.
+     */
+    public function testGetHtmlWithAttributes()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('1', 'One'));
+
+        self::assertSame('<select name="foo" required class="my-select" id="s1"><option value="1">One</option></select>', $select->getHtml(['class' => 'my-select', 'id' => 's1']));
+    }
+
+    /**
      * Test isEmpty method for empty value.
      */
     public function testIsEmptyForEmptyValue()
@@ -159,5 +170,95 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select->setFormValue('1');
 
         self::assertFalse($select->isEmpty());
+    }
+
+    /**
+     * Test hasError method.
+     */
+    public function testHasError()
+    {
+        $select = new Select('foo');
+
+        self::assertFalse($select->hasError());
+    }
+
+    /**
+     * Test getError method.
+     */
+    public function testGetError()
+    {
+        $select = new Select('foo');
+
+        self::assertNull($select->getError());
+    }
+
+    /**
+     * Test setError method.
+     */
+    public function testSetError()
+    {
+        $select = new Select('foo');
+        $select->setError('My Error');
+
+        self::assertTrue($select->hasError());
+        self::assertSame('My Error', $select->getError());
+    }
+
+    /**
+     * Test setError method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $error parameter is not a string.
+     */
+    public function testSetErrorWithInvalidParameterType()
+    {
+        $select = new Select('foo');
+        $select->setError(10.5);
+    }
+
+    /**
+     * Test isRequired method.
+     */
+    public function testIsRequired()
+    {
+        $select = new Select('foo');
+
+        self::assertTrue($select->isRequired());
+    }
+
+    /**
+     * Test setRequired method.
+     */
+    public function testSetRequired()
+    {
+        $select = new Select('foo');
+        $select->setRequired(false);
+        $select->addOption(new Option('1', 'One'));
+
+        self::assertFalse($select->isRequired());
+        self::assertSame('<select name="foo"><option value="1">One</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo"><option value="1">One</option></select>', $select->__toString());
+    }
+
+    /**
+     * Test setRequired method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     */
+    public function testSetRequiredWithInvalidParameterType()
+    {
+        $select = new Select('foo');
+        $select->setRequired(50);
+    }
+
+    /**
+     * Test isValid method.
+     */
+    public function testIsValid()
+    {
+        $select = new Select('foo');
+
+        self::assertTrue($select->isValid());
     }
 }

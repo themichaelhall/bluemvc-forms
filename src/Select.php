@@ -7,6 +7,7 @@
 
 namespace BlueMvc\Forms;
 
+use BlueMvc\Forms\Base\AbstractFormElement;
 use BlueMvc\Forms\Interfaces\OptionInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
@@ -15,7 +16,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class Select
+class Select extends AbstractFormElement
 {
     use BuildTagTrait;
 
@@ -30,11 +31,8 @@ class Select
      */
     public function __construct($name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
+        parent::__construct($name);
 
-        $this->myName = $name;
         $this->myValue = '';
         $this->myOptions = [];
     }
@@ -73,24 +71,12 @@ class Select
         return self::myBuildTag('select', $optionsHtml,
             array_merge(
                 [
-                    'name'     => $this->myName,
-                    'required' => true,
+                    'name'     => $this->getName(),
+                    'required' => $this->isRequired(),
                 ],
                 $attributes
             ), true
         );
-    }
-
-    /**
-     * Returns the element name.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element name.
-     */
-    public function getName()
-    {
-        return $this->myName;
     }
 
     /**
@@ -146,23 +132,6 @@ class Select
 
         $this->myValue = $value;
     }
-
-    /**
-     * Returns the element html.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element html.
-     */
-    public function __toString()
-    {
-        return $this->getHtml();
-    }
-
-    /**
-     * @var string My name.
-     */
-    private $myName;
 
     /**
      * @var string My value.
