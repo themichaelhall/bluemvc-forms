@@ -93,4 +93,33 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame([$option1, $option2], $select->getOptions());
     }
+
+    /**
+     * Test setFormValue method.
+     */
+    public function testSetFormValue()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+        $select->setFormValue('2');
+
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
+        self::assertSame('2', $select->getValue());
+    }
+
+    /**
+     * Test setFormValue method with invalid value parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value parameter is not a string.
+     */
+    public function testSetFormValueWithInvalidValueParameterType()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+        $select->setFormValue(2);
+    }
 }

@@ -118,6 +118,24 @@ class Select
     }
 
     /**
+     * Sets the value from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     *
+     * @throws \InvalidArgumentException If the $value parameter is not a string.
+     */
+    public function setFormValue($value)
+    {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
+        $this->myValue = $value;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0
