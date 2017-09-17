@@ -2,6 +2,7 @@
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Forms\Option;
 use BlueMvc\Forms\Select;
 
 /**
@@ -16,8 +17,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     {
         $select = new Select('foo');
 
-        self::assertSame('<select name="foo" required>', $select->getHtml());
-        self::assertSame('<select name="foo" required>', $select->__toString());
+        self::assertSame('<select name="foo" required></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required></select>', $select->__toString());
     }
 
     /**
@@ -49,5 +50,18 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select = new Select('foo');
 
         self::assertSame('', $select->getValue());
+    }
+
+    /**
+     * Test addOption method.
+     */
+    public function testAddOption()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
     }
 }

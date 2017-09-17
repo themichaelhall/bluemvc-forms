@@ -7,6 +7,7 @@
 
 namespace BlueMvc\Forms;
 
+use BlueMvc\Forms\Interfaces\OptionInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -35,6 +36,19 @@ class Select
 
         $this->myName = $name;
         $this->myValue = '';
+        $this->myOptions = [];
+    }
+
+    /**
+     * Adds on option.
+     *
+     * @since 1.0.0
+     *
+     * @param OptionInterface $option The option.
+     */
+    public function addOption(OptionInterface $option)
+    {
+        $this->myOptions[$option->getValue()] = $option;
     }
 
     /**
@@ -48,14 +62,20 @@ class Select
      */
     public function getHtml(array $attributes = [])
     {
-        return self::myBuildTag('select', null,
+        $optionsHtml = '';
+        foreach ($this->myOptions as $option) {
+            /** @var OptionInterface $option */
+            $optionsHtml .= $option->getHtml();
+        }
+
+        return self::myBuildTag('select', $optionsHtml,
             array_merge(
                 [
                     'name'     => $this->myName,
                     'required' => true,
                 ],
                 $attributes
-            )
+            ), true
         );
     }
 
@@ -104,4 +124,9 @@ class Select
      * @var string My value.
      */
     private $myValue;
+
+    /**
+     * @var array My options.
+     */
+    private $myOptions;
 }
