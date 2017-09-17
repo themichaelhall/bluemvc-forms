@@ -107,6 +107,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
         self::assertSame('2', $select->getValue());
+        self::assertTrue($select->isValid());
     }
 
     /**
@@ -285,5 +286,37 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     public function testConstructorWithInvalidDefaultValueParameterType()
     {
         new Select('foo', 2);
+    }
+
+    /**
+     * Test setFormValue method with invalid value.
+     */
+    public function testSetFormValueWithInvalidValue()
+    {
+        $select = new Select('foo');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+        $select->setFormValue('3');
+
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('', $select->getValue());
+        self::assertFalse($select->isValid());
+    }
+
+    /**
+     * Test setFormValue method with invalid value does not change default value.
+     */
+    public function testSetFormValueWithInvalidValueDoesNotChangeDefaultValue()
+    {
+        $select = new Select('foo', '1');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+        $select->setFormValue('3');
+
+        self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('1', $select->getValue());
+        self::assertFalse($select->isValid());
     }
 }

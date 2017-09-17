@@ -135,6 +135,12 @@ class Select extends AbstractFormElement
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
+        if (!isset($this->myOptions[$value])) {
+            $this->setValid(false);
+
+            return;
+        }
+
         $this->myValue = $value;
     }
 
