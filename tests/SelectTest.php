@@ -261,4 +261,29 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
         self::assertTrue($select->isValid());
     }
+
+    /**
+     * Test constructor with default value.
+     */
+    public function testConstructorWithDefaultValue()
+    {
+        $select = new Select('foo', '2');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
+        self::assertSame('2', $select->getValue());
+    }
+
+    /**
+     * Test constructor with invalid default value parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $value parameter is not a string.
+     */
+    public function testConstructorWithInvalidDefaultValueParameterType()
+    {
+        new Select('foo', 2);
+    }
 }

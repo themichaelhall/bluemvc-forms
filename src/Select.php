@@ -25,15 +25,20 @@ class Select extends AbstractFormElement
      *
      * @since 1.0.0
      *
-     * @param string $name The name.
+     * @param string $name  The name.
+     * @param string $value The value.
      *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
+     * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
      */
-    public function __construct($name)
+    public function __construct($name, $value = '')
     {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
         parent::__construct($name);
 
-        $this->myValue = '';
+        $this->myValue = $value;
         $this->myOptions = [];
     }
 
