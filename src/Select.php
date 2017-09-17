@@ -94,6 +94,18 @@ class Select
     }
 
     /**
+     * Returns the options.
+     *
+     * @since 1.0.0
+     *
+     * @return OptionInterface[] The options.
+     */
+    public function getOptions()
+    {
+        return array_values($this->myOptions);
+    }
+
+    /**
      * Returns the element value.
      *
      * @since 1.0.0
