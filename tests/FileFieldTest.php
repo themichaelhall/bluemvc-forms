@@ -2,7 +2,9 @@
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\FileField;
+use DataTypes\FilePath;
 
 /**
  * Test FileField class.
@@ -52,6 +54,24 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test setUploadedFile method.
+     */
+    public function testSetUploadedFile()
+    {
+        $fileField = new FileField('foo');
+        $uploadedFile = new UploadedFile(
+            FilePath::parse('/tmp/file.txt'),
+            'File.txt',
+            16
+        );
+        $fileField->setUploadedFile($uploadedFile);
+
+        self::assertSame($uploadedFile, $fileField->getValue());
+        self::assertSame('<input type="file" name="foo" required>', $fileField->getHtml());
+        self::assertSame('<input type="file" name="foo" required>', $fileField->__toString());
+    }
+
+    /**
      * Test that output is html-encoded.
      */
     public function testOutputIsHtmlEncoded()
@@ -70,6 +90,22 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
         $fileField = new FileField('foo');
 
         self::assertTrue($fileField->isEmpty());
+    }
+
+    /**
+     * Test isEmpty method for non-empty value.
+     */
+    public function testIsEmptyForNoneEmptyValue()
+    {
+        $fileField = new FileField('foo');
+        $uploadedFile = new UploadedFile(
+            FilePath::parse('/tmp/file.txt'),
+            'File.txt',
+            16
+        );
+        $fileField->setUploadedFile($uploadedFile);
+
+        self::assertFalse($fileField->isEmpty());
     }
 
     /**

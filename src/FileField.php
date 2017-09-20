@@ -84,6 +84,18 @@ class FileField extends AbstractFormElement
     }
 
     /**
+     * Sets the uploaded file.
+     *
+     * @since 1.0.0
+     *
+     * @param UploadedFileInterface|null $uploadedFile The uploaded file.
+     */
+    public function setUploadedFile(UploadedFileInterface $uploadedFile = null)
+    {
+        $this->myValue = $uploadedFile;
+    }
+
+    /**
      * @var UploadedFileInterface|null My value.
      */
     private $myValue;
