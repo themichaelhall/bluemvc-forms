@@ -8,7 +8,7 @@
 namespace BlueMvc\Forms\Interfaces;
 
 /**
- * Interface for elements that handled form value.
+ * Interface for elements that handles a form value.
  *
  * @since 1.0.0
  */

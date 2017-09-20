@@ -9,6 +9,7 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Forms\Base\AbstractFormElement;
+use BlueMvc\Forms\Interfaces\SetUploadedFileInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -16,7 +17,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class FileField extends AbstractFormElement
+class FileField extends AbstractFormElement implements SetUploadedFileInterface
 {
     use BuildTagTrait;
 
@@ -84,11 +85,11 @@ class FileField extends AbstractFormElement
     }
 
     /**
-     * Sets the uploaded file.
+     * Sets the uploaded file from form.
      *
      * @since 1.0.0
      *
-     * @param UploadedFileInterface|null $uploadedFile The uploaded file.
+     * @param UploadedFileInterface|null $uploadedFile The uploaded file from form.
      */
     public function setUploadedFile(UploadedFileInterface $uploadedFile = null)
     {
