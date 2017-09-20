@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
+use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
@@ -36,6 +37,7 @@ class BasicTestPostForm extends PostForm
         $this->mySelect = new Select('select');
         $this->mySelect->addOption(new Option('foo', 'Foo option'));
         $this->mySelect->addOption(new Option('bar', 'Bar option'));
+        $this->myFileField = new FileField('file');
 
         $this->myEventMethodsCalled = [];
     }
@@ -141,6 +143,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my file field.
+     *
+     * @return FileField My file field.
+     */
+    public function getFileField()
+    {
+        return $this->myFileField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -167,6 +179,10 @@ class BasicTestPostForm extends PostForm
 
         if ($this->myTextArea->getValue() === 'invalid') {
             $this->myTextArea->setError('Value of text area is invalid.');
+        }
+
+        if ($this->myFileField->getValue() !== null && strpos(file_get_contents($this->myFileField->getValue()->getPath()->__toString()), 'invalid') !== false) {
+            $this->myFileField->setError('File content is invalid.');
         }
     }
 
@@ -244,6 +260,11 @@ class BasicTestPostForm extends PostForm
      * @var Select My select.
      */
     protected $mySelect;
+
+    /**
+     * @var FileField My file field.
+     */
+    protected $myFileField;
 
     /**
      * @var string[] The names of the event methods called.

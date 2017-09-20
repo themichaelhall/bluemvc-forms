@@ -48,6 +48,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertFalse($this->form->getSelect()->hasError());
+
+        self::assertNull($this->form->getFileField()->getValue());
+        self::assertFalse($this->form->getFileField()->hasError());
     }
 
     /**
@@ -65,6 +68,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('checkbox', 'on');
         $request->setFormParameter('textarea', "My\nText");
         $request->setFormParameter('select', 'bar');
+        $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/file.txt');
 
         $isProcessed = $this->form->process($request);
 
@@ -97,6 +101,11 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('bar', $this->form->getSelect()->getValue());
         self::assertFalse($this->form->getSelect()->hasError());
+
+        self::assertSame('Hello World!', file_get_contents($this->form->getFileField()->getValue()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
+        self::assertSame(12, $this->form->getFileField()->getValue()->getSize());
+        self::assertFalse($this->form->getFileField()->hasError());
     }
 
     /**
@@ -145,6 +154,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertTrue($this->form->getSelect()->hasError());
         self::assertSame('Value is required.', $this->form->getSelect()->getError());
+
+        self::assertNull($this->form->getFileField()->getValue());
+        self::assertTrue($this->form->getFileField()->hasError());
+        self::assertSame('Value is required.', $this->form->getFileField()->getError());
     }
 
     /**
@@ -162,6 +175,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('checkbox', 'invalid');
         $request->setFormParameter('textarea', 'invalid');
         $request->setFormParameter('select', 'baz');
+        $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/invalid-file.txt');
 
         $isProcessed = $this->form->process($request);
 
@@ -203,6 +217,12 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertTrue($this->form->getSelect()->hasError());
         self::assertSame('Value is required.', $this->form->getSelect()->getError());
+
+        self::assertSame('This is an invalid file!', file_get_contents($this->form->getFileField()->getValue()->getPath()->__toString()));
+        self::assertSame('invalid-file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
+        self::assertSame(24, $this->form->getFileField()->getValue()->getSize());
+        self::assertTrue($this->form->getFileField()->hasError());
+        self::assertSame('File content is invalid.', $this->form->getFileField()->getError());
     }
 
     /**
