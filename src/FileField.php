@@ -84,20 +84,6 @@ class FileField extends AbstractFormElement
     }
 
     /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        // fixme: Do not require this method here.
-    }
-
-    /**
      * @var UploadedFileInterface|null My value.
      */
     private $myValue;

@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractFormElement;
+use BlueMvc\Forms\Interfaces\SetFormValueInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -15,7 +16,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class CheckBox extends AbstractFormElement
+class CheckBox extends AbstractFormElement implements SetFormValueInterface
 {
     use BuildTagTrait;
 

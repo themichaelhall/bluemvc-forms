@@ -7,12 +7,14 @@
 
 namespace BlueMvc\Forms\Base;
 
+use BlueMvc\Forms\Interfaces\SetFormValueInterface;
+
 /**
  * Abstract class representing a text element.
  *
  * @since 1.0.0
  */
-abstract class AbstractTextElement extends AbstractFormElement
+abstract class AbstractTextElement extends AbstractFormElement implements SetFormValueInterface
 {
     /**
      * Constructs the text element.

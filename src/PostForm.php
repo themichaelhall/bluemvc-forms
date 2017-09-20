@@ -10,6 +10,7 @@ namespace BlueMvc\Forms;
 use BlueMvc\Core\Interfaces\RequestInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
+use BlueMvc\Forms\Interfaces\SetFormValueInterface;
 
 /**
  * Class representing a post form.
@@ -37,8 +38,10 @@ abstract class PostForm implements FormInterface
 
         // Set form values for elements.
         foreach ($elements as $element) {
-            $formValue = $request->getFormParameter($element->getName()) ?: '';
-            $element->setFormValue($formValue);
+            if ($element instanceof SetFormValueInterface) {
+                $formValue = $request->getFormParameter($element->getName()) ?: '';
+                $element->setFormValue($formValue);
+            }
         }
 
         // Validate elements.

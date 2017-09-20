@@ -94,13 +94,4 @@ interface FormElementInterface
      * @param string $error The element error.
      */
     public function setError($error);
-
-    /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     */
-    public function setFormValue($value);
 }

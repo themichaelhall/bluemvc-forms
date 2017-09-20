@@ -106,17 +106,6 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    abstract public function setFormValue($value);
-
-    /**
      * Sets whether element value is required.
      *
      * @since 1.0.0
