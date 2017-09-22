@@ -62,6 +62,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('Bar', $nameField->getValue());
         self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->__toString());
+        self::assertFalse($nameField->hasError());
     }
 
     /**
@@ -75,6 +76,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('Foo Bar Baz', $nameField->getValue());
         self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->__toString());
+        self::assertFalse($nameField->hasError());
     }
 
     /**
@@ -243,15 +245,5 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
     {
         $nameField = new NameField('foo');
         $nameField->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $nameField = new NameField('foo');
-
-        self::assertTrue($nameField->isValid());
     }
 }

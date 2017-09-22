@@ -204,7 +204,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getUrlField()->getValue());
         self::assertTrue($this->form->getUrlField()->hasError());
-        self::assertSame('Value is invalid.', $this->form->getUrlField()->getError());
+        self::assertSame('Invalid value', $this->form->getUrlField()->getError());
 
         self::assertFalse($this->form->getCheckBox()->getValue());
         self::assertTrue($this->form->getCheckBox()->hasError());

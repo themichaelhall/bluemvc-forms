@@ -85,7 +85,10 @@ class UrlField extends AbstractTextInputField
     protected function onSetFormValue($value)
     {
         $this->myValue = Url::tryParse($value);
-        $this->setValid($this->myValue !== null);
+
+        if ($this->myValue === null) {
+            $this->setError('Invalid value');
+        }
     }
 
     /**

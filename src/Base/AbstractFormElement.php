@@ -85,27 +85,6 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
-     * Returns true if element value is valid, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if element value is valid, false otherwise.
-     */
-    public function isValid()
-    {
-        return $this->myIsValid;
-    }
-
-    /**
-     * Called when form element should be validated.
-     *
-     * @since 1.0.0
-     */
-    public function onValidate()
-    {
-    }
-
-    /**
      * Sets whether element value is required.
      *
      * @since 1.0.0
@@ -171,19 +150,6 @@ abstract class AbstractFormElement implements FormElementInterface
         $this->myName = $name;
         $this->myError = null;
         $this->myIsRequired = true;
-        $this->myIsValid = true;
-    }
-
-    /**
-     * Sets whether element value is valid.
-     *
-     * @since 1.0.0
-     *
-     * @param bool $isValid True if element value is valid, false otherwise.
-     */
-    protected function setValid($isValid)
-    {
-        $this->myIsValid = $isValid;
     }
 
     /**
@@ -200,9 +166,4 @@ abstract class AbstractFormElement implements FormElementInterface
      * @var bool If true element value is required, false otherwise.
      */
     private $myIsRequired;
-
-    /**
-     * @var bool If true element valid is valid, false otherwise.
-     */
-    private $myIsValid;
 }

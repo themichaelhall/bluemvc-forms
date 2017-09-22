@@ -10,11 +10,15 @@ use BlueMvc\Forms\TextField;
 class CustomValidatedField extends TextField
 {
     /**
-     * Called when form element should be validated.
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
      */
-    public function onValidate()
+    protected function onSetFormValue($value)
     {
-        parent::onValidate();
+        parent::onSetFormValue($value);
 
         if ($this->getValue() === 'invalid') {
             $this->setError('Value of custom validated field is invalid.');

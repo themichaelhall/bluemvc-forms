@@ -62,6 +62,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $textArea->getValue());
         self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->getHtml());
         self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->__toString());
+        self::assertFalse($textArea->hasError());
     }
 
     /**
@@ -75,6 +76,7 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $textArea->getValue());
         self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->getHtml());
         self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->__toString());
+        self::assertFalse($textArea->hasError());
     }
 
     /**
@@ -232,15 +234,5 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     {
         $textArea = new TextArea('foo');
         $textArea->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $textArea = new TextArea('foo');
-
-        self::assertTrue($textArea->isValid());
     }
 }

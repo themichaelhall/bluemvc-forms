@@ -63,6 +63,22 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('https://domain.com/', $urlField->getValue()->__toString());
         self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->getHtml());
         self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->__toString());
+        self::assertFalse($urlField->hasError());
+    }
+
+    /**
+     * Test setFormValue method with invalid url.
+     */
+    public function testSetFormValueWithInvalidUrl()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setFormValue('FooBar');
+
+        self::assertNull($urlField->getValue());
+        self::assertSame('<input type="url" name="foo" value="FooBar" required>', $urlField->getHtml());
+        self::assertSame('<input type="url" name="foo" value="FooBar" required>', $urlField->__toString());
+        self::assertTrue($urlField->hasError());
+        self::assertSame('Invalid value', $urlField->getError());
     }
 
     /**
@@ -76,6 +92,7 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('https://domain.com/', $urlField->getValue()->__toString());
         self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->getHtml());
         self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->__toString());
+        self::assertFalse($urlField->hasError());
     }
 
     /**
@@ -222,26 +239,5 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
     {
         $urlField = new UrlField('foo');
         $urlField->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $urlField = new UrlField('foo');
-
-        self::assertTrue($urlField->isValid());
-    }
-
-    /**
-     * Test isValid method with invalid form value set.
-     */
-    public function testIsValidWithInvalidFormValue()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setFormValue('bar');
-
-        self::assertFalse($urlField->isValid());
     }
 }

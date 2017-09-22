@@ -62,6 +62,7 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $passwordField->getValue());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
+        self::assertFalse($passwordField->hasError());
     }
 
     /**
@@ -75,6 +76,7 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame(' bar ', $passwordField->getValue());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
+        self::assertFalse($passwordField->hasError());
     }
 
     /**
@@ -208,15 +210,5 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
     {
         $passwordField = new PasswordField('foo');
         $passwordField->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $passwordField = new PasswordField('foo');
-
-        self::assertTrue($passwordField->isValid());
     }
 }

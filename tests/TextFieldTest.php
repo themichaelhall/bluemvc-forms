@@ -62,6 +62,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $textField->getValue());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
+        self::assertFalse($textField->hasError());
     }
 
     /**
@@ -75,6 +76,7 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame('bar', $textField->getValue());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
+        self::assertFalse($textField->hasError());
     }
 
     /**
@@ -243,15 +245,5 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         $textField = new TextField('foo');
         $textField->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $textField = new TextField('foo');
-
-        self::assertTrue($textField->isValid());
     }
 }

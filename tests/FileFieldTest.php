@@ -69,6 +69,7 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
         self::assertSame($uploadedFile, $fileField->getValue());
         self::assertSame('<input type="file" name="foo" required>', $fileField->getHtml());
         self::assertSame('<input type="file" name="foo" required>', $fileField->__toString());
+        self::assertFalse($fileField->hasError());
     }
 
     /**
@@ -195,15 +196,5 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
     {
         $fileField = new FileField('foo');
         $fileField->setRequired(-10);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $fileField = new FileField('foo');
-
-        self::assertTrue($fileField->isValid());
     }
 }

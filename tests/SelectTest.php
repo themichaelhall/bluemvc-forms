@@ -107,7 +107,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
         self::assertSame('2', $select->getValue());
-        self::assertTrue($select->isValid());
+        self::assertFalse($select->hasError());
     }
 
     /**
@@ -254,16 +254,6 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $select = new Select('foo');
-
-        self::assertTrue($select->isValid());
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -301,7 +291,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('', $select->getValue());
-        self::assertFalse($select->isValid());
+        self::assertTrue($select->hasError());
+        self::assertSame('Invalid value', $select->getError());
     }
 
     /**
@@ -317,6 +308,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('1', $select->getValue());
-        self::assertFalse($select->isValid());
+        self::assertTrue($select->hasError());
+        self::assertSame('Invalid value', $select->getError());
     }
 }

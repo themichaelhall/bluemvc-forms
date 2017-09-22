@@ -137,7 +137,7 @@ class Select extends AbstractFormElement implements SetFormValueInterface
         }
 
         if (!isset($this->myOptions[$value])) {
-            $this->setValid(false);
+            $this->setError('Invalid value');
 
             return;
         }

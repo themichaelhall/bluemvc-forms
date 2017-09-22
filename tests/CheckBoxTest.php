@@ -62,6 +62,7 @@ class CheckBoxTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($checkbox->getValue());
         self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->__toString());
+        self::assertFalse($checkbox->hasError());
     }
 
     /**
@@ -218,15 +219,5 @@ class CheckBoxTest extends \PHPUnit_Framework_TestCase
     {
         $checkbox = new CheckBox('foo');
         $checkbox->setRequired(0);
-    }
-
-    /**
-     * Test isValid method.
-     */
-    public function testIsValid()
-    {
-        $checkbox = new CheckBox('foo');
-
-        self::assertTrue($checkbox->isValid());
     }
 }
