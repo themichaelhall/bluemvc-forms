@@ -18,18 +18,6 @@ use BlueMvc\Forms\TextFormatOption;
 abstract class AbstractTextElement extends AbstractFormElement implements SetFormValueInterface
 {
     /**
-     * Returns the text format options.
-     *
-     * @since 1.0.0
-     *
-     * @return int The text format options.
-     */
-    public function getTextFormatOptions()
-    {
-        return $this->myTextFormatOptions;
-    }
-
-    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
@@ -61,24 +49,6 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     }
 
     /**
-     * Sets the text format options.
-     *
-     * @since 1.0.0
-     *
-     * @param int $textFormatOptions The text format options.
-     *
-     * @throws \InvalidArgumentException If the $textFormatOptions parameter is not an integer.
-     */
-    public function setTextFormatOptions($textFormatOptions)
-    {
-        if (!is_int($textFormatOptions)) {
-            throw new \InvalidArgumentException('$textFormatOptions parameter is not an integer.');
-        }
-
-        $this->myTextFormatOptions = $textFormatOptions;
-    }
-
-    /**
      * Constructs the text element.
      *
      * @since 1.0.0
@@ -86,9 +56,15 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      * @param string $name              The name.
      * @param string $text              The value to display in input field.
      * @param int    $textFormatOptions The text format options.
+     *
+     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    protected function __construct($name, $text, $textFormatOptions = TextFormatOption::NONE)
+    protected function __construct($name, $text = '', $textFormatOptions = TextFormatOption::NONE)
     {
+        if (!is_int($textFormatOptions)) {
+            throw new \InvalidArgumentException('$textFormatOptions parameter is not an integer.');
+        }
+
         parent::__construct($name);
 
         $this->myTextFormatOptions = $textFormatOptions;

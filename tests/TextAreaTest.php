@@ -79,36 +79,14 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getFormatTextOptions method with default value.
-     */
-    public function testGetFormatTextOptions()
-    {
-        $textArea = new TextArea('foo');
-
-        self::assertSame(TextFormatOption::TRIM, $textArea->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method.
-     */
-    public function testSetFormatTextOptions()
-    {
-        $textArea = new TextArea('foo');
-        $textArea->setTextFormatOptions(TextFormatOption::NONE);
-
-        self::assertSame(TextFormatOption::NONE, $textArea->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method with invalid parameter type.
+     * Test constructor with invalid text format options parameter type.
      *
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
      */
-    public function testSetFormatTextOptionsWithInvalidParameterType()
+    public function testConstructorWithInvalidTextFormatOptionsParameterType()
     {
-        $textArea = new TextArea('foo');
-        $textArea->setTextFormatOptions(false);
+        new TextArea('foo', 'bar', true);
     }
 
     /**
@@ -123,10 +101,9 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
      */
     public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
     {
-        $textArea = new TextArea('foo');
-        if ($textFormatOptions !== null) {
-            $textArea->setTextFormatOptions($textFormatOptions);
-        }
+        $textArea = $textFormatOptions !== null ?
+            new TextArea('foo', '', $textFormatOptions) :
+            new TextArea('foo');
         $textArea->setFormValue($value);
 
         self::assertSame($expectedValue, $textArea->getValue());

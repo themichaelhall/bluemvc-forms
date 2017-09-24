@@ -79,36 +79,14 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getFormatTextOptions method with default value.
-     */
-    public function testGetFormatTextOptions()
-    {
-        $textField = new TextField('foo');
-
-        self::assertSame(TextFormatOption::TRIM, $textField->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method.
-     */
-    public function testSetFormatTextOptions()
-    {
-        $textField = new TextField('foo');
-        $textField->setTextFormatOptions(TextFormatOption::NONE);
-
-        self::assertSame(TextFormatOption::NONE, $textField->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method with invalid parameter type.
+     * Test constructor with invalid text format options parameter type.
      *
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
      */
-    public function testSetFormatTextOptionsWithInvalidParameterType()
+    public function testConstructorWithInvalidTextFormatOptionsParameterType()
     {
-        $textField = new TextField('foo');
-        $textField->setTextFormatOptions(false);
+        new TextField('foo', '', null);
     }
 
     /**
@@ -123,10 +101,9 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
     {
-        $textField = new TextField('foo');
-        if ($textFormatOptions !== null) {
-            $textField->setTextFormatOptions($textFormatOptions);
-        }
+        $textField = $textFormatOptions !== null ?
+            new TextField('foo', '', $textFormatOptions) :
+            new TextField('foo');
         $textField->setFormValue($value);
 
         self::assertSame($expectedValue, $textField->getValue());

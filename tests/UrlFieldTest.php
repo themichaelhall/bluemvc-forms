@@ -2,7 +2,6 @@
 
 namespace BlueMvc\Forms\Tests;
 
-use BlueMvc\Forms\TextFormatOption;
 use BlueMvc\Forms\UrlField;
 use DataTypes\Url;
 
@@ -95,54 +94,17 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getFormatTextOptions method with default value.
-     */
-    public function testGetFormatTextOptions()
-    {
-        $urlField = new UrlField('foo');
-
-        self::assertSame(TextFormatOption::TRIM, $urlField->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method.
-     */
-    public function testSetFormatTextOptions()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setTextFormatOptions(TextFormatOption::NONE);
-
-        self::assertSame(TextFormatOption::NONE, $urlField->getTextFormatOptions());
-    }
-
-    /**
-     * Test setFormatTextOptions method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
-     */
-    public function testSetFormatTextOptionsWithInvalidParameterType()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setTextFormatOptions(false);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
      *
-     * @param string   $value              The value
-     * @param int|null $textFormatOptions  The text format options or null to use default.
-     * @param string   $expectedValue      The expected value.
-     * @param string   $expectedHtmlString The expected html string.
+     * @param string $value              The value
+     * @param string $expectedValue      The expected value.
+     * @param string $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
     {
         $urlField = new UrlField('foo');
-        if ($textFormatOptions !== null) {
-            $urlField->setTextFormatOptions($textFormatOptions);
-        }
         $urlField->setFormValue($value);
 
         self::assertSame($expectedValue, $urlField->getValue() !== null ? $urlField->getValue()->__toString() : null);
@@ -158,24 +120,12 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
     public function textFormattingDataProvider()
     {
         return [
-            ['', null, null, '<input type="url" name="foo" required>'],
-            ['', TextFormatOption::NONE, null, '<input type="url" name="foo" required>'],
-            ['', TextFormatOption::TRIM, null, '<input type="url" name="foo" required>'],
-            [' ', null, null, '<input type="url" name="foo" required>'],
-            [' ', TextFormatOption::NONE, null, '<input type="url" name="foo" value=" " required>'],
-            [' ', TextFormatOption::TRIM, null, '<input type="url" name="foo" required>'],
-            ['Foo Bar', null, null, '<input type="url" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::NONE, null, '<input type="url" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::TRIM, null, '<input type="url" name="foo" value="Foo Bar" required>'],
-            ['  Foo  Bar  ', null, null, '<input type="url" name="foo" value="Foo  Bar" required>'],
-            ['  Foo  Bar  ', TextFormatOption::NONE, null, '<input type="url" name="foo" value="  Foo  Bar  " required>'],
-            ['  Foo  Bar  ', TextFormatOption::TRIM, null, '<input type="url" name="foo" value="Foo  Bar" required>'],
-            ['https://example.com/', null, 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
-            ['https://example.com/', TextFormatOption::NONE, 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
-            ['https://example.com/', TextFormatOption::TRIM, 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
-            ['  https://example.com/  ', null, 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
-            ['  https://example.com/  ', TextFormatOption::NONE, 'https://example.com/', '<input type="url" name="foo" value="  https://example.com/  " required>'],
-            ['  https://example.com/  ', TextFormatOption::TRIM, 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
+            ['', null, '<input type="url" name="foo" required>'],
+            [' ', null, '<input type="url" name="foo" required>'],
+            ['Foo Bar', null, '<input type="url" name="foo" value="Foo Bar" required>'],
+            ['  Foo  Bar  ', null, '<input type="url" name="foo" value="Foo  Bar" required>'],
+            ['https://example.com/', 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
+            ['  https://example.com/  ', 'https://example.com/', '<input type="url" name="foo" value="https://example.com/" required>'],
         ];
     }
 

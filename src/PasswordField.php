@@ -23,11 +23,11 @@ class PasswordField extends AbstractTextInputField
      *
      * @param string $name The name.
      *
-     * @throws \InvalidArgumentException If the $value parameters is not a string.
+     * @throws \InvalidArgumentException If the $name parameters is not a string.
      */
     public function __construct($name)
     {
-        parent::__construct($name, '', TextFormatOption::NONE);
+        parent::__construct($name);
     }
 
     /**

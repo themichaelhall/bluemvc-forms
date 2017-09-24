@@ -24,18 +24,19 @@ class TextArea extends AbstractTextElement
      *
      * @since 1.0.0
      *
-     * @param string $name  The name.
-     * @param string $value The value.
+     * @param string $name              The name.
+     * @param string $value             The value.
+     * @param int    $textFormatOptions The text format options.
      *
-     * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
+     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '')
+    public function __construct($name, $value = '', $textFormatOptions = TextFormatOption::TRIM)
     {
         if (!is_string($value)) {
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        parent::__construct($name, $value, TextFormatOption::TRIM);
+        parent::__construct($name, $value, $textFormatOptions);
     }
 
     /**
