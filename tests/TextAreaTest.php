@@ -131,6 +131,12 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
             ['  Foo  Bar  ', null, 'Foo  Bar', '<textarea name="foo" required>Foo  Bar</textarea>'],
             ['  Foo  Bar  ', TextFormatOption::NONE, '  Foo  Bar  ', '<textarea name="foo" required>  Foo  Bar  </textarea>'],
             ['  Foo  Bar  ', TextFormatOption::TRIM, 'Foo  Bar', '<textarea name="foo" required>Foo  Bar</textarea>'],
+            ["  Foo  Bar  \r\n  Baz  ", null, "Foo  Bar\r\nBaz", "<textarea name=\"foo\" required>Foo  Bar\r\nBaz</textarea>"],
+            ["  Foo  Bar  \r\n  Baz  ", TextFormatOption::NONE, "  Foo  Bar  \r\n  Baz  ", "<textarea name=\"foo\" required>  Foo  Bar  \r\n  Baz  </textarea>"],
+            ["  Foo  Bar  \r\n  Baz  ", TextFormatOption::TRIM, "Foo  Bar\r\nBaz", "<textarea name=\"foo\" required>Foo  Bar\r\nBaz</textarea>"],
+            ["  Foo \n Bar  \r  Baz  ", null, "Foo\r\nBar\r\nBaz", "<textarea name=\"foo\" required>Foo\r\nBar\r\nBaz</textarea>"],
+            ["  Foo \n Bar  \r  Baz  ", TextFormatOption::NONE, "  Foo \r\n Bar  \r\n  Baz  ", "<textarea name=\"foo\" required>  Foo \r\n Bar  \r\n  Baz  </textarea>"],
+            ["  Foo \n Bar  \r  Baz  ", TextFormatOption::TRIM, "Foo\r\nBar\r\nBaz", "<textarea name=\"foo\" required>Foo\r\nBar\r\nBaz</textarea>"],
         ];
     }
 

@@ -82,11 +82,18 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      */
     protected function formatText($text)
     {
-        if ($this->myTextFormatOptions & TextFormatOption::TRIM !== 0) {
-            $text = trim($text);
+        $lines = preg_split("/\r\n|\n|\r/", $text);
+        $result = [];
+
+        foreach ($lines as $line) {
+            if ($this->myTextFormatOptions & TextFormatOption::TRIM !== 0) {
+                $line = trim($line);
+            }
+
+            $result[] = $line;
         }
 
-        return $text;
+        return implode("\r\n", $result);
     }
 
     /**

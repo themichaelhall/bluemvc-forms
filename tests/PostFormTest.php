@@ -96,7 +96,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($this->form->getCheckBox()->getValue());
         self::assertFalse($this->form->getCheckBox()->hasError());
 
-        self::assertSame("My\nText", $this->form->getTextArea()->getValue());
+        self::assertSame("My\r\nText", $this->form->getTextArea()->getValue());
         self::assertFalse($this->form->getTextArea()->hasError());
 
         self::assertSame('bar', $this->form->getSelect()->getValue());
