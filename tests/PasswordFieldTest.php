@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\PasswordField;
+use BlueMvc\Forms\TextFormatOption;
 
 /**
  * Test PasswordField class.
@@ -66,20 +67,6 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that setFormValue method does not trim the input.
-     */
-    public function testSetFormValueDoesNotTrimInput()
-    {
-        $passwordField = new PasswordField('foo');
-        $passwordField->setFormValue(' bar ');
-
-        self::assertSame(' bar ', $passwordField->getValue());
-        self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
-        self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
-        self::assertFalse($passwordField->hasError());
-    }
-
-    /**
      * Test setFormValue method with invalid value parameter type.
      *
      * @expectedException \InvalidArgumentException
@@ -89,6 +76,85 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
     {
         $passwordField = new PasswordField('foo');
         $passwordField->setFormValue(true);
+    }
+
+    /**
+     * Test getTextFormatOptions method with default value.
+     */
+    public function testGetTextFormatOptions()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertSame(TextFormatOption::NONE, $passwordField->getTextFormatOptions());
+    }
+
+    /**
+     * Test setTextFormatOptions method.
+     */
+    public function testSetFormatTextOptions()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setTextFormatOptions(TextFormatOption::TRIM);
+
+        self::assertSame(TextFormatOption::TRIM, $passwordField->getTextFormatOptions());
+    }
+
+    /**
+     * Test setFormatTextOptions method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
+     */
+    public function testSetFormatTextOptionsWithInvalidParameterType()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setTextFormatOptions(false);
+    }
+
+    /**
+     * Test text formatting.
+     *
+     * @dataProvider textFormattingDataProvider
+     *
+     * @param string   $value              The value
+     * @param int|null $textFormatOptions  The text format options or null to use default.
+     * @param string   $expectedValue      The expected value.
+     * @param string   $expectedHtmlString The expected html string.
+     */
+    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    {
+        $passwordField = new PasswordField('foo');
+        if ($textFormatOptions !== null) {
+            $passwordField->setTextFormatOptions($textFormatOptions);
+        }
+        $passwordField->setFormValue($value);
+
+        self::assertSame($expectedValue, $passwordField->getValue());
+        self::assertSame($expectedHtmlString, $passwordField->getHtml());
+        self::assertSame($expectedHtmlString, $passwordField->__toString());
+    }
+
+    /**
+     * Data provider for testTextFormatting method.
+     *
+     * @return array The data.
+     */
+    public function textFormattingDataProvider()
+    {
+        return [
+            ['', null, '', '<input type="password" name="foo" required>'],
+            ['', TextFormatOption::NONE, '', '<input type="password" name="foo" required>'],
+            ['', TextFormatOption::TRIM, '', '<input type="password" name="foo" required>'],
+            [' ', null, ' ', '<input type="password" name="foo" required>'],
+            [' ', TextFormatOption::NONE, ' ', '<input type="password" name="foo" required>'],
+            [' ', TextFormatOption::TRIM, '', '<input type="password" name="foo" required>'],
+            ['Foo Bar', null, 'Foo Bar', '<input type="password" name="foo" required>'],
+            ['Foo Bar', TextFormatOption::NONE, 'Foo Bar', '<input type="password" name="foo" required>'],
+            ['Foo Bar', TextFormatOption::TRIM, 'Foo Bar', '<input type="password" name="foo" required>'],
+            ['  Foo  Bar  ', null, '  Foo  Bar  ', '<input type="password" name="foo" required>'],
+            ['  Foo  Bar  ', TextFormatOption::NONE, '  Foo  Bar  ', '<input type="password" name="foo" required>'],
+            ['  Foo  Bar  ', TextFormatOption::TRIM, 'Foo  Bar', '<input type="password" name="foo" required>'],
+        ];
     }
 
     /**

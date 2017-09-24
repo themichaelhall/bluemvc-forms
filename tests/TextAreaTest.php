@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\TextArea;
+use BlueMvc\Forms\TextFormatOption;
 
 /**
  * Test TextArea class.
@@ -66,20 +67,6 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that setFormValue method trims the input.
-     */
-    public function testSetFormValueTrimsInput()
-    {
-        $textArea = new TextArea('foo');
-        $textArea->setFormValue(' bar ');
-
-        self::assertSame('bar', $textArea->getValue());
-        self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->getHtml());
-        self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->__toString());
-        self::assertFalse($textArea->hasError());
-    }
-
-    /**
      * Test setFormValue method with invalid value parameter type.
      *
      * @expectedException \InvalidArgumentException
@@ -89,6 +76,85 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
     {
         $textArea = new TextArea('foo');
         $textArea->setFormValue(true);
+    }
+
+    /**
+     * Test getFormatTextOptions method with default value.
+     */
+    public function testGetFormatTextOptions()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertSame(TextFormatOption::TRIM, $textArea->getTextFormatOptions());
+    }
+
+    /**
+     * Test setFormatTextOptions method.
+     */
+    public function testSetFormatTextOptions()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setTextFormatOptions(TextFormatOption::NONE);
+
+        self::assertSame(TextFormatOption::NONE, $textArea->getTextFormatOptions());
+    }
+
+    /**
+     * Test setFormatTextOptions method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
+     */
+    public function testSetFormatTextOptionsWithInvalidParameterType()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setTextFormatOptions(false);
+    }
+
+    /**
+     * Test text formatting.
+     *
+     * @dataProvider textFormattingDataProvider
+     *
+     * @param string   $value              The value
+     * @param int|null $textFormatOptions  The text format options or null to use default.
+     * @param string   $expectedValue      The expected value.
+     * @param string   $expectedHtmlString The expected html string.
+     */
+    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    {
+        $textArea = new TextArea('foo');
+        if ($textFormatOptions !== null) {
+            $textArea->setTextFormatOptions($textFormatOptions);
+        }
+        $textArea->setFormValue($value);
+
+        self::assertSame($expectedValue, $textArea->getValue());
+        self::assertSame($expectedHtmlString, $textArea->getHtml());
+        self::assertSame($expectedHtmlString, $textArea->__toString());
+    }
+
+    /**
+     * Data provider for testTextFormatting method.
+     *
+     * @return array The data.
+     */
+    public function textFormattingDataProvider()
+    {
+        return [
+            ['', null, '', '<textarea name="foo" required></textarea>'],
+            ['', TextFormatOption::NONE, '', '<textarea name="foo" required></textarea>'],
+            ['', TextFormatOption::TRIM, '', '<textarea name="foo" required></textarea>'],
+            [' ', null, '', '<textarea name="foo" required></textarea>'],
+            [' ', TextFormatOption::NONE, ' ', '<textarea name="foo" required> </textarea>'],
+            [' ', TextFormatOption::TRIM, '', '<textarea name="foo" required></textarea>'],
+            ['Foo Bar', null, 'Foo Bar', '<textarea name="foo" required>Foo Bar</textarea>'],
+            ['Foo Bar', TextFormatOption::NONE, 'Foo Bar', '<textarea name="foo" required>Foo Bar</textarea>'],
+            ['Foo Bar', TextFormatOption::TRIM, 'Foo Bar', '<textarea name="foo" required>Foo Bar</textarea>'],
+            ['  Foo  Bar  ', null, 'Foo  Bar', '<textarea name="foo" required>Foo  Bar</textarea>'],
+            ['  Foo  Bar  ', TextFormatOption::NONE, '  Foo  Bar  ', '<textarea name="foo" required>  Foo  Bar  </textarea>'],
+            ['  Foo  Bar  ', TextFormatOption::TRIM, 'Foo  Bar', '<textarea name="foo" required>Foo  Bar</textarea>'],
+        ];
     }
 
     /**

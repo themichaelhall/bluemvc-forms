@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
+use BlueMvc\Forms\TextFormatOption;
 
 /**
  * Test NameField class.
@@ -66,20 +67,6 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that setFormValue method formats the input.
-     */
-    public function testSetFormValueFormatsInput()
-    {
-        $nameField = new NameField('foo');
-        $nameField->setFormValue(' foo   Bar  baz ');
-
-        self::assertSame('Foo Bar Baz', $nameField->getValue());
-        self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="Foo Bar Baz" required>', $nameField->__toString());
-        self::assertFalse($nameField->hasError());
-    }
-
-    /**
      * Test setFormValue method with invalid value parameter type.
      *
      * @expectedException \InvalidArgumentException
@@ -89,6 +76,88 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
     {
         $nameField = new NameField('foo');
         $nameField->setFormValue(true);
+    }
+
+    /**
+     * Test getFormatTextOptions method with default value.
+     */
+    public function testGetFormatTextOptions()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertSame(TextFormatOption::TRIM, $nameField->getTextFormatOptions());
+    }
+
+    /**
+     * Test setFormatTextOptions method.
+     */
+    public function testSetFormatTextOptions()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setTextFormatOptions(TextFormatOption::NONE);
+
+        self::assertSame(TextFormatOption::NONE, $nameField->getTextFormatOptions());
+    }
+
+    /**
+     * Test setFormatTextOptions method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
+     */
+    public function testSetFormatTextOptionsWithInvalidParameterType()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setTextFormatOptions(false);
+    }
+
+    /**
+     * Test text formatting.
+     *
+     * @dataProvider textFormattingDataProvider
+     *
+     * @param string   $value              The value
+     * @param int|null $textFormatOptions  The text format options or null to use default.
+     * @param string   $expectedValue      The expected value.
+     * @param string   $expectedHtmlString The expected html string.
+     */
+    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    {
+        $nameField = new NameField('foo');
+        if ($textFormatOptions !== null) {
+            $nameField->setTextFormatOptions($textFormatOptions);
+        }
+        $nameField->setFormValue($value);
+
+        self::assertSame($expectedValue, $nameField->getValue());
+        self::assertSame($expectedHtmlString, $nameField->getHtml());
+        self::assertSame($expectedHtmlString, $nameField->__toString());
+    }
+
+    /**
+     * Data provider for testTextFormatting method.
+     *
+     * @return array The data.
+     */
+    public function textFormattingDataProvider()
+    {
+        return [
+            ['', null, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOption::NONE, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
+            [' ', null, '', '<input type="text" name="foo" required>'],
+            [' ', TextFormatOption::NONE, ' ', '<input type="text" name="foo" value=" " required>'],
+            [' ', TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
+            ['Foo Bar', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOption::NONE, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['  Foo  Bar  ', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['  Foo  Bar  ', TextFormatOption::NONE, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
+            ['  Foo  Bar  ', TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['  foo  bar  ', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['  foo  bar  ', TextFormatOption::NONE, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
+            ['  foo  bar  ', TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+        ];
     }
 
     /**

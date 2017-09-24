@@ -32,7 +32,7 @@ class TextField extends AbstractTextInputField
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        parent::__construct($name, $value);
+        parent::__construct($name, $value, TextFormatOption::TRIM);
     }
 
     /**
@@ -45,22 +45,6 @@ class TextField extends AbstractTextInputField
     public function getValue()
     {
         return $this->getText();
-    }
-
-    /**
-     * Formats the text.
-     *
-     * @since 1.0.0
-     *
-     * @param string $text The text.
-     *
-     * @return string The formatted text.
-     */
-    protected function formatText($text)
-    {
-        $text = parent::formatText($text);
-
-        return trim($text);
     }
 
     /**

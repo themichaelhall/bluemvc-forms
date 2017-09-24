@@ -27,7 +27,7 @@ class PasswordField extends AbstractTextInputField
      */
     public function __construct($name)
     {
-        parent::__construct($name, '');
+        parent::__construct($name, '', TextFormatOption::NONE);
     }
 
     /**
