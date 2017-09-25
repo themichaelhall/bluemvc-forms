@@ -86,8 +86,11 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
         $result = [];
 
         foreach ($lines as $line) {
-            if ($this->myTextFormatOptions & TextFormatOption::TRIM !== 0) {
+            if (($this->myTextFormatOptions & TextFormatOption::TRIM) !== 0) {
                 $line = trim($line);
+            }
+            if (($this->myTextFormatOptions & TextFormatOption::COMPACT) !== 0) {
+                $line = preg_replace('/\s+/', ' ', $line);
             }
 
             $result[] = $line;
@@ -97,7 +100,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     }
 
     /**
-     * Returns the value to dipslay in input field.
+     * Returns the value to display in input field.
      *
      * @since 1.0.0
      *

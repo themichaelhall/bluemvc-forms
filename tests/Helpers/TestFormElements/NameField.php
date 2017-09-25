@@ -20,7 +20,6 @@ class NameField extends TextField
     protected function formatText($text)
     {
         $text = parent::formatText($text);
-        $text = preg_replace('/\s+/', ' ', $text);
         $text = ucwords($text);
 
         return $text;

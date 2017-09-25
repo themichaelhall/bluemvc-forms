@@ -30,7 +30,7 @@ class TextArea extends AbstractTextElement
      *
      * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '', $textFormatOptions = TextFormatOption::TRIM)
+    public function __construct($name, $value = '', $textFormatOptions = TextFormatOption::TRIM | TextFormatOption::COMPACT)
     {
         if (!is_string($value)) {
             throw new \InvalidArgumentException('$value parameter is not a string.');
