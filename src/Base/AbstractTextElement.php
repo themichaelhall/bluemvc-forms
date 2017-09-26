@@ -83,6 +83,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     protected function formatText($text)
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
+        $lastLineWasEmpty = false;
         $result = [];
 
         foreach ($lines as $line) {
@@ -92,8 +93,12 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
             if (($this->myTextFormatOptions & TextFormatOption::COMPACT) !== 0) {
                 $line = preg_replace('/\s+/', ' ', $line);
             }
+            if (($this->myTextFormatOptions & TextFormatOption::COMPACT_LINES) !== 0 && $lastLineWasEmpty && $line === '') {
+                continue;
+            }
 
             $result[] = $line;
+            $lastLineWasEmpty = $line === '';
         }
 
         return implode("\r\n", $result);

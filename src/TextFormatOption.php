@@ -34,4 +34,11 @@ class TextFormatOption
      * @since 1.0.0
      */
     const COMPACT = 2;
+
+    /**
+     * Compact multiple empty lines into one.
+     *
+     * @since 1.0.0
+     */
+    const COMPACT_LINES = 4;
 }
