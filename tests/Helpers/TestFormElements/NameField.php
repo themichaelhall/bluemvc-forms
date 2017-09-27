@@ -11,17 +11,15 @@ class NameField extends TextField
 {
     /**
      * Formats the text.
-     * Excessive whitespaces are removed and every first character in word is capitalized.
+     *
+     * Every first character in word is capitalized.
      *
      * @param string $text The text.
-     *
-     * @return string The formatted text.
      */
-    protected function formatText($text)
+    protected function onFormatText(&$text)
     {
-        $text = parent::formatText($text);
-        $text = ucwords($text);
+        parent::onFormatText($text);
 
-        return $text;
+        $text = ucwords($text);
     }
 }

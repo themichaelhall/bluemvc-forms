@@ -60,15 +60,17 @@ class UrlField extends AbstractTextInputField
     }
 
     /**
-     * Called when value is set from form.
+     * Called when text is set from form.
      *
      * @since 1.0.0
      *
-     * @param string $value The value from form.
+     * @param string $text The text from form.
      */
-    protected function onSetFormValue($value)
+    protected function onSetText($text)
     {
-        $this->myValue = Url::tryParse($value);
+        parent::onSetText($text);
+
+        $this->myValue = Url::tryParse($text);
 
         if ($this->myValue === null) {
             $this->setError('Invalid value');

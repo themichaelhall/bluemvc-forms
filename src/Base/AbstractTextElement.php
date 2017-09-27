@@ -44,8 +44,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        $this->myText = $this->formatText($value);
-        $this->onSetFormValue($this->myText);
+        $this->onSetFormValue($value);
     }
 
     /**
@@ -68,19 +67,30 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
         parent::__construct($name);
 
         $this->myTextFormatOptions = $textFormatOptions;
-        $this->myText = $this->formatText($text);
+        $this->onFormatText($text);
+        $this->myText = $text;
     }
 
     /**
-     * Formats the text.
+     * Returns the value to display in input field.
+     *
+     * @since 1.0.0
+     *
+     * @return string The value to display in input field.
+     */
+    protected function getText()
+    {
+        return $this->myText;
+    }
+
+    /**
+     * Called when text should be formatted.
      *
      * @since 1.0.0
      *
      * @param string $text The text.
-     *
-     * @return string The formatted text.
      */
-    protected function formatText($text)
+    protected function onFormatText(&$text)
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
         $result = [];
@@ -118,19 +128,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
             array_splice($result, -$lastEmptyLinesCount);
         }
 
-        return implode("\r\n", $result);
-    }
-
-    /**
-     * Returns the value to display in input field.
-     *
-     * @since 1.0.0
-     *
-     * @return string The value to display in input field.
-     */
-    protected function getText()
-    {
-        return $this->myText;
+        $text = implode("\r\n", $result);
     }
 
     /**
@@ -142,6 +140,20 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      */
     protected function onSetFormValue($value)
     {
+        $this->onFormatText($value);
+        $this->onSetText($value);
+    }
+
+    /**
+     * Called when text is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $text The text from form.
+     */
+    protected function onSetText($text)
+    {
+        $this->myText = $text;
     }
 
     /**
