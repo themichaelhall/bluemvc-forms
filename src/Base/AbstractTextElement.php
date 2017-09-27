@@ -8,7 +8,7 @@
 namespace BlueMvc\Forms\Base;
 
 use BlueMvc\Forms\Interfaces\SetFormValueInterface;
-use BlueMvc\Forms\TextFormatOption;
+use BlueMvc\Forms\TextFormatOptions;
 
 /**
  * Abstract class representing a text element.
@@ -59,7 +59,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      *
      * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    protected function __construct($name, $text = '', $textFormatOptions = TextFormatOption::NONE)
+    protected function __construct($name, $text = '', $textFormatOptions = TextFormatOptions::NONE)
     {
         if (!is_int($textFormatOptions)) {
             throw new \InvalidArgumentException('$textFormatOptions parameter is not an integer.');
@@ -89,18 +89,18 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
         $hasFoundNonEmptyLines = false;
 
         foreach ($lines as $line) {
-            if (($this->myTextFormatOptions & TextFormatOption::TRIM) !== 0) {
+            if (($this->myTextFormatOptions & TextFormatOptions::TRIM) !== 0) {
                 $line = trim($line);
             }
-            if (($this->myTextFormatOptions & TextFormatOption::COMPACT) !== 0) {
+            if (($this->myTextFormatOptions & TextFormatOptions::COMPACT) !== 0) {
                 $line = preg_replace('/\s+/', ' ', $line);
             }
 
             if ($line === '') {
-                if (($this->myTextFormatOptions & TextFormatOption::COMPACT_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+                if (($this->myTextFormatOptions & TextFormatOptions::COMPACT_LINES) !== 0 && $lastEmptyLinesCount > 0) {
                     continue;
                 }
-                if (($this->myTextFormatOptions & TextFormatOption::TRIM_LINES) !== 0 && !$hasFoundNonEmptyLines) {
+                if (($this->myTextFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && !$hasFoundNonEmptyLines) {
                     continue;
                 }
 
@@ -113,7 +113,7 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
             $result[] = $line;
         }
 
-        if (($this->myTextFormatOptions & TextFormatOption::TRIM_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+        if (($this->myTextFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && $lastEmptyLinesCount > 0) {
             // Trim the last empty lines (we did not know until now that those were at the end).
             array_splice($result, -$lastEmptyLinesCount);
         }

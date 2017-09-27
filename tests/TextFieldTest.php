@@ -3,7 +3,7 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\TextField;
-use BlueMvc\Forms\TextFormatOption;
+use BlueMvc\Forms\TextFormatOptions;
 
 /**
  * Test TextField class.
@@ -120,25 +120,25 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['', null, '', '<input type="text" name="foo" required>'],
-            ['', TextFormatOption::NONE, '', '<input type="text" name="foo" required>'],
-            ['', TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
-            ['', TextFormatOption::COMPACT, '', '<input type="text" name="foo" required>'],
-            ['', TextFormatOption::COMPACT | TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOptions::NONE, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOptions::TRIM, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOptions::COMPACT, '', '<input type="text" name="foo" required>'],
+            ['', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, '', '<input type="text" name="foo" required>'],
             [' ', null, '', '<input type="text" name="foo" required>'],
-            [' ', TextFormatOption::NONE, ' ', '<input type="text" name="foo" value=" " required>'],
-            [' ', TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
-            [' ', TextFormatOption::COMPACT, ' ', '<input type="text" name="foo" value=" " required>'],
-            [' ', TextFormatOption::COMPACT | TextFormatOption::TRIM, '', '<input type="text" name="foo" required>'],
+            [' ', TextFormatOptions::NONE, ' ', '<input type="text" name="foo" value=" " required>'],
+            [' ', TextFormatOptions::TRIM, '', '<input type="text" name="foo" required>'],
+            [' ', TextFormatOptions::COMPACT, ' ', '<input type="text" name="foo" value=" " required>'],
+            [' ', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, '', '<input type="text" name="foo" required>'],
             ['Foo Bar', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::NONE, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::COMPACT, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['Foo Bar', TextFormatOption::COMPACT | TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOptions::NONE, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOptions::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOptions::COMPACT, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['Foo Bar', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
             ['  Foo  Bar  ', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['  Foo  Bar  ', TextFormatOption::NONE, '  Foo  Bar  ', '<input type="text" name="foo" value="  Foo  Bar  " required>'],
-            ['  Foo  Bar  ', TextFormatOption::TRIM, 'Foo  Bar', '<input type="text" name="foo" value="Foo  Bar" required>'],
-            ['  Foo  Bar  ', TextFormatOption::COMPACT, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
-            ['  Foo  Bar  ', TextFormatOption::COMPACT | TextFormatOption::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
+            ['  Foo  Bar  ', TextFormatOptions::NONE, '  Foo  Bar  ', '<input type="text" name="foo" value="  Foo  Bar  " required>'],
+            ['  Foo  Bar  ', TextFormatOptions::TRIM, 'Foo  Bar', '<input type="text" name="foo" value="Foo  Bar" required>'],
+            ['  Foo  Bar  ', TextFormatOptions::COMPACT, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
+            ['  Foo  Bar  ', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
         ];
     }
 

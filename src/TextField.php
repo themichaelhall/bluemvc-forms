@@ -27,7 +27,7 @@ class TextField extends AbstractTextInputField
      *
      * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '', $textFormatOptions = TextFormatOption::TRIM | TextFormatOption::COMPACT)
+    public function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT)
     {
         if (!is_string($value)) {
             throw new \InvalidArgumentException('$value parameter is not a string.');

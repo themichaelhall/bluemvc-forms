@@ -30,7 +30,7 @@ class UrlField extends AbstractTextInputField
      */
     public function __construct($name, UrlInterface $value = null)
     {
-        parent::__construct($name, $value !== null ? $value->__toString() : '', TextFormatOption::TRIM);
+        parent::__construct($name, $value !== null ? $value->__toString() : '', TextFormatOptions::TRIM);
 
         $this->myValue = $value;
     }

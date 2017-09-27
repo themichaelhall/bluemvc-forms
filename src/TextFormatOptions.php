@@ -12,7 +12,7 @@ namespace BlueMvc\Forms;
  *
  * @since 1.0.0
  */
-class TextFormatOption
+class TextFormatOptions
 {
     /**
      * No text formatting.
