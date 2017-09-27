@@ -36,9 +36,16 @@ class TextFormatOption
     const COMPACT = 2;
 
     /**
-     * Compact multiple empty lines into one.
+     * Removes empty lines from start and end.
      *
      * @since 1.0.0
      */
-    const COMPACT_LINES = 4;
+    const TRIM_LINES = 4;
+
+    /**
+     * Compact adjacent empty lines into one.
+     *
+     * @since 1.0.0
+     */
+    const COMPACT_LINES = 8;
 }

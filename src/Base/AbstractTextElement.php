@@ -83,8 +83,10 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     protected function formatText($text)
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
-        $lastLineWasEmpty = false;
         $result = [];
+
+        $lastEmptyLinesCount = 0;
+        $hasFoundNonEmptyLines = false;
 
         foreach ($lines as $line) {
             if (($this->myTextFormatOptions & TextFormatOption::TRIM) !== 0) {
@@ -93,12 +95,27 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
             if (($this->myTextFormatOptions & TextFormatOption::COMPACT) !== 0) {
                 $line = preg_replace('/\s+/', ' ', $line);
             }
-            if (($this->myTextFormatOptions & TextFormatOption::COMPACT_LINES) !== 0 && $lastLineWasEmpty && $line === '') {
-                continue;
+
+            if ($line === '') {
+                if (($this->myTextFormatOptions & TextFormatOption::COMPACT_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+                    continue;
+                }
+                if (($this->myTextFormatOptions & TextFormatOption::TRIM_LINES) !== 0 && !$hasFoundNonEmptyLines) {
+                    continue;
+                }
+
+                $lastEmptyLinesCount++;
+            } else {
+                $lastEmptyLinesCount = 0;
+                $hasFoundNonEmptyLines = true;
             }
 
             $result[] = $line;
-            $lastLineWasEmpty = $line === '';
+        }
+
+        if (($this->myTextFormatOptions & TextFormatOption::TRIM_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+            // Trim the last empty lines (we did not know until now that those were at the end).
+            array_splice($result, -$lastEmptyLinesCount);
         }
 
         return implode("\r\n", $result);
