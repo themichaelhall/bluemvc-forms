@@ -53,16 +53,46 @@ class CheckBoxTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired       True of value is required, false otherwise.
+     * @param string      $value            The value.
+     * @param bool        $expectedValue    The expected value.
+     * @param string      $expectedHtml     The expected html.
+     * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool        $expectedHasError The expected value from hasError method.
+     * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $checkbox = new CheckBox('foo');
-        $checkbox->setFormValue('on');
+        $checkbox->setRequired($isRequired);
+        $checkbox->setFormValue($value);
 
-        self::assertTrue($checkbox->getValue());
-        self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->getHtml());
-        self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->__toString());
-        self::assertFalse($checkbox->hasError());
+        self::assertSame($expectedValue, $checkbox->getValue());
+        self::assertSame($expectedHtml, $checkbox->getHtml());
+        self::assertSame($expectedHtml, $checkbox->__toString());
+        self::assertSame($expectedIsEmpty, $checkbox->isEmpty());
+        self::assertSame($expectedHasError, $checkbox->hasError());
+        self::assertSame($expectedError, $checkbox->getError());
+    }
+
+    /**
+     * Data provider for setFormValue method.
+     *
+     * @return array The data.
+     */
+    public function setFormValueDataProvider()
+    {
+        return [
+            [false, '', false, '<input type="checkbox" name="foo">', true, false, null],
+            [true, '', false, '<input type="checkbox" name="foo" required>', true, true, 'Missing value'],
+            [false, 'on', true, '<input type="checkbox" name="foo" checked>', false, false, null],
+            [true, 'on', true, '<input type="checkbox" name="foo" checked required>', false, false, null],
+            [false, 'foo', false, '<input type="checkbox" name="foo">', true, false, null],
+            [true, 'foo', false, '<input type="checkbox" name="foo" required>', true, true, 'Missing value'],
+        ];
     }
 
     /**
