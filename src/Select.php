@@ -136,9 +136,26 @@ class Select extends AbstractFormElement implements SetFormValueInterface
             throw new \InvalidArgumentException('$value parameter is not a string.');
         }
 
-        if (!isset($this->myOptions[$value])) {
-            $this->setError('Invalid value');
+        $this->onSetFormValue($value);
+    }
 
+    /**
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     */
+    protected function onSetFormValue($value)
+    {
+        // fixme: move this check to base class.
+        if ($value === '' && $this->isRequired()) { // fixme: isEmpty
+            $this->setError('Missing value');
+
+            return;
+        }
+
+        if (!isset($this->myOptions[$value])) {
             return;
         }
 

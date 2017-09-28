@@ -96,18 +96,46 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired       True of value is required, false otherwise.
+     * @param string      $value            The value.
+     * @param string      $expectedValue    The expected value.
+     * @param string      $expectedHtml     The expected html.
+     * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool        $expectedHasError The expected value from hasError method.
+     * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $select = new Select('foo');
+        $select->setRequired($isRequired);
+        $select->addOption(new Option('', 'None'));
         $select->addOption(new Option('1', 'One'));
-        $select->addOption(new Option('2', 'Two'));
-        $select->setFormValue('2');
+        $select->setFormValue($value);
 
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
-        self::assertSame('2', $select->getValue());
-        self::assertFalse($select->hasError());
+        self::assertSame($expectedHtml, $select->getHtml());
+        self::assertSame($expectedHtml, $select->__toString());
+        self::assertSame($expectedValue, $select->getValue());
+        self::assertSame($expectedIsEmpty, $select->isEmpty());
+        self::assertSame($expectedHasError, $select->hasError());
+        self::assertSame($expectedError, $select->getError());
+    }
+
+    /**
+     * Data provider for testSetFormValue method.
+     *
+     * @return array The data.
+     */
+    public function setFormValueDataProvider()
+    {
+        return [
+            [false, '', '', '<select name="foo"><option value="" selected>None</option><option value="1">One</option></select>', true, false, null],
+            [true, '', '', '<select name="foo" required><option value="" selected>None</option><option value="1">One</option></select>', true, true, 'Missing value'],
+            [false, '1', '1', '<select name="foo"><option value="">None</option><option value="1" selected>One</option></select>', false, false, null],
+            [true, '1', '1', '<select name="foo" required><option value="">None</option><option value="1" selected>One</option></select>', false, false, null],
+        ];
     }
 
     /**
@@ -291,8 +319,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('', $select->getValue());
-        self::assertTrue($select->hasError());
-        self::assertSame('Invalid value', $select->getError());
+        self::assertFalse($select->hasError());
+        self::assertNull($select->getError());
     }
 
     /**
@@ -308,7 +336,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('1', $select->getValue());
-        self::assertTrue($select->hasError());
-        self::assertSame('Invalid value', $select->getError());
+        self::assertFalse($select->hasError());
+        self::assertNull($select->getError());
     }
 }
