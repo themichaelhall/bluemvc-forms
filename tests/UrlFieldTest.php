@@ -156,10 +156,29 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmptyForNonEmptyValue()
     {
-        $urlField = new UrlField('foo');
-        $urlField->setFormValue('https://localhost:8080/');
+        $urlField = new UrlField('foo', Url::parse('https://localhost:8080/'));
 
         self::assertFalse($urlField->isEmpty());
+    }
+
+    /**
+     * Test isInvalid method for empty value.
+     */
+    public function testIsValidForEmptyValue()
+    {
+        $urlField = new UrlField('foo');
+
+        self::assertFalse($urlField->isInvalid());
+    }
+
+    /**
+     * Test isInvalid method for non-empty value.
+     */
+    public function testIsValidForNonEmptyValue()
+    {
+        $urlField = new UrlField('foo', Url::parse('https://localhost:8080/'));
+
+        self::assertFalse($urlField->isInvalid());
     }
 
     /**

@@ -32,6 +32,7 @@ class UrlField extends AbstractTextInputField
     {
         parent::__construct($name, $value !== null ? $value->__toString() : '', TextFormatOptions::TRIM);
 
+        $this->myIsInvalid = false;
         $this->myValue = $value;
     }
 
@@ -45,6 +46,18 @@ class UrlField extends AbstractTextInputField
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Returns true if the value is invalid, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if the value is invalid, false otherwise.
+     */
+    public function isInvalid()
+    {
+        return $this->myIsInvalid;
     }
 
     /**
@@ -76,6 +89,11 @@ class UrlField extends AbstractTextInputField
             $this->setError('Invalid value');
         }
     }
+
+    /**
+     * @var bool True if the value is invalid, false otherwise.
+     */
+    private $myIsInvalid;
 
     /**
      * @var UrlInterface|null My value.
