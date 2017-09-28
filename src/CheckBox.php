@@ -7,8 +7,7 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Base\AbstractFormElement;
-use BlueMvc\Forms\Interfaces\SetFormValueInterface;
+use BlueMvc\Forms\Base\AbstractSetFormValueElement;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -16,7 +15,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class CheckBox extends AbstractFormElement implements SetFormValueInterface
+class CheckBox extends AbstractSetFormValueElement
 {
     use BuildTagTrait;
 
@@ -90,24 +89,6 @@ class CheckBox extends AbstractFormElement implements SetFormValueInterface
     }
 
     /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->onSetFormValue($value);
-    }
-
-    /**
      * Called when value is set from form.
      *
      * @since 1.0.0
@@ -118,12 +99,7 @@ class CheckBox extends AbstractFormElement implements SetFormValueInterface
     {
         $this->myValue = strtolower($value) === 'on';
 
-        // fixme: move this check to base class.
-        if ($this->isEmpty() && $this->isRequired()) { // fixme: isEmpty
-            $this->setError('Missing value');
-
-            return;
-        }
+        parent::onSetFormValue($value);
     }
 
     /**

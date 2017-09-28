@@ -10,7 +10,7 @@ namespace BlueMvc\Forms;
 use BlueMvc\Core\Interfaces\RequestInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
-use BlueMvc\Forms\Interfaces\SetFormValueInterface;
+use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
 use BlueMvc\Forms\Interfaces\SetUploadedFileInterface;
 
 /**
@@ -39,7 +39,7 @@ abstract class PostForm implements FormInterface
 
         // Set form values for elements.
         foreach ($elements as $element) {
-            if ($element instanceof SetFormValueInterface) {
+            if ($element instanceof SetFormValueElementInterface) {
                 $formValue = $request->getFormParameter($element->getName()) ?: '';
                 $element->setFormValue($formValue);
             }

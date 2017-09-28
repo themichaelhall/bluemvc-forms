@@ -319,8 +319,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('', $select->getValue());
-        self::assertFalse($select->hasError());
-        self::assertNull($select->getError());
+        self::assertTrue($select->hasError());
+        self::assertSame('Missing value', $select->getError());
     }
 
     /**

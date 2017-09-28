@@ -7,7 +7,6 @@
 
 namespace BlueMvc\Forms\Base;
 
-use BlueMvc\Forms\Interfaces\SetFormValueInterface;
 use BlueMvc\Forms\TextFormatOptions;
 
 /**
@@ -15,7 +14,7 @@ use BlueMvc\Forms\TextFormatOptions;
  *
  * @since 1.0.0
  */
-abstract class AbstractTextElement extends AbstractFormElement implements SetFormValueInterface
+abstract class AbstractTextElement extends AbstractSetFormValueElement
 {
     /**
      * Returns true if element value is empty, false otherwise.
@@ -27,24 +26,6 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     public function isEmpty()
     {
         return $this->myText === '';
-    }
-
-    /**
-     * Sets the value from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
-     */
-    public function setFormValue($value)
-    {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        $this->onSetFormValue($value);
     }
 
     /**
@@ -145,6 +126,10 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     protected function onSetFormValue($value)
     {
         $this->onFormatText($value);
+        $this->myText = $value;
+
+        parent::onSetFormValue($value);
+
         $this->onSetText($value);
     }
 
@@ -157,14 +142,6 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      */
     protected function onSetText($text)
     {
-        $this->myText = $text;
-
-        // fixme: move this check to base class.
-        if ($this->isEmpty() && $this->isRequired()) {
-            $this->setError('Missing value');
-
-            return;
-        }
     }
 
     /**
