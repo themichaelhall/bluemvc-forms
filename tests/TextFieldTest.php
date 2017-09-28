@@ -54,16 +54,45 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired       True of value is required, false otherwise.
+     * @param string      $value            The value.
+     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool        $expectedHasError The expected value from hasError method.
+     * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $textField = new TextField('foo');
-        $textField->setFormValue('bar');
+        $textField->setRequired($isRequired);
+        $textField->setFormValue($value);
 
-        self::assertSame('bar', $textField->getValue());
-        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
-        self::assertFalse($textField->hasError());
+        self::assertSame($expectedValue, $textField->getValue());
+        self::assertSame($expectedIsEmpty, $textField->isEmpty());
+        self::assertSame($expectedHasError, $textField->hasError());
+        self::assertSame($expectedError, $textField->getError());
+    }
+
+    /**
+     * Data provider for testSetFormValue method.
+     *
+     * @return array The data.
+     */
+    public function setFormValueDataProvider()
+    {
+        return [
+            [false, '', '', true, false, null],
+            [true, '', '', true, true, 'Missing value'],
+            [false, ' ', '', true, false, null],
+            [true, ' ', '', true, true, 'Missing value'],
+            [false, 'FooBar', 'FooBar', false, false, null],
+            [true, 'FooBar', 'FooBar', false, false, null],
+            [false, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+            [true, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+        ];
     }
 
     /**

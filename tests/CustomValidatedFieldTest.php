@@ -2,23 +2,23 @@
 
 namespace BlueMvc\Forms\Tests;
 
-use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
+use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\TextFormatOptions;
 
 /**
- * Test NameField class.
+ * Class Test CustomValidatedField class.
  */
-class NameFieldTest extends \PHPUnit_Framework_TestCase
+class CustomValidatedFieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test basic constructor.
      */
     public function testBasicConstructor()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertSame('<input type="text" name="foo" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" required>', $nameField->__toString());
+        self::assertSame('<input type="text" name="foo" required>', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="foo" required>', $customValidatedField->__toString());
     }
 
     /**
@@ -29,7 +29,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithInvalidNameParameterType()
     {
-        new NameField(0);
+        new CustomValidatedField(0);
     }
 
     /**
@@ -37,9 +37,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertSame('foo', $nameField->getName());
+        self::assertSame('foo', $customValidatedField->getName());
     }
 
     /**
@@ -47,9 +47,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValue()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertSame('', $nameField->getValue());
+        self::assertSame('', $customValidatedField->getValue());
     }
 
     /**
@@ -66,14 +66,14 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
-        $nameField = new NameField('foo');
-        $nameField->setRequired($isRequired);
-        $nameField->setFormValue($value);
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setRequired($isRequired);
+        $customValidatedField->setFormValue($value);
 
-        self::assertSame($expectedValue, $nameField->getValue());
-        self::assertSame($expectedIsEmpty, $nameField->isEmpty());
-        self::assertSame($expectedHasError, $nameField->hasError());
-        self::assertSame($expectedError, $nameField->getError());
+        self::assertSame($expectedValue, $customValidatedField->getValue());
+        self::assertSame($expectedIsEmpty, $customValidatedField->isEmpty());
+        self::assertSame($expectedHasError, $customValidatedField->hasError());
+        self::assertSame($expectedError, $customValidatedField->getError());
     }
 
     /**
@@ -90,8 +90,12 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
             [true, ' ', '', true, true, 'Missing value'],
             [false, 'FooBar', 'FooBar', false, false, null],
             [true, 'FooBar', 'FooBar', false, false, null],
-            [false, ' foo  bar baz ', 'Foo Bar Baz', false, false, null],
-            [true, ' foo  bar baz ', 'Foo Bar Baz', false, false, null],
+            [false, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+            [true, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+            [false, 'invalid', 'invalid', false, true, 'Value of custom validated field is invalid.'],
+            [true, 'invalid', 'invalid', false, true, 'Value of custom validated field is invalid.'],
+            [false, ' invalid ', 'invalid', false, true, 'Value of custom validated field is invalid.'],
+            [true, ' invalid ', 'invalid', false, true, 'Value of custom validated field is invalid.'],
         ];
     }
 
@@ -103,8 +107,8 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormValueWithInvalidValueParameterType()
     {
-        $nameField = new NameField('foo');
-        $nameField->setFormValue(true);
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setFormValue(true);
     }
 
     /**
@@ -115,7 +119,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithInvalidTextFormatOptionsParameterType()
     {
-        new NameField('foo', '', false);
+        new CustomValidatedField('foo', '', null);
     }
 
     /**
@@ -130,14 +134,14 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
     {
-        $nameField = $textFormatOptions !== null ?
-            new NameField('foo', '', $textFormatOptions) :
-            new NameField('foo');
-        $nameField->setFormValue($value);
+        $customValidatedField = $textFormatOptions !== null ?
+            new CustomValidatedField('foo', '', $textFormatOptions) :
+            new CustomValidatedField('foo');
+        $customValidatedField->setFormValue($value);
 
-        self::assertSame($expectedValue, $nameField->getValue());
-        self::assertSame($expectedHtmlString, $nameField->getHtml());
-        self::assertSame($expectedHtmlString, $nameField->__toString());
+        self::assertSame($expectedValue, $customValidatedField->getValue());
+        self::assertSame($expectedHtmlString, $customValidatedField->getHtml());
+        self::assertSame($expectedHtmlString, $customValidatedField->__toString());
     }
 
     /**
@@ -168,11 +172,6 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
             ['  Foo  Bar  ', TextFormatOptions::TRIM, 'Foo  Bar', '<input type="text" name="foo" value="Foo  Bar" required>'],
             ['  Foo  Bar  ', TextFormatOptions::COMPACT, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
             ['  Foo  Bar  ', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['  foo  bar  ', null, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
-            ['  foo  bar  ', TextFormatOptions::NONE, '  Foo  Bar  ', '<input type="text" name="foo" value="  Foo  Bar  " required>'],
-            ['  foo  bar  ', TextFormatOptions::TRIM, 'Foo  Bar', '<input type="text" name="foo" value="Foo  Bar" required>'],
-            ['  foo  bar  ', TextFormatOptions::COMPACT, ' Foo Bar ', '<input type="text" name="foo" value=" Foo Bar " required>'],
-            ['  foo  bar  ', TextFormatOptions::COMPACT | TextFormatOptions::TRIM, 'Foo Bar', '<input type="text" name="foo" value="Foo Bar" required>'],
         ];
     }
 
@@ -181,11 +180,11 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutputIsHtmlEncoded()
     {
-        $nameField = new NameField('<p>');
-        $nameField->setFormValue('<em>');
+        $customValidatedField = new CustomValidatedField('<p>');
+        $customValidatedField->setFormValue('<em>');
 
-        self::assertSame('<input type="text" name="&lt;p&gt;" value="&lt;em&gt;" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="&lt;p&gt;" value="&lt;em&gt;" required>', $nameField->__toString());
+        self::assertSame('<input type="text" name="&lt;p&gt;" value="&lt;em&gt;" required>', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="&lt;p&gt;" value="&lt;em&gt;" required>', $customValidatedField->__toString());
     }
 
     /**
@@ -193,9 +192,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmptyForEmptyValue()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertTrue($nameField->isEmpty());
+        self::assertTrue($customValidatedField->isEmpty());
     }
 
     /**
@@ -203,10 +202,10 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsEmptyForNonEmptyValue()
     {
-        $nameField = new NameField('foo');
-        $nameField->setFormValue('bar');
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setFormValue('bar');
 
-        self::assertFalse($nameField->isEmpty());
+        self::assertFalse($customValidatedField->isEmpty());
     }
 
     /**
@@ -214,9 +213,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasError()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertFalse($nameField->hasError());
+        self::assertFalse($customValidatedField->hasError());
     }
 
     /**
@@ -224,9 +223,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetError()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertNull($nameField->getError());
+        self::assertNull($customValidatedField->getError());
     }
 
     /**
@@ -234,11 +233,11 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetError()
     {
-        $nameField = new NameField('foo');
-        $nameField->setError('My Error');
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setError('My Error');
 
-        self::assertTrue($nameField->hasError());
-        self::assertSame('My Error', $nameField->getError());
+        self::assertTrue($customValidatedField->hasError());
+        self::assertSame('My Error', $customValidatedField->getError());
     }
 
     /**
@@ -249,8 +248,8 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetErrorWithInvalidParameterType()
     {
-        $nameField = new NameField('foo');
-        $nameField->setError(1.2);
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setError(1.2);
     }
 
     /**
@@ -258,11 +257,11 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithDefaultValue()
     {
-        $nameField = new NameField('foo', 'Bar');
+        $customValidatedField = new CustomValidatedField('foo', 'bar');
 
-        self::assertSame('Bar', $nameField->getValue());
-        self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="Bar" required>', $nameField->__toString());
+        self::assertSame('bar', $customValidatedField->getValue());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->__toString());
     }
 
     /**
@@ -270,10 +269,10 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testValueIsFormattedInConstructor()
     {
-        $textField = new NameField('foo', ' bar  baz ');
+        $customValidatedField = new CustomValidatedField('foo', ' bar ');
 
-        self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->__toString());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->__toString());
     }
 
     /**
@@ -284,7 +283,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorWithDefaultValueWithInvalidParameterType()
     {
-        new NameField('foo', false);
+        new CustomValidatedField('foo', false);
     }
 
     /**
@@ -292,9 +291,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHtmlWithAttributes()
     {
-        $nameField = new NameField('foo', 'Bar');
+        $customValidatedField = new CustomValidatedField('foo', 'bar');
 
-        self::assertSame('<input type="text" name="foo" value="Bar" required id="baz" readonly>', $nameField->getHtml(['id' => 'baz', 'readonly' => true]));
+        self::assertSame('<input type="text" name="foo" value="bar" required id="baz" readonly>', $customValidatedField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
 
     /**
@@ -302,9 +301,9 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsRequired()
     {
-        $nameField = new NameField('foo');
+        $customValidatedField = new CustomValidatedField('foo');
 
-        self::assertTrue($nameField->isRequired());
+        self::assertTrue($customValidatedField->isRequired());
     }
 
     /**
@@ -312,12 +311,12 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRequired()
     {
-        $nameField = new NameField('foo', 'Bar');
-        $nameField->setRequired(false);
+        $customValidatedField = new CustomValidatedField('foo', 'bar');
+        $customValidatedField->setRequired(false);
 
-        self::assertFalse($nameField->isRequired());
-        self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->getHtml());
-        self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->__toString());
+        self::assertFalse($customValidatedField->isRequired());
+        self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->__toString());
     }
 
     /**
@@ -328,7 +327,7 @@ class NameFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetRequiredWithInvalidParameterType()
     {
-        $nameField = new NameField('foo');
-        $nameField->setRequired(0);
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setRequired(0);
     }
 }

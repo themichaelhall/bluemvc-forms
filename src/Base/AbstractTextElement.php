@@ -53,13 +53,17 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
      * @since 1.0.0
      *
      * @param string $name              The name.
-     * @param string $text              The value to display in input field.
+     * @param string $value             The value to display in input field.
      * @param int    $textFormatOptions The text format options.
      *
      * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    protected function __construct($name, $text = '', $textFormatOptions = TextFormatOptions::NONE)
+    protected function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::NONE)
     {
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException('$value parameter is not a string.');
+        }
+
         if (!is_int($textFormatOptions)) {
             throw new \InvalidArgumentException('$textFormatOptions parameter is not an integer.');
         }
@@ -67,8 +71,8 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
         parent::__construct($name);
 
         $this->myTextFormatOptions = $textFormatOptions;
-        $this->onFormatText($text);
-        $this->myText = $text;
+        $this->onFormatText($value);
+        $this->myText = $value;
     }
 
     /**
@@ -154,6 +158,13 @@ abstract class AbstractTextElement extends AbstractFormElement implements SetFor
     protected function onSetText($text)
     {
         $this->myText = $text;
+
+        // fixme: move this check to base class.
+        if ($this->isEmpty() && $this->isRequired()) {
+            $this->setError('Missing value');
+
+            return;
+        }
     }
 
     /**

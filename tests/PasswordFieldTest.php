@@ -53,16 +53,45 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired       True of value is required, false otherwise.
+     * @param string      $value            The value.
+     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool        $expectedHasError The expected value from hasError method.
+     * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $passwordField = new PasswordField('foo');
-        $passwordField->setFormValue('bar');
+        $passwordField->setRequired($isRequired);
+        $passwordField->setFormValue($value);
 
-        self::assertSame('bar', $passwordField->getValue());
-        self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
-        self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
-        self::assertFalse($passwordField->hasError());
+        self::assertSame($expectedValue, $passwordField->getValue());
+        self::assertSame($expectedIsEmpty, $passwordField->isEmpty());
+        self::assertSame($expectedHasError, $passwordField->hasError());
+        self::assertSame($expectedError, $passwordField->getError());
+    }
+
+    /**
+     * Data provider for testSetFormValue method.
+     *
+     * @return array The data.
+     */
+    public function setFormValueDataProvider()
+    {
+        return [
+            [false, '', '', true, false, null],
+            [true, '', '', true, true, 'Missing value'],
+            [false, ' ', ' ', false, false, null],
+            [true, ' ', ' ', false, false, null],
+            [false, 'FooBar', 'FooBar', false, false, null],
+            [true, 'FooBar', 'FooBar', false, false, null],
+            [false, ' Foo  Bar Baz ', ' Foo  Bar Baz ', false, false, null],
+            [true, ' Foo  Bar Baz ', ' Foo  Bar Baz ', false, false, null],
+        ];
     }
 
     /**

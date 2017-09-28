@@ -32,10 +32,6 @@ class TextArea extends AbstractTextElement
      */
     public function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT | TextFormatOptions::TRIM_LINES | TextFormatOptions::COMPACT_LINES)
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
         parent::__construct($name, $value, $textFormatOptions);
     }
 

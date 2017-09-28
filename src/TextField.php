@@ -29,10 +29,6 @@ class TextField extends AbstractTextInputField
      */
     public function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT)
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
         parent::__construct($name, $value, $textFormatOptions);
     }
 

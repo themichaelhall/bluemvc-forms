@@ -20,6 +20,10 @@ class CustomValidatedField extends TextField
     {
         parent::onSetText($text);
 
+        if ($this->hasError()) {
+            return;
+        }
+
         if ($text === 'invalid') {
             $this->setError('Value of custom validated field is invalid.');
         }

@@ -54,31 +54,49 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired        True of value is required, false otherwise.
+     * @param string      $value             The value.
+     * @param string|null $expectedValue     The expected value or null if no value.
+     * @param bool        $expectedIsEmpty   The expected value from isEmpty method.
+     * @param bool        $expectedIsInvalid The expected value from isInvalid method.
+     * @param bool        $expectedHasError  The expected value from hasError method.
+     * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
     {
         $urlField = new UrlField('foo');
-        $urlField->setFormValue('https://domain.com/');
+        $urlField->setRequired($isRequired);
+        $urlField->setFormValue($value);
 
-        self::assertSame('https://domain.com/', $urlField->getValue()->__toString());
-        self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->getHtml());
-        self::assertSame('<input type="url" name="foo" value="https://domain.com/" required>', $urlField->__toString());
-        self::assertFalse($urlField->hasError());
+        self::assertSame($expectedValue, $urlField->getValue() !== null ? $urlField->getValue()->__toString() : null);
+        self::assertSame($expectedIsEmpty, $urlField->isEmpty());
+        self::assertSame($expectedIsInvalid, $urlField->isInvalid());
+        self::assertSame($expectedHasError, $urlField->hasError());
+        self::assertSame($expectedError, $urlField->getError());
     }
 
     /**
-     * Test setFormValue method with invalid url.
+     * Data provider for testSetFormValue method.
+     *
+     * @return array The data.
      */
-    public function testSetFormValueWithInvalidUrl()
+    public function setFormValueDataProvider()
     {
-        $urlField = new UrlField('foo');
-        $urlField->setFormValue('FooBar');
-
-        self::assertNull($urlField->getValue());
-        self::assertSame('<input type="url" name="foo" value="FooBar" required>', $urlField->getHtml());
-        self::assertSame('<input type="url" name="foo" value="FooBar" required>', $urlField->__toString());
-        self::assertTrue($urlField->hasError());
-        self::assertSame('Invalid value', $urlField->getError());
+        return [
+            [false, '', null, true, false, false, null],
+            [true, '', null, true, false, true, 'Missing value'],
+            [false, ' ', null, true, false, false, null],
+            [true, ' ', null, true, false, true, 'Missing value'],
+            [false, 'FooBar', null, false, true, true, 'Invalid value'],
+            [true, 'FooBar', null, false, true, true, 'Invalid value'],
+            [false, 'http://example.com/', 'http://example.com/', false, false, false, null],
+            [true, 'http://example.com/', 'http://example.com/', false, false, false, null],
+            [false, ' http://example.com/ ', 'http://example.com/', false, false, false, null],
+            [true, ' http://example.com/ ', 'http://example.com/', false, false, false, null],
+        ];
     }
 
     /**

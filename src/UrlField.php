@@ -83,10 +83,22 @@ class UrlField extends AbstractTextInputField
     {
         parent::onSetText($text);
 
+        $this->myIsInvalid = false;
+        $this->myValue = null;
+
+        if ($this->hasError()) {
+            return;
+        }
+
+        if ($this->isEmpty()) {
+            return;
+        }
+
         $this->myValue = Url::tryParse($text);
 
         if ($this->myValue === null) {
             $this->setError('Invalid value');
+            $this->myIsInvalid = true;
         }
     }
 

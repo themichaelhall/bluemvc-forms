@@ -54,16 +54,47 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setFormValue method.
+     *
+     * @dataProvider setFormValueDataProvider
+     *
+     * @param bool        $isRequired       True of value is required, false otherwise.
+     * @param string      $value            The value.
+     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool        $expectedHasError The expected value from hasError method.
+     * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue()
+    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $textArea = new TextArea('foo');
-        $textArea->setFormValue('bar');
+        $textArea->setRequired($isRequired);
+        $textArea->setFormValue($value);
 
-        self::assertSame('bar', $textArea->getValue());
-        self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->getHtml());
-        self::assertSame('<textarea name="foo" required>bar</textarea>', $textArea->__toString());
-        self::assertFalse($textArea->hasError());
+        self::assertSame($expectedValue, $textArea->getValue());
+        self::assertSame($expectedIsEmpty, $textArea->isEmpty());
+        self::assertSame($expectedHasError, $textArea->hasError());
+        self::assertSame($expectedError, $textArea->getError());
+    }
+
+    /**
+     * Data provider for testSetFormValue method.
+     *
+     * @return array The data.
+     */
+    public function setFormValueDataProvider()
+    {
+        return [
+            [false, '', '', true, false, null],
+            [true, '', '', true, true, 'Missing value'],
+            [false, ' ', '', true, false, null],
+            [true, ' ', '', true, true, 'Missing value'],
+            [false, " \r\n ", '', true, false, null],
+            [true, " \r\n ", '', true, true, 'Missing value'],
+            [false, 'FooBar', 'FooBar', false, false, null],
+            [true, 'FooBar', 'FooBar', false, false, null],
+            [false, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+            [true, ' Foo  Bar Baz ', 'Foo Bar Baz', false, false, null],
+        ];
     }
 
     /**
