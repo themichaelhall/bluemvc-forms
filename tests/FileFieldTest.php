@@ -2,6 +2,7 @@
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\FileField;
 use DataTypes\FilePath;
@@ -55,21 +56,50 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test setUploadedFile method.
+     *
+     * @dataProvider setUploadedFileDataProvider
+     *
+     * @param bool                       $isRequired       True of value is required, false otherwise.
+     * @param UploadedFileInterface|null $uploadedFile     The uploaded file or null if no uploaded file.
+     * @param UploadedFileInterface|null $expectedValue    The expected value or null if no value.
+     * @param string                     $expectedHtml     The expected html.
+     * @param bool                       $expectedIsEmpty  The expected value from isEmpty method.
+     * @param bool                       $expectedHasError The expected value from hasError method.
+     * @param string|null                $expectedError    The expected error or null if no error.
      */
-    public function testSetUploadedFile()
+    public function testSetUploadedFile($isRequired, $uploadedFile, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
     {
         $fileField = new FileField('foo');
+        $fileField->setRequired($isRequired);
+        $fileField->setUploadedFile($uploadedFile);
+
+        self::assertSame($uploadedFile, $expectedValue);
+        self::assertSame($expectedHtml, $fileField->getHtml());
+        self::assertSame($expectedHtml, $fileField->__toString());
+        self::assertSame($expectedIsEmpty, $fileField->isEmpty());
+        self::assertSame($expectedHasError, $fileField->hasError());
+        self::assertSame($expectedError, $fileField->getError());
+    }
+
+    /**
+     * Data provider for testSetUploadedFile method.
+     *
+     * @return array The data.
+     */
+    public function setUploadedFileDataProvider()
+    {
         $uploadedFile = new UploadedFile(
             FilePath::parse('/tmp/file.txt'),
             'File.txt',
             16
         );
-        $fileField->setUploadedFile($uploadedFile);
 
-        self::assertSame($uploadedFile, $fileField->getValue());
-        self::assertSame('<input type="file" name="foo" required>', $fileField->getHtml());
-        self::assertSame('<input type="file" name="foo" required>', $fileField->__toString());
-        self::assertFalse($fileField->hasError());
+        return [
+            [false, null, null, '<input type="file" name="foo">', true, false, null],
+            [true, null, null, '<input type="file" name="foo" required>', true, true, 'Missing file'],
+            [false, $uploadedFile, $uploadedFile, '<input type="file" name="foo">', false, false, null],
+            [true, $uploadedFile, $uploadedFile, '<input type="file" name="foo" required>', false, false, null],
+        ];
     }
 
     /**
@@ -91,22 +121,6 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
         $fileField = new FileField('foo');
 
         self::assertTrue($fileField->isEmpty());
-    }
-
-    /**
-     * Test isEmpty method for non-empty value.
-     */
-    public function testIsEmptyForNoneEmptyValue()
-    {
-        $fileField = new FileField('foo');
-        $uploadedFile = new UploadedFile(
-            FilePath::parse('/tmp/file.txt'),
-            'File.txt',
-            16
-        );
-        $fileField->setUploadedFile($uploadedFile);
-
-        self::assertFalse($fileField->isEmpty());
     }
 
     /**

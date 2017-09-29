@@ -11,7 +11,7 @@ use BlueMvc\Core\Interfaces\RequestInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
 use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
-use BlueMvc\Forms\Interfaces\SetUploadedFileInterface;
+use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
 
 /**
  * Class representing a post form.
@@ -43,16 +43,9 @@ abstract class PostForm implements FormInterface
                 $formValue = $request->getFormParameter($element->getName()) ?: '';
                 $element->setFormValue($formValue);
             }
-            if ($element instanceof SetUploadedFileInterface) {
+            if ($element instanceof SetUploadedFileElementInterface) {
                 $uploadedFile = $request->getUploadedFile($element->getName());
                 $element->setUploadedFile($uploadedFile);
-            }
-        }
-
-        // Validate elements.
-        foreach ($elements as $element) {
-            if ($element->isRequired() && $element->isEmpty()) {
-                $element->setError('Value is required.');
             }
         }
 

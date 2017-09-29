@@ -125,39 +125,39 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getCustomValidatedField()->getValue());
         self::assertTrue($this->form->getCustomValidatedField()->hasError());
-        self::assertSame('Value is required.', $this->form->getCustomValidatedField()->getError());
+        self::assertSame('Missing value', $this->form->getCustomValidatedField()->getError());
 
         self::assertSame('', $this->form->getTextField()->getValue());
         self::assertTrue($this->form->getTextField()->hasError());
-        self::assertSame('Value is required.', $this->form->getTextField()->getError());
+        self::assertSame('Missing value', $this->form->getTextField()->getError());
 
         self::assertSame('', $this->form->getPasswordField()->getValue());
         self::assertTrue($this->form->getPasswordField()->hasError());
-        self::assertSame('Value is required.', $this->form->getPasswordField()->getError());
+        self::assertSame('Missing value', $this->form->getPasswordField()->getError());
 
         self::assertSame('', $this->form->getNameField()->getValue());
         self::assertTrue($this->form->getNameField()->hasError());
-        self::assertSame('Value is required.', $this->form->getNameField()->getError());
+        self::assertSame('Missing value', $this->form->getNameField()->getError());
 
         self::assertNull($this->form->getUrlField()->getValue());
         self::assertTrue($this->form->getUrlField()->hasError());
-        self::assertSame('Value is required.', $this->form->getUrlField()->getError());
+        self::assertSame('Missing value', $this->form->getUrlField()->getError());
 
         self::assertFalse($this->form->getCheckBox()->getValue());
         self::assertTrue($this->form->getCheckBox()->hasError());
-        self::assertSame('Value is required.', $this->form->getCheckBox()->getError());
+        self::assertSame('Missing value', $this->form->getCheckBox()->getError());
 
         self::assertSame('', $this->form->getTextArea()->getValue());
         self::assertTrue($this->form->getTextArea()->hasError());
-        self::assertSame('Value is required.', $this->form->getTextArea()->getError());
+        self::assertSame('Missing value', $this->form->getTextArea()->getError());
 
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertTrue($this->form->getSelect()->hasError());
-        self::assertSame('Value is required.', $this->form->getSelect()->getError());
+        self::assertSame('Missing value', $this->form->getSelect()->getError());
 
         self::assertNull($this->form->getFileField()->getValue());
         self::assertTrue($this->form->getFileField()->hasError());
-        self::assertSame('Value is required.', $this->form->getFileField()->getError());
+        self::assertSame('Missing file', $this->form->getFileField()->getError());
     }
 
     /**
@@ -208,7 +208,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertFalse($this->form->getCheckBox()->getValue());
         self::assertTrue($this->form->getCheckBox()->hasError());
-        self::assertSame('Value is required.', $this->form->getCheckBox()->getError());
+        self::assertSame('Missing value', $this->form->getCheckBox()->getError());
 
         self::assertSame('invalid', $this->form->getTextArea()->getValue());
         self::assertTrue($this->form->getTextArea()->hasError());
@@ -216,7 +216,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertTrue($this->form->getSelect()->hasError());
-        self::assertSame('Value is required.', $this->form->getSelect()->getError());
+        self::assertSame('Missing value', $this->form->getSelect()->getError());
 
         self::assertSame('This is an invalid file!', file_get_contents($this->form->getFileField()->getValue()->getPath()->__toString()));
         self::assertSame('invalid-file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
