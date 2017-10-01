@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
+use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
@@ -38,6 +39,7 @@ class BasicTestPostForm extends PostForm
         $this->mySelect->addOption(new Option('foo', 'Foo option'));
         $this->mySelect->addOption(new Option('bar', 'Bar option'));
         $this->myFileField = new FileField('file');
+        $this->myEmailField = new EmailField('email');
 
         $this->myEventMethodsCalled = [];
     }
@@ -153,6 +155,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my email field.
+     *
+     * @return EmailField My email field.
+     */
+    public function getEmailField()
+    {
+        return $this->myEmailField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -265,6 +277,11 @@ class BasicTestPostForm extends PostForm
      * @var FileField My file field.
      */
     protected $myFileField;
+
+    /**
+     * @var EmailField My email field.
+     */
+    protected $myEmailField;
 
     /**
      * @var string[] The names of the event methods called.

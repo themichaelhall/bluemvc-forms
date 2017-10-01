@@ -51,6 +51,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getFileField()->getValue());
         self::assertFalse($this->form->getFileField()->hasError());
+
+        self::assertNull($this->form->getEmailField()->getValue());
+        self::assertFalse($this->form->getEmailField()->hasError());
     }
 
     /**
@@ -69,6 +72,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('textarea', "My\nText");
         $request->setFormParameter('select', 'bar');
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/file.txt');
+        $request->setFormParameter('email', 'foo.bar@example.com');
 
         $isProcessed = $this->form->process($request);
 
@@ -106,6 +110,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
         self::assertSame(12, $this->form->getFileField()->getValue()->getSize());
         self::assertFalse($this->form->getFileField()->hasError());
+
+        self::assertSame('foo.bar@example.com', $this->form->getEmailField()->getValue()->__toString());
+        self::assertFalse($this->form->getEmailField()->hasError());
     }
 
     /**
@@ -158,6 +165,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getFileField()->getValue());
         self::assertTrue($this->form->getFileField()->hasError());
         self::assertSame('Missing file', $this->form->getFileField()->getError());
+
+        self::assertNull($this->form->getEmailField()->getValue());
+        self::assertTrue($this->form->getEmailField()->hasError());
+        self::assertSame('Missing value', $this->form->getEmailField()->getError());
     }
 
     /**
@@ -176,6 +187,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('textarea', 'invalid');
         $request->setFormParameter('select', 'baz');
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/invalid-file.txt');
+        $request->setFormParameter('email', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -223,6 +235,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame(24, $this->form->getFileField()->getValue()->getSize());
         self::assertTrue($this->form->getFileField()->hasError());
         self::assertSame('File content is invalid.', $this->form->getFileField()->getError());
+
+        self::assertNull($this->form->getEmailField()->getValue());
+        self::assertTrue($this->form->getEmailField()->hasError());
+        self::assertSame('Invalid value', $this->form->getEmailField()->getError());
     }
 
     /**
