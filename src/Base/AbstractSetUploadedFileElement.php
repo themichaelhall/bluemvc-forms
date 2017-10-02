@@ -18,6 +18,18 @@ use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
 abstract class AbstractSetUploadedFileElement extends AbstractFormElement implements SetUploadedFileElementInterface
 {
     /**
+     * Sets the uploaded file from form.
+     *
+     * @since 1.0.0
+     *
+     * @param UploadedFileInterface|null $uploadedFile The uploaded file from form.
+     */
+    public function setUploadedFile(UploadedFileInterface $uploadedFile = null)
+    {
+        $this->onSetUploadedFile($uploadedFile);
+    }
+
+    /**
      * Called when uploaded file is set from form.
      *
      * @since 1.0.0
