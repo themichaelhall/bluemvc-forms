@@ -54,6 +54,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getEmailField()->getValue());
         self::assertFalse($this->form->getEmailField()->hasError());
+
+        self::assertSame('', $this->form->getHiddenField()->getValue());
+        self::assertFalse($this->form->getHiddenField()->hasError());
     }
 
     /**
@@ -73,6 +76,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('select', 'bar');
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/file.txt');
         $request->setFormParameter('email', 'foo.bar@example.com');
+        $request->setFormParameter('hidden', 'My hidden value');
 
         $isProcessed = $this->form->process($request);
 
@@ -113,6 +117,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('foo.bar@example.com', $this->form->getEmailField()->getValue()->__toString());
         self::assertFalse($this->form->getEmailField()->hasError());
+
+        self::assertSame('My hidden value', $this->form->getHiddenField()->getValue());
+        self::assertFalse($this->form->getHiddenField()->hasError());
     }
 
     /**
@@ -169,6 +176,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getEmailField()->getValue());
         self::assertTrue($this->form->getEmailField()->hasError());
         self::assertSame('Missing value', $this->form->getEmailField()->getError());
+
+        self::assertSame('', $this->form->getHiddenField()->getValue());
+        self::assertTrue($this->form->getHiddenField()->hasError());
+        self::assertSame('Missing value', $this->form->getHiddenField()->getError());
     }
 
     /**
@@ -188,6 +199,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('select', 'baz');
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/invalid-file.txt');
         $request->setFormParameter('email', 'invalid');
+        $request->setFormParameter('hidden', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -239,6 +251,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getEmailField()->getValue());
         self::assertTrue($this->form->getEmailField()->hasError());
         self::assertSame('Invalid value', $this->form->getEmailField()->getError());
+
+        self::assertSame('invalid', $this->form->getHiddenField()->getValue());
+        self::assertTrue($this->form->getHiddenField()->hasError());
+        self::assertSame('Value of hidden field is invalid.', $this->form->getHiddenField()->getError());
     }
 
     /**

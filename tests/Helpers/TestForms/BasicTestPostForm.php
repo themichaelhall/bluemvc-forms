@@ -5,6 +5,7 @@ namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
+use BlueMvc\Forms\HiddenField;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
@@ -40,6 +41,7 @@ class BasicTestPostForm extends PostForm
         $this->mySelect->addOption(new Option('bar', 'Bar option'));
         $this->myFileField = new FileField('file');
         $this->myEmailField = new EmailField('email');
+        $this->myHiddenField = new HiddenField('hidden');
 
         $this->myEventMethodsCalled = [];
     }
@@ -165,6 +167,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my hidden field.
+     *
+     * @return HiddenField My hidden field.
+     */
+    public function getHiddenField()
+    {
+        return $this->myHiddenField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -195,6 +207,10 @@ class BasicTestPostForm extends PostForm
 
         if ($this->myFileField->getValue() !== null && strpos(file_get_contents($this->myFileField->getValue()->getPath()->__toString()), 'invalid') !== false) {
             $this->myFileField->setError('File content is invalid.');
+        }
+
+        if ($this->myHiddenField->getValue() === 'invalid') {
+            $this->myHiddenField->setError('Value of hidden field is invalid.');
         }
     }
 
@@ -282,6 +298,11 @@ class BasicTestPostForm extends PostForm
      * @var EmailField My email field.
      */
     protected $myEmailField;
+
+    /**
+     * @var HiddenField My hidden field.
+     */
+    protected $myHiddenField;
 
     /**
      * @var string[] The names of the event methods called.
