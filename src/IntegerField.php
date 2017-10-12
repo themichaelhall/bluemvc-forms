@@ -32,6 +32,25 @@ class IntegerField extends AbstractTextInputField
 
         $this->myIsInvalid = false;
         $this->myValue = $value;
+        $this->myMinimumValue = null;
+    }
+
+    /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @param array $attributes The attributes.
+     *
+     * @return string The element html.
+     */
+    public function getHtml(array $attributes = [])
+    {
+        if ($this->myMinimumValue !== null) {
+            $attributes['min'] = $this->myMinimumValue;
+        }
+
+        return parent::getHtml($attributes);
     }
 
     /**
@@ -56,6 +75,24 @@ class IntegerField extends AbstractTextInputField
     public function isInvalid()
     {
         return $this->myIsInvalid;
+    }
+
+    /**
+     * Sets the minimum value.
+     *
+     * @since 1.0.0
+     *
+     * @param int $minimumValue The minimum value.
+     *
+     * @throws \InvalidArgumentException If the $minimumValue parameter is not an integer.
+     */
+    public function setMinimumValue($minimumValue)
+    {
+        if (!is_int($minimumValue)) {
+            throw new \InvalidArgumentException('$minimumValue parameter is not an integer.');
+        }
+
+        $this->myMinimumValue = $minimumValue;
     }
 
     /**
@@ -99,7 +136,16 @@ class IntegerField extends AbstractTextInputField
             return;
         }
 
-        $this->myValue = intval($text);
+        $value = intval($text);
+
+        if ($this->myMinimumValue !== null && $value < $this->myMinimumValue) {
+            $this->setError('Invalid value');
+            $this->myIsInvalid = true;
+
+            return;
+        }
+
+        $this->myValue = $value;
     }
 
     /**
@@ -111,4 +157,9 @@ class IntegerField extends AbstractTextInputField
      * @var int|null My value.
      */
     private $myValue;
+
+    /**
+     * @var int|null My minimum value.
+     */
+    private $myMinimumValue;
 }

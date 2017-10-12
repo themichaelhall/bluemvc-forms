@@ -58,16 +58,20 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
      *
      * @param bool        $isRequired        True of value is required, false otherwise.
      * @param string      $value             The value.
+     * @param int|null    $minimumValue      The minimum value or null if no minimum value.
      * @param string|null $expectedValue     The expected value or null if no value.
      * @param bool        $expectedIsEmpty   The expected value from isEmpty method.
      * @param bool        $expectedIsInvalid The expected value from isInvalid method.
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue($isRequired, $value, $minimumValue, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
     {
         $integerField = new IntegerField('foo');
         $integerField->setRequired($isRequired);
+        if ($minimumValue !== null) {
+            $integerField->setMinimumValue($minimumValue);
+        }
         $integerField->setFormValue($value);
 
         self::assertSame($expectedValue, $integerField->getValue());
@@ -85,20 +89,24 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
     public function setFormValueDataProvider()
     {
         return [
-            [false, '', null, true, false, false, null],
-            [true, '', null, true, false, true, 'Missing value'],
-            [false, ' ', null, true, false, false, null],
-            [true, ' ', null, true, false, true, 'Missing value'],
-            [false, '10', 10, false, false, false, null],
-            [true, '10', 10, false, false, false, null],
-            [false, '0', 0, false, false, false, null],
-            [true, '0', 0, false, false, false, null],
-            [false, '-3', -3, false, false, false, null],
-            [true, '-3', -3, false, false, false, null],
-            [false, '  10  ', 10, false, false, false, null],
-            [true, '  10  ', 10, false, false, false, null],
-            [false, 'FooBar', null, false, true, true, 'Invalid value'],
-            [true, 'FooBar', null, false, true, true, 'Invalid value'],
+            [false, '', null, null, true, false, false, null],
+            [true, '', null, null, true, false, true, 'Missing value'],
+            [false, ' ', null, null, true, false, false, null],
+            [true, ' ', null, null, true, false, true, 'Missing value'],
+            [false, '10', null, 10, false, false, false, null],
+            [true, '10', null, 10, false, false, false, null],
+            [false, '0', null, 0, false, false, false, null],
+            [true, '0', null, 0, false, false, false, null],
+            [false, '-3', null, -3, false, false, false, null],
+            [true, '-3', null, -3, false, false, false, null],
+            [false, '  10  ', null, 10, false, false, false, null],
+            [true, '  10  ', null, 10, false, false, false, null],
+            [false, 'FooBar', null, null, false, true, true, 'Invalid value'],
+            [true, 'FooBar', null, null, false, true, true, 'Invalid value'],
+            [false, '10', 10, 10, false, false, false, null],
+            [true, '10', 10, 10, false, false, false, null],
+            [false, '10', 11, null, false, true, true, 'Invalid value'],
+            [true, '10', 11, null, false, true, true, 'Invalid value'],
         ];
     }
 
@@ -301,5 +309,28 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
     {
         $integerField = new IntegerField('foo');
         $integerField->setRequired(0);
+    }
+
+    /**
+     * Test setMinimumValue method.
+     */
+    public function testSetMinimumValue()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setMinimumValue(2);
+        self::assertSame('<input type="number" name="foo" required min="2">', $integerField->getHtml());
+        self::assertSame('<input type="number" name="foo" required min="2">', $integerField->__toString());
+    }
+
+    /**
+     * Test setMinimumValue method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $minimumValue parameter is not an integer.
+     */
+    public function testSetMinimumValueWithInvalidParameterType()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setMinimumValue('Foo');
     }
 }
