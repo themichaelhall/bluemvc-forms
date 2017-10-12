@@ -6,6 +6,7 @@ use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\HiddenField;
+use BlueMvc\Forms\IntegerField;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
@@ -42,6 +43,7 @@ class BasicTestPostForm extends PostForm
         $this->myFileField = new FileField('file');
         $this->myEmailField = new EmailField('email');
         $this->myHiddenField = new HiddenField('hidden');
+        $this->myIntegerField = new IntegerField('integer');
 
         $this->myEventMethodsCalled = [];
     }
@@ -177,6 +179,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my integer field.
+     *
+     * @return IntegerField My integer field.
+     */
+    public function getIntegerField()
+    {
+        return $this->myIntegerField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -303,6 +315,11 @@ class BasicTestPostForm extends PostForm
      * @var HiddenField My hidden field.
      */
     protected $myHiddenField;
+
+    /**
+     * @var IntegerField My integer field.
+     */
+    protected $myIntegerField;
 
     /**
      * @var string[] The names of the event methods called.

@@ -57,6 +57,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getHiddenField()->getValue());
         self::assertFalse($this->form->getHiddenField()->hasError());
+
+        self::assertNull($this->form->getIntegerField()->getValue());
+        self::assertFalse($this->form->getIntegerField()->hasError());
     }
 
     /**
@@ -77,6 +80,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/file.txt');
         $request->setFormParameter('email', 'foo.bar@example.com');
         $request->setFormParameter('hidden', 'My hidden value');
+        $request->setFormParameter('integer', '12345');
 
         $isProcessed = $this->form->process($request);
 
@@ -120,6 +124,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('My hidden value', $this->form->getHiddenField()->getValue());
         self::assertFalse($this->form->getHiddenField()->hasError());
+
+        self::assertSame(12345, $this->form->getIntegerField()->getValue());
+        self::assertFalse($this->form->getIntegerField()->hasError());
     }
 
     /**
@@ -180,6 +187,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getHiddenField()->getValue());
         self::assertTrue($this->form->getHiddenField()->hasError());
         self::assertSame('Missing value', $this->form->getHiddenField()->getError());
+
+        self::assertNull($this->form->getIntegerField()->getValue());
+        self::assertTrue($this->form->getIntegerField()->hasError());
+        self::assertSame('Missing value', $this->form->getIntegerField()->getError());
     }
 
     /**
@@ -200,6 +211,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/invalid-file.txt');
         $request->setFormParameter('email', 'invalid');
         $request->setFormParameter('hidden', 'invalid');
+        $request->setFormParameter('integer', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -255,6 +267,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('invalid', $this->form->getHiddenField()->getValue());
         self::assertTrue($this->form->getHiddenField()->hasError());
         self::assertSame('Value of hidden field is invalid.', $this->form->getHiddenField()->getError());
+
+        self::assertNull($this->form->getIntegerField()->getValue());
+        self::assertTrue($this->form->getIntegerField()->hasError());
+        self::assertSame('Invalid value', $this->form->getIntegerField()->getError());
     }
 
     /**
