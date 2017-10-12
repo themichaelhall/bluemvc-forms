@@ -59,19 +59,26 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
      * @param bool        $isRequired        True of value is required, false otherwise.
      * @param string      $value             The value.
      * @param int|null    $minimumValue      The minimum value or null if no minimum value.
+     * @param int|null    $maximumValue      The maximum value or null if no maximum value.
      * @param string|null $expectedValue     The expected value or null if no value.
      * @param bool        $expectedIsEmpty   The expected value from isEmpty method.
      * @param bool        $expectedIsInvalid The expected value from isInvalid method.
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $minimumValue, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue($isRequired, $value, $minimumValue, $maximumValue, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
     {
         $integerField = new IntegerField('foo');
         $integerField->setRequired($isRequired);
+
         if ($minimumValue !== null) {
             $integerField->setMinimumValue($minimumValue);
         }
+
+        if ($maximumValue !== null) {
+            $integerField->setMaximumValue($maximumValue);
+        }
+
         $integerField->setFormValue($value);
 
         self::assertSame($expectedValue, $integerField->getValue());
@@ -89,24 +96,38 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
     public function setFormValueDataProvider()
     {
         return [
-            [false, '', null, null, true, false, false, null],
-            [true, '', null, null, true, false, true, 'Missing value'],
-            [false, ' ', null, null, true, false, false, null],
-            [true, ' ', null, null, true, false, true, 'Missing value'],
-            [false, '10', null, 10, false, false, false, null],
-            [true, '10', null, 10, false, false, false, null],
-            [false, '0', null, 0, false, false, false, null],
-            [true, '0', null, 0, false, false, false, null],
-            [false, '-3', null, -3, false, false, false, null],
-            [true, '-3', null, -3, false, false, false, null],
-            [false, '  10  ', null, 10, false, false, false, null],
-            [true, '  10  ', null, 10, false, false, false, null],
-            [false, 'FooBar', null, null, false, true, true, 'Invalid value'],
-            [true, 'FooBar', null, null, false, true, true, 'Invalid value'],
-            [false, '10', 10, 10, false, false, false, null],
-            [true, '10', 10, 10, false, false, false, null],
-            [false, '10', 11, null, false, true, true, 'Invalid value'],
-            [true, '10', 11, null, false, true, true, 'Invalid value'],
+            [false, '', null, null, null, true, false, false, null],
+            [true, '', null, null, null, true, false, true, 'Missing value'],
+            [false, ' ', null, null, null, true, false, false, null],
+            [true, ' ', null, null, null, true, false, true, 'Missing value'],
+            [false, '10', null, null, 10, false, false, false, null],
+            [true, '10', null, null, 10, false, false, false, null],
+            [false, '0', null, null, 0, false, false, false, null],
+            [true, '0', null, null, 0, false, false, false, null],
+            [false, '-3', null, null, -3, false, false, false, null],
+            [true, '-3', null, null, -3, false, false, false, null],
+            [false, '  10  ', null, null, 10, false, false, false, null],
+            [true, '  10  ', null, null, 10, false, false, false, null],
+            [false, 'FooBar', null, null, null, false, true, true, 'Invalid value'],
+            [true, 'FooBar', null, null, null, false, true, true, 'Invalid value'],
+            [false, '10', 10, null, 10, false, false, false, null],
+            [true, '10', 10, null, 10, false, false, false, null],
+            [false, '10', 11, null, null, false, true, true, 'Invalid value'],
+            [true, '10', 11, null, null, false, true, true, 'Invalid value'],
+            [false, '10', null, 10, 10, false, false, false, null],
+            [true, '10', null, 10, 10, false, false, false, null],
+            [false, '10', null, 9, null, false, true, true, 'Invalid value'],
+            [true, '10', null, 9, null, false, true, true, 'Invalid value'],
+            [false, '-2', -1, 1, null, false, true, true, 'Invalid value'],
+            [true, '-2', -1, 1, null, false, true, true, 'Invalid value'],
+            [false, '-1', -1, 1, -1, false, false, false, null],
+            [true, '-1', -1, 1, -1, false, false, false, null],
+            [false, '0', -1, 1, 0, false, false, false, null],
+            [true, '0', -1, 1, 0, false, false, false, null],
+            [false, '1', -1, 1, 1, false, false, false, null],
+            [true, '1', -1, 1, 1, false, false, false, null],
+            [false, '2', -1, 1, null, false, true, true, 'Invalid value'],
+            [true, '2', -1, 1, null, false, true, true, 'Invalid value'],
         ];
     }
 
@@ -332,5 +353,28 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
     {
         $integerField = new IntegerField('foo');
         $integerField->setMinimumValue('Foo');
+    }
+
+    /**
+     * Test setMaximumValue method.
+     */
+    public function testSetMaximumValue()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setMaximumValue(-2);
+        self::assertSame('<input type="number" name="foo" required max="-2">', $integerField->getHtml());
+        self::assertSame('<input type="number" name="foo" required max="-2">', $integerField->__toString());
+    }
+
+    /**
+     * Test setMaximumValue method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $maximumValue parameter is not an integer.
+     */
+    public function testSetMaximumValueWithInvalidParameterType()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setMaximumValue('Foo');
     }
 }

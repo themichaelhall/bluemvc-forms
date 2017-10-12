@@ -33,6 +33,7 @@ class IntegerField extends AbstractTextInputField
         $this->myIsInvalid = false;
         $this->myValue = $value;
         $this->myMinimumValue = null;
+        $this->myMaximumValue = null;
     }
 
     /**
@@ -48,6 +49,10 @@ class IntegerField extends AbstractTextInputField
     {
         if ($this->myMinimumValue !== null) {
             $attributes['min'] = $this->myMinimumValue;
+        }
+
+        if ($this->myMaximumValue !== null) {
+            $attributes['max'] = $this->myMaximumValue;
         }
 
         return parent::getHtml($attributes);
@@ -75,6 +80,24 @@ class IntegerField extends AbstractTextInputField
     public function isInvalid()
     {
         return $this->myIsInvalid;
+    }
+
+    /**
+     * Sets the maximum value.
+     *
+     * @since 1.0.0
+     *
+     * @param int $maximumValue The maximum value.
+     *
+     * @throws \InvalidArgumentException If the $maximumValue parameter is not an integer.
+     */
+    public function setMaximumValue($maximumValue)
+    {
+        if (!is_int($maximumValue)) {
+            throw new \InvalidArgumentException('$maximumValue parameter is not an integer.');
+        }
+
+        $this->myMaximumValue = $maximumValue;
     }
 
     /**
@@ -138,7 +161,7 @@ class IntegerField extends AbstractTextInputField
 
         $value = intval($text);
 
-        if ($this->myMinimumValue !== null && $value < $this->myMinimumValue) {
+        if ($this->myMinimumValue !== null && $value < $this->myMinimumValue || $this->myMaximumValue !== null && $value > $this->myMaximumValue) {
             $this->setError('Invalid value');
             $this->myIsInvalid = true;
 
@@ -162,4 +185,9 @@ class IntegerField extends AbstractTextInputField
      * @var int|null My minimum value.
      */
     private $myMinimumValue;
+
+    /**
+     * @var int|null My maximum value.
+     */
+    private $myMaximumValue;
 }
