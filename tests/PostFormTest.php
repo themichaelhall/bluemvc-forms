@@ -60,6 +60,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getIntegerField()->getValue());
         self::assertFalse($this->form->getIntegerField()->hasError());
+
+        self::assertNull($this->form->getDateField()->getValue());
+        self::assertFalse($this->form->getDateField()->hasError());
     }
 
     /**
@@ -81,6 +84,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('email', 'foo.bar@example.com');
         $request->setFormParameter('hidden', 'My hidden value');
         $request->setFormParameter('integer', '12345');
+        $request->setFormParameter('date', '2017-10-15');
 
         $isProcessed = $this->form->process($request);
 
@@ -127,6 +131,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame(12345, $this->form->getIntegerField()->getValue());
         self::assertFalse($this->form->getIntegerField()->hasError());
+
+        self::assertSame('2017-10-15 00:00:00', $this->form->getDateField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($this->form->getDateField()->hasError());
     }
 
     /**
@@ -191,6 +198,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getIntegerField()->getValue());
         self::assertTrue($this->form->getIntegerField()->hasError());
         self::assertSame('Missing value', $this->form->getIntegerField()->getError());
+
+        self::assertNull($this->form->getDateField()->getValue());
+        self::assertTrue($this->form->getDateField()->hasError());
+        self::assertSame('Missing value', $this->form->getDateField()->getError());
     }
 
     /**
@@ -212,6 +223,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('email', 'invalid');
         $request->setFormParameter('hidden', 'invalid');
         $request->setFormParameter('integer', 'invalid');
+        $request->setFormParameter('date', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -271,6 +283,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getIntegerField()->getValue());
         self::assertTrue($this->form->getIntegerField()->hasError());
         self::assertSame('Invalid value', $this->form->getIntegerField()->getError());
+
+        self::assertNull($this->form->getDateField()->getValue());
+        self::assertTrue($this->form->getDateField()->hasError());
+        self::assertSame('Invalid value', $this->form->getDateField()->getError());
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
+use BlueMvc\Forms\DateField;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\HiddenField;
@@ -44,6 +45,7 @@ class BasicTestPostForm extends PostForm
         $this->myEmailField = new EmailField('email');
         $this->myHiddenField = new HiddenField('hidden');
         $this->myIntegerField = new IntegerField('integer');
+        $this->myDateField = new DateField('date');
 
         $this->myEventMethodsCalled = [];
     }
@@ -189,6 +191,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my date field.
+     *
+     * @return DateField My date field.
+     */
+    public function getDateField()
+    {
+        return $this->myDateField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -320,6 +332,11 @@ class BasicTestPostForm extends PostForm
      * @var IntegerField My integer field.
      */
     protected $myIntegerField;
+
+    /**
+     * @var DateField My date field.
+     */
+    protected $myDateField;
 
     /**
      * @var string[] The names of the event methods called.
