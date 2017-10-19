@@ -13,6 +13,7 @@ use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\Select;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
+use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextArea;
 use BlueMvc\Forms\TextField;
@@ -46,6 +47,7 @@ class BasicTestPostForm extends PostForm
         $this->myHiddenField = new HiddenField('hidden');
         $this->myIntegerField = new IntegerField('integer');
         $this->myDateField = new DateField('date');
+        $this->myJsonFileField = new JsonFileField('json');
 
         $this->myEventMethodsCalled = [];
     }
@@ -201,6 +203,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my json file field.
+     *
+     * @return JsonFileField My json file field.
+     */
+    public function getJsonFileField()
+    {
+        return $this->myJsonFileField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -337,6 +349,11 @@ class BasicTestPostForm extends PostForm
      * @var DateField My date field.
      */
     protected $myDateField;
+
+    /**
+     * @var JsonFileField My json file field.
+     */
+    protected $myJsonFileField;
 
     /**
      * @var string[] The names of the event methods called.

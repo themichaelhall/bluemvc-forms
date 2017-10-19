@@ -63,6 +63,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getDateField()->getValue());
         self::assertFalse($this->form->getDateField()->hasError());
+
+        self::assertNull($this->form->getJsonFileField()->getValue());
+        self::assertSame([], $this->form->getJsonFileField()->getJson());
+        self::assertFalse($this->form->getJsonFileField()->hasError());
     }
 
     /**
@@ -85,6 +89,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('hidden', 'My hidden value');
         $request->setFormParameter('integer', '12345');
         $request->setFormParameter('date', '2017-10-15');
+        $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.json');
 
         $isProcessed = $this->form->process($request);
 
@@ -134,6 +139,12 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('2017-10-15 00:00:00', $this->form->getDateField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($this->form->getDateField()->hasError());
+
+        self::assertSame('{"Foo": "Bar"}', file_get_contents($this->form->getJsonFileField()->getValue()->getPath()->__toString()));
+        self::assertSame('file.json', basename($this->form->getJsonFileField()->getValue()->getOriginalName()));
+        self::assertSame(14, $this->form->getJsonFileField()->getValue()->getSize());
+        self::assertSame(['Foo' => 'Bar'], $this->form->getJsonFileField()->getJson());
+        self::assertFalse($this->form->getJsonFileField()->hasError());
     }
 
     /**
@@ -202,6 +213,11 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getDateField()->getValue());
         self::assertTrue($this->form->getDateField()->hasError());
         self::assertSame('Missing value', $this->form->getDateField()->getError());
+
+        self::assertNull($this->form->getJsonFileField()->getValue());
+        self::assertSame([], $this->form->getJsonFileField()->getJson());
+        self::assertTrue($this->form->getJsonFileField()->hasError());
+        self::assertSame('Missing file', $this->form->getJsonFileField()->getError());
     }
 
     /**
@@ -224,6 +240,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('hidden', 'invalid');
         $request->setFormParameter('integer', 'invalid');
         $request->setFormParameter('date', 'invalid');
+        $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.txt');
 
         $isProcessed = $this->form->process($request);
 
@@ -287,6 +304,13 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getDateField()->getValue());
         self::assertTrue($this->form->getDateField()->hasError());
         self::assertSame('Invalid value', $this->form->getDateField()->getError());
+
+        self::assertSame('Hello World!', file_get_contents($this->form->getJsonFileField()->getValue()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($this->form->getJsonFileField()->getValue()->getOriginalName()));
+        self::assertSame(12, $this->form->getJsonFileField()->getValue()->getSize());
+        self::assertSame([], $this->form->getJsonFileField()->getJson());
+        self::assertTrue($this->form->getJsonFileField()->hasError());
+        self::assertSame('Invalid json content.', $this->form->getJsonFileField()->getError());
     }
 
     /**

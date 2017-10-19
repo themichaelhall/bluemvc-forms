@@ -88,8 +88,8 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function setUploadedFileDataProvider()
     {
-        $uploadedFile = new UploadedFile(
-            FilePath::parse('/tmp/file.txt'),
+        $textFile = new UploadedFile(
+            FilePath::parse(__DIR__ . '/Helpers/TestFiles/file.txt'),
             'File.txt',
             16
         );
@@ -97,8 +97,8 @@ class FileFieldTest extends \PHPUnit_Framework_TestCase
         return [
             [false, null, null, '<input type="file" name="foo">', true, false, null],
             [true, null, null, '<input type="file" name="foo" required>', true, true, 'Missing file'],
-            [false, $uploadedFile, $uploadedFile, '<input type="file" name="foo">', false, false, null],
-            [true, $uploadedFile, $uploadedFile, '<input type="file" name="foo" required>', false, false, null],
+            [false, $textFile, $textFile, '<input type="file" name="foo">', false, false, null],
+            [true, $textFile, $textFile, '<input type="file" name="foo" required>', false, false, null],
         ];
     }
 
