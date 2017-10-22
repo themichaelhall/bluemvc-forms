@@ -22,6 +22,18 @@ use DataTypes\Url;
 abstract class PostForm implements FormInterface
 {
     /**
+     * Returns true if check origin is enabled, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if check origin is enabled, false otherwise.
+     */
+    public function isCheckOriginEnabled()
+    {
+        return $this->myCheckOriginEnabled;
+    }
+
+    /**
      * Processes the form.
      *
      * @since 1.0.0
@@ -37,7 +49,7 @@ abstract class PostForm implements FormInterface
         }
 
         // fixme: optionally disable this check
-        if (!self::myIsValidOrigin($request)) {
+        if ($this->myCheckOriginEnabled && !self::myIsValidOrigin($request)) {
             return false;
         }
 
@@ -175,4 +187,9 @@ abstract class PostForm implements FormInterface
 
         return $headerUrl->getHost()->__toString() === $request->getUrl()->getHost()->__toString();
     }
+
+    /**
+     * @var bool True if check origin is enabled, false otherwise.
+     */
+    private $myCheckOriginEnabled = true;
 }

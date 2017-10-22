@@ -11,6 +11,16 @@ use BlueMvc\Forms\Tests\Helpers\TestForms\SimpleTestPostForm;
 class CheckOriginTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Test isCheckOriginEnabled method.
+     */
+    public function testIsCheckOriginEnabled()
+    {
+        $form = new SimpleTestPostForm();
+
+        self::assertTrue($form->isCheckOriginEnabled());
+    }
+
+    /**
      * Test origin check in form.
      *
      * @dataProvider checkOriginDataProvider
