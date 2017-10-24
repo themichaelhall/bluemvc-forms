@@ -48,7 +48,6 @@ abstract class PostForm implements FormInterface
             return false;
         }
 
-        // fixme: optionally disable this check
         if ($this->myCheckOriginEnabled && !self::myIsValidOrigin($request)) {
             return false;
         }
@@ -87,6 +86,24 @@ abstract class PostForm implements FormInterface
         $this->onProcessed();
 
         return !$hasError;
+    }
+
+    /**
+     * Sets whether check origin is enabled.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $checkOriginEnabled True if check origin is enabled, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the $checkOriginEnabled parameter is not a boolean.
+     */
+    public function setCheckOriginEnabled($checkOriginEnabled)
+    {
+        if (!is_bool($checkOriginEnabled)) {
+            throw new \InvalidArgumentException('$checkOriginEnabled parameter is not a boolean.');
+        }
+
+        $this->myCheckOriginEnabled = $checkOriginEnabled;
     }
 
     /**
