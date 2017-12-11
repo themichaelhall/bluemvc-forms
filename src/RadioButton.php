@@ -7,20 +7,20 @@
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Forms\Interfaces\OptionInterface;
+use BlueMvc\Forms\Interfaces\RadioButtonInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
- * Class representing a select option.
+ * Class representing a radio button.
  *
  * @since 1.0.0
  */
-class Option implements OptionInterface
+class RadioButton implements RadioButtonInterface
 {
     use BuildTagTrait;
 
     /**
-     * Constructs the option.
+     * Constructs the radio button.
      *
      * @since 1.0.0
      *
@@ -29,7 +29,7 @@ class Option implements OptionInterface
      *
      * @throws \InvalidArgumentException If any of the parameters is not a string.
      */
-    public function __construct($value, $label)
+    public function __construct($value, $label = '')
     {
         if (!is_string($value)) {
             throw new \InvalidArgumentException('$value parameter is not a string.');
@@ -44,22 +44,24 @@ class Option implements OptionInterface
     }
 
     /**
-     * Returns the option html.
+     * Returns the element html.
      *
      * @since 1.0.0
      *
      * @param array $attributes The attributes.
      *
-     * @return string The option html.
+     * @return string The element html.
      */
     public function getHtml(array $attributes = [])
     {
-        return self::myBuildTag('option', $this->getLabel(),
+        return self::myBuildTag('input', null,
             array_merge(
                 [
-                    'value' => $this->getValue(),
+                    'type'  => 'radio',
+                    'value' => $this->myValue,
                 ],
-                $attributes)
+                $attributes
+            )
         );
     }
 
@@ -88,11 +90,11 @@ class Option implements OptionInterface
     }
 
     /**
-     * Returns the option as a string.
+     * Returns the radio button as a string.
      *
      * @since 1.0.0
      *
-     * @return string The option as a string.
+     * @return string The radio button as a string.
      */
     public function __toString()
     {
