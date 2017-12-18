@@ -92,4 +92,74 @@ class RadioButtonTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('<input type="radio" value="foo" class="baz" disabled>', $radioButton->getHtml(['class' => 'baz', 'disabled' => true]));
     }
+
+    /**
+     * Test getName method.
+     */
+    public function testGetName()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+
+        self::assertSame('', $radioButton->getName());
+    }
+
+    /**
+     * Test setName method.
+     */
+    public function testSetName()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setName('baz');
+
+        self::assertSame('baz', $radioButton->getName());
+        self::assertSame('<input type="radio" name="baz" value="foo">', $radioButton->getHtml());
+        self::assertSame('<input type="radio" name="baz" value="foo">', $radioButton->__toString());
+    }
+
+    /**
+     * Test setName method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $name parameter is not a string.
+     */
+    public function testSetNameWithInvalidParameterType()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setName(1000);
+    }
+
+    /**
+     * Test isSelected method.
+     */
+    public function testIsSelected()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+
+        self::assertFalse($radioButton->isSelected());
+    }
+
+    /**
+     * Test setSelected method.
+     */
+    public function testSetSelected()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setSelected(true);
+
+        self::assertTrue($radioButton->isSelected());
+        self::assertSame('<input type="radio" value="foo" checked>', $radioButton->getHtml());
+        self::assertSame('<input type="radio" value="foo" checked>', $radioButton->__toString());
+    }
+
+    /**
+     * Test setSelected method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $isSelected parameter is not a boolean.
+     */
+    public function testSetSelectedWithInvalidParameterType()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setSelected('baz');
+    }
 }

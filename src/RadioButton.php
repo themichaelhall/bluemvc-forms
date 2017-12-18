@@ -41,6 +41,8 @@ class RadioButton implements RadioButtonInterface
 
         $this->myValue = $value;
         $this->myLabel = $label;
+        $this->myName = '';
+        $this->myIsSelected = false;
     }
 
     /**
@@ -57,8 +59,10 @@ class RadioButton implements RadioButtonInterface
         return self::myBuildTag('input', null,
             array_merge(
                 [
-                    'type'  => 'radio',
-                    'value' => $this->myValue,
+                    'type'    => 'radio',
+                    'name'    => $this->myName !== '' ? $this->myName : null,
+                    'value'   => $this->myValue,
+                    'checked' => $this->myIsSelected,
                 ],
                 $attributes
             )
@@ -78,6 +82,18 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
+     * Returns the name.
+     *
+     * @since 1.0.0
+     *
+     * @return string The name.
+     */
+    public function getName()
+    {
+        return $this->myName;
+    }
+
+    /**
      * Returns the value.
      *
      * @since 1.0.0
@@ -87,6 +103,54 @@ class RadioButton implements RadioButtonInterface
     public function getValue()
     {
         return $this->myValue;
+    }
+
+    /**
+     * Returns true if radio button is selected, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if radio button is selected, false otherwise.
+     */
+    public function isSelected()
+    {
+        return $this->myIsSelected;
+    }
+
+    /**
+     * Sets the name.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The name.
+     *
+     * @throws \InvalidArgumentException If the $name parameter is not a string.
+     */
+    public function setName($name)
+    {
+        if (!is_string($name)) {
+            throw new \InvalidArgumentException('$name parameter is not a string.');
+        }
+
+        $this->myName = $name;
+    }
+
+    /**
+     * Sets whether this radio button is selected.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isSelected True if radio button is selected, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the $isSelected parameter is not a boolean.
+     */
+    public function setSelected($isSelected)
+    {
+        if (!is_bool($isSelected)) {
+            throw new \InvalidArgumentException('$isSelected parameter is not a boolean.');
+        }
+
+        $this->myIsSelected = $isSelected;
     }
 
     /**
@@ -110,4 +174,14 @@ class RadioButton implements RadioButtonInterface
      * @var string My label.
      */
     private $myLabel;
+
+    /**
+     * @var string My name.
+     */
+    private $myName;
+
+    /**
+     * @var bool True if this radio button is selected, false otherwise.
+     */
+    private $myIsSelected;
 }

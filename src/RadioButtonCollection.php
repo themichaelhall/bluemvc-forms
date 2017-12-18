@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractSetFormValueElement;
+use BlueMvc\Forms\Interfaces\RadioButtonInterface;
 
 /**
  * Class representing a collection of radio buttons.
@@ -35,6 +36,22 @@ class RadioButtonCollection extends AbstractSetFormValueElement
         parent::__construct($name);
 
         $this->myValue = $value;
+        $this->myRadioButtons = [];
+    }
+
+    /**
+     * Adds a radio button.
+     *
+     * @since 1.0.0
+     *
+     * @param RadioButtonInterface $radioButton The radio button.
+     */
+    public function addRadioButton(RadioButtonInterface $radioButton)
+    {
+        $radioButton->setName($this->getName());
+        $radioButton->setSelected($radioButton->getValue() === $this->myValue);
+
+        $this->myRadioButtons[] = $radioButton;
     }
 
     /**
@@ -48,7 +65,12 @@ class RadioButtonCollection extends AbstractSetFormValueElement
      */
     public function getHtml(array $attributes = [])
     {
-        return '';
+        $result = '';
+        foreach ($this->myRadioButtons as $radioButton) {
+            $result .= $radioButton->getHtml($attributes) . htmlspecialchars($radioButton->getLabel());
+        }
+
+        return $result;
     }
 
     /**
@@ -79,4 +101,9 @@ class RadioButtonCollection extends AbstractSetFormValueElement
      * @var string My value.
      */
     private $myValue;
+
+    /**
+     * @var RadioButtonInterface[] My radio buttons.
+     */
+    private $myRadioButtons;
 }

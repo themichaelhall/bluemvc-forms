@@ -2,6 +2,7 @@
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Forms\RadioButton;
 use BlueMvc\Forms\RadioButtonCollection;
 
 /**
@@ -49,6 +50,32 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
         $radioButtonCollection = new RadioButtonCollection('foo');
 
         self::assertSame('', $radioButtonCollection->getValue());
+    }
+
+    /**
+     * Test addRadioButton method.
+     */
+    public function testAddRadioButton()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->__toString());
+    }
+
+    /**
+     * Test addRadioButton method with one radio button selected.
+     */
+    public function testAddRadioButtonWithOneRadioButtonSelected()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '2');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->__toString());
     }
 
     /**
