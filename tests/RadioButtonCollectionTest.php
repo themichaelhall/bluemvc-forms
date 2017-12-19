@@ -79,6 +79,21 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test getRadioButtons method.
+     */
+    public function testGetRadioButtons()
+    {
+        $radioButton1 = new RadioButton('', 'None');
+        $radioButton2 = new RadioButton('1', 'One');
+
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton($radioButton1);
+        $radioButtonCollection->addRadioButton($radioButton2);
+
+        self::assertSame([$radioButton1, $radioButton2], $radioButtonCollection->getRadioButtons());
+    }
+
+    /**
      * Test isEmpty method.
      */
     public function testIsEmpty()

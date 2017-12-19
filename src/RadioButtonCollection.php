@@ -74,6 +74,18 @@ class RadioButtonCollection extends AbstractSetFormValueElement
     }
 
     /**
+     * Returns the radio buttons.
+     *
+     * @since 1.0.0
+     *
+     * @return RadioButtonInterface[] The radio buttons.
+     */
+    public function getRadioButtons()
+    {
+        return $this->myRadioButtons;
+    }
+
+    /**
      * Returns the element value.
      *
      * @since 1.0.0
