@@ -110,6 +110,27 @@ class RadioButtonCollection extends AbstractSetFormValueElement
     }
 
     /**
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     */
+    protected function onSetFormValue($value)
+    {
+        foreach ($this->myRadioButtons as $radioButton) {
+            $isMatch = ($value === $radioButton->getValue());
+            $radioButton->setSelected($isMatch);
+
+            if ($isMatch) {
+                $this->myValue = $value;
+            }
+        }
+
+        parent::onSetFormValue($value);
+    }
+
+    /**
      * @var string My value.
      */
     private $myValue;
