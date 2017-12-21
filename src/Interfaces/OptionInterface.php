@@ -44,6 +44,24 @@ interface OptionInterface
     public function getValue();
 
     /**
+     * Returns true if option is selected, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if option is selected, false otherwise.
+     */
+    public function isSelected();
+
+    /**
+     * Sets whether this option is selected.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isSelected True if option is selected, false otherwise.
+     */
+    public function setSelected($isSelected);
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0

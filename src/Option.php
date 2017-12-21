@@ -41,6 +41,7 @@ class Option implements OptionInterface
 
         $this->myValue = $value;
         $this->myLabel = $label;
+        $this->myIsSelected = false;
     }
 
     /**
@@ -57,7 +58,8 @@ class Option implements OptionInterface
         return self::myBuildTag('option', $this->getLabel(),
             array_merge(
                 [
-                    'value' => $this->getValue(),
+                    'value'    => $this->getValue(),
+                    'selected' => $this->myIsSelected,
                 ],
                 $attributes)
         );
@@ -88,6 +90,36 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns true if option is selected, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if option is selected, false otherwise.
+     */
+    public function isSelected()
+    {
+        return $this->myIsSelected;
+    }
+
+    /**
+     * Sets whether this option is selected.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isSelected True if option is selected, false otherwise.
+     *
+     * @throws \InvalidArgumentException If the $isSelected parameter is not a boolean.
+     */
+    public function setSelected($isSelected)
+    {
+        if (!is_bool($isSelected)) {
+            throw new \InvalidArgumentException('$isSelected parameter is not a boolean.');
+        }
+
+        $this->myIsSelected = $isSelected;
+    }
+
+    /**
      * Returns the option as a string.
      *
      * @since 1.0.0
@@ -108,4 +140,9 @@ class Option implements OptionInterface
      * @var string My label.
      */
     private $myLabel;
+
+    /**
+     * @var bool True if this option is selected, false otherwise.
+     */
+    private $myIsSelected;
 }

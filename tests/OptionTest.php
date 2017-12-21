@@ -82,4 +82,39 @@ class OptionTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('<option value="foo" class="baz" disabled>bar</option>', $option->getHtml(['class' => 'baz', 'disabled' => true]));
     }
+
+    /**
+     * Test isSelected method.
+     */
+    public function testIsSelected()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertFalse($option->isSelected());
+    }
+
+    /**
+     * Test setSelected method.
+     */
+    public function testSetSelected()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setSelected(true);
+
+        self::assertTrue($option->isSelected());
+        self::assertSame('<option value="foo" selected>bar</option>', $option->getHtml());
+        self::assertSame('<option value="foo" selected>bar</option>', $option->__toString());
+    }
+
+    /**
+     * Test setSelected method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $isSelected parameter is not a boolean.
+     */
+    public function testSetSelectedWithInvalidParameterType()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setSelected('baz');
+    }
 }

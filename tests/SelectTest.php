@@ -333,8 +333,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $select->addOption(new Option('2', 'Two'));
         $select->setFormValue('3');
 
-        self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1" selected>One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('1', $select->getValue());
         self::assertFalse($select->hasError());
         self::assertNull($select->getError());

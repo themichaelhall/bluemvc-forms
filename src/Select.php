@@ -51,7 +51,9 @@ class Select extends AbstractSetFormValueElement
      */
     public function addOption(OptionInterface $option)
     {
-        $this->myOptions[$option->getValue()] = $option;
+        $option->setSelected($option->getValue() === $this->myValue);
+
+        $this->myOptions[] = $option;
     }
 
     /**
@@ -67,10 +69,7 @@ class Select extends AbstractSetFormValueElement
     {
         $optionsHtml = '';
         foreach ($this->myOptions as $option) {
-            /** @var OptionInterface $option */
-            $optionsHtml .= $option->getHtml(
-                ['selected' => $option->getValue() === $this->myValue]
-            );
+            $optionsHtml .= $option->getHtml();
         }
 
         return self::myBuildTag('select', $optionsHtml,
@@ -93,7 +92,7 @@ class Select extends AbstractSetFormValueElement
      */
     public function getOptions()
     {
-        return array_values($this->myOptions);
+        return $this->myOptions;
     }
 
     /**
@@ -129,8 +128,13 @@ class Select extends AbstractSetFormValueElement
      */
     protected function onSetFormValue($value)
     {
-        if (isset($this->myOptions[$value])) {
-            $this->myValue = $value;
+        foreach ($this->myOptions as $option) {
+            $isMatch = ($value === $option->getValue());
+            $option->setSelected($isMatch);
+
+            if ($isMatch) {
+                $this->myValue = $value;
+            }
         }
 
         parent::onSetFormValue($value);
@@ -142,7 +146,7 @@ class Select extends AbstractSetFormValueElement
     private $myValue;
 
     /**
-     * @var array My options.
+     * @var OptionInterface[] My options.
      */
     private $myOptions;
 }
