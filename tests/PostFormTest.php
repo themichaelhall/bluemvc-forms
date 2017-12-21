@@ -67,6 +67,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getJsonFileField()->getValue());
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertFalse($this->form->getJsonFileField()->hasError());
+
+        self::assertSame('', $this->form->getRadioButtons()->getValue());
+        self::assertFalse($this->form->getRadioButtons()->hasError());
     }
 
     /**
@@ -90,6 +93,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('integer', '12345');
         $request->setFormParameter('date', '2017-10-15');
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.json');
+        $request->setFormParameter('radio', 'foo');
 
         $isProcessed = $this->form->process($request);
 
@@ -145,6 +149,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame(14, $this->form->getJsonFileField()->getValue()->getSize());
         self::assertSame(['Foo' => 'Bar'], $this->form->getJsonFileField()->getJson());
         self::assertFalse($this->form->getJsonFileField()->hasError());
+
+        self::assertSame('foo', $this->form->getRadioButtons()->getValue());
+        self::assertFalse($this->form->getRadioButtons()->hasError());
     }
 
     /**
@@ -218,6 +225,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertTrue($this->form->getJsonFileField()->hasError());
         self::assertSame('Missing file', $this->form->getJsonFileField()->getError());
+
+        self::assertSame('', $this->form->getRadioButtons()->getValue());
+        self::assertTrue($this->form->getRadioButtons()->hasError());
+        self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
     }
 
     /**
@@ -241,6 +252,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('integer', 'invalid');
         $request->setFormParameter('date', 'invalid');
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.txt');
+        $request->setFormParameter('radio', 'baz');
 
         $isProcessed = $this->form->process($request);
 
@@ -311,6 +323,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertTrue($this->form->getJsonFileField()->hasError());
         self::assertSame('Invalid json content.', $this->form->getJsonFileField()->getError());
+
+        self::assertSame('', $this->form->getRadioButtons()->getValue());
+        self::assertTrue($this->form->getRadioButtons()->hasError());
+        self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
     }
 
     /**

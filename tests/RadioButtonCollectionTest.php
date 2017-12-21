@@ -15,10 +15,10 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicConstructor()
     {
-        $select = new RadioButtonCollection('foo');
+        $radioButtonCollection = new RadioButtonCollection('foo');
 
-        self::assertSame('', $select->getHtml());
-        self::assertSame('', $select->__toString());
+        self::assertSame('', $radioButtonCollection->getHtml());
+        self::assertSame('', $radioButtonCollection->__toString());
     }
 
     /**
@@ -70,12 +70,12 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddRadioButtonWithOneRadioButtonSelected()
     {
-        $radioButtonCollection = new RadioButtonCollection('foo', '2');
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('', 'None'));
         $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
-        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
 
-        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->getHtml());
-        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->__toString());
+        self::assertSame('<input type="radio" name="foo" value="" checked>None<input type="radio" name="foo" value="1">One', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="" checked>None<input type="radio" name="foo" value="1">One', $radioButtonCollection->__toString());
     }
 
     /**
@@ -145,20 +145,151 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFormValueWithInvalidValueParameterType()
     {
-        $select = new RadioButtonCollection('foo');
-        $select->addRadioButton(new RadioButton('1', 'One'));
-        $select->addRadioButton(new RadioButton('2', 'Two'));
-        $select->setFormValue(2);
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+        $radioButtonCollection->setFormValue(2);
     }
 
     /**
-     * Test isEmpty method.
+     * Test that output is html-encoded.
      */
-    public function testIsEmpty()
+    public function testOutputIsHtmlEncoded()
     {
-        $radioButtonCollection = new RadioButtonCollection('foo', 'bar');
+        $radioButtonCollection = new RadioButtonCollection('<p>foo</p>');
+        $radioButtonCollection->addRadioButton(new RadioButton('<span>1</span>', '<h1>One</h1>'));
+
+        self::assertSame('<input type="radio" name="&lt;p&gt;foo&lt;/p&gt;" value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="&lt;p&gt;foo&lt;/p&gt;" value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;', $radioButtonCollection->__toString());
+        self::assertSame('', $radioButtonCollection->getValue());
+    }
+
+    /**
+     * Test getHtml method with attributes.
+     */
+    public function testGetHtmlWithAttributes()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+
+        self::assertSame('<input type="radio" name="foo" value="1" class="my-radio">One<input type="radio" name="foo" value="2" class="my-radio">Two', $radioButtonCollection->getHtml(['class' => 'my-radio']));
+    }
+
+    /**
+     * Test isEmpty method for empty value.
+     */
+    public function testIsEmptyForEmptyValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('', 'None'));
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+
+        self::assertTrue($radioButtonCollection->isEmpty());
+    }
+
+    /**
+     * Test isEmpty method for non-empty value.
+     */
+    public function testIsEmptyForNonEmptyValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('', 'None'));
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->setFormValue('1');
 
         self::assertFalse($radioButtonCollection->isEmpty());
+    }
+
+    /**
+     * Test hasError method.
+     */
+    public function testHasError()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertFalse($radioButtonCollection->hasError());
+    }
+
+    /**
+     * Test getError method.
+     */
+    public function testGetError()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertNull($radioButtonCollection->getError());
+    }
+
+    /**
+     * Test setError method.
+     */
+    public function testSetError()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setError('My Error');
+
+        self::assertTrue($radioButtonCollection->hasError());
+        self::assertSame('My Error', $radioButtonCollection->getError());
+    }
+
+    /**
+     * Test setError method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $error parameter is not a string.
+     */
+    public function testSetErrorWithInvalidParameterType()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setError(10.5);
+    }
+
+    /**
+     * Test isRequired method.
+     */
+    public function testIsRequired()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertTrue($radioButtonCollection->isRequired());
+    }
+
+    /**
+     * Test setRequired method.
+     */
+    public function testSetRequired()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setRequired(false);
+
+        self::assertFalse($radioButtonCollection->isRequired());
+    }
+
+    /**
+     * Test setRequired method with invalid parameter type.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     */
+    public function testSetRequiredWithInvalidParameterType()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setRequired(50);
+    }
+
+    /**
+     * Test constructor with default value.
+     */
+    public function testConstructorWithDefaultValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '2');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->__toString());
+        self::assertSame('2', $radioButtonCollection->getValue());
     }
 
     /**
@@ -170,5 +301,39 @@ class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
     public function testConstructorWithInvalidDefaultValueParameterType()
     {
         new RadioButtonCollection('foo', 2);
+    }
+
+    /**
+     * Test setFormValue method with invalid value.
+     */
+    public function testSetFormValueWithInvalidValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+        $radioButtonCollection->setFormValue('3');
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->__toString());
+        self::assertSame('', $radioButtonCollection->getValue());
+        self::assertTrue($radioButtonCollection->hasError());
+        self::assertSame('Missing value', $radioButtonCollection->getError());
+    }
+
+    /**
+     * Test setFormValue method with invalid value does not change default value.
+     */
+    public function testSetFormValueWithInvalidValueDoesNotChangeDefaultValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '1');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+        $radioButtonCollection->setFormValue('3');
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->__toString());
+        self::assertSame('1', $radioButtonCollection->getValue());
+        self::assertFalse($radioButtonCollection->hasError());
+        self::assertNull($radioButtonCollection->getError());
     }
 }

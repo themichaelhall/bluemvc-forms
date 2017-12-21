@@ -11,6 +11,8 @@ use BlueMvc\Forms\IntegerField;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
+use BlueMvc\Forms\RadioButton;
+use BlueMvc\Forms\RadioButtonCollection;
 use BlueMvc\Forms\Select;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
@@ -48,6 +50,9 @@ class BasicTestPostForm extends PostForm
         $this->myIntegerField = new IntegerField('integer');
         $this->myDateField = new DateField('date');
         $this->myJsonFileField = new JsonFileField('json');
+        $this->myRadioButtons = new RadioButtonCollection('radio');
+        $this->myRadioButtons->addRadioButton(new RadioButton('foo', 'Foo radio button'));
+        $this->myRadioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
 
         $this->myEventMethodsCalled = [];
     }
@@ -213,6 +218,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my radio buttons.
+     *
+     * @return RadioButtonCollection My radio buttons.
+     */
+    public function getRadioButtons()
+    {
+        return $this->myRadioButtons;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -354,6 +369,11 @@ class BasicTestPostForm extends PostForm
      * @var JsonFileField My json file field.
      */
     protected $myJsonFileField;
+
+    /**
+     * @var RadioButtonCollection My radio buttons.
+     */
+    protected $myRadioButtons;
 
     /**
      * @var string[] The names of the event methods called.
