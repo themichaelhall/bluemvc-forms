@@ -85,7 +85,6 @@ class DateFieldTest extends \PHPUnit_Framework_TestCase
     public function setFormValueDataProvider()
     {
         return [
-
             [false, '', null, true, false, false, null],
             [true, '', null, true, false, true, 'Missing value'],
             [false, ' ', null, true, false, false, null],

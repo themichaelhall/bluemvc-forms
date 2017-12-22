@@ -70,6 +70,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('', $this->form->getRadioButtons()->getValue());
         self::assertFalse($this->form->getRadioButtons()->hasError());
+
+        self::assertNull($this->form->getDateTimeField()->getValue());
+        self::assertFalse($this->form->getDateTimeField()->hasError());
     }
 
     /**
@@ -94,6 +97,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('date', '2017-10-15');
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.json');
         $request->setFormParameter('radio', 'foo');
+        $request->setFormParameter('datetime', '2017-12-01 10:20:30');
 
         $isProcessed = $this->form->process($request);
 
@@ -152,6 +156,9 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('foo', $this->form->getRadioButtons()->getValue());
         self::assertFalse($this->form->getRadioButtons()->hasError());
+
+        self::assertSame('2017-12-01 10:20:30', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($this->form->getDateTimeField()->hasError());
     }
 
     /**
@@ -229,6 +236,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getRadioButtons()->getValue());
         self::assertTrue($this->form->getRadioButtons()->hasError());
         self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
+
+        self::assertNull($this->form->getDateTimeField()->getValue());
+        self::assertTrue($this->form->getDateTimeField()->hasError());
+        self::assertSame('Missing value', $this->form->getDateTimeField()->getError());
     }
 
     /**
@@ -253,6 +264,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->setFormParameter('date', 'invalid');
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.txt');
         $request->setFormParameter('radio', 'baz');
+        $request->setFormParameter('datetime', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -327,6 +339,10 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('', $this->form->getRadioButtons()->getValue());
         self::assertTrue($this->form->getRadioButtons()->hasError());
         self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
+
+        self::assertNull($this->form->getDateTimeField()->getValue());
+        self::assertTrue($this->form->getDateTimeField()->hasError());
+        self::assertSame('Invalid value', $this->form->getDateTimeField()->getError());
     }
 
     /**

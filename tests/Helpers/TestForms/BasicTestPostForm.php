@@ -4,6 +4,7 @@ namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\DateField;
+use BlueMvc\Forms\DateTimeField;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\HiddenField;
@@ -53,6 +54,7 @@ class BasicTestPostForm extends PostForm
         $this->myRadioButtons = new RadioButtonCollection('radio');
         $this->myRadioButtons->addRadioButton(new RadioButton('foo', 'Foo radio button'));
         $this->myRadioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
+        $this->myDateTimeField = new DateTimeField('datetime');
 
         $this->myEventMethodsCalled = [];
     }
@@ -228,6 +230,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my date time field.
+     *
+     * @return DateTimeField My date time field.
+     */
+    public function getDateTimeField()
+    {
+        return $this->myDateTimeField;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -374,6 +386,11 @@ class BasicTestPostForm extends PostForm
      * @var RadioButtonCollection My radio buttons.
      */
     protected $myRadioButtons;
+
+    /**
+     * @var DateTimeField My date time field.
+     */
+    protected $myDateTimeField;
 
     /**
      * @var string[] The names of the event methods called.
