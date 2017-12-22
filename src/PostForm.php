@@ -202,7 +202,7 @@ abstract class PostForm implements FormInterface
             return false;
         }
 
-        return $headerUrl->getHost()->__toString() === $request->getUrl()->getHost()->__toString();
+        return $headerUrl->getHost()->equals($request->getUrl()->getHost());
     }
 
     /**
