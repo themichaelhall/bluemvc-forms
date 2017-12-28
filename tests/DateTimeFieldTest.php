@@ -99,6 +99,8 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
             [true, '2017-10-15 12:34:56', '2017-10-15 12:34:56', false, false, false, null],
             [false, ' 2017-10-15 12:34:56 ', '2017-10-15 12:34:56', false, false, false, null],
             [true, ' 2017-10-15 12:34:56 ', '2017-10-15 12:34:56', false, false, false, null],
+            [false, ' 2017-10-15T12:34 ', '2017-10-15 12:34:00', false, false, false, null],
+            [true, ' 2017-10-15T12:34 ', '2017-10-15 12:34:00', false, false, false, null],
         ];
     }
 
@@ -149,6 +151,8 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
             ['  2017-01-01  ', '2017-01-01 00:00:00', '<input type="datetime-local" name="foo" value="2017-01-01" required>'],
             ['2017-01-01 12:34:56', '2017-01-01 12:34:56', '<input type="datetime-local" name="foo" value="2017-01-01 12:34:56" required>'],
             ['  2017-01-01 12:34:56 ', '2017-01-01 12:34:56', '<input type="datetime-local" name="foo" value="2017-01-01 12:34:56" required>'],
+            ['2017-01-01T12:34', '2017-01-01 12:34:00', '<input type="datetime-local" name="foo" value="2017-01-01T12:34" required>'],
+            ['  2017-01-01T12:34 ', '2017-01-01 12:34:00', '<input type="datetime-local" name="foo" value="2017-01-01T12:34" required>'],
         ];
     }
 
@@ -256,8 +260,8 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
         $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable('2000-01-02 03:04:05'));
 
         self::assertSame('2000-01-02 03:04:05', $dateTimeField->getValue()->format('Y-m-d H:i:s'));
-        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02 03:04:05" required>', $dateTimeField->getHtml());
-        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02 03:04:05" required>', $dateTimeField->__toString());
+        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02T03:04" required>', $dateTimeField->getHtml());
+        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02T03:04" required>', $dateTimeField->__toString());
     }
 
     /**
@@ -267,7 +271,7 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
     {
         $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable('2000-01-02 03:04:05'));
 
-        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02 03:04:05" required id="baz" readonly>', $dateTimeField->getHtml(['id' => 'baz', 'readonly' => true]));
+        self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02T03:04" required id="baz" readonly>', $dateTimeField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
 
     /**
@@ -289,8 +293,8 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
         $dateTimeField->setRequired(false);
 
         self::assertFalse($dateTimeField->isRequired());
-        self::assertSame('<input type="datetime-local" name="foo" value="2017-10-15 18:00:00">', $dateTimeField->getHtml());
-        self::assertSame('<input type="datetime-local" name="foo" value="2017-10-15 18:00:00">', $dateTimeField->__toString());
+        self::assertSame('<input type="datetime-local" name="foo" value="2017-10-15T18:00">', $dateTimeField->getHtml());
+        self::assertSame('<input type="datetime-local" name="foo" value="2017-10-15T18:00">', $dateTimeField->__toString());
     }
 
     /**

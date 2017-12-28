@@ -28,7 +28,7 @@ class DateTimeField extends AbstractTextInputField
      */
     public function __construct($name, \DateTimeImmutable $value = null)
     {
-        parent::__construct($name, $value !== null ? $value->format('Y-m-d H:i:s') : '', TextFormatOptions::TRIM);
+        parent::__construct($name, $value !== null ? $value->format('Y-m-d\\TH:i') : '', TextFormatOptions::TRIM);
 
         $this->myIsInvalid = false;
         $this->myValue = $value;
