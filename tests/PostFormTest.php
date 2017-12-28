@@ -157,7 +157,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertSame('foo', $this->form->getRadioButtons()->getValue());
         self::assertFalse($this->form->getRadioButtons()->hasError());
 
-        self::assertSame('2017-12-01 10:20:30', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertSame('2017-12-01 10:20:00', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($this->form->getDateTimeField()->hasError());
     }
 

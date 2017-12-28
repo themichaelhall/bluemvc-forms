@@ -31,7 +31,7 @@ class DateTimeField extends AbstractTextInputField
         parent::__construct($name, $value !== null ? $value->format('Y-m-d\\TH:i') : '', TextFormatOptions::TRIM);
 
         $this->myIsInvalid = false;
-        $this->myValue = $value;
+        $this->mySetValue($value);
     }
 
     /**
@@ -93,11 +93,27 @@ class DateTimeField extends AbstractTextInputField
         }
 
         try {
-            $this->myValue = new \DateTimeImmutable($text);
+            $this->mySetValue(new \DateTimeImmutable($text));
         } catch (\Exception $exception) {
             $this->setError('Invalid value');
             $this->myIsInvalid = true;
         }
+    }
+
+    /**
+     * Sets the value.
+     *
+     * @param \DateTimeImmutable|null $value The value.
+     */
+    private function mySetValue(\DateTimeImmutable $value = null)
+    {
+        if ($value === null) {
+            $this->myValue = null;
+
+            return;
+        }
+
+        $this->myValue = $value->setTime((int) $value->format('H'), (int) $value->format('i'), 0);
     }
 
     /**
