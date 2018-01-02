@@ -299,4 +299,16 @@ class UrlFieldTest extends \PHPUnit_Framework_TestCase
         $urlField = new UrlField('foo');
         $urlField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setFormValue("https://\0\twww.\r\nexample.com");
+
+        self::assertSame('https://www.example.com/', $urlField->getValue()->__toString());
+        self::assertSame('<input type="url" name="foo" value="https://www.example.com" required>', $urlField->__toString());
+    }
 }

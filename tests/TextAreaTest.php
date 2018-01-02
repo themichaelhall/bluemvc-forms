@@ -416,4 +416,16 @@ class TextAreaTest extends \PHPUnit_Framework_TestCase
         $textArea = new TextArea('foo');
         $textArea->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setFormValue("Foo\0\tBar\r\nBaz");
+
+        self::assertSame("FooBar\r\nBaz", $textArea->getValue());
+        self::assertSame("<textarea name=\"foo\" required>FooBar\r\nBaz</textarea>", $textArea->__toString());
+    }
 }

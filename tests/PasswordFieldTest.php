@@ -260,4 +260,16 @@ class PasswordFieldTest extends \PHPUnit_Framework_TestCase
         $passwordField = new PasswordField('foo');
         $passwordField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setFormValue("Foo\0\tBar\r\nBaz");
+
+        self::assertSame('FooBarBaz', $passwordField->getValue());
+        self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
+    }
 }

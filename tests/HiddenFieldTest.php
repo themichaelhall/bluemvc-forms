@@ -250,4 +250,16 @@ class HiddenFieldTest extends \PHPUnit_Framework_TestCase
         $hiddenField = new HiddenField('foo');
         $hiddenField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setFormValue("Foo\0\tBar\r\nBaz");
+
+        self::assertSame('FooBarBaz', $hiddenField->getValue());
+        self::assertSame('<input type="hidden" name="foo" value="FooBarBaz">', $hiddenField->__toString());
+    }
 }

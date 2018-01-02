@@ -299,4 +299,16 @@ class EmailFieldTest extends \PHPUnit_Framework_TestCase
         $emailField = new EmailField('foo');
         $emailField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setFormValue("foo\0\t@\r\nexample.com");
+
+        self::assertSame('foo@example.com', $emailField->getValue()->__toString());
+        self::assertSame('<input type="email" name="foo" value="foo@example.com" required>', $emailField->__toString());
+    }
 }

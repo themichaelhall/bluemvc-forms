@@ -300,4 +300,16 @@ class DateFieldTest extends \PHPUnit_Framework_TestCase
         $dateField = new DateField('foo');
         $dateField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $dateField = new DateField('foo');
+        $dateField->setFormValue("2018-\0\t01-\r\n02");
+
+        self::assertSame('2018-01-02 00:00:00', $dateField->getValue()->format('Y-m-d H:i:s'));
+        self::assertSame('<input type="date" name="foo" value="2018-01-02" required>', $dateField->__toString());
+    }
 }

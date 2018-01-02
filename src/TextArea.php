@@ -68,4 +68,16 @@ class TextArea extends AbstractTextElement
             )
         );
     }
+
+    /**
+     * Returns true if this text element is multi-line, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if this text element is multi-line, false otherwise.
+     */
+    protected function isMultiLine()
+    {
+        return true;
+    }
 }

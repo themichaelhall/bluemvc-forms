@@ -326,4 +326,16 @@ class TextFieldTest extends \PHPUnit_Framework_TestCase
         $textField = new TextField('foo');
         $textField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $textField = new TextField('foo');
+        $textField->setFormValue("Foo\0\tBar\r\nBaz");
+
+        self::assertSame('FooBarBaz', $textField->getValue());
+        self::assertSame('<input type="text" name="foo" value="FooBarBaz" required>', $textField->__toString());
+    }
 }

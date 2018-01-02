@@ -52,6 +52,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
         parent::__construct($name);
 
         $this->myTextFormatOptions = $textFormatOptions;
+        $value = $this->mySanitizeText($value);
         $this->onFormatText($value);
         $this->myText = $value;
     }
@@ -67,6 +68,15 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
     {
         return $this->myText;
     }
+
+    /**
+     * Returns true if this text element is multi-line, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if this text element is multi-line, false otherwise.
+     */
+    abstract protected function isMultiLine();
 
     /**
      * Called when text should be formatted.
@@ -125,6 +135,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      */
     protected function onSetFormValue($value)
     {
+        $value = $this->mySanitizeText($value);
         $this->onFormatText($value);
         $this->myText = $value;
 
@@ -142,6 +153,20 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      */
     protected function onSetText($text)
     {
+    }
+
+    /**
+     * Sanitizes the text.
+     *
+     * @param string $text The text.
+     *
+     * @return string The sanitized text.
+     */
+    private function mySanitizeText($text)
+    {
+        $text = preg_replace($this->isMultiLine() ? '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/u' : '/[\x00-\x1F\x7F]/u', '', $text);
+
+        return $text;
     }
 
     /**

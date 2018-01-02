@@ -377,4 +377,16 @@ class IntegerFieldTest extends \PHPUnit_Framework_TestCase
         $integerField = new IntegerField('foo');
         $integerField->setMaximumValue('Foo');
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setFormValue("1\0\t2\r\n3");
+
+        self::assertSame(123, $integerField->getValue());
+        self::assertSame('<input type="number" name="foo" value="123" required>', $integerField->__toString());
+    }
 }

@@ -308,4 +308,16 @@ class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
         $dateTimeField = new DateTimeField('foo');
         $dateTimeField->setRequired(0);
     }
+
+    /**
+     * Test text sanitization.
+     */
+    public function testTextSanitization()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setFormValue("2018-\0\t01-\r\n02T01:02:00");
+
+        self::assertSame('2018-01-02 01:02:00', $dateTimeField->getValue()->format('Y-m-d H:i:s'));
+        self::assertSame('<input type="datetime-local" name="foo" value="2018-01-02T01:02:00" required>', $dateTimeField->__toString());
+    }
 }
