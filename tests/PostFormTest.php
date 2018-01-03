@@ -73,6 +73,12 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertNull($this->form->getDateTimeField()->getValue());
         self::assertFalse($this->form->getDateTimeField()->hasError());
+
+        self::assertSame('', $this->form->getPrivateField1()->getValue());
+        self::assertFalse($this->form->getPrivateField1()->hasError());
+
+        self::assertSame('', $this->form->getPrivateField2()->getValue());
+        self::assertFalse($this->form->getPrivateField2()->hasError());
     }
 
     /**
@@ -98,6 +104,8 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.json');
         $request->setFormParameter('radio', 'foo');
         $request->setFormParameter('datetime', '2017-12-01 10:20:30');
+        $request->setFormParameter('private-1', 'My private field 1 value');
+        $request->setFormParameter('private-2', 'My private field 2 value');
 
         $isProcessed = $this->form->process($request);
 
@@ -159,6 +167,12 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
 
         self::assertSame('2017-12-01 10:20:00', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($this->form->getDateTimeField()->hasError());
+
+        self::assertSame('My private field 1 value', $this->form->getPrivateField1()->getValue());
+        self::assertFalse($this->form->getPrivateField1()->hasError());
+
+        self::assertSame('', $this->form->getPrivateField2()->getValue());
+        self::assertFalse($this->form->getPrivateField2()->hasError());
     }
 
     /**
@@ -240,6 +254,14 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getDateTimeField()->getValue());
         self::assertTrue($this->form->getDateTimeField()->hasError());
         self::assertSame('Missing value', $this->form->getDateTimeField()->getError());
+
+        self::assertSame('', $this->form->getPrivateField1()->getValue());
+        self::assertTrue($this->form->getPrivateField1()->hasError());
+        self::assertSame('Missing value', $this->form->getPrivateField1()->getError());
+
+        self::assertSame('', $this->form->getPrivateField2()->getValue());
+        self::assertFalse($this->form->getPrivateField2()->hasError());
+        self::assertNull($this->form->getPrivateField2()->getError());
     }
 
     /**
@@ -265,6 +287,8 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.txt');
         $request->setFormParameter('radio', 'baz');
         $request->setFormParameter('datetime', 'invalid');
+        $request->setFormParameter('private-1', 'invalid');
+        $request->setFormParameter('private-2', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -343,6 +367,14 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertNull($this->form->getDateTimeField()->getValue());
         self::assertTrue($this->form->getDateTimeField()->hasError());
         self::assertSame('Invalid value', $this->form->getDateTimeField()->getError());
+
+        self::assertSame('invalid', $this->form->getPrivateField1()->getValue());
+        self::assertTrue($this->form->getPrivateField1()->hasError());
+        self::assertSame('Value of private field 1 is invalid.', $this->form->getPrivateField1()->getError());
+
+        self::assertSame('', $this->form->getPrivateField2()->getValue());
+        self::assertFalse($this->form->getPrivateField2()->hasError());
+        self::assertNull($this->form->getPrivateField2()->getError());
     }
 
     /**

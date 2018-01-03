@@ -22,6 +22,18 @@ use DataTypes\Url;
 abstract class PostForm implements FormInterface
 {
     /**
+     * Adds an element to the form.
+     *
+     * @since 1.0.0
+     *
+     * @param FormElementInterface $element The element.
+     */
+    public function addElement(FormElementInterface $element)
+    {
+        $this->myExtraElements[] = $element;
+    }
+
+    /**
      * Returns true if check origin is enabled, false otherwise.
      *
      * @since 1.0.0
@@ -157,6 +169,8 @@ abstract class PostForm implements FormInterface
             }
         }
 
+        $result = array_merge($result, $this->myExtraElements);
+
         return $result;
     }
 
@@ -209,4 +223,9 @@ abstract class PostForm implements FormInterface
      * @var bool True if check origin is enabled, false otherwise.
      */
     private $myCheckOriginEnabled = true;
+
+    /**
+     * @var FormElementInterface[] My extra elements to process.
+     */
+    private $myExtraElements = [];
 }

@@ -56,6 +56,10 @@ class BasicTestPostForm extends PostForm
         $this->myRadioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
         $this->myDateTimeField = new DateTimeField('datetime');
 
+        $this->myPrivateField1 = new TextField('private-1');
+        $this->addElement($this->myPrivateField1);
+        $this->myPrivateField2 = new TextField('private-2');
+
         $this->myEventMethodsCalled = [];
     }
 
@@ -240,6 +244,26 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my private field 1.
+     *
+     * @return TextField My private field 1.
+     */
+    public function getPrivateField1()
+    {
+        return $this->myPrivateField1;
+    }
+
+    /**
+     * Returns my private field 2.
+     *
+     * @return TextField My private field 2.
+     */
+    public function getPrivateField2()
+    {
+        return $this->myPrivateField2;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate()
@@ -274,6 +298,14 @@ class BasicTestPostForm extends PostForm
 
         if ($this->myHiddenField->getValue() === 'invalid') {
             $this->myHiddenField->setError('Value of hidden field is invalid.');
+        }
+
+        if ($this->myPrivateField1->getValue() === 'invalid') {
+            $this->myPrivateField1->setError('Value of private field 1 is invalid.');
+        }
+
+        if ($this->myPrivateField2->getValue() === 'invalid') {
+            $this->myPrivateField2->setError('Value of private field 2 is invalid.');
         }
     }
 
@@ -391,6 +423,16 @@ class BasicTestPostForm extends PostForm
      * @var DateTimeField My date time field.
      */
     protected $myDateTimeField;
+
+    /**
+     * @var TextField My private field 1.
+     */
+    private $myPrivateField1;
+
+    /**
+     * @var TextField My private field 2.
+     */
+    private $myPrivateField2;
 
     /**
      * @var string[] The names of the event methods called.
