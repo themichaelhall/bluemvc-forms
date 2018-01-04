@@ -17,6 +17,24 @@ use BlueMvc\Core\Interfaces\RequestInterface;
 interface FormInterface
 {
     /**
+     * Adds an element to the form.
+     *
+     * @since 1.0.0
+     *
+     * @param FormElementInterface $element The element.
+     */
+    public function addElement(FormElementInterface $element);
+
+    /**
+     * Returns true if form has an error, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if form has an error, false otherwise.
+     */
+    public function hasError();
+
+    /**
      * Processes the form.
      *
      * @since 1.0.0

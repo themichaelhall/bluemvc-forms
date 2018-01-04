@@ -34,6 +34,18 @@ abstract class PostForm implements FormInterface
     }
 
     /**
+     * Returns true if form has an error, false otherwise.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if form has an error, false otherwise.
+     */
+    public function hasError()
+    {
+        return $this->myHasError;
+    }
+
+    /**
      * Returns true if check origin is enabled, false otherwise.
      *
      * @since 1.0.0
@@ -56,6 +68,8 @@ abstract class PostForm implements FormInterface
      */
     public function process(RequestInterface $request)
     {
+        $this->myHasError = false;
+
         if (!$request->getMethod()->isPost()) {
             return false;
         }
@@ -81,15 +95,14 @@ abstract class PostForm implements FormInterface
         $this->onValidate();
 
         // Check for errors.
-        $hasError = false;
         foreach ($elements as $element) {
             if ($element->hasError()) {
-                $hasError = true;
+                $this->myHasError = true;
                 break;
             }
         }
 
-        if (!$hasError) {
+        if (!$this->myHasError) {
             $this->onSuccess();
         } else {
             $this->onError();
@@ -97,7 +110,7 @@ abstract class PostForm implements FormInterface
 
         $this->onProcessed();
 
-        return !$hasError;
+        return !$this->myHasError;
     }
 
     /**
@@ -228,4 +241,9 @@ abstract class PostForm implements FormInterface
      * @var FormElementInterface[] My extra elements to process.
      */
     private $myExtraElements = [];
+
+    /**
+     * @var bool True if form has error, false otherwise.
+     */
+    private $myHasError = false;
 }
