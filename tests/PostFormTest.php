@@ -22,6 +22,7 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertFalse($isProcessed);
         self::assertSame([], $this->form->getEventMethodsCalled());
         self::assertFalse($this->form->hasError());
+        self::assertSame([], $this->form->getProcessedElements());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -113,6 +114,29 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($isProcessed);
         self::assertSame(['onValidate', 'onSuccess', 'onProcessed'], $this->form->getEventMethodsCalled());
         self::assertFalse($this->form->hasError());
+        self::assertSame(
+            [
+                $this->form->getNotRequiredField(),
+                $this->form->getCustomValidatedField(),
+                $this->form->getTextField(),
+                $this->form->getPasswordField(),
+                $this->form->getNameField(),
+                $this->form->getUrlField(),
+                $this->form->getCheckBox(),
+                $this->form->getTextArea(),
+                $this->form->getSelect(),
+                $this->form->getFileField(),
+                $this->form->getEmailField(),
+                $this->form->getHiddenField(),
+                $this->form->getIntegerField(),
+                $this->form->getDateField(),
+                $this->form->getJsonFileField(),
+                $this->form->getRadioButtons(),
+                $this->form->getDateTimeField(),
+                $this->form->getPrivateField1(),
+            ],
+            $this->form->getProcessedElements()
+        );
 
         self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -189,6 +213,29 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertFalse($isProcessed);
         self::assertSame(['onValidate', 'onError', 'onProcessed'], $this->form->getEventMethodsCalled());
         self::assertTrue($this->form->hasError());
+        self::assertSame(
+            [
+                $this->form->getNotRequiredField(),
+                $this->form->getCustomValidatedField(),
+                $this->form->getTextField(),
+                $this->form->getPasswordField(),
+                $this->form->getNameField(),
+                $this->form->getUrlField(),
+                $this->form->getCheckBox(),
+                $this->form->getTextArea(),
+                $this->form->getSelect(),
+                $this->form->getFileField(),
+                $this->form->getEmailField(),
+                $this->form->getHiddenField(),
+                $this->form->getIntegerField(),
+                $this->form->getDateField(),
+                $this->form->getJsonFileField(),
+                $this->form->getRadioButtons(),
+                $this->form->getDateTimeField(),
+                $this->form->getPrivateField1(),
+            ],
+            $this->form->getProcessedElements()
+        );
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -298,6 +345,29 @@ class PostFormTest extends \PHPUnit_Framework_TestCase
         self::assertFalse($isProcessed);
         self::assertSame(['onValidate', 'onError', 'onProcessed'], $this->form->getEventMethodsCalled());
         self::assertTrue($this->form->hasError());
+        self::assertSame(
+            [
+                $this->form->getNotRequiredField(),
+                $this->form->getCustomValidatedField(),
+                $this->form->getTextField(),
+                $this->form->getPasswordField(),
+                $this->form->getNameField(),
+                $this->form->getUrlField(),
+                $this->form->getCheckBox(),
+                $this->form->getTextArea(),
+                $this->form->getSelect(),
+                $this->form->getFileField(),
+                $this->form->getEmailField(),
+                $this->form->getHiddenField(),
+                $this->form->getIntegerField(),
+                $this->form->getDateField(),
+                $this->form->getJsonFileField(),
+                $this->form->getRadioButtons(),
+                $this->form->getDateTimeField(),
+                $this->form->getPrivateField1(),
+            ],
+            $this->form->getProcessedElements()
+        );
 
         self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
         self::assertTrue($this->form->getNotRequiredField()->hasError());

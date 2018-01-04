@@ -26,6 +26,15 @@ interface FormInterface
     public function addElement(FormElementInterface $element);
 
     /**
+     * Returns the processed elements.
+     *
+     * @since 1.0.0
+     *
+     * @return FormElementInterface[] The processed elements.
+     */
+    public function getProcessedElements();
+
+    /**
      * Returns true if form has an error, false otherwise.
      *
      * @since 1.0.0

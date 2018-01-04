@@ -34,6 +34,18 @@ abstract class PostForm implements FormInterface
     }
 
     /**
+     * Returns the processed elements.
+     *
+     * @since 1.0.0
+     *
+     * @return FormElementInterface[] The processed elements.
+     */
+    public function getProcessedElements()
+    {
+        return $this->myProcessedElements;
+    }
+
+    /**
      * Returns true if form has an error, false otherwise.
      *
      * @since 1.0.0
@@ -69,6 +81,7 @@ abstract class PostForm implements FormInterface
     public function process(RequestInterface $request)
     {
         $this->myHasError = false;
+        $this->myProcessedElements = [];
 
         if (!$request->getMethod()->isPost()) {
             return false;
@@ -90,6 +103,8 @@ abstract class PostForm implements FormInterface
                 $uploadedFile = $request->getUploadedFile($element->getName());
                 $element->setUploadedFile($uploadedFile);
             }
+
+            $this->myProcessedElements[] = $element;
         }
 
         $this->onValidate();
@@ -246,4 +261,9 @@ abstract class PostForm implements FormInterface
      * @var bool True if form has error, false otherwise.
      */
     private $myHasError = false;
+
+    /**
+     * @var FormElementInterface[] My processed elements.
+     */
+    private $myProcessedElements = [];
 }
