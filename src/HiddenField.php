@@ -8,13 +8,14 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
+use BlueMvc\Forms\Interfaces\HiddenFieldInterface;
 
 /**
  * Class representing a hidden field.
  *
  * @since 1.0.0
  */
-class HiddenField extends AbstractTextInputField
+class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
 {
     /**
      * Constructs the hidden field.

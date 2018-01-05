@@ -9,6 +9,7 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Forms\Base\AbstractSetUploadedFileElement;
+use BlueMvc\Forms\Interfaces\FileFieldInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -16,7 +17,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class FileField extends AbstractSetUploadedFileElement
+class FileField extends AbstractSetUploadedFileElement implements FileFieldInterface
 {
     use BuildTagTrait;
 

@@ -14,7 +14,7 @@ use BlueMvc\Core\Interfaces\UploadedFileInterface;
  *
  * @since 1.0.0
  */
-interface SetUploadedFileElementInterface
+interface SetUploadedFileElementInterface extends FormElementInterface
 {
     /**
      * Sets the uploaded file from form.

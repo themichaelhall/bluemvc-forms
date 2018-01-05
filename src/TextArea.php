@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextElement;
+use BlueMvc\Forms\Interfaces\TextAreaInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -15,7 +16,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class TextArea extends AbstractTextElement
+class TextArea extends AbstractTextElement implements TextAreaInterface
 {
     use BuildTagTrait;
 

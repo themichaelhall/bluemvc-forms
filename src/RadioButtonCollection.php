@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractSetFormValueElement;
+use BlueMvc\Forms\Interfaces\RadioButtonCollectionInterface;
 use BlueMvc\Forms\Interfaces\RadioButtonInterface;
 
 /**
@@ -15,7 +16,7 @@ use BlueMvc\Forms\Interfaces\RadioButtonInterface;
  *
  * @since 1.0.0
  */
-class RadioButtonCollection extends AbstractSetFormValueElement
+class RadioButtonCollection extends AbstractSetFormValueElement implements RadioButtonCollectionInterface
 {
     /**
      * RadioButtonCollection constructor.

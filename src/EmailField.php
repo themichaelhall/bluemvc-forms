@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
+use BlueMvc\Forms\Interfaces\EmailFieldInterface;
 use DataTypes\EmailAddress;
 use DataTypes\Interfaces\EmailAddressInterface;
 
@@ -16,7 +17,7 @@ use DataTypes\Interfaces\EmailAddressInterface;
  *
  * @since 1.0.0
  */
-class EmailField extends AbstractTextInputField
+class EmailField extends AbstractTextInputField implements EmailFieldInterface
 {
     /**
      * Constructs the email field.

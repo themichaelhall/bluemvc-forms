@@ -9,7 +9,7 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Core\Interfaces\RequestInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
-use BlueMvc\Forms\Interfaces\FormInterface;
+use BlueMvc\Forms\Interfaces\PostFormInterface;
 use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
 use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
 use DataTypes\Url;
@@ -19,7 +19,7 @@ use DataTypes\Url;
  *
  * @since 1.0.0
  */
-abstract class PostForm implements FormInterface
+abstract class PostForm implements PostFormInterface
 {
     /**
      * Adds an element to the form.

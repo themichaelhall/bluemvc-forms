@@ -8,13 +8,14 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
+use BlueMvc\Forms\Interfaces\IntegerFieldInterface;
 
 /**
  * Class representing an integer field.
  *
  * @since 1.0.0
  */
-class IntegerField extends AbstractTextInputField
+class IntegerField extends AbstractTextInputField implements IntegerFieldInterface
 {
     /**
      * Constructs the integer field.

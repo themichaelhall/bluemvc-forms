@@ -2,6 +2,7 @@
 
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
+use BlueMvc\Forms\Interfaces\TextFieldInterface;
 use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\TextField;
 
@@ -11,7 +12,7 @@ use BlueMvc\Forms\TextField;
 class SimpleTestPostForm extends PostForm
 {
     /**
-     * @var TextField My text field.
+     * @var TextFieldInterface My text field.
      */
     public $Text;
 

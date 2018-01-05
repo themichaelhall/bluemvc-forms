@@ -8,13 +8,14 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
+use BlueMvc\Forms\Interfaces\DateFieldInterface;
 
 /**
  * Class representing a date field.
  *
  * @since 1.0.0
  */
-class DateField extends AbstractTextInputField
+class DateField extends AbstractTextInputField implements DateFieldInterface
 {
     /**
      * Constructs the date field.

@@ -8,6 +8,7 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
+use BlueMvc\Forms\Interfaces\UrlFieldInterface;
 use DataTypes\Interfaces\UrlInterface;
 use DataTypes\Url;
 
@@ -16,7 +17,7 @@ use DataTypes\Url;
  *
  * @since 1.0.0
  */
-class UrlField extends AbstractTextInputField
+class UrlField extends AbstractTextInputField implements UrlFieldInterface
 {
     /**
      * Constructs the url field.

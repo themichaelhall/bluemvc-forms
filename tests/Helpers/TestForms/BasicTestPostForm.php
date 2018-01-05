@@ -9,6 +9,19 @@ use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
 use BlueMvc\Forms\HiddenField;
 use BlueMvc\Forms\IntegerField;
+use BlueMvc\Forms\Interfaces\CheckBoxInterface;
+use BlueMvc\Forms\Interfaces\DateFieldInterface;
+use BlueMvc\Forms\Interfaces\DateTimeFieldInterface;
+use BlueMvc\Forms\Interfaces\EmailFieldInterface;
+use BlueMvc\Forms\Interfaces\FileFieldInterface;
+use BlueMvc\Forms\Interfaces\HiddenFieldInterface;
+use BlueMvc\Forms\Interfaces\IntegerFieldInterface;
+use BlueMvc\Forms\Interfaces\PasswordFieldInterface;
+use BlueMvc\Forms\Interfaces\RadioButtonCollectionInterface;
+use BlueMvc\Forms\Interfaces\SelectInterface;
+use BlueMvc\Forms\Interfaces\TextAreaInterface;
+use BlueMvc\Forms\Interfaces\TextFieldInterface;
+use BlueMvc\Forms\Interfaces\UrlFieldInterface;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\PasswordField;
 use BlueMvc\Forms\PostForm;
@@ -76,7 +89,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my form field that not requires a value.
      *
-     * @return TextField My form field that not requires a value.
+     * @return TextFieldInterface My form field that not requires a value.
      */
     public function getNotRequiredField()
     {
@@ -96,7 +109,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my text field.
      *
-     * @return TextField My text field.
+     * @return TextFieldInterface My text field.
      */
     public function getTextField()
     {
@@ -106,7 +119,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my password field.
      *
-     * @return PasswordField My password field.
+     * @return PasswordFieldInterface My password field.
      */
     public function getPasswordField()
     {
@@ -126,7 +139,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my url field.
      *
-     * @return UrlField My url field.
+     * @return UrlFieldInterface My url field.
      */
     public function getUrlField()
     {
@@ -136,7 +149,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my checkbox.
      *
-     * @return CheckBox My checkbox.
+     * @return CheckBoxInterface My checkbox.
      */
     public function getCheckBox()
     {
@@ -146,7 +159,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my text area.
      *
-     * @return TextArea My text area.
+     * @return TextAreaInterface My text area.
      */
     public function getTextArea()
     {
@@ -156,7 +169,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my select.
      *
-     * @return Select My select.
+     * @return SelectInterface My select.
      */
     public function getSelect()
     {
@@ -166,7 +179,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my file field.
      *
-     * @return FileField My file field.
+     * @return FileFieldInterface My file field.
      */
     public function getFileField()
     {
@@ -176,7 +189,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my email field.
      *
-     * @return EmailField My email field.
+     * @return EmailFieldInterface My email field.
      */
     public function getEmailField()
     {
@@ -186,7 +199,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my hidden field.
      *
-     * @return HiddenField My hidden field.
+     * @return HiddenFieldInterface My hidden field.
      */
     public function getHiddenField()
     {
@@ -196,7 +209,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my integer field.
      *
-     * @return IntegerField My integer field.
+     * @return IntegerFieldInterface My integer field.
      */
     public function getIntegerField()
     {
@@ -206,7 +219,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my date field.
      *
-     * @return DateField My date field.
+     * @return DateFieldInterface My date field.
      */
     public function getDateField()
     {
@@ -226,7 +239,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my radio buttons.
      *
-     * @return RadioButtonCollection My radio buttons.
+     * @return RadioButtonCollectionInterface My radio buttons.
      */
     public function getRadioButtons()
     {
@@ -236,7 +249,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my date time field.
      *
-     * @return DateTimeField My date time field.
+     * @return DateTimeFieldInterface My date time field.
      */
     public function getDateTimeField()
     {
@@ -246,7 +259,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my private field 1.
      *
-     * @return TextField My private field 1.
+     * @return TextFieldInterface My private field 1.
      */
     public function getPrivateField1()
     {
@@ -256,7 +269,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my private field 2.
      *
-     * @return TextField My private field 2.
+     * @return TextFieldInterface My private field 2.
      */
     public function getPrivateField2()
     {
@@ -340,7 +353,7 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
-     * @var TextField My form field that not requires a value.
+     * @var TextFieldInterface My form field that not requires a value.
      */
     protected $myNotRequiredField;
 
@@ -350,12 +363,12 @@ class BasicTestPostForm extends PostForm
     protected $myCustomValidatedField;
 
     /**
-     * @var TextField My text field.
+     * @var TextFieldInterface My text field.
      */
     protected $myTextField;
 
     /**
-     * @var PasswordField My password field.
+     * @var PasswordFieldInterface My password field.
      */
     protected $myPasswordField;
 
@@ -365,47 +378,47 @@ class BasicTestPostForm extends PostForm
     protected $myNameField;
 
     /**
-     * @var UrlField My url field.
+     * @var UrlFieldInterface My url field.
      */
     protected $myUrlField;
 
     /**
-     * @var CheckBox My checkbox.
+     * @var CheckBoxInterface My checkbox.
      */
     protected $myCheckBox;
 
     /**
-     * @var TextArea My text area.
+     * @var TextAreaInterface My text area.
      */
     protected $myTextArea;
 
     /**
-     * @var Select My select.
+     * @var SelectInterface My select.
      */
     protected $mySelect;
 
     /**
-     * @var FileField My file field.
+     * @var FileFieldInterface My file field.
      */
     protected $myFileField;
 
     /**
-     * @var EmailField My email field.
+     * @var EmailFieldInterface My email field.
      */
     protected $myEmailField;
 
     /**
-     * @var HiddenField My hidden field.
+     * @var HiddenFieldInterface My hidden field.
      */
     protected $myHiddenField;
 
     /**
-     * @var IntegerField My integer field.
+     * @var IntegerFieldInterface My integer field.
      */
     protected $myIntegerField;
 
     /**
-     * @var DateField My date field.
+     * @var DateFieldInterface My date field.
      */
     protected $myDateField;
 
@@ -415,22 +428,22 @@ class BasicTestPostForm extends PostForm
     protected $myJsonFileField;
 
     /**
-     * @var RadioButtonCollection My radio buttons.
+     * @var RadioButtonCollectionInterface My radio buttons.
      */
     protected $myRadioButtons;
 
     /**
-     * @var DateTimeField My date time field.
+     * @var DateTimeFieldInterface My date time field.
      */
     protected $myDateTimeField;
 
     /**
-     * @var TextField My private field 1.
+     * @var TextFieldInterface My private field 1.
      */
     private $myPrivateField1;
 
     /**
-     * @var TextField My private field 2.
+     * @var TextFieldInterface My private field 2.
      */
     private $myPrivateField2;
 

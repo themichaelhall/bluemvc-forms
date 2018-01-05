@@ -9,6 +9,7 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractSetFormValueElement;
 use BlueMvc\Forms\Interfaces\OptionInterface;
+use BlueMvc\Forms\Interfaces\SelectInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
 
 /**
@@ -16,7 +17,7 @@ use BlueMvc\Forms\Traits\BuildTagTrait;
  *
  * @since 1.0.0
  */
-class Select extends AbstractSetFormValueElement
+class Select extends AbstractSetFormValueElement implements SelectInterface
 {
     use BuildTagTrait;
 

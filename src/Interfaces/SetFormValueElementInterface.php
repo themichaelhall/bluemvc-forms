@@ -12,7 +12,7 @@ namespace BlueMvc\Forms\Interfaces;
  *
  * @since 1.0.0
  */
-interface SetFormValueElementInterface
+interface SetFormValueElementInterface extends FormElementInterface
 {
     /**
      * Sets the value from form.
