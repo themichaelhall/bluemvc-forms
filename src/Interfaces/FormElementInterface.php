@@ -78,4 +78,22 @@ interface FormElementInterface
      * @param string $error The element error.
      */
     public function setError($error);
+
+    /**
+     * Sets whether element value is required.
+     *
+     * @since 1.0.0
+     *
+     * @param bool $isRequired True if element value is required, false otherwise.
+     */
+    public function setRequired($isRequired);
+
+    /**
+     * Returns the element html.
+     *
+     * @since 1.0.0
+     *
+     * @return string The element html.
+     */
+    public function __toString();
 }
