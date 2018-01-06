@@ -96,8 +96,8 @@ abstract class PostForm implements PostFormInterface
         // Set form values for elements.
         foreach ($elements as $element) {
             if ($element instanceof SetFormValueElementInterface) {
-                $formValue = $request->getFormParameter($element->getName()) ?: '';
-                $element->setFormValue($formValue);
+                $formValue = $request->getFormParameter($element->getName());
+                $element->setFormValue($formValue !== null ? $formValue : '');
             }
             if ($element instanceof SetUploadedFileElementInterface) {
                 $uploadedFile = $request->getUploadedFile($element->getName());
