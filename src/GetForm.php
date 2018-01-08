@@ -33,6 +33,10 @@ abstract class GetForm extends AbstractForm implements GetFormInterface
             return false;
         }
 
+        if ($request->getUrl()->getQueryString() === null) {
+            return false;
+        }
+
         return $this->doProcess($request->getQueryParameters());
     }
 }

@@ -12,6 +12,72 @@ use PHPUnit\Framework\TestCase;
 class GetFormTest extends TestCase
 {
     /**
+     * Test process with no query request.
+     */
+    public function testProcessWithNoQueryRequest()
+    {
+        $request = new FakeRequest('/');
+
+        $isProcessed = $this->form->process($request);
+
+        self::assertFalse($isProcessed);
+        self::assertSame([], $this->form->getEventMethodsCalled());
+        self::assertFalse($this->form->hasError());
+        self::assertSame([], $this->form->getProcessedElements());
+
+        self::assertSame('', $this->form->getNotRequiredField()->getValue());
+        self::assertFalse($this->form->getNotRequiredField()->hasError());
+
+        self::assertSame('', $this->form->getCustomValidatedField()->getValue());
+        self::assertFalse($this->form->getCustomValidatedField()->hasError());
+
+        self::assertSame('', $this->form->getTextField()->getValue());
+        self::assertFalse($this->form->getTextField()->hasError());
+
+        self::assertSame('', $this->form->getPasswordField()->getValue());
+        self::assertFalse($this->form->getPasswordField()->hasError());
+
+        self::assertSame('', $this->form->getNameField()->getValue());
+        self::assertFalse($this->form->getNameField()->hasError());
+
+        self::assertSame(null, $this->form->getUrlField()->getValue());
+        self::assertFalse($this->form->getUrlField()->hasError());
+
+        self::assertSame(false, $this->form->getCheckBox()->getValue());
+        self::assertFalse($this->form->getCheckBox()->hasError());
+
+        self::assertSame('', $this->form->getTextArea()->getValue());
+        self::assertFalse($this->form->getTextArea()->hasError());
+
+        self::assertSame('', $this->form->getSelect()->getValue());
+        self::assertFalse($this->form->getSelect()->hasError());
+
+        self::assertNull($this->form->getEmailField()->getValue());
+        self::assertFalse($this->form->getEmailField()->hasError());
+
+        self::assertSame('', $this->form->getHiddenField()->getValue());
+        self::assertFalse($this->form->getHiddenField()->hasError());
+
+        self::assertNull($this->form->getIntegerField()->getValue());
+        self::assertFalse($this->form->getIntegerField()->hasError());
+
+        self::assertNull($this->form->getDateField()->getValue());
+        self::assertFalse($this->form->getDateField()->hasError());
+
+        self::assertSame('', $this->form->getRadioButtons()->getValue());
+        self::assertFalse($this->form->getRadioButtons()->hasError());
+
+        self::assertNull($this->form->getDateTimeField()->getValue());
+        self::assertFalse($this->form->getDateTimeField()->hasError());
+
+        self::assertSame('', $this->form->getPrivateField1()->getValue());
+        self::assertFalse($this->form->getPrivateField1()->hasError());
+
+        self::assertSame('', $this->form->getPrivateField2()->getValue());
+        self::assertFalse($this->form->getPrivateField2()->hasError());
+    }
+
+    /**
      * Test process with post request.
      */
     public function testProcessWithPostRequest()
@@ -187,7 +253,7 @@ class GetFormTest extends TestCase
      */
     public function testProcessWithEmptyGetRequest()
     {
-        $request = new FakeRequest('/');
+        $request = new FakeRequest('/?');
 
         $isProcessed = $this->form->process($request);
 
