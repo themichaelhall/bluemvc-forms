@@ -8,10 +8,8 @@
 namespace BlueMvc\Forms;
 
 use BlueMvc\Core\Interfaces\RequestInterface;
-use BlueMvc\Forms\Interfaces\FormElementInterface;
+use BlueMvc\Forms\Base\AbstractForm;
 use BlueMvc\Forms\Interfaces\PostFormInterface;
-use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
-use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
 use DataTypes\Url;
 
 /**
@@ -19,44 +17,8 @@ use DataTypes\Url;
  *
  * @since 1.0.0
  */
-abstract class PostForm implements PostFormInterface
+abstract class PostForm extends AbstractForm implements PostFormInterface
 {
-    /**
-     * Adds an element to the form.
-     *
-     * @since 1.0.0
-     *
-     * @param FormElementInterface $element The element.
-     */
-    public function addElement(FormElementInterface $element)
-    {
-        $this->myExtraElements[] = $element;
-    }
-
-    /**
-     * Returns the processed elements.
-     *
-     * @since 1.0.0
-     *
-     * @return FormElementInterface[] The processed elements.
-     */
-    public function getProcessedElements()
-    {
-        return $this->myProcessedElements;
-    }
-
-    /**
-     * Returns true if form has an error, false otherwise.
-     *
-     * @since 1.0.0
-     *
-     * @return bool True if form has an error, false otherwise.
-     */
-    public function hasError()
-    {
-        return $this->myHasError;
-    }
-
     /**
      * Returns true if check origin is enabled, false otherwise.
      *
@@ -80,9 +42,6 @@ abstract class PostForm implements PostFormInterface
      */
     public function process(RequestInterface $request)
     {
-        $this->myHasError = false;
-        $this->myProcessedElements = [];
-
         if (!$request->getMethod()->isPost()) {
             return false;
         }
@@ -91,41 +50,7 @@ abstract class PostForm implements PostFormInterface
             return false;
         }
 
-        $elements = $this->myGetElementsToProcess();
-
-        // Set form values for elements.
-        foreach ($elements as $element) {
-            if ($element instanceof SetFormValueElementInterface) {
-                $formValue = $request->getFormParameter($element->getName());
-                $element->setFormValue($formValue !== null ? $formValue : '');
-            }
-            if ($element instanceof SetUploadedFileElementInterface) {
-                $uploadedFile = $request->getUploadedFile($element->getName());
-                $element->setUploadedFile($uploadedFile);
-            }
-
-            $this->myProcessedElements[] = $element;
-        }
-
-        $this->onValidate();
-
-        // Check for errors.
-        foreach ($elements as $element) {
-            if ($element->hasError()) {
-                $this->myHasError = true;
-                break;
-            }
-        }
-
-        if (!$this->myHasError) {
-            $this->onSuccess();
-        } else {
-            $this->onError();
-        }
-
-        $this->onProcessed();
-
-        return !$this->myHasError;
+        return $this->doProcess($request->getFormParameters(), $request->getUploadedFiles());
     }
 
     /**
@@ -144,62 +69,6 @@ abstract class PostForm implements PostFormInterface
         }
 
         $this->myCheckOriginEnabled = $checkOriginEnabled;
-    }
-
-    /**
-     * Called when form elements should be validated.
-     *
-     * @since 1.0.0
-     */
-    protected function onValidate()
-    {
-    }
-
-    /**
-     * Called if form processing was successful.
-     *
-     * @since 1.0.0
-     */
-    protected function onSuccess()
-    {
-    }
-
-    /**
-     * Called if form processing was not successful.
-     *
-     * @since 1.0.0
-     */
-    protected function onError()
-    {
-    }
-
-    /**
-     * Called when form processing finishes, regardless if processing was successful or not.
-     *
-     * @since 1.0.0
-     */
-    protected function onProcessed()
-    {
-    }
-
-    /**
-     * Returns the elements to process.
-     *
-     * @return FormElementInterface[] The elements to process.
-     */
-    private function myGetElementsToProcess()
-    {
-        $result = [];
-
-        foreach (get_object_vars($this) as $element) {
-            if ($element instanceof FormElementInterface) {
-                $result[] = $element;
-            }
-        }
-
-        $result = array_merge($result, $this->myExtraElements);
-
-        return $result;
     }
 
     /**
@@ -251,19 +120,4 @@ abstract class PostForm implements PostFormInterface
      * @var bool True if check origin is enabled, false otherwise.
      */
     private $myCheckOriginEnabled = true;
-
-    /**
-     * @var FormElementInterface[] My extra elements to process.
-     */
-    private $myExtraElements = [];
-
-    /**
-     * @var bool True if form has error, false otherwise.
-     */
-    private $myHasError = false;
-
-    /**
-     * @var FormElementInterface[] My processed elements.
-     */
-    private $myProcessedElements = [];
 }
