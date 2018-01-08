@@ -6,11 +6,12 @@ use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
 use DataTypes\FilePath;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test JsonFileField class.
  */
-class JsonFileFieldTest extends \PHPUnit_Framework_TestCase
+class JsonFileFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

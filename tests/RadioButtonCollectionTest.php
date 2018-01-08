@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\RadioButton;
 use BlueMvc\Forms\RadioButtonCollection;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test RadioButtonCollection class.
  */
-class RadioButtonCollectionTest extends \PHPUnit_Framework_TestCase
+class RadioButtonCollectionTest extends TestCase
 {
     /**
      * Test basic constructor.

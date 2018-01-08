@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\DateTimeField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test DateTimeField class.
  */
-class DateTimeFieldTest extends \PHPUnit_Framework_TestCase
+class DateTimeFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

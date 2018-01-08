@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\Select;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test Select class.
  */
-class SelectTest extends \PHPUnit_Framework_TestCase
+class SelectTest extends TestCase
 {
     /**
      * Test basic constructor.

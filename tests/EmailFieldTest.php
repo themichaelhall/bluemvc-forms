@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\EmailField;
 use DataTypes\EmailAddress;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test EmailField class.
  */
-class EmailFieldTest extends \PHPUnit_Framework_TestCase
+class EmailFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

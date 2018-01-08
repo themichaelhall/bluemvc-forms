@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Fakes\FakeRequest;
 use BlueMvc\Forms\Tests\Helpers\TestForms\BasicTestGetForm;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test GetForm class.
  */
-class GetFormTest extends \PHPUnit_Framework_TestCase
+class GetFormTest extends TestCase
 {
     /**
      * Test process with post request.

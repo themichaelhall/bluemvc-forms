@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\CheckBox;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test CheckBox class.
  */
-class CheckBoxTest extends \PHPUnit_Framework_TestCase
+class CheckBoxTest extends TestCase
 {
     /**
      * Test basic constructor.

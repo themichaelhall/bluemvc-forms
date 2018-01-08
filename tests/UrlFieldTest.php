@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\UrlField;
 use DataTypes\Url;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test UrlField class.
  */
-class UrlFieldTest extends \PHPUnit_Framework_TestCase
+class UrlFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Fakes\FakeRequest;
 use BlueMvc\Forms\Tests\Helpers\TestForms\SimpleTestPostForm;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test origin check in form.
  */
-class CheckOriginTest extends \PHPUnit_Framework_TestCase
+class CheckOriginTest extends TestCase
 {
     /**
      * Test isCheckOriginEnabled method.

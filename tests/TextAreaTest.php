@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\TextArea;
 use BlueMvc\Forms\TextFormatOptions;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test TextArea class.
  */
-class TextAreaTest extends \PHPUnit_Framework_TestCase
+class TextAreaTest extends TestCase
 {
     /**
      * Test basic constructor.

@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\TextFormatOptions;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class Test CustomValidatedField class.
  */
-class CustomValidatedFieldTest extends \PHPUnit_Framework_TestCase
+class CustomValidatedFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

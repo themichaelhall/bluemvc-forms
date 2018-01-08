@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\PasswordField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test PasswordField class.
  */
-class PasswordFieldTest extends \PHPUnit_Framework_TestCase
+class PasswordFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\HiddenField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test HiddenField class.
  */
-class HiddenFieldTest extends \PHPUnit_Framework_TestCase
+class HiddenFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

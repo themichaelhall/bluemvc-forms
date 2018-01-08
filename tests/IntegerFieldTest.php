@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\IntegerField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test IntegerField class.
  */
-class IntegerFieldTest extends \PHPUnit_Framework_TestCase
+class IntegerFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

@@ -4,11 +4,12 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\TextField;
 use BlueMvc\Forms\TextFormatOptions;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test TextField class.
  */
-class TextFieldTest extends \PHPUnit_Framework_TestCase
+class TextFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

@@ -6,11 +6,12 @@ use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\FileField;
 use DataTypes\FilePath;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test FileField class.
  */
-class FileFieldTest extends \PHPUnit_Framework_TestCase
+class FileFieldTest extends TestCase
 {
     /**
      * Test basic constructor.

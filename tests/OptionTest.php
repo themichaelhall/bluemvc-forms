@@ -3,11 +3,12 @@
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Option;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test Option class.
  */
-class OptionTest extends \PHPUnit_Framework_TestCase
+class OptionTest extends TestCase
 {
     /**
      * Test basic constructor.
