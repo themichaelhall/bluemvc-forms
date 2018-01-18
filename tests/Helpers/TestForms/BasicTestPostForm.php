@@ -305,7 +305,7 @@ class BasicTestPostForm extends PostForm
             $this->myTextArea->setError('Value of text area is invalid.');
         }
 
-        if ($this->myFileField->getValue() !== null && strpos(file_get_contents($this->myFileField->getValue()->getPath()->__toString()), 'invalid') !== false) {
+        if ($this->myFileField->getFile() !== null && strpos(file_get_contents($this->myFileField->getFile()->getPath()->__toString()), 'invalid') !== false) {
             $this->myFileField->setError('File content is invalid.');
         }
 

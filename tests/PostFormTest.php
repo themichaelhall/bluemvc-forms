@@ -52,7 +52,7 @@ class PostFormTest extends TestCase
         self::assertSame('', $this->form->getSelect()->getValue());
         self::assertFalse($this->form->getSelect()->hasError());
 
-        self::assertNull($this->form->getFileField()->getValue());
+        self::assertNull($this->form->getFileField()->getFile());
         self::assertFalse($this->form->getFileField()->hasError());
 
         self::assertNull($this->form->getEmailField()->getValue());
@@ -67,7 +67,7 @@ class PostFormTest extends TestCase
         self::assertNull($this->form->getDateField()->getValue());
         self::assertFalse($this->form->getDateField()->hasError());
 
-        self::assertNull($this->form->getJsonFileField()->getValue());
+        self::assertNull($this->form->getJsonFileField()->getFile());
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertFalse($this->form->getJsonFileField()->hasError());
 
@@ -166,9 +166,9 @@ class PostFormTest extends TestCase
         self::assertSame('bar', $this->form->getSelect()->getValue());
         self::assertFalse($this->form->getSelect()->hasError());
 
-        self::assertSame('Hello World!', file_get_contents($this->form->getFileField()->getValue()->getPath()->__toString()));
-        self::assertSame('file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
-        self::assertSame(12, $this->form->getFileField()->getValue()->getSize());
+        self::assertSame('Hello World!', file_get_contents($this->form->getFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($this->form->getFileField()->getFile()->getOriginalName()));
+        self::assertSame(12, $this->form->getFileField()->getFile()->getSize());
         self::assertFalse($this->form->getFileField()->hasError());
 
         self::assertSame('foo.bar@example.com', $this->form->getEmailField()->getValue()->__toString());
@@ -183,9 +183,9 @@ class PostFormTest extends TestCase
         self::assertSame('2017-10-15 00:00:00', $this->form->getDateField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($this->form->getDateField()->hasError());
 
-        self::assertSame('{"Foo": "Bar"}', file_get_contents($this->form->getJsonFileField()->getValue()->getPath()->__toString()));
-        self::assertSame('file.json', basename($this->form->getJsonFileField()->getValue()->getOriginalName()));
-        self::assertSame(14, $this->form->getJsonFileField()->getValue()->getSize());
+        self::assertSame('{"Foo": "Bar"}', file_get_contents($this->form->getJsonFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.json', basename($this->form->getJsonFileField()->getFile()->getOriginalName()));
+        self::assertSame(14, $this->form->getJsonFileField()->getFile()->getSize());
         self::assertSame(['Foo' => 'Bar'], $this->form->getJsonFileField()->getJson());
         self::assertFalse($this->form->getJsonFileField()->hasError());
 
@@ -273,7 +273,7 @@ class PostFormTest extends TestCase
         self::assertTrue($this->form->getSelect()->hasError());
         self::assertSame('Missing value', $this->form->getSelect()->getError());
 
-        self::assertNull($this->form->getFileField()->getValue());
+        self::assertNull($this->form->getFileField()->getFile());
         self::assertTrue($this->form->getFileField()->hasError());
         self::assertSame('Missing file', $this->form->getFileField()->getError());
 
@@ -293,7 +293,7 @@ class PostFormTest extends TestCase
         self::assertTrue($this->form->getDateField()->hasError());
         self::assertSame('Missing value', $this->form->getDateField()->getError());
 
-        self::assertNull($this->form->getJsonFileField()->getValue());
+        self::assertNull($this->form->getJsonFileField()->getFile());
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertTrue($this->form->getJsonFileField()->hasError());
         self::assertSame('Missing file', $this->form->getJsonFileField()->getError());
@@ -406,9 +406,9 @@ class PostFormTest extends TestCase
         self::assertTrue($this->form->getSelect()->hasError());
         self::assertSame('Missing value', $this->form->getSelect()->getError());
 
-        self::assertSame('This is an invalid file!', file_get_contents($this->form->getFileField()->getValue()->getPath()->__toString()));
-        self::assertSame('invalid-file.txt', basename($this->form->getFileField()->getValue()->getOriginalName()));
-        self::assertSame(24, $this->form->getFileField()->getValue()->getSize());
+        self::assertSame('This is an invalid file!', file_get_contents($this->form->getFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('invalid-file.txt', basename($this->form->getFileField()->getFile()->getOriginalName()));
+        self::assertSame(24, $this->form->getFileField()->getFile()->getSize());
         self::assertTrue($this->form->getFileField()->hasError());
         self::assertSame('File content is invalid.', $this->form->getFileField()->getError());
 
@@ -428,9 +428,9 @@ class PostFormTest extends TestCase
         self::assertTrue($this->form->getDateField()->hasError());
         self::assertSame('Invalid value', $this->form->getDateField()->getError());
 
-        self::assertSame('Hello World!', file_get_contents($this->form->getJsonFileField()->getValue()->getPath()->__toString()));
-        self::assertSame('file.txt', basename($this->form->getJsonFileField()->getValue()->getOriginalName()));
-        self::assertSame(12, $this->form->getJsonFileField()->getValue()->getSize());
+        self::assertSame('Hello World!', file_get_contents($this->form->getJsonFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($this->form->getJsonFileField()->getFile()->getOriginalName()));
+        self::assertSame(12, $this->form->getJsonFileField()->getFile()->getSize());
         self::assertSame([], $this->form->getJsonFileField()->getJson());
         self::assertTrue($this->form->getJsonFileField()->hasError());
         self::assertSame('Invalid json content.', $this->form->getJsonFileField()->getError());

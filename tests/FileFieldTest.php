@@ -46,13 +46,13 @@ class FileFieldTest extends TestCase
     }
 
     /**
-     * Test getValue method.
+     * Test getFile method.
      */
-    public function testGetValue()
+    public function testGetFile()
     {
         $fileField = new FileField('foo');
 
-        self::assertNull(null, $fileField->getValue());
+        self::assertNull(null, $fileField->getFile());
     }
 
     /**
@@ -75,6 +75,7 @@ class FileFieldTest extends TestCase
         $fileField->setUploadedFile($uploadedFile);
 
         self::assertSame($uploadedFile, $expectedValue);
+        self::assertSame($uploadedFile, $fileField->getFile());
         self::assertSame($expectedHtml, $fileField->getHtml());
         self::assertSame($expectedHtml, $fileField->__toString());
         self::assertSame($expectedIsEmpty, $fileField->isEmpty());

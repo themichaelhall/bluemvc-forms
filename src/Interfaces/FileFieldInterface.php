@@ -23,5 +23,5 @@ interface FileFieldInterface extends SetUploadedFileElementInterface
      *
      * @return UploadedFileInterface|null The uploaded file or null if no uploaded file is present.
      */
-    public function getValue();
+    public function getFile();
 }

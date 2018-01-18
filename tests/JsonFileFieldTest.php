@@ -52,7 +52,7 @@ class JsonFileFieldTest extends TestCase
     {
         $jsonFileField = new JsonFileField('foo');
 
-        self::assertNull(null, $jsonFileField->getValue());
+        self::assertNull(null, $jsonFileField->getFile());
     }
 
     /**
@@ -76,6 +76,7 @@ class JsonFileFieldTest extends TestCase
         $jsonFileField->setUploadedFile($uploadedFile);
 
         self::assertSame($uploadedFile, $expectedValue);
+        self::assertSame($uploadedFile, $jsonFileField->getFile());
         self::assertSame($expectedJson, $jsonFileField->getJson());
         self::assertSame($expectedHtml, $jsonFileField->getHtml());
         self::assertSame($expectedHtml, $jsonFileField->__toString());

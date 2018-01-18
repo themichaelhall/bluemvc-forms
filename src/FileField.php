@@ -34,7 +34,19 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     {
         parent::__construct($name);
 
-        $this->myValue = null;
+        $this->myFile = null;
+    }
+
+    /**
+     * Returns the uploaded file or null if no uploaded file is present.
+     *
+     * @since 1.0.0
+     *
+     * @return UploadedFileInterface|null The uploaded file or null if no uploaded file is present.
+     */
+    public function getFile()
+    {
+        return $this->myFile;
     }
 
     /**
@@ -61,18 +73,6 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     }
 
     /**
-     * Returns the uploaded file or null if no uploaded file is present.
-     *
-     * @since 1.0.0
-     *
-     * @return UploadedFileInterface|null The uploaded file or null if no uploaded file is present.
-     */
-    public function getValue()
-    {
-        return $this->myValue;
-    }
-
-    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
@@ -81,7 +81,7 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      */
     public function isEmpty()
     {
-        return $this->myValue === null;
+        return $this->myFile === null;
     }
 
     /**
@@ -93,13 +93,13 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      */
     protected function onSetUploadedFile(UploadedFileInterface $uploadedFile = null)
     {
-        $this->myValue = $uploadedFile;
+        $this->myFile = $uploadedFile;
 
         parent::onSetUploadedFile();
     }
 
     /**
-     * @var UploadedFileInterface|null My value.
+     * @var UploadedFileInterface|null My file.
      */
-    private $myValue;
+    private $myFile;
 }
