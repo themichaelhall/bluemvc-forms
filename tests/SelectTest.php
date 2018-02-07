@@ -18,8 +18,8 @@ class SelectTest extends TestCase
     {
         $select = new Select('foo');
 
-        self::assertSame('<select name="foo" required></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required></select>', $select->__toString());
+        self::assertSame('<select name="foo"></select>', $select->getHtml());
+        self::assertSame('<select name="foo"></select>', $select->__toString());
     }
 
     /**
@@ -62,8 +62,8 @@ class SelectTest extends TestCase
         $select->addOption(new Option('1', 'One'));
         $select->addOption(new Option('2', 'Two'));
 
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
     }
 
     /**
@@ -161,8 +161,8 @@ class SelectTest extends TestCase
         $select = new Select('<p>foo</p>');
         $select->addOption(new Option('<span>1</span>', '<h1>One</h1>'));
 
-        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;" required><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->getHtml());
-        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;" required><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->__toString());
+        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;"><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->getHtml());
+        self::assertSame('<select name="&lt;p&gt;foo&lt;/p&gt;"><option value="&lt;span&gt;1&lt;/span&gt;">&lt;h1&gt;One&lt;/h1&gt;</option></select>', $select->__toString());
         self::assertSame('', $select->getValue());
     }
 
@@ -174,7 +174,7 @@ class SelectTest extends TestCase
         $select = new Select('foo');
         $select->addOption(new Option('1', 'One'));
 
-        self::assertSame('<select name="foo" required class="my-select" id="s1"><option value="1">One</option></select>', $select->getHtml(['class' => 'my-select', 'id' => 's1']));
+        self::assertSame('<select name="foo" class="my-select" id="s1"><option value="1">One</option></select>', $select->getHtml(['class' => 'my-select', 'id' => 's1']));
     }
 
     /**
@@ -291,8 +291,8 @@ class SelectTest extends TestCase
         $select->addOption(new Option('1', 'One'));
         $select->addOption(new Option('2', 'Two'));
 
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
         self::assertSame('2', $select->getValue());
     }
 
@@ -317,8 +317,8 @@ class SelectTest extends TestCase
         $select->addOption(new Option('2', 'Two'));
         $select->setFormValue('3');
 
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('', $select->getValue());
         self::assertTrue($select->hasError());
         self::assertSame('Missing value', $select->getError());
@@ -334,8 +334,8 @@ class SelectTest extends TestCase
         $select->addOption(new Option('2', 'Two'));
         $select->setFormValue('3');
 
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
-        self::assertSame('<select name="foo" required><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->getHtml());
+        self::assertSame('<select name="foo"><option value="1">One</option><option value="2">Two</option></select>', $select->__toString());
         self::assertSame('1', $select->getValue());
         self::assertFalse($select->hasError());
         self::assertNull($select->getError());
