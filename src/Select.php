@@ -41,6 +41,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
 
         $this->myValue = $value;
         $this->myOptions = [];
+        $this->myHasEmptyOption = false;
     }
 
     /**
@@ -53,6 +54,10 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     public function addOption(OptionInterface $option)
     {
         $option->setSelected($option->getValue() === $this->myValue);
+
+        if ($option->getValue() === '') {
+            $this->myHasEmptyOption = true;
+        }
 
         $this->myOptions[] = $option;
     }
@@ -77,7 +82,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
             array_merge(
                 [
                     'name'     => $this->getName(),
-                    'required' => $this->isRequired(),
+                    'required' => $this->isRequired() && $this->myHasEmptyOption,
                 ],
                 $attributes
             ), true
@@ -150,4 +155,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      * @var OptionInterface[] My options.
      */
     private $myOptions;
+
+    /**
+     * @var bool True if select has at least one empty option, false otherwise.
+     */
+    private $myHasEmptyOption;
 }
