@@ -1,4 +1,5 @@
 ## Unreleased
+- Added isProcessed method to GetForm and PostForm.
 
 ## [1.0.1] - 2018-02-07
 - Fixed [#1](https://github.com/themichaelhall/bluemvc-forms/issues/1) - Select containing no option with empty value should not have a required attribute.
