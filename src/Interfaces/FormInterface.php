@@ -44,6 +44,15 @@ interface FormInterface
     public function hasError();
 
     /**
+     * Returns true if form is processed, false otherwise.
+     *
+     * @since 1.1.0
+     *
+     * @return bool True if form is processed, false otherwise.
+     */
+    public function isProcessed();
+
+    /**
      * Processes the form.
      *
      * @since 1.0.0

@@ -59,6 +59,18 @@ abstract class AbstractForm implements FormInterface
     }
 
     /**
+     * Returns true if form is processed, false otherwise.
+     *
+     * @since 1.1.0
+     *
+     * @return bool True if form is processed, false otherwise.
+     */
+    public function isProcessed()
+    {
+        return $this->myIsProcessed;
+    }
+
+    /**
      * Processes the form.
      *
      * @since 1.0.0
@@ -118,6 +130,7 @@ abstract class AbstractForm implements FormInterface
         }
 
         $this->onProcessed();
+        $this->myIsProcessed = true;
 
         return !$this->myHasError;
     }
@@ -187,6 +200,11 @@ abstract class AbstractForm implements FormInterface
      * @var bool True if form has error, false otherwise.
      */
     private $myHasError = false;
+
+    /**
+     * @var bool True if form is processed, false otherwise.
+     */
+    private $myIsProcessed = false;
 
     /**
      * @var FormElementInterface[] My processed elements.
