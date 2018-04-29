@@ -24,6 +24,7 @@ class GetFormTest extends TestCase
         self::assertSame([], $this->form->getEventMethodsCalled());
         self::assertFalse($this->form->hasError());
         self::assertSame([], $this->form->getProcessedElements());
+        self::assertFalse($this->form->isProcessed());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -90,6 +91,7 @@ class GetFormTest extends TestCase
         self::assertSame([], $this->form->getEventMethodsCalled());
         self::assertFalse($this->form->hasError());
         self::assertSame([], $this->form->getProcessedElements());
+        self::assertFalse($this->form->isProcessed());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -195,6 +197,7 @@ class GetFormTest extends TestCase
             ],
             $this->form->getProcessedElements()
         );
+        self::assertTrue($this->form->isProcessed());
 
         self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -281,6 +284,7 @@ class GetFormTest extends TestCase
             ],
             $this->form->getProcessedElements()
         );
+        self::assertTrue($this->form->isProcessed());
 
         self::assertSame('', $this->form->getNotRequiredField()->getValue());
         self::assertFalse($this->form->getNotRequiredField()->hasError());
@@ -402,6 +406,7 @@ class GetFormTest extends TestCase
             ],
             $this->form->getProcessedElements()
         );
+        self::assertTrue($this->form->isProcessed());
 
         self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
         self::assertTrue($this->form->getNotRequiredField()->hasError());

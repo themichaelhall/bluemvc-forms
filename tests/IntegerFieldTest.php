@@ -49,7 +49,7 @@ class IntegerFieldTest extends TestCase
     {
         $integerField = new IntegerField('foo');
 
-        self::assertNull(null, $integerField->getValue());
+        self::assertNull($integerField->getValue());
     }
 
     /**

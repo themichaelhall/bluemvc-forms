@@ -52,7 +52,7 @@ class FileFieldTest extends TestCase
     {
         $fileField = new FileField('foo');
 
-        self::assertNull(null, $fileField->getFile());
+        self::assertNull($fileField->getFile());
     }
 
     /**
