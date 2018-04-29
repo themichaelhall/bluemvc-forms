@@ -50,7 +50,7 @@ class EmailFieldTest extends TestCase
     {
         $emailField = new EmailField('foo');
 
-        self::assertNull(null, $emailField->getValue());
+        self::assertNull($emailField->getValue());
     }
 
     /**

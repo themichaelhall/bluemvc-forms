@@ -50,7 +50,7 @@ class UrlFieldTest extends TestCase
     {
         $urlField = new UrlField('foo');
 
-        self::assertNull(null, $urlField->getValue());
+        self::assertNull($urlField->getValue());
     }
 
     /**

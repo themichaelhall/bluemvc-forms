@@ -49,7 +49,7 @@ class DateFieldTest extends TestCase
     {
         $dateField = new DateField('foo');
 
-        self::assertNull(null, $dateField->getValue());
+        self::assertNull($dateField->getValue());
     }
 
     /**
