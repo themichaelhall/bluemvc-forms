@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,7 +24,7 @@ interface FormInterface
      *
      * @param FormElementInterface $element The element.
      */
-    public function addElement(FormElementInterface $element);
+    public function addElement(FormElementInterface $element): void;
 
     /**
      * Returns the processed elements.
@@ -32,7 +33,7 @@ interface FormInterface
      *
      * @return FormElementInterface[] The processed elements.
      */
-    public function getProcessedElements();
+    public function getProcessedElements(): array;
 
     /**
      * Returns true if form has an error, false otherwise.
@@ -41,7 +42,7 @@ interface FormInterface
      *
      * @return bool True if form has an error, false otherwise.
      */
-    public function hasError();
+    public function hasError(): bool;
 
     /**
      * Returns true if form is processed, false otherwise.
@@ -50,7 +51,7 @@ interface FormInterface
      *
      * @return bool True if form is processed, false otherwise.
      */
-    public function isProcessed();
+    public function isProcessed(): bool;
 
     /**
      * Processes the form.
@@ -61,5 +62,5 @@ interface FormInterface
      *
      * @return bool True if form was successfully processed, false otherwise.
      */
-    public function process(RequestInterface $request);
+    public function process(RequestInterface $request): bool;
 }

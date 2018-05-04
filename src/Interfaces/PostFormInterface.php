@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,7 +22,7 @@ interface PostFormInterface extends FormInterface
      *
      * @return bool True if check origin is enabled, false otherwise.
      */
-    public function isCheckOriginEnabled();
+    public function isCheckOriginEnabled(): bool;
 
     /**
      * Sets whether check origin is enabled.
@@ -29,8 +30,6 @@ interface PostFormInterface extends FormInterface
      * @since 1.0.0
      *
      * @param bool $checkOriginEnabled True if check origin is enabled, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $checkOriginEnabled parameter is not a boolean.
      */
-    public function setCheckOriginEnabled($checkOriginEnabled);
+    public function setCheckOriginEnabled(bool $checkOriginEnabled): void;
 }

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -26,22 +27,12 @@ class Option implements OptionInterface
      *
      * @param string $value The value.
      * @param string $label The label.
-     *
-     * @throws \InvalidArgumentException If any of the parameters is not a string.
      */
-    public function __construct($value, $label)
+    public function __construct(string $value, string $label)
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        if (!is_string($label)) {
-            throw new \InvalidArgumentException('$label parameter is not a string.');
-        }
-
-        $this->myValue = $value;
-        $this->myLabel = $label;
-        $this->myIsSelected = false;
+        $this->value = $value;
+        $this->label = $label;
+        $this->isSelected = false;
     }
 
     /**
@@ -53,13 +44,13 @@ class Option implements OptionInterface
      *
      * @return string The option html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
         return self::buildTag('option', $this->getLabel(),
             array_merge(
                 [
                     'value'    => $this->getValue(),
-                    'selected' => $this->myIsSelected,
+                    'selected' => $this->isSelected,
                 ],
                 $attributes)
         );
@@ -72,9 +63,9 @@ class Option implements OptionInterface
      *
      * @return string The label.
      */
-    public function getLabel()
+    public function getLabel(): string
     {
-        return $this->myLabel;
+        return $this->label;
     }
 
     /**
@@ -84,9 +75,9 @@ class Option implements OptionInterface
      *
      * @return string The value.
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -96,9 +87,9 @@ class Option implements OptionInterface
      *
      * @return bool True if option is selected, false otherwise.
      */
-    public function isSelected()
+    public function isSelected(): bool
     {
-        return $this->myIsSelected;
+        return $this->isSelected;
     }
 
     /**
@@ -107,16 +98,10 @@ class Option implements OptionInterface
      * @since 1.0.0
      *
      * @param bool $isSelected True if option is selected, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $isSelected parameter is not a boolean.
      */
-    public function setSelected($isSelected)
+    public function setSelected(bool $isSelected): void
     {
-        if (!is_bool($isSelected)) {
-            throw new \InvalidArgumentException('$isSelected parameter is not a boolean.');
-        }
-
-        $this->myIsSelected = $isSelected;
+        $this->isSelected = $isSelected;
     }
 
     /**
@@ -126,7 +111,7 @@ class Option implements OptionInterface
      *
      * @return string The option as a string.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getHtml();
     }
@@ -134,15 +119,15 @@ class Option implements OptionInterface
     /**
      * @var string My value.
      */
-    private $myValue;
+    private $value;
 
     /**
      * @var string My label.
      */
-    private $myLabel;
+    private $label;
 
     /**
      * @var bool True if this option is selected, false otherwise.
      */
-    private $myIsSelected;
+    private $isSelected;
 }
