@@ -1,4 +1,6 @@
-<?php /** @noinspection InconsistentLineSeparators */
+<?php
+
+/** @noinspection InconsistentLineSeparators */
 
 declare(strict_types=1);
 
