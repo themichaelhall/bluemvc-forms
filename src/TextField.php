@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -25,10 +26,8 @@ class TextField extends AbstractTextInputField implements TextFieldInterface
      * @param string $name              The name.
      * @param string $value             The value.
      * @param int    $textFormatOptions The text format options.
-     *
-     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT)
+    public function __construct(string $name, string $value = '', int $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT)
     {
         parent::__construct($name, $value, $textFormatOptions);
     }
@@ -40,7 +39,7 @@ class TextField extends AbstractTextInputField implements TextFieldInterface
      *
      * @return string The value of the text field.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->getText();
     }
@@ -52,7 +51,7 @@ class TextField extends AbstractTextInputField implements TextFieldInterface
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'text';
     }

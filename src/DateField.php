@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -24,15 +25,13 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @param string                  $name  The name.
      * @param \DateTimeImmutable|null $value The value.
-     *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    public function __construct($name, \DateTimeImmutable $value = null)
+    public function __construct(string $name, ?\DateTimeImmutable $value = null)
     {
         parent::__construct($name, $value !== null ? $value->format('Y-m-d') : '', TextFormatOptions::TRIM);
 
-        $this->myIsInvalid = false;
-        $this->mySetValue($value);
+        $this->isInvalid = false;
+        $this->setValue($value);
     }
 
     /**
@@ -42,9 +41,9 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @return \DateTimeImmutable|null The value of the date field.
      */
-    public function getValue()
+    public function getValue(): ?\DateTimeImmutable
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -54,9 +53,9 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid()
+    public function isInvalid(): bool
     {
-        return $this->myIsInvalid;
+        return $this->isInvalid;
     }
 
     /**
@@ -66,7 +65,7 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'date';
     }
@@ -78,12 +77,12 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @param string $text The text from form.
      */
-    protected function onSetText($text)
+    protected function onSetText(string $text): void
     {
         parent::onSetText($text);
 
-        $this->myIsInvalid = false;
-        $this->myValue = null;
+        $this->isInvalid = false;
+        $this->value = null;
 
         if ($this->hasError()) {
             return;
@@ -94,10 +93,10 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
         }
 
         try {
-            $this->mySetValue(new \DateTimeImmutable($text));
+            $this->setValue(new \DateTimeImmutable($text));
         } catch (\Exception $exception) {
             $this->setError('Invalid value');
-            $this->myIsInvalid = true;
+            $this->isInvalid = true;
         }
     }
 
@@ -106,24 +105,24 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @param \DateTimeImmutable|null $value The value.
      */
-    private function mySetValue(\DateTimeImmutable $value = null)
+    private function setValue(\DateTimeImmutable $value = null): void
     {
         if ($value === null) {
-            $this->myValue = null;
+            $this->value = null;
 
             return;
         }
 
-        $this->myValue = $value->setTime(0, 0, 0);
+        $this->value = $value->setTime(0, 0, 0);
     }
 
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $myIsInvalid;
+    private $isInvalid;
 
     /**
      * @var \DateTimeImmutable|null My value.
      */
-    private $myValue;
+    private $value;
 }

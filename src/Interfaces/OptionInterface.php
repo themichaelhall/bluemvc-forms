@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,7 +24,7 @@ interface OptionInterface
      *
      * @return string The option html.
      */
-    public function getHtml(array $attributes = []);
+    public function getHtml(array $attributes = []): string;
 
     /**
      * Returns the label.
@@ -32,7 +33,7 @@ interface OptionInterface
      *
      * @return string The label.
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
      * Returns the value.
@@ -41,7 +42,7 @@ interface OptionInterface
      *
      * @return string The value.
      */
-    public function getValue();
+    public function getValue(): string;
 
     /**
      * Returns true if option is selected, false otherwise.
@@ -50,7 +51,7 @@ interface OptionInterface
      *
      * @return bool True if option is selected, false otherwise.
      */
-    public function isSelected();
+    public function isSelected(): bool;
 
     /**
      * Sets whether this option is selected.
@@ -59,7 +60,7 @@ interface OptionInterface
      *
      * @param bool $isSelected True if option is selected, false otherwise.
      */
-    public function setSelected($isSelected);
+    public function setSelected(bool $isSelected): void;
 
     /**
      * Returns the option as a string.
@@ -68,5 +69,5 @@ interface OptionInterface
      *
      * @return string The option as a string.
      */
-    public function __toString();
+    public function __toString(): string;
 }

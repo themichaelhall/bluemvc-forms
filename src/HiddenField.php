@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -24,10 +25,8 @@ class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
      *
      * @param string $name  The name.
      * @param string $value The value.
-     *
-     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '')
+    public function __construct(string $name, string $value = '')
     {
         parent::__construct($name, $value, TextFormatOptions::NONE);
     }
@@ -41,7 +40,7 @@ class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
         // Hide required from displaying.
         $attributes['required'] = null;
@@ -56,7 +55,7 @@ class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
      *
      * @return string The value of the hidden field.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->getText();
     }
@@ -68,7 +67,7 @@ class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'hidden';
     }

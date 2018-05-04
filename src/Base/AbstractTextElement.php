@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -23,9 +24,9 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return $this->myText === '';
+        return $this->text === '';
     }
 
     /**
@@ -36,25 +37,15 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      * @param string $name              The name.
      * @param string $value             The value to display in input field.
      * @param int    $textFormatOptions The text format options.
-     *
-     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    protected function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::NONE)
+    protected function __construct(string $name, string $value = '', int $textFormatOptions = TextFormatOptions::NONE)
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
-        if (!is_int($textFormatOptions)) {
-            throw new \InvalidArgumentException('$textFormatOptions parameter is not an integer.');
-        }
-
         parent::__construct($name);
 
-        $this->myTextFormatOptions = $textFormatOptions;
-        $value = $this->mySanitizeText($value);
+        $this->textFormatOptions = $textFormatOptions;
+        $value = $this->sanitizeText($value);
         $this->onFormatText($value);
-        $this->myText = $value;
+        $this->text = $value;
     }
 
     /**
@@ -64,9 +55,9 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @return string The value to display in input field.
      */
-    protected function getText()
+    protected function getText(): string
     {
-        return $this->myText;
+        return $this->text;
     }
 
     /**
@@ -76,7 +67,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @return bool True if this text element is multi-line, false otherwise.
      */
-    abstract protected function isMultiLine();
+    abstract protected function isMultiLine(): bool;
 
     /**
      * Called when text should be formatted.
@@ -85,7 +76,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @param string $text The text.
      */
-    protected function onFormatText(&$text)
+    protected function onFormatText(string &$text): void
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
         $result = [];
@@ -94,18 +85,18 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
         $hasFoundNonEmptyLines = false;
 
         foreach ($lines as $line) {
-            if (($this->myTextFormatOptions & TextFormatOptions::TRIM) !== 0) {
+            if (($this->textFormatOptions & TextFormatOptions::TRIM) !== 0) {
                 $line = trim($line);
             }
-            if (($this->myTextFormatOptions & TextFormatOptions::COMPACT) !== 0) {
+            if (($this->textFormatOptions & TextFormatOptions::COMPACT) !== 0) {
                 $line = preg_replace('/\s+/', ' ', $line);
             }
 
             if ($line === '') {
-                if (($this->myTextFormatOptions & TextFormatOptions::COMPACT_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+                if (($this->textFormatOptions & TextFormatOptions::COMPACT_LINES) !== 0 && $lastEmptyLinesCount > 0) {
                     continue;
                 }
-                if (($this->myTextFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && !$hasFoundNonEmptyLines) {
+                if (($this->textFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && !$hasFoundNonEmptyLines) {
                     continue;
                 }
 
@@ -118,7 +109,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
             $result[] = $line;
         }
 
-        if (($this->myTextFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && $lastEmptyLinesCount > 0) {
+        if (($this->textFormatOptions & TextFormatOptions::TRIM_LINES) !== 0 && $lastEmptyLinesCount > 0) {
             // Trim the last empty lines (we did not know until now that those were at the end).
             array_splice($result, -$lastEmptyLinesCount);
         }
@@ -133,11 +124,11 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @param string $value The value from form.
      */
-    protected function onSetFormValue($value)
+    protected function onSetFormValue(string $value): void
     {
-        $value = $this->mySanitizeText($value);
+        $value = $this->sanitizeText($value);
         $this->onFormatText($value);
-        $this->myText = $value;
+        $this->text = $value;
 
         parent::onSetFormValue($value);
 
@@ -151,7 +142,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @param string $text The text from form.
      */
-    protected function onSetText($text)
+    protected function onSetText(string $text): void
     {
     }
 
@@ -162,7 +153,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @return string The sanitized text.
      */
-    private function mySanitizeText($text)
+    private function sanitizeText(string $text): string
     {
         $text = preg_replace($this->isMultiLine() ? '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/u' : '/[\x00-\x1F\x7F]/u', '', $text);
 
@@ -172,10 +163,10 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
     /**
      * @var int My text format options.
      */
-    private $myTextFormatOptions;
+    private $textFormatOptions;
 
     /**
      * @var string My text to display in input form.
      */
-    private $myText;
+    private $text;
 }

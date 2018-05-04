@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,7 +24,7 @@ interface UrlFieldInterface extends SetFormValueElementInterface
      *
      * @return UrlInterface|null The value of the url field.
      */
-    public function getValue();
+    public function getValue(): ?UrlInterface;
 
     /**
      * Returns true if the value is invalid, false otherwise.
@@ -32,5 +33,5 @@ interface UrlFieldInterface extends SetFormValueElementInterface
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid();
+    public function isInvalid(): bool;
 }

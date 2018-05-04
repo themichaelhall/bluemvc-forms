@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,5 +22,5 @@ interface TextAreaInterface extends SetFormValueElementInterface
      *
      * @return string The value of the text area.
      */
-    public function getValue();
+    public function getValue(): string;
 }

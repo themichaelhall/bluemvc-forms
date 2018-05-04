@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -26,15 +27,13 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      *
      * @param string            $name  The name.
      * @param UrlInterface|null $value The value.
-     *
-     * @throws \InvalidArgumentException If any the $name parameter is not a string.
      */
-    public function __construct($name, UrlInterface $value = null)
+    public function __construct(string $name, ?UrlInterface $value = null)
     {
         parent::__construct($name, $value !== null ? $value->__toString() : '', TextFormatOptions::TRIM);
 
-        $this->myIsInvalid = false;
-        $this->myValue = $value;
+        $this->isInvalid = false;
+        $this->value = $value;
     }
 
     /**
@@ -44,9 +43,9 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      *
      * @return UrlInterface|null The value of the url field.
      */
-    public function getValue()
+    public function getValue(): ?UrlInterface
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -56,9 +55,9 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid()
+    public function isInvalid(): bool
     {
-        return $this->myIsInvalid;
+        return $this->isInvalid;
     }
 
     /**
@@ -68,7 +67,7 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'url';
     }
@@ -80,12 +79,12 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      *
      * @param string $text The text from form.
      */
-    protected function onSetText($text)
+    protected function onSetText(string $text): void
     {
         parent::onSetText($text);
 
-        $this->myIsInvalid = false;
-        $this->myValue = null;
+        $this->isInvalid = false;
+        $this->value = null;
 
         if ($this->hasError()) {
             return;
@@ -95,21 +94,21 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
             return;
         }
 
-        $this->myValue = Url::tryParse($text);
+        $this->value = Url::tryParse($text);
 
-        if ($this->myValue === null) {
+        if ($this->value === null) {
             $this->setError('Invalid value');
-            $this->myIsInvalid = true;
+            $this->isInvalid = true;
         }
     }
 
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $myIsInvalid;
+    private $isInvalid;
 
     /**
      * @var UrlInterface|null My value.
      */
-    private $myValue;
+    private $value;
 }

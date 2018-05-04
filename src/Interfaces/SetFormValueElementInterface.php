@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,5 +22,5 @@ interface SetFormValueElementInterface extends FormElementInterface
      *
      * @param string $value The value from form.
      */
-    public function setFormValue($value);
+    public function setFormValue(string $value): void;
 }

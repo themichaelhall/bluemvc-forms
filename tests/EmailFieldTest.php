@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\EmailField;
@@ -20,17 +22,6 @@ class EmailFieldTest extends TestCase
 
         self::assertSame('<input type="email" name="foo" required>', $emailField->getHtml());
         self::assertSame('<input type="email" name="foo" required>', $emailField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new EmailField(true);
     }
 
     /**
@@ -66,7 +57,7 @@ class EmailFieldTest extends TestCase
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, ?string $expectedValue, bool $expectedIsEmpty, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
     {
         $emailField = new EmailField('foo');
         $emailField->setRequired($isRequired);
@@ -101,27 +92,15 @@ class EmailFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $emailField = new EmailField('foo');
-        $emailField->setFormValue(true);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
      *
-     * @param string $value              The value
-     * @param string $expectedValue      The expected value.
-     * @param string $expectedHtmlString The expected html string.
+     * @param string      $value              The value
+     * @param string|null $expectedValue      The expected value or null if no value.
+     * @param string      $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?string $expectedValue, string $expectedHtmlString)
     {
         $emailField = new EmailField('foo');
         $emailField->setFormValue($value);
@@ -233,18 +212,6 @@ class EmailFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $emailField = new EmailField('foo');
-        $emailField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -290,21 +257,9 @@ class EmailFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $emailField = new EmailField('foo');
-        $emailField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $emailField = new EmailField('foo');
         $emailField->setFormValue("foo\0\t@\r\nexample.com");

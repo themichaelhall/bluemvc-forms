@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -24,7 +25,7 @@ abstract class AbstractSetUploadedFileElement extends AbstractFormElement implem
      *
      * @param UploadedFileInterface|null $uploadedFile The uploaded file from form.
      */
-    public function setUploadedFile(UploadedFileInterface $uploadedFile = null)
+    public function setUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
         $this->onSetUploadedFile($uploadedFile);
     }
@@ -39,7 +40,7 @@ abstract class AbstractSetUploadedFileElement extends AbstractFormElement implem
     protected function onSetUploadedFile(
         /** @noinspection PhpUnusedParameterInspection */
         UploadedFileInterface $uploadedFile = null
-    ) {
+    ): void {
         if ($this->isEmpty() && $this->isRequired()) {
             $this->setError('Missing file');
         }

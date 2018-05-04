@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -27,18 +28,12 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
      *
      * @param string $name  The name.
      * @param bool   $value The value.
-     *
-     * @throws \InvalidArgumentException If any of the $name or $value parameters is not the correct type.
      */
-    public function __construct($name, $value = false)
+    public function __construct(string $name, bool $value = false)
     {
-        if (!is_bool($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a boolean.');
-        }
-
         parent::__construct($name);
 
-        $this->myValue = $value;
+        $this->value = $value;
     }
 
     /**
@@ -50,14 +45,14 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
-        return self::myBuildTag('input', null,
+        return self::buildTag('input', null,
             array_merge(
                 [
                     'type'     => 'checkbox',
                     'name'     => $this->getName(),
-                    'checked'  => $this->myValue,
+                    'checked'  => $this->value,
                     'required' => $this->isRequired(),
                 ],
                 $attributes
@@ -72,9 +67,9 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
      *
      * @return bool The value of the checkbox.
      */
-    public function getValue()
+    public function getValue(): bool
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -84,9 +79,9 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return !$this->myValue;
+        return !$this->value;
     }
 
     /**
@@ -96,9 +91,9 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
      *
      * @param string $value The value from form.
      */
-    protected function onSetFormValue($value)
+    protected function onSetFormValue(string $value): void
     {
-        $this->myValue = strtolower($value) === 'on';
+        $this->value = strtolower($value) === 'on';
 
         parent::onSetFormValue($value);
     }
@@ -106,5 +101,5 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
     /**
      * @var bool My value.
      */
-    private $myValue;
+    private $value;
 }

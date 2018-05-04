@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,7 +22,7 @@ interface FormElementInterface
      *
      * @return string|null The element error or null if element has no error.
      */
-    public function getError();
+    public function getError(): ?string;
 
     /**
      * Returns the element html.
@@ -32,7 +33,7 @@ interface FormElementInterface
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = []);
+    public function getHtml(array $attributes = []): string;
 
     /**
      * Returns the element name.
@@ -41,7 +42,7 @@ interface FormElementInterface
      *
      * @return string The element name.
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns true if element has an error, false otherwise.
@@ -50,7 +51,7 @@ interface FormElementInterface
      *
      * @return bool True if element has an error, false otherwise.
      */
-    public function hasError();
+    public function hasError(): bool;
 
     /**
      * Returns true if element value is empty, false otherwise.
@@ -59,7 +60,7 @@ interface FormElementInterface
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty();
+    public function isEmpty(): bool;
 
     /**
      * Returns true if element value is required, false otherwise.
@@ -68,7 +69,7 @@ interface FormElementInterface
      *
      * @return bool True if element value is required, false otherwise.
      */
-    public function isRequired();
+    public function isRequired(): bool;
 
     /**
      * Sets the element error.
@@ -77,7 +78,7 @@ interface FormElementInterface
      *
      * @param string $error The element error.
      */
-    public function setError($error);
+    public function setError(string $error): void;
 
     /**
      * Sets whether element value is required.
@@ -86,7 +87,7 @@ interface FormElementInterface
      *
      * @param bool $isRequired True if element value is required, false otherwise.
      */
-    public function setRequired($isRequired);
+    public function setRequired(bool $isRequired): void;
 
     /**
      * Returns the element html.
@@ -95,5 +96,5 @@ interface FormElementInterface
      *
      * @return string The element html.
      */
-    public function __toString();
+    public function __toString(): string;
 }

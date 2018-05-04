@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Fakes\FakeRequest;
@@ -33,18 +35,6 @@ class CheckOriginTest extends TestCase
     }
 
     /**
-     * Test setCheckOriginEnabled method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $checkOriginEnabled parameter is not a boolean.
-     */
-    public function testSetCheckOriginEnabledWithInvalidParameterType()
-    {
-        $form = new SimpleTestPostForm();
-        $form->setCheckOriginEnabled('');
-    }
-
-    /**
      * Test origin check in form.
      *
      * @dataProvider checkOriginDataProvider
@@ -55,7 +45,7 @@ class CheckOriginTest extends TestCase
      * @param string|null $referrerHeader      The referrer header.
      * @param bool        $expectedIsProcessed If true, form expects to be processed, false otherwise.
      */
-    public function testCheckOrigin($formUrl, $checkOriginEnabled, $originHeader, $referrerHeader, $expectedIsProcessed)
+    public function testCheckOrigin(string $formUrl, bool $checkOriginEnabled, ?string $originHeader, ?string $referrerHeader, bool $expectedIsProcessed)
     {
         $request = new FakeRequest($formUrl, 'POST');
         if ($originHeader !== null) {

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -27,7 +28,7 @@ abstract class GetForm extends AbstractForm implements GetFormInterface
      *
      * @return bool True if form was successfully processed, false otherwise.
      */
-    public function process(RequestInterface $request)
+    public function process(RequestInterface $request): bool
     {
         if (!$request->getMethod()->isGet()) {
             return false;

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -29,9 +30,9 @@ abstract class AbstractForm implements FormInterface
      *
      * @param FormElementInterface $element The element.
      */
-    public function addElement(FormElementInterface $element)
+    public function addElement(FormElementInterface $element): void
     {
-        $this->myExtraElements[] = $element;
+        $this->extraElements[] = $element;
     }
 
     /**
@@ -41,9 +42,9 @@ abstract class AbstractForm implements FormInterface
      *
      * @return FormElementInterface[] The processed elements.
      */
-    public function getProcessedElements()
+    public function getProcessedElements(): array
     {
-        return $this->myProcessedElements;
+        return $this->processedElements;
     }
 
     /**
@@ -53,9 +54,9 @@ abstract class AbstractForm implements FormInterface
      *
      * @return bool True if form has an error, false otherwise.
      */
-    public function hasError()
+    public function hasError(): bool
     {
-        return $this->myHasError;
+        return $this->hasError;
     }
 
     /**
@@ -65,9 +66,9 @@ abstract class AbstractForm implements FormInterface
      *
      * @return bool True if form is processed, false otherwise.
      */
-    public function isProcessed()
+    public function isProcessed(): bool
     {
-        return $this->myIsProcessed;
+        return $this->isProcessed;
     }
 
     /**
@@ -79,7 +80,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @return bool True if form was successfully processed, false otherwise.
      */
-    abstract public function process(RequestInterface $request);
+    abstract public function process(RequestInterface $request): bool;
 
     /**
      * Processes the form.
@@ -91,12 +92,12 @@ abstract class AbstractForm implements FormInterface
      *
      * @return bool True if form was successfully processed, false otherwise.
      */
-    protected function doProcess(ParameterCollectionInterface $parameters, UploadedFileCollectionInterface $uploadedFiles = null)
+    protected function doProcess(ParameterCollectionInterface $parameters, ?UploadedFileCollectionInterface $uploadedFiles = null): bool
     {
-        $this->myHasError = false;
-        $this->myProcessedElements = [];
+        $this->hasError = false;
+        $this->processedElements = [];
 
-        $elements = $this->myGetElementsToProcess();
+        $elements = $this->getElementsToProcess();
 
         // Set form values for elements.
         foreach ($elements as $element) {
@@ -110,7 +111,7 @@ abstract class AbstractForm implements FormInterface
                 $element->setUploadedFile($uploadedFile);
             }
 
-            $this->myProcessedElements[] = $element;
+            $this->processedElements[] = $element;
         }
 
         $this->onValidate();
@@ -118,21 +119,21 @@ abstract class AbstractForm implements FormInterface
         // Check for errors.
         foreach ($elements as $element) {
             if ($element->hasError()) {
-                $this->myHasError = true;
+                $this->hasError = true;
                 break;
             }
         }
 
-        if (!$this->myHasError) {
+        if (!$this->hasError) {
             $this->onSuccess();
         } else {
             $this->onError();
         }
 
         $this->onProcessed();
-        $this->myIsProcessed = true;
+        $this->isProcessed = true;
 
-        return !$this->myHasError;
+        return !$this->hasError;
     }
 
     /**
@@ -140,7 +141,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @since 1.0.0
      */
-    protected function onValidate()
+    protected function onValidate(): void
     {
     }
 
@@ -149,7 +150,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @since 1.0.0
      */
-    protected function onSuccess()
+    protected function onSuccess(): void
     {
     }
 
@@ -158,7 +159,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @since 1.0.0
      */
-    protected function onError()
+    protected function onError(): void
     {
     }
 
@@ -167,7 +168,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @since 1.0.0
      */
-    protected function onProcessed()
+    protected function onProcessed(): void
     {
     }
 
@@ -176,7 +177,7 @@ abstract class AbstractForm implements FormInterface
      *
      * @return FormElementInterface[] The elements to process.
      */
-    private function myGetElementsToProcess()
+    private function getElementsToProcess(): array
     {
         $result = [];
 
@@ -186,7 +187,7 @@ abstract class AbstractForm implements FormInterface
             }
         }
 
-        $result = array_merge($result, $this->myExtraElements);
+        $result = array_merge($result, $this->extraElements);
 
         return $result;
     }
@@ -194,20 +195,20 @@ abstract class AbstractForm implements FormInterface
     /**
      * @var FormElementInterface[] My extra elements to process.
      */
-    private $myExtraElements = [];
+    private $extraElements = [];
 
     /**
      * @var bool True if form has error, false otherwise.
      */
-    private $myHasError = false;
+    private $hasError = false;
 
     /**
      * @var bool True if form is processed, false otherwise.
      */
-    private $myIsProcessed = false;
+    private $isProcessed = false;
 
     /**
      * @var FormElementInterface[] My processed elements.
      */
-    private $myProcessedElements = [];
+    private $processedElements = [];
 }

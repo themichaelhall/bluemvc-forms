@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -23,10 +24,8 @@ class PasswordField extends AbstractTextInputField implements PasswordFieldInter
      * @since 1.0.0
      *
      * @param string $name The name.
-     *
-     * @throws \InvalidArgumentException If the $name parameters is not a string.
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
     }
@@ -40,7 +39,7 @@ class PasswordField extends AbstractTextInputField implements PasswordFieldInter
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
         // Hide value from displaying.
         $attributes['value'] = null;
@@ -55,7 +54,7 @@ class PasswordField extends AbstractTextInputField implements PasswordFieldInter
      *
      * @return string The value of the password field.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->getText();
     }
@@ -67,7 +66,7 @@ class PasswordField extends AbstractTextInputField implements PasswordFieldInter
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'password';
     }

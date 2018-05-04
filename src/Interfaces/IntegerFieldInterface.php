@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,7 +22,7 @@ interface IntegerFieldInterface extends SetFormValueElementInterface
      *
      * @return int|null The value of the integer field.
      */
-    public function getValue();
+    public function getValue(): ?int;
 
     /**
      * Returns true if the value is invalid, false otherwise.
@@ -30,7 +31,7 @@ interface IntegerFieldInterface extends SetFormValueElementInterface
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid();
+    public function isInvalid(): bool;
 
     /**
      * Sets the maximum value.
@@ -39,7 +40,7 @@ interface IntegerFieldInterface extends SetFormValueElementInterface
      *
      * @param int $maximumValue The maximum value.
      */
-    public function setMaximumValue($maximumValue);
+    public function setMaximumValue(int $maximumValue): void;
 
     /**
      * Sets the minimum value.
@@ -48,5 +49,5 @@ interface IntegerFieldInterface extends SetFormValueElementInterface
      *
      * @param int $minimumValue The minimum value.
      */
-    public function setMinimumValue($minimumValue);
+    public function setMinimumValue(int $minimumValue): void;
 }

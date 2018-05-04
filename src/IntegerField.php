@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -24,17 +25,15 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @param string   $name  The name.
      * @param int|null $value The value.
-     *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    public function __construct($name, $value = null)
+    public function __construct(string $name, ?int $value = null)
     {
         parent::__construct($name, $value !== null ? strval($value) : '', TextFormatOptions::TRIM);
 
-        $this->myIsInvalid = false;
-        $this->myValue = $value;
-        $this->myMinimumValue = null;
-        $this->myMaximumValue = null;
+        $this->isInvalid = false;
+        $this->value = $value;
+        $this->minimumValue = null;
+        $this->maximumValue = null;
     }
 
     /**
@@ -46,14 +45,14 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
-        if ($this->myMinimumValue !== null) {
-            $attributes['min'] = $this->myMinimumValue;
+        if ($this->minimumValue !== null) {
+            $attributes['min'] = $this->minimumValue;
         }
 
-        if ($this->myMaximumValue !== null) {
-            $attributes['max'] = $this->myMaximumValue;
+        if ($this->maximumValue !== null) {
+            $attributes['max'] = $this->maximumValue;
         }
 
         return parent::getHtml($attributes);
@@ -66,9 +65,9 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @return int|null The value of the integer field.
      */
-    public function getValue()
+    public function getValue(): ?int
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -78,9 +77,9 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid()
+    public function isInvalid(): bool
     {
-        return $this->myIsInvalid;
+        return $this->isInvalid;
     }
 
     /**
@@ -89,16 +88,10 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      * @since 1.0.0
      *
      * @param int $maximumValue The maximum value.
-     *
-     * @throws \InvalidArgumentException If the $maximumValue parameter is not an integer.
      */
-    public function setMaximumValue($maximumValue)
+    public function setMaximumValue(int $maximumValue): void
     {
-        if (!is_int($maximumValue)) {
-            throw new \InvalidArgumentException('$maximumValue parameter is not an integer.');
-        }
-
-        $this->myMaximumValue = $maximumValue;
+        $this->maximumValue = $maximumValue;
     }
 
     /**
@@ -107,16 +100,10 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      * @since 1.0.0
      *
      * @param int $minimumValue The minimum value.
-     *
-     * @throws \InvalidArgumentException If the $minimumValue parameter is not an integer.
      */
-    public function setMinimumValue($minimumValue)
+    public function setMinimumValue(int $minimumValue): void
     {
-        if (!is_int($minimumValue)) {
-            throw new \InvalidArgumentException('$minimumValue parameter is not an integer.');
-        }
-
-        $this->myMinimumValue = $minimumValue;
+        $this->minimumValue = $minimumValue;
     }
 
     /**
@@ -126,7 +113,7 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @return string The input type.
      */
-    protected function getType()
+    protected function getType(): string
     {
         return 'number';
     }
@@ -138,12 +125,12 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
      *
      * @param string $text The text from form.
      */
-    protected function onSetText($text)
+    protected function onSetText(string $text): void
     {
         parent::onSetText($text);
 
-        $this->myIsInvalid = false;
-        $this->myValue = null;
+        $this->isInvalid = false;
+        $this->value = null;
 
         if ($this->hasError()) {
             return;
@@ -155,40 +142,40 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
 
         if (!preg_match('/^[-+]?[0-9]+$/', $text)) {
             $this->setError('Invalid value');
-            $this->myIsInvalid = true;
+            $this->isInvalid = true;
 
             return;
         }
 
         $value = intval($text);
 
-        if ($this->myMinimumValue !== null && $value < $this->myMinimumValue || $this->myMaximumValue !== null && $value > $this->myMaximumValue) {
+        if ($this->minimumValue !== null && $value < $this->minimumValue || $this->maximumValue !== null && $value > $this->maximumValue) {
             $this->setError('Invalid value');
-            $this->myIsInvalid = true;
+            $this->isInvalid = true;
 
             return;
         }
 
-        $this->myValue = $value;
+        $this->value = $value;
     }
 
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $myIsInvalid;
+    private $isInvalid;
 
     /**
      * @var int|null My value.
      */
-    private $myValue;
+    private $value;
 
     /**
      * @var int|null My minimum value.
      */
-    private $myMinimumValue;
+    private $minimumValue;
 
     /**
      * @var int|null My maximum value.
      */
-    private $myMaximumValue;
+    private $maximumValue;
 }

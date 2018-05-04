@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -25,7 +26,7 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return string The element html.
      */
-    abstract public function getHtml(array $attributes = []);
+    abstract public function getHtml(array $attributes = []): string;
 
     /**
      * Returns the element error or null if element has no error.
@@ -34,9 +35,9 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return string|null The element error or null if element has no error.
      */
-    public function getError()
+    public function getError(): ?string
     {
-        return $this->myError;
+        return $this->error;
     }
 
     /**
@@ -46,9 +47,9 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return string The element name.
      */
-    public function getName()
+    public function getName(): string
     {
-        return $this->myName;
+        return $this->name;
     }
 
     /**
@@ -58,9 +59,9 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return bool True if element has an error, false otherwise.
      */
-    public function hasError()
+    public function hasError(): bool
     {
-        return $this->myError !== null;
+        return $this->error !== null;
     }
 
     /**
@@ -70,7 +71,7 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    abstract public function isEmpty();
+    abstract public function isEmpty(): bool;
 
     /**
      * Returns true if element value is required, false otherwise.
@@ -79,9 +80,9 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return bool True if element value is required, false otherwise.
      */
-    public function isRequired()
+    public function isRequired(): bool
     {
-        return $this->myIsRequired;
+        return $this->isRequired;
     }
 
     /**
@@ -90,16 +91,10 @@ abstract class AbstractFormElement implements FormElementInterface
      * @since 1.0.0
      *
      * @param bool $isRequired True if element value is required, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $isRequired parameter is not a boolean.
      */
-    public function setRequired($isRequired)
+    public function setRequired(bool $isRequired): void
     {
-        if (!is_bool($isRequired)) {
-            throw new \InvalidArgumentException('$isRequired parameter is not a boolean.');
-        }
-
-        $this->myIsRequired = $isRequired;
+        $this->isRequired = $isRequired;
     }
 
     /**
@@ -108,16 +103,10 @@ abstract class AbstractFormElement implements FormElementInterface
      * @since 1.0.0
      *
      * @param string $error The element error.
-     *
-     * @throws \InvalidArgumentException If the $error parameter is not a string.
      */
-    public function setError($error)
+    public function setError(string $error): void
     {
-        if (!is_string($error)) {
-            throw new \InvalidArgumentException('$error parameter is not a string.');
-        }
-
-        $this->myError = $error;
+        $this->error = $error;
     }
 
     /**
@@ -127,7 +116,7 @@ abstract class AbstractFormElement implements FormElementInterface
      *
      * @return string The element html.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getHtml();
     }
@@ -138,32 +127,26 @@ abstract class AbstractFormElement implements FormElementInterface
      * @since 1.0.0
      *
      * @param string $name The name.
-     *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    protected function __construct($name)
+    protected function __construct(string $name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name parameter is not a string.');
-        }
-
-        $this->myName = $name;
-        $this->myError = null;
-        $this->myIsRequired = true;
+        $this->name = $name;
+        $this->error = null;
+        $this->isRequired = true;
     }
 
     /**
      * @var string My name.
      */
-    private $myName;
+    private $name;
 
     /**
      * @var string|null My error or null if no error.
      */
-    private $myError;
+    private $error;
 
     /**
      * @var bool If true element value is required, false otherwise.
      */
-    private $myIsRequired;
+    private $isRequired;
 }

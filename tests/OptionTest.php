@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Option;
@@ -19,28 +21,6 @@ class OptionTest extends TestCase
 
         self::assertSame('<option value="foo">bar</option>', $option->getHtml());
         self::assertSame('<option value="foo">bar</option>', $option->__toString());
-    }
-
-    /**
-     * Test constructor with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithInvalidValueParameterType()
-    {
-        new Option(false, 'bar');
-    }
-
-    /**
-     * Test constructor with invalid label parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $label parameter is not a string.
-     */
-    public function testConstructorWithInvalidLabelParameterType()
-    {
-        new Option('foo', null);
     }
 
     /**
@@ -105,17 +85,5 @@ class OptionTest extends TestCase
         self::assertTrue($option->isSelected());
         self::assertSame('<option value="foo" selected>bar</option>', $option->getHtml());
         self::assertSame('<option value="foo" selected>bar</option>', $option->__toString());
-    }
-
-    /**
-     * Test setSelected method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isSelected parameter is not a boolean.
-     */
-    public function testSetSelectedWithInvalidParameterType()
-    {
-        $option = new Option('foo', 'bar');
-        $option->setSelected('baz');
     }
 }

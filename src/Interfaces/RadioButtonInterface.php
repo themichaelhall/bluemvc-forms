@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,7 +24,7 @@ interface RadioButtonInterface
      *
      * @return string The radio button html.
      */
-    public function getHtml(array $attributes = []);
+    public function getHtml(array $attributes = []): string;
 
     /**
      * Returns the label.
@@ -32,7 +33,7 @@ interface RadioButtonInterface
      *
      * @return string The label.
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
      * Returns the name.
@@ -41,7 +42,7 @@ interface RadioButtonInterface
      *
      * @return string The name.
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the value.
@@ -50,7 +51,7 @@ interface RadioButtonInterface
      *
      * @return string The value.
      */
-    public function getValue();
+    public function getValue(): string;
 
     /**
      * Returns true if radio button is selected, false otherwise.
@@ -59,7 +60,7 @@ interface RadioButtonInterface
      *
      * @return bool True if radio button is selected, false otherwise.
      */
-    public function isSelected();
+    public function isSelected(): bool;
 
     /**
      * Sets the name.
@@ -68,7 +69,7 @@ interface RadioButtonInterface
      *
      * @param string $name The name.
      */
-    public function setName($name);
+    public function setName(string $name): void;
 
     /**
      * Sets whether this radio button is selected.
@@ -77,7 +78,7 @@ interface RadioButtonInterface
      *
      * @param bool $isSelected True if radio button is selected, false otherwise.
      */
-    public function setSelected($isSelected);
+    public function setSelected(bool $isSelected): void;
 
     /**
      * Returns the radio button as a string.
@@ -86,5 +87,5 @@ interface RadioButtonInterface
      *
      * @return string The radio button as a string.
      */
-    public function __toString();
+    public function __toString(): string;
 }
