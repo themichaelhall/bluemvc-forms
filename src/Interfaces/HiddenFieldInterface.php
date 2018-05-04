@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,5 +22,5 @@ interface HiddenFieldInterface extends SetFormValueElementInterface
      *
      * @return string The value of the hidden field.
      */
-    public function getValue();
+    public function getValue(): string;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
@@ -20,17 +22,6 @@ class CustomValidatedFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" required>', $customValidatedField->getHtml());
         self::assertSame('<input type="text" name="foo" required>', $customValidatedField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new CustomValidatedField(0);
     }
 
     /**
@@ -60,12 +51,12 @@ class CustomValidatedFieldTest extends TestCase
      *
      * @param bool        $isRequired       True of value is required, false otherwise.
      * @param string      $value            The value.
-     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param string      $expectedValue    The expected value.
      * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $customValidatedField = new CustomValidatedField('foo');
         $customValidatedField->setRequired($isRequired);
@@ -101,29 +92,6 @@ class CustomValidatedFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $customValidatedField = new CustomValidatedField('foo');
-        $customValidatedField->setFormValue(true);
-    }
-
-    /**
-     * Test constructor with invalid text format options parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
-     */
-    public function testConstructorWithInvalidTextFormatOptionsParameterType()
-    {
-        new CustomValidatedField('foo', '', null);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
@@ -133,7 +101,7 @@ class CustomValidatedFieldTest extends TestCase
      * @param string   $expectedValue      The expected value.
      * @param string   $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?int $textFormatOptions, string $expectedValue, string $expectedHtmlString)
     {
         $customValidatedField = $textFormatOptions !== null ?
             new CustomValidatedField('foo', '', $textFormatOptions) :
@@ -242,18 +210,6 @@ class CustomValidatedFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $customValidatedField = new CustomValidatedField('foo');
-        $customValidatedField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -274,17 +230,6 @@ class CustomValidatedFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $customValidatedField->__toString());
-    }
-
-    /**
-     * Test constructor with default value with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithDefaultValueWithInvalidParameterType()
-    {
-        new CustomValidatedField('foo', false);
     }
 
     /**
@@ -318,17 +263,5 @@ class CustomValidatedFieldTest extends TestCase
         self::assertFalse($customValidatedField->isRequired());
         self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->__toString());
-    }
-
-    /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $customValidatedField = new CustomValidatedField('foo');
-        $customValidatedField->setRequired(0);
     }
 }

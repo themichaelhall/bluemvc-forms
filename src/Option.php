@@ -55,7 +55,7 @@ class Option implements OptionInterface
      */
     public function getHtml(array $attributes = [])
     {
-        return self::myBuildTag('option', $this->getLabel(),
+        return self::buildTag('option', $this->getLabel(),
             array_merge(
                 [
                     'value'    => $this->getValue(),

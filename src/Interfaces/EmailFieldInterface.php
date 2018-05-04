@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,7 +24,7 @@ interface EmailFieldInterface extends SetFormValueElementInterface
      *
      * @return EmailAddressInterface|null The value of the email field.
      */
-    public function getValue();
+    public function getValue(): ?EmailAddressInterface;
 
     /**
      * Returns true if the value is invalid, false otherwise.
@@ -32,5 +33,5 @@ interface EmailFieldInterface extends SetFormValueElementInterface
      *
      * @return bool True if the value is invalid, false otherwise.
      */
-    public function isInvalid();
+    public function isInvalid(): bool;
 }

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -28,20 +29,14 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @param string $name  The name.
      * @param string $value The value.
-     *
-     * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
      */
-    public function __construct($name, $value = '')
+    public function __construct(string $name, string $value = '')
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
         parent::__construct($name);
 
-        $this->myValue = $value;
-        $this->myOptions = [];
-        $this->myHasEmptyOption = false;
+        $this->value = $value;
+        $this->options = [];
+        $this->hasEmptyOption = false;
     }
 
     /**
@@ -51,15 +46,15 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @param OptionInterface $option The option.
      */
-    public function addOption(OptionInterface $option)
+    public function addOption(OptionInterface $option): void
     {
-        $option->setSelected($option->getValue() === $this->myValue);
+        $option->setSelected($option->getValue() === $this->value);
 
         if ($option->getValue() === '') {
-            $this->myHasEmptyOption = true;
+            $this->hasEmptyOption = true;
         }
 
-        $this->myOptions[] = $option;
+        $this->options[] = $option;
     }
 
     /**
@@ -71,18 +66,18 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
         $optionsHtml = '';
-        foreach ($this->myOptions as $option) {
+        foreach ($this->options as $option) {
             $optionsHtml .= $option->getHtml();
         }
 
-        return self::myBuildTag('select', $optionsHtml,
+        return self::buildTag('select', $optionsHtml,
             array_merge(
                 [
                     'name'     => $this->getName(),
-                    'required' => $this->isRequired() && $this->myHasEmptyOption,
+                    'required' => $this->isRequired() && $this->hasEmptyOption,
                 ],
                 $attributes
             ), true
@@ -96,9 +91,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @return OptionInterface[] The options.
      */
-    public function getOptions()
+    public function getOptions(): array
     {
-        return $this->myOptions;
+        return $this->options;
     }
 
     /**
@@ -108,9 +103,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @return string The element value.
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -120,9 +115,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return $this->myValue === '';
+        return $this->value === '';
     }
 
     /**
@@ -132,14 +127,14 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @param string $value The value from form.
      */
-    protected function onSetFormValue($value)
+    protected function onSetFormValue(string $value): void
     {
-        foreach ($this->myOptions as $option) {
+        foreach ($this->options as $option) {
             $isMatch = ($value === $option->getValue());
             $option->setSelected($isMatch);
 
             if ($isMatch) {
-                $this->myValue = $value;
+                $this->value = $value;
             }
         }
 
@@ -149,15 +144,15 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     /**
      * @var string My value.
      */
-    private $myValue;
+    private $value;
 
     /**
      * @var OptionInterface[] My options.
      */
-    private $myOptions;
+    private $options;
 
     /**
      * @var bool True if select has at least one empty option, false otherwise.
      */
-    private $myHasEmptyOption;
+    private $hasEmptyOption;
 }

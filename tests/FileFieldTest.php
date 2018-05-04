@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
@@ -22,17 +24,6 @@ class FileFieldTest extends TestCase
 
         self::assertSame('<input type="file" name="foo" required>', $fileField->getHtml());
         self::assertSame('<input type="file" name="foo" required>', $fileField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new FileField(null);
     }
 
     /**
@@ -68,7 +59,7 @@ class FileFieldTest extends TestCase
      * @param bool                       $expectedHasError The expected value from hasError method.
      * @param string|null                $expectedError    The expected error or null if no error.
      */
-    public function testSetUploadedFile($isRequired, $uploadedFile, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetUploadedFile(bool $isRequired, ?UploadedFileInterface $uploadedFile, ?UploadedFileInterface $expectedValue, string $expectedHtml, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $fileField = new FileField('foo');
         $fileField->setRequired($isRequired);
@@ -158,18 +149,6 @@ class FileFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $fileField = new FileField('foo');
-        $fileField->setError(true);
-    }
-
-    /**
      * Test getHtml method with attributes.
      */
     public function testGetHtmlWithAttributes()
@@ -200,17 +179,5 @@ class FileFieldTest extends TestCase
         self::assertFalse($fileField->isRequired());
         self::assertSame('<input type="file" name="foo">', $fileField->getHtml());
         self::assertSame('<input type="file" name="foo">', $fileField->__toString());
-    }
-
-    /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $fileField = new FileField('foo');
-        $fileField->setRequired(-10);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
@@ -20,17 +22,6 @@ class NameFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" required>', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" required>', $nameField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new NameField(0);
     }
 
     /**
@@ -60,12 +51,12 @@ class NameFieldTest extends TestCase
      *
      * @param bool        $isRequired       True of value is required, false otherwise.
      * @param string      $value            The value.
-     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param string      $expectedValue    The expected value.
      * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $nameField = new NameField('foo');
         $nameField->setRequired($isRequired);
@@ -97,29 +88,6 @@ class NameFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $nameField = new NameField('foo');
-        $nameField->setFormValue(true);
-    }
-
-    /**
-     * Test constructor with invalid text format options parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
-     */
-    public function testConstructorWithInvalidTextFormatOptionsParameterType()
-    {
-        new NameField('foo', '', false);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
@@ -129,7 +97,7 @@ class NameFieldTest extends TestCase
      * @param string   $expectedValue      The expected value.
      * @param string   $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?int $textFormatOptions, string $expectedValue, string $expectedHtmlString)
     {
         $nameField = $textFormatOptions !== null ?
             new NameField('foo', '', $textFormatOptions) :
@@ -243,18 +211,6 @@ class NameFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $nameField = new NameField('foo');
-        $nameField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -275,17 +231,6 @@ class NameFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" value="Bar Baz" required>', $textField->__toString());
-    }
-
-    /**
-     * Test constructor with default value with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithDefaultValueWithInvalidParameterType()
-    {
-        new NameField('foo', false);
     }
 
     /**
@@ -319,17 +264,5 @@ class NameFieldTest extends TestCase
         self::assertFalse($nameField->isRequired());
         self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->__toString());
-    }
-
-    /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $nameField = new NameField('foo');
-        $nameField->setRequired(0);
     }
 }

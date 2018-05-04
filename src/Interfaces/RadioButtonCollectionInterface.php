@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,7 +22,7 @@ interface RadioButtonCollectionInterface extends SetFormValueElementInterface
      *
      * @param RadioButtonInterface $radioButton The radio button.
      */
-    public function addRadioButton(RadioButtonInterface $radioButton);
+    public function addRadioButton(RadioButtonInterface $radioButton): void;
 
     /**
      * Returns the radio buttons.
@@ -30,7 +31,7 @@ interface RadioButtonCollectionInterface extends SetFormValueElementInterface
      *
      * @return RadioButtonInterface[] The radio buttons.
      */
-    public function getRadioButtons();
+    public function getRadioButtons(): array;
 
     /**
      * Returns the element value.
@@ -39,5 +40,5 @@ interface RadioButtonCollectionInterface extends SetFormValueElementInterface
      *
      * @return string The element value.
      */
-    public function getValue();
+    public function getValue(): string;
 }

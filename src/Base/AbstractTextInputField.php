@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -27,9 +28,9 @@ abstract class AbstractTextInputField extends AbstractTextElement
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
-        return self::myBuildTag('input', null,
+        return self::buildTag('input', null,
             array_merge(
                 [
                     'type'     => $this->getType(),
@@ -49,7 +50,7 @@ abstract class AbstractTextInputField extends AbstractTextElement
      *
      * @return string The input type.
      */
-    abstract protected function getType();
+    abstract protected function getType(): string;
 
     /**
      * Returns true if this text element is multi-line, false otherwise.
@@ -58,7 +59,7 @@ abstract class AbstractTextInputField extends AbstractTextElement
      *
      * @return bool True if this text element is multi-line, false otherwise.
      */
-    protected function isMultiLine()
+    protected function isMultiLine(): bool
     {
         return false;
     }

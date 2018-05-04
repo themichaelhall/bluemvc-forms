@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests\Helpers\TestFormElements;
 
 use BlueMvc\Forms\TextField;
@@ -16,7 +18,7 @@ class NameField extends TextField
      *
      * @param string $text The text.
      */
-    protected function onFormatText(&$text)
+    protected function onFormatText(string &$text): void
     {
         parent::onFormatText($text);
 

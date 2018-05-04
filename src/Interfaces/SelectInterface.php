@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -21,7 +22,7 @@ interface SelectInterface extends SetFormValueElementInterface
      *
      * @param OptionInterface $option The option.
      */
-    public function addOption(OptionInterface $option);
+    public function addOption(OptionInterface $option): void;
 
     /**
      * Returns the options.
@@ -30,7 +31,7 @@ interface SelectInterface extends SetFormValueElementInterface
      *
      * @return OptionInterface[] The options.
      */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * Returns the element value.
@@ -39,5 +40,5 @@ interface SelectInterface extends SetFormValueElementInterface
      *
      * @return string The element value.
      */
-    public function getValue();
+    public function getValue(): string;
 }

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
@@ -22,15 +23,9 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
      * @since 1.0.0
      *
      * @param string $value The value from form.
-     *
-     * @throws \InvalidArgumentException If the $value parameter is not a string.
      */
-    public function setFormValue($value)
+    public function setFormValue(string $value): void
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
         $this->onSetFormValue($value);
     }
 
@@ -43,8 +38,8 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
      */
     protected function onSetFormValue(
         /** @noinspection PhpUnusedParameterInspection */
-        $value
-    ) {
+        string $value
+    ): void {
         if ($this->isEmpty() && $this->isRequired()) {
             $this->setError('Missing value');
 

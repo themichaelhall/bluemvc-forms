@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -28,10 +29,8 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      * @param string $name              The name.
      * @param string $value             The value.
      * @param int    $textFormatOptions The text format options.
-     *
-     * @throws \InvalidArgumentException If any of the parameters are of invalid type.
      */
-    public function __construct($name, $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT | TextFormatOptions::TRIM_LINES | TextFormatOptions::COMPACT_LINES)
+    public function __construct(string $name, string $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT | TextFormatOptions::TRIM_LINES | TextFormatOptions::COMPACT_LINES)
     {
         parent::__construct($name, $value, $textFormatOptions);
     }
@@ -43,7 +42,7 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      *
      * @return string The value of the text area.
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->getText();
     }
@@ -57,9 +56,9 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
-        return self::myBuildTag('textarea', $this->getText(),
+        return self::buildTag('textarea', $this->getText(),
             array_merge(
                 [
                     'name'     => $this->getName(),
@@ -77,7 +76,7 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      *
      * @return bool True if this text element is multi-line, false otherwise.
      */
-    protected function isMultiLine()
+    protected function isMultiLine(): bool
     {
         return true;
     }

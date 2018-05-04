@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\HiddenField;
@@ -19,17 +21,6 @@ class HiddenFieldTest extends TestCase
 
         self::assertSame('<input type="hidden" name="foo">', $hiddenField->getHtml());
         self::assertSame('<input type="hidden" name="foo">', $hiddenField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new HiddenField(0);
     }
 
     /**
@@ -59,12 +50,12 @@ class HiddenFieldTest extends TestCase
      *
      * @param bool        $isRequired       True of value is required, false otherwise.
      * @param string      $value            The value.
-     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param string      $expectedValue    The expected value.
      * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $hiddenField = new HiddenField('foo');
         $hiddenField->setRequired($isRequired);
@@ -93,18 +84,6 @@ class HiddenFieldTest extends TestCase
             [false, ' Foo  Bar Baz ', ' Foo  Bar Baz ', false, false, null],
             [true, ' Foo  Bar Baz ', ' Foo  Bar Baz ', false, false, null],
         ];
-    }
-
-    /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $hiddenField = new HiddenField('foo');
-        $hiddenField->setFormValue(true);
     }
 
     /**
@@ -173,18 +152,6 @@ class HiddenFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $hiddenField = new HiddenField('foo');
-        $hiddenField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -194,17 +161,6 @@ class HiddenFieldTest extends TestCase
         self::assertSame('bar', $hiddenField->getValue());
         self::assertSame('<input type="hidden" name="foo" value="bar">', $hiddenField->getHtml());
         self::assertSame('<input type="hidden" name="foo" value="bar">', $hiddenField->__toString());
-    }
-
-    /**
-     * Test constructor with default value with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithDefaultValueWithInvalidParameterType()
-    {
-        new HiddenField('foo', false);
     }
 
     /**
@@ -241,21 +197,9 @@ class HiddenFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $hiddenField = new HiddenField('foo');
-        $hiddenField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $hiddenField = new HiddenField('foo');
         $hiddenField->setFormValue("Foo\0\tBar\r\nBaz");
