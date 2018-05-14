@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\UrlField;
@@ -20,17 +22,6 @@ class UrlFieldTest extends TestCase
 
         self::assertSame('<input type="url" name="foo" required>', $urlField->getHtml());
         self::assertSame('<input type="url" name="foo" required>', $urlField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new UrlField(0);
     }
 
     /**
@@ -66,7 +57,7 @@ class UrlFieldTest extends TestCase
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, ?string $expectedValue, bool $expectedIsEmpty, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
     {
         $urlField = new UrlField('foo');
         $urlField->setRequired($isRequired);
@@ -101,27 +92,15 @@ class UrlFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setFormValue(true);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
      *
-     * @param string $value              The value
-     * @param string $expectedValue      The expected value.
-     * @param string $expectedHtmlString The expected html string.
+     * @param string      $value              The value
+     * @param string|null $expectedValue      The expected value.
+     * @param string      $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?string $expectedValue, string $expectedHtmlString)
     {
         $urlField = new UrlField('foo');
         $urlField->setFormValue($value);
@@ -233,18 +212,6 @@ class UrlFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -290,21 +257,9 @@ class UrlFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $urlField = new UrlField('foo');
         $urlField->setFormValue("https://\0\twww.\r\nexample.com");

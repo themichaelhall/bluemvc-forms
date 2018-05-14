@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\Interfaces\TextFieldInterface;

@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -25,19 +26,13 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @param string $name  The name.
      * @param string $value The value.
-     *
-     * @throws \InvalidArgumentException If any of the $name or $value parameters is not a string.
      */
-    public function __construct($name, $value = '')
+    public function __construct(string $name, string $value = '')
     {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('$value parameter is not a string.');
-        }
-
         parent::__construct($name);
 
-        $this->myValue = $value;
-        $this->myRadioButtons = [];
+        $this->value = $value;
+        $this->radioButtons = [];
     }
 
     /**
@@ -47,12 +42,12 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @param RadioButtonInterface $radioButton The radio button.
      */
-    public function addRadioButton(RadioButtonInterface $radioButton)
+    public function addRadioButton(RadioButtonInterface $radioButton): void
     {
         $radioButton->setName($this->getName());
-        $radioButton->setSelected($radioButton->getValue() === $this->myValue);
+        $radioButton->setSelected($radioButton->getValue() === $this->value);
 
-        $this->myRadioButtons[] = $radioButton;
+        $this->radioButtons[] = $radioButton;
     }
 
     /**
@@ -64,10 +59,10 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
         $result = '';
-        foreach ($this->myRadioButtons as $radioButton) {
+        foreach ($this->radioButtons as $radioButton) {
             $result .= $radioButton->getHtml($attributes) . htmlspecialchars($radioButton->getLabel());
         }
 
@@ -81,9 +76,9 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @return RadioButtonInterface[] The radio buttons.
      */
-    public function getRadioButtons()
+    public function getRadioButtons(): array
     {
-        return $this->myRadioButtons;
+        return $this->radioButtons;
     }
 
     /**
@@ -93,9 +88,9 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @return string The element value.
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return $this->myValue;
+        return $this->value;
     }
 
     /**
@@ -105,9 +100,9 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return $this->myValue === '';
+        return $this->value === '';
     }
 
     /**
@@ -117,14 +112,14 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @param string $value The value from form.
      */
-    protected function onSetFormValue($value)
+    protected function onSetFormValue(string $value): void
     {
-        foreach ($this->myRadioButtons as $radioButton) {
+        foreach ($this->radioButtons as $radioButton) {
             $isMatch = ($value === $radioButton->getValue());
             $radioButton->setSelected($isMatch);
 
             if ($isMatch) {
-                $this->myValue = $value;
+                $this->value = $value;
             }
         }
 
@@ -134,10 +129,10 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
     /**
      * @var string My value.
      */
-    private $myValue;
+    private $value;
 
     /**
      * @var RadioButtonInterface[] My radio buttons.
      */
-    private $myRadioButtons;
+    private $radioButtons;
 }

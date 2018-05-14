@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\CheckBox;
@@ -19,17 +21,6 @@ class CheckBoxTest extends TestCase
 
         self::assertSame('<input type="checkbox" name="foo" required>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" required>', $checkbox->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new CheckBox(0);
     }
 
     /**
@@ -65,7 +56,7 @@ class CheckBoxTest extends TestCase
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, bool $expectedValue, string $expectedHtml, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $checkbox = new CheckBox('foo');
         $checkbox->setRequired($isRequired);
@@ -94,18 +85,6 @@ class CheckBoxTest extends TestCase
             [false, 'foo', false, '<input type="checkbox" name="foo">', true, false, null],
             [true, 'foo', false, '<input type="checkbox" name="foo" required>', true, true, 'Missing value'],
         ];
-    }
-
-    /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $checkbox = new CheckBox('foo');
-        $checkbox->setFormValue(true);
     }
 
     /**
@@ -173,18 +152,6 @@ class CheckBoxTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $checkbox = new CheckBox('foo');
-        $checkbox->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -194,17 +161,6 @@ class CheckBoxTest extends TestCase
         self::assertTrue($checkbox->getValue());
         self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" checked required>', $checkbox->__toString());
-    }
-
-    /**
-     * Test constructor with default value with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a boolean.
-     */
-    public function testConstructorWithDefaultValueWithInvalidParameterType()
-    {
-        new CheckBox('foo', 42);
     }
 
     /**
@@ -238,17 +194,5 @@ class CheckBoxTest extends TestCase
         self::assertFalse($checkbox->isRequired());
         self::assertSame('<input type="checkbox" name="foo" checked>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" checked>', $checkbox->__toString());
-    }
-
-    /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $checkbox = new CheckBox('foo');
-        $checkbox->setRequired(0);
     }
 }

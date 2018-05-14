@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\Option;
@@ -20,17 +22,6 @@ class SelectTest extends TestCase
 
         self::assertSame('<select name="foo"></select>', $select->getHtml());
         self::assertSame('<select name="foo"></select>', $select->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new Select(true);
     }
 
     /**
@@ -108,7 +99,7 @@ class SelectTest extends TestCase
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, string $expectedHtml, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $select = new Select('foo');
         $select->setRequired($isRequired);
@@ -137,20 +128,6 @@ class SelectTest extends TestCase
             [false, '1', '1', '<select name="foo"><option value="">None</option><option value="1" selected>One</option></select>', false, false, null],
             [true, '1', '1', '<select name="foo" required><option value="">None</option><option value="1" selected>One</option></select>', false, false, null],
         ];
-    }
-
-    /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $select = new Select('foo');
-        $select->addOption(new Option('1', 'One'));
-        $select->addOption(new Option('2', 'Two'));
-        $select->setFormValue(2);
     }
 
     /**
@@ -235,18 +212,6 @@ class SelectTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $select = new Select('foo');
-        $select->setError(10.5);
-    }
-
-    /**
      * Test isRequired method.
      */
     public function testIsRequired()
@@ -271,18 +236,6 @@ class SelectTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $select = new Select('foo');
-        $select->setRequired(50);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -294,17 +247,6 @@ class SelectTest extends TestCase
         self::assertSame('<select name="foo"><option value="1">One</option><option value="2" selected>Two</option></select>', $select->getHtml());
         self::assertSame('<select name="foo"><option value="1">One</option><option value="2" selected>Two</option></select>', $select->__toString());
         self::assertSame('2', $select->getValue());
-    }
-
-    /**
-     * Test constructor with invalid default value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithInvalidDefaultValueParameterType()
-    {
-        new Select('foo', 2);
     }
 
     /**

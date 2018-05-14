@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Traits;
 
@@ -24,7 +25,7 @@ trait BuildTagTrait
      *
      * @return string The tag.
      */
-    private static function myBuildTag($name, $content = null, $attributes = [], $contentIsEncoded = false)
+    private static function buildTag(string $name, ?string $content = null, array $attributes = [], bool $contentIsEncoded = false)
     {
         $result = '<' . htmlspecialchars($name);
         foreach ($attributes as $attributeName => $attributeValue) {
@@ -32,12 +33,12 @@ trait BuildTagTrait
                 continue;
             }
 
-            $result .= ' ' . htmlspecialchars($attributeName);
+            $result .= ' ' . htmlspecialchars(strval($attributeName));
             if ($attributeValue === true) {
                 continue;
             }
 
-            $result .= '="' . htmlspecialchars($attributeValue) . '"';
+            $result .= '="' . htmlspecialchars(strval($attributeValue)) . '"';
         }
 
         $result .= '>';

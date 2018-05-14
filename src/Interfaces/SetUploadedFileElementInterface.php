@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
@@ -23,5 +24,5 @@ interface SetUploadedFileElementInterface extends FormElementInterface
      *
      * @param UploadedFileInterface|null $uploadedFile The uploaded file from form.
      */
-    public function setUploadedFile(UploadedFileInterface $uploadedFile = null);
+    public function setUploadedFile(?UploadedFileInterface $uploadedFile = null): void;
 }

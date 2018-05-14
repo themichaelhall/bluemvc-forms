@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\RadioButton;
@@ -19,28 +21,6 @@ class RadioButtonTest extends TestCase
 
         self::assertSame('<input type="radio" value="foo">', $radioButton->getHtml());
         self::assertSame('<input type="radio" value="foo">', $radioButton->__toString());
-    }
-
-    /**
-     * Test constructor with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithInvalidValueParameterType()
-    {
-        new RadioButton(false, 'bar');
-    }
-
-    /**
-     * Test constructor with invalid label parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $label parameter is not a string.
-     */
-    public function testConstructorWithInvalidLabelParameterType()
-    {
-        new RadioButton('foo', null);
     }
 
     /**
@@ -118,18 +98,6 @@ class RadioButtonTest extends TestCase
     }
 
     /**
-     * Test setName method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testSetNameWithInvalidParameterType()
-    {
-        $radioButton = new RadioButton('foo', 'bar');
-        $radioButton->setName(1000);
-    }
-
-    /**
      * Test isSelected method.
      */
     public function testIsSelected()
@@ -150,17 +118,5 @@ class RadioButtonTest extends TestCase
         self::assertTrue($radioButton->isSelected());
         self::assertSame('<input type="radio" value="foo" checked>', $radioButton->getHtml());
         self::assertSame('<input type="radio" value="foo" checked>', $radioButton->__toString());
-    }
-
-    /**
-     * Test setSelected method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isSelected parameter is not a boolean.
-     */
-    public function testSetSelectedWithInvalidParameterType()
-    {
-        $radioButton = new RadioButton('foo', 'bar');
-        $radioButton->setSelected('baz');
     }
 }

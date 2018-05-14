@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests\Helpers\TestForms;
 
 use BlueMvc\Forms\CheckBox;
@@ -45,35 +47,35 @@ class BasicTestPostForm extends PostForm
      */
     public function __construct()
     {
-        $this->myNotRequiredField = new TextField('not-required');
-        $this->myNotRequiredField->setRequired(false);
-        $this->myCustomValidatedField = new CustomValidatedField('custom-validated');
+        $this->notRequiredField = new TextField('not-required');
+        $this->notRequiredField->setRequired(false);
+        $this->customValidatedField = new CustomValidatedField('custom-validated');
 
-        $this->myTextField = new TextField('text');
-        $this->myPasswordField = new PasswordField('password');
-        $this->myNameField = new NameField('name');
-        $this->myUrlField = new UrlField('url');
-        $this->myCheckBox = new CheckBox('checkbox');
-        $this->myTextArea = new TextArea('textarea');
-        $this->mySelect = new Select('select');
-        $this->mySelect->addOption(new Option('foo', 'Foo option'));
-        $this->mySelect->addOption(new Option('bar', 'Bar option'));
-        $this->myFileField = new FileField('file');
-        $this->myEmailField = new EmailField('email');
-        $this->myHiddenField = new HiddenField('hidden');
-        $this->myIntegerField = new IntegerField('integer');
-        $this->myDateField = new DateField('date');
-        $this->myJsonFileField = new JsonFileField('json');
-        $this->myRadioButtons = new RadioButtonCollection('radio');
-        $this->myRadioButtons->addRadioButton(new RadioButton('foo', 'Foo radio button'));
-        $this->myRadioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
-        $this->myDateTimeField = new DateTimeField('datetime');
+        $this->textField = new TextField('text');
+        $this->passwordField = new PasswordField('password');
+        $this->nameField = new NameField('name');
+        $this->urlField = new UrlField('url');
+        $this->checkBox = new CheckBox('checkbox');
+        $this->textArea = new TextArea('textarea');
+        $this->select = new Select('select');
+        $this->select->addOption(new Option('foo', 'Foo option'));
+        $this->select->addOption(new Option('bar', 'Bar option'));
+        $this->fileField = new FileField('file');
+        $this->emailField = new EmailField('email');
+        $this->hiddenField = new HiddenField('hidden');
+        $this->integerField = new IntegerField('integer');
+        $this->dateField = new DateField('date');
+        $this->jsonFileField = new JsonFileField('json');
+        $this->radioButtons = new RadioButtonCollection('radio');
+        $this->radioButtons->addRadioButton(new RadioButton('foo', 'Foo radio button'));
+        $this->radioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
+        $this->dateTimeField = new DateTimeField('datetime');
 
-        $this->myPrivateField1 = new TextField('private-1');
-        $this->addElement($this->myPrivateField1);
-        $this->myPrivateField2 = new TextField('private-2');
+        $this->privateField1 = new TextField('private-1');
+        $this->addElement($this->privateField1);
+        $this->privateField2 = new TextField('private-2');
 
-        $this->myEventMethodsCalled = [];
+        $this->eventMethodsCalled = [];
     }
 
     /**
@@ -81,9 +83,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return string[] The names of the event methods called.
      */
-    public function getEventMethodsCalled()
+    public function getEventMethodsCalled(): array
     {
-        return $this->myEventMethodsCalled;
+        return $this->eventMethodsCalled;
     }
 
     /**
@@ -91,9 +93,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return TextFieldInterface My form field that not requires a value.
      */
-    public function getNotRequiredField()
+    public function getNotRequiredField(): TextFieldInterface
     {
-        return $this->myNotRequiredField;
+        return $this->notRequiredField;
     }
 
     /**
@@ -101,9 +103,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return CustomValidatedField My field that has a custom validation.
      */
-    public function getCustomValidatedField()
+    public function getCustomValidatedField(): CustomValidatedField
     {
-        return $this->myCustomValidatedField;
+        return $this->customValidatedField;
     }
 
     /**
@@ -111,9 +113,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return TextFieldInterface My text field.
      */
-    public function getTextField()
+    public function getTextField(): TextFieldInterface
     {
-        return $this->myTextField;
+        return $this->textField;
     }
 
     /**
@@ -121,9 +123,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return PasswordFieldInterface My password field.
      */
-    public function getPasswordField()
+    public function getPasswordField(): PasswordFieldInterface
     {
-        return $this->myPasswordField;
+        return $this->passwordField;
     }
 
     /**
@@ -131,9 +133,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return NameField My name field.
      */
-    public function getNameField()
+    public function getNameField(): NameField
     {
-        return $this->myNameField;
+        return $this->nameField;
     }
 
     /**
@@ -141,9 +143,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return UrlFieldInterface My url field.
      */
-    public function getUrlField()
+    public function getUrlField(): UrlFieldInterface
     {
-        return $this->myUrlField;
+        return $this->urlField;
     }
 
     /**
@@ -151,9 +153,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return CheckBoxInterface My checkbox.
      */
-    public function getCheckBox()
+    public function getCheckBox(): CheckBoxInterface
     {
-        return $this->myCheckBox;
+        return $this->checkBox;
     }
 
     /**
@@ -161,9 +163,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return TextAreaInterface My text area.
      */
-    public function getTextArea()
+    public function getTextArea(): TextAreaInterface
     {
-        return $this->myTextArea;
+        return $this->textArea;
     }
 
     /**
@@ -171,9 +173,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return SelectInterface My select.
      */
-    public function getSelect()
+    public function getSelect(): SelectInterface
     {
-        return $this->mySelect;
+        return $this->select;
     }
 
     /**
@@ -181,9 +183,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return FileFieldInterface My file field.
      */
-    public function getFileField()
+    public function getFileField(): FileFieldInterface
     {
-        return $this->myFileField;
+        return $this->fileField;
     }
 
     /**
@@ -191,9 +193,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return EmailFieldInterface My email field.
      */
-    public function getEmailField()
+    public function getEmailField(): EmailFieldInterface
     {
-        return $this->myEmailField;
+        return $this->emailField;
     }
 
     /**
@@ -201,9 +203,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return HiddenFieldInterface My hidden field.
      */
-    public function getHiddenField()
+    public function getHiddenField(): HiddenFieldInterface
     {
-        return $this->myHiddenField;
+        return $this->hiddenField;
     }
 
     /**
@@ -211,9 +213,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return IntegerFieldInterface My integer field.
      */
-    public function getIntegerField()
+    public function getIntegerField(): IntegerFieldInterface
     {
-        return $this->myIntegerField;
+        return $this->integerField;
     }
 
     /**
@@ -221,9 +223,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return DateFieldInterface My date field.
      */
-    public function getDateField()
+    public function getDateField(): DateFieldInterface
     {
-        return $this->myDateField;
+        return $this->dateField;
     }
 
     /**
@@ -231,9 +233,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return JsonFileField My json file field.
      */
-    public function getJsonFileField()
+    public function getJsonFileField(): JsonFileField
     {
-        return $this->myJsonFileField;
+        return $this->jsonFileField;
     }
 
     /**
@@ -241,9 +243,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return RadioButtonCollectionInterface My radio buttons.
      */
-    public function getRadioButtons()
+    public function getRadioButtons(): RadioButtonCollectionInterface
     {
-        return $this->myRadioButtons;
+        return $this->radioButtons;
     }
 
     /**
@@ -251,9 +253,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return DateTimeFieldInterface My date time field.
      */
-    public function getDateTimeField()
+    public function getDateTimeField(): DateTimeFieldInterface
     {
-        return $this->myDateTimeField;
+        return $this->dateTimeField;
     }
 
     /**
@@ -261,9 +263,9 @@ class BasicTestPostForm extends PostForm
      *
      * @return TextFieldInterface My private field 1.
      */
-    public function getPrivateField1()
+    public function getPrivateField1(): TextFieldInterface
     {
-        return $this->myPrivateField1;
+        return $this->privateField1;
     }
 
     /**
@@ -271,184 +273,176 @@ class BasicTestPostForm extends PostForm
      *
      * @return TextFieldInterface My private field 2.
      */
-    public function getPrivateField2()
+    public function getPrivateField2(): TextFieldInterface
     {
-        return $this->myPrivateField2;
+        return $this->privateField2;
     }
 
     /**
      * Called when form elements should be validated.
      */
-    protected function onValidate()
+    protected function onValidate(): void
     {
-        parent::onValidate();
+        $this->eventMethodsCalled[] = 'onValidate';
 
-        $this->myEventMethodsCalled[] = 'onValidate';
-
-        if ($this->myNotRequiredField->getValue() === 'invalid') {
-            $this->myNotRequiredField->setError('Value of not required field is invalid.');
+        if ($this->notRequiredField->getValue() === 'invalid') {
+            $this->notRequiredField->setError('Value of not required field is invalid.');
         }
 
-        if ($this->myTextField->getValue() === 'invalid') {
-            $this->myTextField->setError('Value of text field is invalid.');
+        if ($this->textField->getValue() === 'invalid') {
+            $this->textField->setError('Value of text field is invalid.');
         }
 
-        if ($this->myPasswordField->getValue() === 'invalid') {
-            $this->myPasswordField->setError('Value of password field is invalid.');
+        if ($this->passwordField->getValue() === 'invalid') {
+            $this->passwordField->setError('Value of password field is invalid.');
         }
 
-        if ($this->myNameField->getValue() === 'Invalid') {
-            $this->myNameField->setError('Value of name field is invalid.');
+        if ($this->nameField->getValue() === 'Invalid') {
+            $this->nameField->setError('Value of name field is invalid.');
         }
 
-        if ($this->myTextArea->getValue() === 'invalid') {
-            $this->myTextArea->setError('Value of text area is invalid.');
+        if ($this->textArea->getValue() === 'invalid') {
+            $this->textArea->setError('Value of text area is invalid.');
         }
 
-        if ($this->myFileField->getFile() !== null && strpos(file_get_contents($this->myFileField->getFile()->getPath()->__toString()), 'invalid') !== false) {
-            $this->myFileField->setError('File content is invalid.');
+        if ($this->fileField->getFile() !== null && strpos(file_get_contents($this->fileField->getFile()->getPath()->__toString()), 'invalid') !== false) {
+            $this->fileField->setError('File content is invalid.');
         }
 
-        if ($this->myHiddenField->getValue() === 'invalid') {
-            $this->myHiddenField->setError('Value of hidden field is invalid.');
+        if ($this->hiddenField->getValue() === 'invalid') {
+            $this->hiddenField->setError('Value of hidden field is invalid.');
         }
 
-        if ($this->myPrivateField1->getValue() === 'invalid') {
-            $this->myPrivateField1->setError('Value of private field 1 is invalid.');
+        if ($this->privateField1->getValue() === 'invalid') {
+            $this->privateField1->setError('Value of private field 1 is invalid.');
         }
 
-        if ($this->myPrivateField2->getValue() === 'invalid') {
-            $this->myPrivateField2->setError('Value of private field 2 is invalid.');
+        if ($this->privateField2->getValue() === 'invalid') {
+            $this->privateField2->setError('Value of private field 2 is invalid.');
         }
     }
 
     /**
      * Called if form processing was successful.
      */
-    protected function onSuccess()
+    protected function onSuccess(): void
     {
-        parent::onSuccess();
-
-        $this->myEventMethodsCalled[] = 'onSuccess';
+        $this->eventMethodsCalled[] = 'onSuccess';
     }
 
     /**
      * Called if form processing was not successful.
      */
-    protected function onError()
+    protected function onError(): void
     {
-        parent::onError();
-
-        $this->myEventMethodsCalled[] = 'onError';
+        $this->eventMethodsCalled[] = 'onError';
     }
 
     /**
      * Called when form processing finishes, regardless if processing was successful or not.
      */
-    protected function onProcessed()
+    protected function onProcessed(): void
     {
-        parent::onProcessed();
-
-        $this->myEventMethodsCalled[] = 'onProcessed';
+        $this->eventMethodsCalled[] = 'onProcessed';
     }
 
     /**
      * @var TextFieldInterface My form field that not requires a value.
      */
-    protected $myNotRequiredField;
+    protected $notRequiredField;
 
     /**
      * @var CustomValidatedField My field that has a custom validation.
      */
-    protected $myCustomValidatedField;
+    protected $customValidatedField;
 
     /**
      * @var TextFieldInterface My text field.
      */
-    protected $myTextField;
+    protected $textField;
 
     /**
      * @var PasswordFieldInterface My password field.
      */
-    protected $myPasswordField;
+    protected $passwordField;
 
     /**
      * @var NameField My name field.
      */
-    protected $myNameField;
+    protected $nameField;
 
     /**
      * @var UrlFieldInterface My url field.
      */
-    protected $myUrlField;
+    protected $urlField;
 
     /**
      * @var CheckBoxInterface My checkbox.
      */
-    protected $myCheckBox;
+    protected $checkBox;
 
     /**
      * @var TextAreaInterface My text area.
      */
-    protected $myTextArea;
+    protected $textArea;
 
     /**
      * @var SelectInterface My select.
      */
-    protected $mySelect;
+    protected $select;
 
     /**
      * @var FileFieldInterface My file field.
      */
-    protected $myFileField;
+    protected $fileField;
 
     /**
      * @var EmailFieldInterface My email field.
      */
-    protected $myEmailField;
+    protected $emailField;
 
     /**
      * @var HiddenFieldInterface My hidden field.
      */
-    protected $myHiddenField;
+    protected $hiddenField;
 
     /**
      * @var IntegerFieldInterface My integer field.
      */
-    protected $myIntegerField;
+    protected $integerField;
 
     /**
      * @var DateFieldInterface My date field.
      */
-    protected $myDateField;
+    protected $dateField;
 
     /**
      * @var JsonFileField My json file field.
      */
-    protected $myJsonFileField;
+    protected $jsonFileField;
 
     /**
      * @var RadioButtonCollectionInterface My radio buttons.
      */
-    protected $myRadioButtons;
+    protected $radioButtons;
 
     /**
      * @var DateTimeFieldInterface My date time field.
      */
-    protected $myDateTimeField;
+    protected $dateTimeField;
 
     /**
      * @var TextFieldInterface My private field 1.
      */
-    private $myPrivateField1;
+    private $privateField1;
 
     /**
      * @var TextFieldInterface My private field 2.
      */
-    private $myPrivateField2;
+    private $privateField2;
 
     /**
      * @var string[] The names of the event methods called.
      */
-    private $myEventMethodsCalled;
+    private $eventMethodsCalled;
 }

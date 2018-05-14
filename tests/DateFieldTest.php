@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\DateField;
@@ -19,17 +21,6 @@ class DateFieldTest extends TestCase
 
         self::assertSame('<input type="date" name="foo" required>', $dateField->getHtml());
         self::assertSame('<input type="date" name="foo" required>', $dateField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new DateField(null);
     }
 
     /**
@@ -65,7 +56,7 @@ class DateFieldTest extends TestCase
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, ?string $expectedValue, bool $expectedIsEmpty, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
     {
         $dateField = new DateField('foo');
         $dateField->setRequired($isRequired);
@@ -102,27 +93,15 @@ class DateFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $dateField = new DateField('foo');
-        $dateField->setFormValue(null);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
      *
-     * @param string $value              The value
-     * @param string $expectedValue      The expected value.
-     * @param string $expectedHtmlString The expected html string.
+     * @param string      $value              The value
+     * @param string|null $expectedValue      The expected value or null if no value.
+     * @param string      $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?string $expectedValue, string $expectedHtmlString)
     {
         $dateField = new DateField('foo');
         $dateField->setFormValue($value);
@@ -234,18 +213,6 @@ class DateFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $dateField = new DateField('foo');
-        $dateField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -291,21 +258,9 @@ class DateFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $dateField = new DateField('foo');
-        $dateField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $dateField = new DateField('foo');
         $dateField->setFormValue("2018-\0\t01-\r\n02");

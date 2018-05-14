@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\PasswordField;
@@ -19,17 +21,6 @@ class PasswordFieldTest extends TestCase
 
         self::assertSame('<input type="password" name="foo" required>', $passwordField->getHtml());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new PasswordField(0);
     }
 
     /**
@@ -59,12 +50,12 @@ class PasswordFieldTest extends TestCase
      *
      * @param bool        $isRequired       True of value is required, false otherwise.
      * @param string      $value            The value.
-     * @param string|null $expectedValue    The expected value or null if no value.
+     * @param string      $expectedValue    The expected value.
      * @param bool        $expectedIsEmpty  The expected value from isEmpty method.
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $passwordField = new PasswordField('foo');
         $passwordField->setRequired($isRequired);
@@ -96,18 +87,6 @@ class PasswordFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $passwordField = new PasswordField('foo');
-        $passwordField->setFormValue(true);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
@@ -116,7 +95,7 @@ class PasswordFieldTest extends TestCase
      * @param string $expectedValue      The expected value.
      * @param string $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, string $expectedValue, string $expectedHtmlString)
     {
         $passwordField = new PasswordField('foo');
         $passwordField->setFormValue($value);
@@ -206,18 +185,6 @@ class PasswordFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $passwordField = new PasswordField('foo');
-        $passwordField->setError(1.2);
-    }
-
-    /**
      * Test getHtml method with attributes.
      */
     public function testGetHtmlWithAttributes()
@@ -251,21 +218,9 @@ class PasswordFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $passwordField = new PasswordField('foo');
-        $passwordField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $passwordField = new PasswordField('foo');
         $passwordField->setFormValue("Foo\0\tBar\r\nBaz");

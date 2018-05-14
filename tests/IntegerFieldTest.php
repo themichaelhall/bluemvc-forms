@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\IntegerField;
@@ -19,17 +21,6 @@ class IntegerFieldTest extends TestCase
 
         self::assertSame('<input type="number" name="foo" required>', $integerField->getHtml());
         self::assertSame('<input type="number" name="foo" required>', $integerField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new IntegerField(true);
     }
 
     /**
@@ -61,13 +52,13 @@ class IntegerFieldTest extends TestCase
      * @param string      $value             The value.
      * @param int|null    $minimumValue      The minimum value or null if no minimum value.
      * @param int|null    $maximumValue      The maximum value or null if no maximum value.
-     * @param string|null $expectedValue     The expected value or null if no value.
+     * @param int|null    $expectedValue     The expected value or null if no value.
      * @param bool        $expectedIsEmpty   The expected value from isEmpty method.
      * @param bool        $expectedIsInvalid The expected value from isInvalid method.
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $minimumValue, $maximumValue, $expectedValue, $expectedIsEmpty, $expectedIsInvalid, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, ?int $minimumValue, ?int $maximumValue, ?int $expectedValue, bool $expectedIsEmpty, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
     {
         $integerField = new IntegerField('foo');
         $integerField->setRequired($isRequired);
@@ -133,27 +124,15 @@ class IntegerFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setFormValue(true);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
      *
-     * @param string $value              The value
-     * @param string $expectedValue      The expected value.
-     * @param string $expectedHtmlString The expected html string.
+     * @param string   $value              The value
+     * @param int|null $expectedValue      The expected value or null if no value.
+     * @param string   $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?int $expectedValue, string $expectedHtmlString)
     {
         $integerField = new IntegerField('foo');
         $integerField->setFormValue($value);
@@ -265,18 +244,6 @@ class IntegerFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -322,18 +289,6 @@ class IntegerFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setRequired(0);
-    }
-
-    /**
      * Test setMinimumValue method.
      */
     public function testSetMinimumValue()
@@ -342,18 +297,6 @@ class IntegerFieldTest extends TestCase
         $integerField->setMinimumValue(2);
         self::assertSame('<input type="number" name="foo" required min="2">', $integerField->getHtml());
         self::assertSame('<input type="number" name="foo" required min="2">', $integerField->__toString());
-    }
-
-    /**
-     * Test setMinimumValue method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $minimumValue parameter is not an integer.
-     */
-    public function testSetMinimumValueWithInvalidParameterType()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setMinimumValue('Foo');
     }
 
     /**
@@ -368,21 +311,9 @@ class IntegerFieldTest extends TestCase
     }
 
     /**
-     * Test setMaximumValue method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $maximumValue parameter is not an integer.
+     * Test text sanitation.
      */
-    public function testSetMaximumValueWithInvalidParameterType()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setMaximumValue('Foo');
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $integerField = new IntegerField('foo');
         $integerField->setFormValue("1\0\t2\r\n3");

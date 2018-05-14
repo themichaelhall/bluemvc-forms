@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -27,14 +28,12 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      * @since 1.0.0
      *
      * @param string $name The name.
-     *
-     * @throws \InvalidArgumentException If the $name parameter is not a string.
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
 
-        $this->myFile = null;
+        $this->file = null;
     }
 
     /**
@@ -44,9 +43,9 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      *
      * @return UploadedFileInterface|null The uploaded file or null if no uploaded file is present.
      */
-    public function getFile()
+    public function getFile(): ?UploadedFileInterface
     {
-        return $this->myFile;
+        return $this->file;
     }
 
     /**
@@ -58,9 +57,9 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      *
      * @return string The element html.
      */
-    public function getHtml(array $attributes = [])
+    public function getHtml(array $attributes = []): string
     {
-        return self::myBuildTag('input', null,
+        return self::buildTag('input', null,
             array_merge(
                 [
                     'type'     => 'file',
@@ -79,9 +78,9 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      *
      * @return bool True if element value is empty, false otherwise.
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return $this->myFile === null;
+        return $this->file === null;
     }
 
     /**
@@ -91,9 +90,9 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      *
      * @param UploadedFileInterface|null $uploadedFile The file from form.
      */
-    protected function onSetUploadedFile(UploadedFileInterface $uploadedFile = null)
+    protected function onSetUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
-        $this->myFile = $uploadedFile;
+        $this->file = $uploadedFile;
 
         parent::onSetUploadedFile();
     }
@@ -101,5 +100,5 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     /**
      * @var UploadedFileInterface|null My file.
      */
-    private $myFile;
+    private $file;
 }

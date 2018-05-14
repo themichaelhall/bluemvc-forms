@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests\Helpers\TestFormElements;
 
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
@@ -15,11 +17,11 @@ class JsonFileField extends FileField
      *
      * @param string $name The name.
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         parent::__construct($name);
 
-        $this->myJson = [];
+        $this->json = [];
     }
 
     /**
@@ -27,9 +29,9 @@ class JsonFileField extends FileField
      *
      * @return array The json content as an array.
      */
-    public function getJson()
+    public function getJson(): array
     {
-        return $this->myJson;
+        return $this->json;
     }
 
     /**
@@ -37,9 +39,9 @@ class JsonFileField extends FileField
      *
      * @param UploadedFileInterface|null $uploadedFile The file from form.
      */
-    protected function onSetUploadedFile(UploadedFileInterface $uploadedFile = null)
+    protected function onSetUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
-        $this->myJson = [];
+        $this->json = [];
 
         parent::onSetUploadedFile($uploadedFile);
 
@@ -60,11 +62,11 @@ class JsonFileField extends FileField
             return;
         }
 
-        $this->myJson = $json;
+        $this->json = $json;
     }
 
     /**
      * @var array My json content.
      */
-    private $myJson;
+    private $json;
 }

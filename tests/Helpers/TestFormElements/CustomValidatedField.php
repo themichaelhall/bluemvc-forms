@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests\Helpers\TestFormElements;
 
 use BlueMvc\Forms\TextField;
@@ -16,7 +18,7 @@ class CustomValidatedField extends TextField
      *
      * @param string $text The text from form.
      */
-    protected function onSetText($text)
+    protected function onSetText(string $text): void
     {
         parent::onSetText($text);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\TextField;
@@ -20,17 +22,6 @@ class TextFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" required>', $textField->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new TextField(0);
     }
 
     /**
@@ -65,7 +56,7 @@ class TextFieldTest extends TestCase
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, ?string $expectedValue, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $textField = new TextField('foo');
         $textField->setRequired($isRequired);
@@ -97,29 +88,6 @@ class TextFieldTest extends TestCase
     }
 
     /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $textField = new TextField('foo');
-        $textField->setFormValue(true);
-    }
-
-    /**
-     * Test constructor with invalid text format options parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $textFormatOptions parameter is not an integer.
-     */
-    public function testConstructorWithInvalidTextFormatOptionsParameterType()
-    {
-        new TextField('foo', '', null);
-    }
-
-    /**
      * Test text formatting.
      *
      * @dataProvider textFormattingDataProvider
@@ -129,7 +97,7 @@ class TextFieldTest extends TestCase
      * @param string   $expectedValue      The expected value.
      * @param string   $expectedHtmlString The expected html string.
      */
-    public function testTextFormatting($value, $textFormatOptions, $expectedValue, $expectedHtmlString)
+    public function testTextFormatting(string $value, ?int $textFormatOptions, string $expectedValue, string $expectedHtmlString)
     {
         $textField = $textFormatOptions !== null ?
             new TextField('foo', '', $textFormatOptions) :
@@ -238,18 +206,6 @@ class TextFieldTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $textField = new TextField('foo');
-        $textField->setError(1.2);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -270,17 +226,6 @@ class TextFieldTest extends TestCase
 
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar" required>', $textField->__toString());
-    }
-
-    /**
-     * Test constructor with default value with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithDefaultValueWithInvalidParameterType()
-    {
-        new TextField('foo', false);
     }
 
     /**
@@ -317,21 +262,9 @@ class TextFieldTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
+     * Test text sanitation.
      */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $textField = new TextField('foo');
-        $textField->setRequired(0);
-    }
-
-    /**
-     * Test text sanitization.
-     */
-    public function testTextSanitization()
+    public function testTextSanitation()
     {
         $textField = new TextField('foo');
         $textField->setFormValue("Foo\0\tBar\r\nBaz");

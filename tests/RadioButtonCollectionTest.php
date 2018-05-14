@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\RadioButton;
@@ -20,17 +22,6 @@ class RadioButtonCollectionTest extends TestCase
 
         self::assertSame('', $radioButtonCollection->getHtml());
         self::assertSame('', $radioButtonCollection->__toString());
-    }
-
-    /**
-     * Test constructor with invalid name parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $name parameter is not a string.
-     */
-    public function testConstructorWithInvalidNameParameterType()
-    {
-        new RadioButtonCollection(true);
     }
 
     /**
@@ -107,7 +98,7 @@ class RadioButtonCollectionTest extends TestCase
      * @param bool        $expectedHasError The expected value from hasError method.
      * @param string|null $expectedError    The expected error or null if no error.
      */
-    public function testSetFormValue($isRequired, $value, $expectedValue, $expectedHtml, $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetFormValue(bool $isRequired, string $value, string $expectedValue, string $expectedHtml, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $radioButtonCollection = new RadioButtonCollection('foo');
         $radioButtonCollection->setRequired($isRequired);
@@ -136,20 +127,6 @@ class RadioButtonCollectionTest extends TestCase
             [false, '1', '1', '<input type="radio" name="foo" value="">None<input type="radio" name="foo" value="1" checked>One', false, false, null],
             [true, '1', '1', '<input type="radio" name="foo" value="">None<input type="radio" name="foo" value="1" checked>One', false, false, null],
         ];
-    }
-
-    /**
-     * Test setFormValue method with invalid value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testSetFormValueWithInvalidValueParameterType()
-    {
-        $radioButtonCollection = new RadioButtonCollection('foo');
-        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
-        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
-        $radioButtonCollection->setFormValue(2);
     }
 
     /**
@@ -235,18 +212,6 @@ class RadioButtonCollectionTest extends TestCase
     }
 
     /**
-     * Test setError method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $error parameter is not a string.
-     */
-    public function testSetErrorWithInvalidParameterType()
-    {
-        $radioButtonCollection = new RadioButtonCollection('foo');
-        $radioButtonCollection->setError(10.5);
-    }
-
-    /**
      * Test isRequired method.
      */
     public function testIsRequired()
@@ -268,18 +233,6 @@ class RadioButtonCollectionTest extends TestCase
     }
 
     /**
-     * Test setRequired method with invalid parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $isRequired parameter is not a boolean.
-     */
-    public function testSetRequiredWithInvalidParameterType()
-    {
-        $radioButtonCollection = new RadioButtonCollection('foo');
-        $radioButtonCollection->setRequired(50);
-    }
-
-    /**
      * Test constructor with default value.
      */
     public function testConstructorWithDefaultValue()
@@ -291,17 +244,6 @@ class RadioButtonCollectionTest extends TestCase
         self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->getHtml());
         self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" checked>Two', $radioButtonCollection->__toString());
         self::assertSame('2', $radioButtonCollection->getValue());
-    }
-
-    /**
-     * Test constructor with invalid default value parameter type.
-     *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $value parameter is not a string.
-     */
-    public function testConstructorWithInvalidDefaultValueParameterType()
-    {
-        new RadioButtonCollection('foo', 2);
     }
 
     /**

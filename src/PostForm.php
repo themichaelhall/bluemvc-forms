@@ -4,6 +4,7 @@
  *
  * Read more at https://bluemvc.com/
  */
+declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
@@ -26,9 +27,9 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
      *
      * @return bool True if check origin is enabled, false otherwise.
      */
-    public function isCheckOriginEnabled()
+    public function isCheckOriginEnabled(): bool
     {
-        return $this->myCheckOriginEnabled;
+        return $this->checkOriginEnabled;
     }
 
     /**
@@ -40,13 +41,13 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
      *
      * @return bool True if form was successfully processed, false otherwise.
      */
-    public function process(RequestInterface $request)
+    public function process(RequestInterface $request): bool
     {
         if (!$request->getMethod()->isPost()) {
             return false;
         }
 
-        if ($this->myCheckOriginEnabled && !self::myIsValidOrigin($request)) {
+        if ($this->checkOriginEnabled && !self::isValidOrigin($request)) {
             return false;
         }
 
@@ -59,16 +60,10 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
      * @since 1.0.0
      *
      * @param bool $checkOriginEnabled True if check origin is enabled, false otherwise.
-     *
-     * @throws \InvalidArgumentException If the $checkOriginEnabled parameter is not a boolean.
      */
-    public function setCheckOriginEnabled($checkOriginEnabled)
+    public function setCheckOriginEnabled(bool $checkOriginEnabled): void
     {
-        if (!is_bool($checkOriginEnabled)) {
-            throw new \InvalidArgumentException('$checkOriginEnabled parameter is not a boolean.');
-        }
-
-        $this->myCheckOriginEnabled = $checkOriginEnabled;
+        $this->checkOriginEnabled = $checkOriginEnabled;
     }
 
     /**
@@ -78,13 +73,13 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
      *
      * @return bool True if request has valid origin headers present, false otherwise.
      */
-    private static function myIsValidOrigin(RequestInterface $request)
+    private static function isValidOrigin(RequestInterface $request): bool
     {
-        if (!self::myCompareHeaderUrl($request, 'Origin')) {
+        if (!self::compareHeaderUrl($request, 'Origin')) {
             return false;
         }
 
-        if (!self::myCompareHeaderUrl($request, 'Referer')) {
+        if (!self::compareHeaderUrl($request, 'Referer')) {
             return false;
         }
 
@@ -99,7 +94,7 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
      *
      * @return bool True if the header url and request url has the same host, false otherwise.
      */
-    private static function myCompareHeaderUrl(RequestInterface $request, $headerName)
+    private static function compareHeaderUrl(RequestInterface $request, string $headerName): bool
     {
         $headerValue = $request->getHeader($headerName);
         if ($headerValue === null) {
@@ -119,5 +114,5 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
     /**
      * @var bool True if check origin is enabled, false otherwise.
      */
-    private $myCheckOriginEnabled = true;
+    private $checkOriginEnabled = true;
 }
