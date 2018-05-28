@@ -81,8 +81,6 @@ class EmailField extends AbstractTextInputField implements EmailFieldInterface
      */
     protected function onSetText(string $text): void
     {
-        parent::onSetText($text);
-
         $this->isInvalid = false;
         $this->value = null;
 

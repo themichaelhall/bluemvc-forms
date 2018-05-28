@@ -44,7 +44,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
 
         $this->textFormatOptions = $textFormatOptions;
         $value = $this->sanitizeText($value);
-        $this->onFormatText($value);
+        $this->formatText($value);
         $this->text = $value;
     }
 
@@ -77,6 +77,44 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      * @param string $text The text.
      */
     protected function onFormatText(string &$text): void
+    {
+    }
+
+    /**
+     * Called when value is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $value The value from form.
+     */
+    protected function onSetFormValue(string $value): void
+    {
+        $value = $this->sanitizeText($value);
+        $this->formatText($value);
+        $this->text = $value;
+
+        parent::onSetFormValue($value);
+
+        $this->onSetText($value);
+    }
+
+    /**
+     * Called when text is set from form.
+     *
+     * @since 1.0.0
+     *
+     * @param string $text The text from form.
+     */
+    protected function onSetText(string $text): void
+    {
+    }
+
+    /**
+     * Formats the text according to the text format options.
+     *
+     * @param string $text The text.
+     */
+    private function formatText(string & $text): void
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
         $result = [];
@@ -115,35 +153,8 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
         }
 
         $text = implode("\r\n", $result);
-    }
 
-    /**
-     * Called when value is set from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $value The value from form.
-     */
-    protected function onSetFormValue(string $value): void
-    {
-        $value = $this->sanitizeText($value);
-        $this->onFormatText($value);
-        $this->text = $value;
-
-        parent::onSetFormValue($value);
-
-        $this->onSetText($value);
-    }
-
-    /**
-     * Called when text is set from form.
-     *
-     * @since 1.0.0
-     *
-     * @param string $text The text from form.
-     */
-    protected function onSetText(string $text): void
-    {
+        $this->onFormatText($text);
     }
 
     /**

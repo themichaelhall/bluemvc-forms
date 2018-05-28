@@ -20,8 +20,6 @@ class NameField extends TextField
      */
     protected function onFormatText(string &$text): void
     {
-        parent::onFormatText($text);
-
         $text = ucwords($text);
     }
 }

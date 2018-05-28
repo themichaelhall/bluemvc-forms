@@ -81,8 +81,6 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
      */
     protected function onSetText(string $text): void
     {
-        parent::onSetText($text);
-
         $this->isInvalid = false;
         $this->value = null;
 
