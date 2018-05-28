@@ -114,7 +114,7 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
      *
      * @param string $text The text.
      */
-    private function formatText(string & $text): void
+    private function formatText(string &$text): void
     {
         $lines = preg_split("/\r\n|\n|\r/", $text);
         $result = [];
