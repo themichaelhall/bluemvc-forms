@@ -5,6 +5,7 @@
 # BlueMvc Forms
 
 [![Build Status](https://travis-ci.org/themichaelhall/bluemvc-forms.svg?branch=master)](https://travis-ci.org/themichaelhall/bluemvc-forms)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/themichaelhall/bluemvc-forms?branch=master&svg=true)](https://ci.appveyor.com/project/themichaelhall/bluemvc-forms/branch/master)
 [![codecov.io](https://codecov.io/gh/themichaelhall/bluemvc-forms/coverage.svg?branch=master)](https://codecov.io/gh/themichaelhall/bluemvc-forms?branch=master)
 [![StyleCI](https://styleci.io/repos/89946368/shield?style=flat)](https://styleci.io/repos/89946368)
 [![License](https://poser.pugx.org/bluemvc/bluemvc-forms/license)](https://packagist.org/packages/bluemvc/bluemvc-forms)
