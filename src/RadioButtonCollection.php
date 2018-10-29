@@ -51,6 +51,18 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
     }
 
     /**
+     * Returns the number of radio buttons.
+     *
+     * @since 2.1.0
+     *
+     * @return int The number of radio buttons.
+     */
+    public function count(): int
+    {
+        return count($this->radioButtons);
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0

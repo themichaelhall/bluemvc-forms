@@ -13,7 +13,7 @@ namespace BlueMvc\Forms\Interfaces;
  *
  * @since 1.0.0
  */
-interface RadioButtonCollectionInterface extends SetFormValueElementInterface
+interface RadioButtonCollectionInterface extends SetFormValueElementInterface, \Countable
 {
     /**
      * Adds a radio button.

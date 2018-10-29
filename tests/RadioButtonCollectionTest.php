@@ -279,4 +279,16 @@ class RadioButtonCollectionTest extends TestCase
         self::assertFalse($radioButtonCollection->hasError());
         self::assertNull($radioButtonCollection->getError());
     }
+
+    /**
+     * Test countable for radio button collection.
+     */
+    public function testCountable()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '1');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
+
+        self::assertSame(2, count($radioButtonCollection));
+    }
 }
