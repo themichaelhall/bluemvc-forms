@@ -13,7 +13,7 @@ namespace BlueMvc\Forms\Interfaces;
  *
  * @since 1.0.0
  */
-interface SelectInterface extends SetFormValueElementInterface, \Countable
+interface SelectInterface extends SetFormValueElementInterface, \Countable, \IteratorAggregate
 {
     /**
      * Adds on option.

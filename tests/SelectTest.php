@@ -294,4 +294,18 @@ class SelectTest extends TestCase
 
         self::assertSame(2, count($select));
     }
+
+    /**
+     * Test iterable for select.
+     */
+    public function testIterable()
+    {
+        $select = new Select('foo', '1');
+        $option1 = new Option('Foo', 'Bar');
+        $option2 = new Option('2', 'Two');
+        $select->addOption($option1);
+        $select->addOption($option2);
+
+        self::assertSame(['Foo' => $option1, 2 => $option2], iterator_to_array($select));
+    }
 }

@@ -97,6 +97,20 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     }
 
     /**
+     * Returns the iterator for select.
+     *
+     * @since 2.1.0
+     *
+     * @return \Traversable The iterator.
+     */
+    public function getIterator(): \Traversable
+    {
+        foreach ($this->options as $option) {
+            yield $option->getValue() => $option;
+        }
+    }
+
+    /**
      * Returns the options.
      *
      * @since 1.0.0
