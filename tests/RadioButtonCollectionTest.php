@@ -299,10 +299,10 @@ class RadioButtonCollectionTest extends TestCase
     {
         $radioButtonCollection = new RadioButtonCollection('foo', '1');
         $radioButton1 = new RadioButton('1', 'One');
-        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButton2 = new RadioButton('Foo', 'Bar');
         $radioButtonCollection->addRadioButton($radioButton1);
         $radioButtonCollection->addRadioButton($radioButton2);
 
-        self::assertSame([$radioButton1, $radioButton2], iterator_to_array($radioButtonCollection));
+        self::assertSame([1 => $radioButton1, 'Foo' => $radioButton2], iterator_to_array($radioButtonCollection));
     }
 }

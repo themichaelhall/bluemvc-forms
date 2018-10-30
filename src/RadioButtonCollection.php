@@ -91,7 +91,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
     public function getIterator(): \Traversable
     {
         foreach ($this->radioButtons as $radioButton) {
-            yield $radioButton;
+            yield $radioButton->getValue() => $radioButton;
         }
     }
 
