@@ -291,4 +291,18 @@ class RadioButtonCollectionTest extends TestCase
 
         self::assertSame(2, count($radioButtonCollection));
     }
+
+    /**
+     * Test iterable for radio button collection.
+     */
+    public function testIterable()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '1');
+        $radioButton1 = new RadioButton('1', 'One');
+        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButtonCollection->addRadioButton($radioButton1);
+        $radioButtonCollection->addRadioButton($radioButton2);
+
+        self::assertSame([$radioButton1, $radioButton2], iterator_to_array($radioButtonCollection));
+    }
 }

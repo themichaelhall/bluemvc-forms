@@ -82,6 +82,20 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
     }
 
     /**
+     * Returns the iterator for the radio buttons.
+     *
+     * @since 2.1.0
+     *
+     * @return \Traversable The iterator.
+     */
+    public function getIterator(): \Traversable
+    {
+        foreach ($this->radioButtons as $radioButton) {
+            yield $radioButton;
+        }
+    }
+
+    /**
      * Returns the radio buttons.
      *
      * @since 1.0.0
