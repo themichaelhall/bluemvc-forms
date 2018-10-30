@@ -58,6 +58,18 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     }
 
     /**
+     * Returns the number of options.
+     *
+     * @since 2.1.0
+     *
+     * @return int The number of options.
+     */
+    public function count(): int
+    {
+        return count($this->options);
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0

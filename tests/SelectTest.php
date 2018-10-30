@@ -282,4 +282,16 @@ class SelectTest extends TestCase
         self::assertFalse($select->hasError());
         self::assertNull($select->getError());
     }
+
+    /**
+     * Test countable for select.
+     */
+    public function testCountable()
+    {
+        $select = new Select('foo', '1');
+        $select->addOption(new Option('1', 'One'));
+        $select->addOption(new Option('2', 'Two'));
+
+        self::assertSame(2, count($select));
+    }
 }

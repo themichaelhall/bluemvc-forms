@@ -1,5 +1,5 @@
 ## Unreleased
-- Made RadioButtonCollection countable.
+- Made RadioButtonCollection and Select countable.
 
 ## [2.0.0] - 2018-05-14
 - Updated PHP requirement to 7.1.
