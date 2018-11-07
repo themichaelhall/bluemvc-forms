@@ -321,4 +321,25 @@ class IntegerFieldTest extends TestCase
         self::assertSame(123, $integerField->getValue());
         self::assertSame('<input type="number" name="foo" value="123" required>', $integerField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $integerField = new IntegerField('foo');
+
+        self::assertSame('', $integerField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setLabel('My label');
+
+        self::assertSame('My label', $integerField->getLabel());
+    }
 }

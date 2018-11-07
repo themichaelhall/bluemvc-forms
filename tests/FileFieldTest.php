@@ -180,4 +180,25 @@ class FileFieldTest extends TestCase
         self::assertSame('<input type="file" name="foo">', $fileField->getHtml());
         self::assertSame('<input type="file" name="foo">', $fileField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $fileField = new FileField('foo');
+
+        self::assertSame('', $fileField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $fileField = new FileField('foo');
+        $fileField->setLabel('My label');
+
+        self::assertSame('My label', $fileField->getLabel());
+    }
 }

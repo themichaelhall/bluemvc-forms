@@ -265,4 +265,25 @@ class NameFieldTest extends TestCase
         self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" value="Bar">', $nameField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertSame('', $nameField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setLabel('My label');
+
+        self::assertSame('My label', $nameField->getLabel());
+    }
 }

@@ -1,6 +1,7 @@
 ## Unreleased
 - Made RadioButtonCollection and Select countable.
 - Made RadioButtonCollection and Select iterable.
+- Added getLabel and setLabel methods to all form components.
 
 ## [2.0.0] - 2018-05-14
 - Updated PHP requirement to 7.1.

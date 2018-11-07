@@ -364,4 +364,25 @@ class TextAreaTest extends TestCase
         self::assertSame("FooBar\r\nBaz", $textArea->getValue());
         self::assertSame("<textarea name=\"foo\" required>FooBar\r\nBaz</textarea>", $textArea->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertSame('', $textArea->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setLabel('My label');
+
+        self::assertSame('My label', $textArea->getLabel());
+    }
 }

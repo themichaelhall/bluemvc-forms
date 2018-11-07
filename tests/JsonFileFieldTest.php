@@ -190,4 +190,25 @@ class JsonFileFieldTest extends TestCase
         self::assertSame('<input type="file" name="foo">', $jsonFileField->getHtml());
         self::assertSame('<input type="file" name="foo">', $jsonFileField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $jsonFileField = new JsonFileField('foo');
+
+        self::assertSame('', $jsonFileField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setLabel('My label');
+
+        self::assertSame('My label', $jsonFileField->getLabel());
+    }
 }

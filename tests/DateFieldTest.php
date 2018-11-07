@@ -268,4 +268,25 @@ class DateFieldTest extends TestCase
         self::assertSame('2018-01-02 00:00:00', $dateField->getValue()->format('Y-m-d H:i:s'));
         self::assertSame('<input type="date" name="foo" value="2018-01-02" required>', $dateField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $dateField = new DateField('foo');
+
+        self::assertSame('', $dateField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $dateField = new DateField('foo');
+        $dateField->setLabel('My label');
+
+        self::assertSame('My label', $dateField->getLabel());
+    }
 }

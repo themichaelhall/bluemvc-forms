@@ -119,4 +119,15 @@ class RadioButtonTest extends TestCase
         self::assertSame('<input type="radio" value="foo" checked>', $radioButton->getHtml());
         self::assertSame('<input type="radio" value="foo" checked>', $radioButton->__toString());
     }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setLabel('My label');
+
+        self::assertSame('My label', $radioButton->getLabel());
+    }
 }

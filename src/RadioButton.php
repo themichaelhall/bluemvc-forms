@@ -109,6 +109,18 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
+     * Sets the label.
+     *
+     * @since 2.1.0
+     *
+     * @param string $label The label.
+     */
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
+    }
+
+    /**
      * Sets the name.
      *
      * @since 1.0.0

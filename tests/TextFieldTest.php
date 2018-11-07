@@ -272,4 +272,25 @@ class TextFieldTest extends TestCase
         self::assertSame('FooBarBaz', $textField->getValue());
         self::assertSame('<input type="text" name="foo" value="FooBarBaz" required>', $textField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $textField = new TextField('foo');
+
+        self::assertSame('', $textField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $textField = new TextField('foo');
+        $textField->setLabel('My label');
+
+        self::assertSame('My label', $textField->getLabel());
+    }
 }

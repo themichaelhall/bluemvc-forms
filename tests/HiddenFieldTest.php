@@ -207,4 +207,25 @@ class HiddenFieldTest extends TestCase
         self::assertSame('FooBarBaz', $hiddenField->getValue());
         self::assertSame('<input type="hidden" name="foo" value="FooBarBaz">', $hiddenField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $hiddenField = new HiddenField('foo');
+
+        self::assertSame('', $hiddenField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setLabel('My label');
+
+        self::assertSame('My label', $hiddenField->getLabel());
+    }
 }

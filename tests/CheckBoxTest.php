@@ -195,4 +195,25 @@ class CheckBoxTest extends TestCase
         self::assertSame('<input type="checkbox" name="foo" checked>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" checked>', $checkbox->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $checkbox = new CheckBox('foo');
+
+        self::assertSame('', $checkbox->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $checkbox = new CheckBox('foo');
+        $checkbox->setLabel('My label');
+
+        self::assertSame('My label', $checkbox->getLabel());
+    }
 }

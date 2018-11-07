@@ -41,6 +41,18 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
+     * Returns the label.
+     *
+     * @since 2.1.0
+     *
+     * @return string The label.
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
      * Returns the element name.
      *
      * @since 1.0.0
@@ -110,6 +122,18 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
+     * Sets the label.
+     *
+     * @since 2.1.0
+     *
+     * @param string $label The label.
+     */
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0
@@ -133,6 +157,7 @@ abstract class AbstractFormElement implements FormElementInterface
         $this->name = $name;
         $this->error = null;
         $this->isRequired = true;
+        $this->label = '';
     }
 
     /**
@@ -149,4 +174,9 @@ abstract class AbstractFormElement implements FormElementInterface
      * @var bool If true element value is required, false otherwise.
      */
     private $isRequired;
+
+    /**
+     * @var string My label.
+     */
+    private $label;
 }

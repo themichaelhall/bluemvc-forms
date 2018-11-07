@@ -305,4 +305,25 @@ class RadioButtonCollectionTest extends TestCase
 
         self::assertSame([1 => $radioButton1, 'Foo' => $radioButton2], iterator_to_array($radioButtonCollection));
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertSame('', $radioButtonCollection->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setLabel('My label');
+
+        self::assertSame('My label', $radioButtonCollection->getLabel());
+    }
 }

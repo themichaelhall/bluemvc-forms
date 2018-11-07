@@ -36,6 +36,15 @@ interface FormElementInterface
     public function getHtml(array $attributes = []): string;
 
     /**
+     * Returns the label.
+     *
+     * @since 2.1.0
+     *
+     * @return string The label.
+     */
+    public function getLabel(): string;
+
+    /**
      * Returns the element name.
      *
      * @since 1.0.0
@@ -79,6 +88,15 @@ interface FormElementInterface
      * @param string $error The element error.
      */
     public function setError(string $error): void;
+
+    /**
+     * Sets the label.
+     *
+     * @since 2.1.0
+     *
+     * @param string $label The label.
+     */
+    public function setLabel(string $label): void;
 
     /**
      * Sets whether element value is required.

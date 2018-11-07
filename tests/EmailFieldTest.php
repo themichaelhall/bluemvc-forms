@@ -267,4 +267,25 @@ class EmailFieldTest extends TestCase
         self::assertSame('foo@example.com', $emailField->getValue()->__toString());
         self::assertSame('<input type="email" name="foo" value="foo@example.com" required>', $emailField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $emailField = new EmailField('foo');
+
+        self::assertSame('', $emailField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setLabel('My label');
+
+        self::assertSame('My label', $emailField->getLabel());
+    }
 }

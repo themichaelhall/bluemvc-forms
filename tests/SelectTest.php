@@ -308,4 +308,25 @@ class SelectTest extends TestCase
 
         self::assertSame(['Foo' => $option1, 2 => $option2], iterator_to_array($select));
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $select = new Select('foo');
+
+        self::assertSame('', $select->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $select = new Select('foo');
+        $select->setLabel('My label');
+
+        self::assertSame('My label', $select->getLabel());
+    }
 }

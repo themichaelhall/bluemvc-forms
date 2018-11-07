@@ -267,4 +267,25 @@ class UrlFieldTest extends TestCase
         self::assertSame('https://www.example.com/', $urlField->getValue()->__toString());
         self::assertSame('<input type="url" name="foo" value="https://www.example.com" required>', $urlField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $urlField = new UrlField('foo');
+
+        self::assertSame('', $urlField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setLabel('My label');
+
+        self::assertSame('My label', $urlField->getLabel());
+    }
 }

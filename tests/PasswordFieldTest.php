@@ -228,4 +228,25 @@ class PasswordFieldTest extends TestCase
         self::assertSame('FooBarBaz', $passwordField->getValue());
         self::assertSame('<input type="password" name="foo" required>', $passwordField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertSame('', $passwordField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setLabel('My label');
+
+        self::assertSame('My label', $passwordField->getLabel());
+    }
 }

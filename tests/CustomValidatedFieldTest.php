@@ -264,4 +264,25 @@ class CustomValidatedFieldTest extends TestCase
         self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->getHtml());
         self::assertSame('<input type="text" name="foo" value="bar">', $customValidatedField->__toString());
     }
+
+    /**
+     * Test getLabel method.
+     */
+    public function testGetLabel()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+
+        self::assertSame('', $customValidatedField->getLabel());
+    }
+
+    /**
+     * Test setLabel method.
+     */
+    public function testSetLabel()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setLabel('My label');
+
+        self::assertSame('My label', $customValidatedField->getLabel());
+    }
 }
