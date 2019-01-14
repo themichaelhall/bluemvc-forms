@@ -484,6 +484,8 @@ class GetFormTest extends TestCase
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->form = new BasicTestGetForm();
     }
 
@@ -492,6 +494,8 @@ class GetFormTest extends TestCase
      */
     public function tearDown()
     {
+        parent::tearDown();
+
         $this->form = null;
     }
 

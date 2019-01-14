@@ -283,6 +283,8 @@ class BasicTestPostForm extends PostForm
      */
     protected function onValidate(): void
     {
+        parent::onValidate();
+
         $this->eventMethodsCalled[] = 'onValidate';
 
         if ($this->notRequiredField->getValue() === 'invalid') {
@@ -327,6 +329,8 @@ class BasicTestPostForm extends PostForm
      */
     protected function onSuccess(): void
     {
+        parent::onSuccess();
+
         $this->eventMethodsCalled[] = 'onSuccess';
     }
 
@@ -335,6 +339,8 @@ class BasicTestPostForm extends PostForm
      */
     protected function onError(): void
     {
+        parent::onError();
+
         $this->eventMethodsCalled[] = 'onError';
     }
 
@@ -343,6 +349,8 @@ class BasicTestPostForm extends PostForm
      */
     protected function onProcessed(): void
     {
+        parent::onProcessed();
+
         $this->eventMethodsCalled[] = 'onProcessed';
     }
 

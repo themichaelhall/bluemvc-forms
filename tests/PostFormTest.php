@@ -463,6 +463,8 @@ class PostFormTest extends TestCase
      */
     public function setUp()
     {
+        parent::setUp();
+
         $this->form = new BasicTestPostForm();
     }
 
@@ -471,6 +473,8 @@ class PostFormTest extends TestCase
      */
     public function tearDown()
     {
+        parent::tearDown();
+
         $this->form = null;
     }
 

@@ -258,6 +258,8 @@ class BasicTestGetForm extends GetForm
      */
     protected function onValidate(): void
     {
+        parent::onValidate();
+
         $this->eventMethodsCalled[] = 'onValidate';
 
         if ($this->notRequiredField->getValue() === 'invalid') {
@@ -318,7 +320,7 @@ class BasicTestGetForm extends GetForm
      */
     protected function onProcessed(): void
     {
-        parent::onValidate();
+        parent::onProcessed();
 
         $this->eventMethodsCalled[] = 'onProcessed';
     }

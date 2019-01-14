@@ -79,6 +79,8 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
      */
     protected function onSetText(string $text): void
     {
+        parent::onSetText($text);
+
         $this->isInvalid = false;
         $this->value = null;
 

@@ -20,6 +20,8 @@ class CustomValidatedField extends TextField
      */
     protected function onSetText(string $text): void
     {
+        parent::onSetText($text);
+
         if ($this->hasError()) {
             return;
         }
