@@ -86,4 +86,25 @@ class OptionTest extends TestCase
         self::assertSame('<option value="foo" selected>bar</option>', $option->getHtml());
         self::assertSame('<option value="foo" selected>bar</option>', $option->__toString());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertNull($option->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setCustomData('Baz');
+
+        self::assertSame('Baz', $option->getCustomData());
+    }
 }

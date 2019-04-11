@@ -33,6 +33,19 @@ class Option implements OptionInterface
         $this->value = $value;
         $this->label = $label;
         $this->isSelected = false;
+        $this->customData = null;
+    }
+
+    /**
+     * Returns the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData()
+    {
+        return $this->customData;
     }
 
     /**
@@ -93,6 +106,18 @@ class Option implements OptionInterface
     }
 
     /**
+     * Sets the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void
+    {
+        $this->customData = $customData;
+    }
+
+    /**
      * Sets whether this option is selected.
      *
      * @since 1.0.0
@@ -130,4 +155,9 @@ class Option implements OptionInterface
      * @var bool True if this option is selected, false otherwise.
      */
     private $isSelected;
+
+    /**
+     * @var mixed|null My custom data.
+     */
+    private $customData;
 }
