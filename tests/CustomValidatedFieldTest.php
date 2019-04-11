@@ -285,4 +285,25 @@ class CustomValidatedFieldTest extends TestCase
 
         self::assertSame('My label', $customValidatedField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+
+        self::assertNull($customValidatedField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setCustomData(['Foo Bar']);
+
+        self::assertSame(['Foo Bar'], $customValidatedField->getCustomData());
+    }
 }

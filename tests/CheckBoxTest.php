@@ -216,4 +216,25 @@ class CheckBoxTest extends TestCase
 
         self::assertSame('My label', $checkbox->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $checkbox = new CheckBox('foo');
+
+        self::assertNull($checkbox->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $checkbox = new CheckBox('foo');
+        $checkbox->setCustomData('Foo Bar');
+
+        self::assertSame('Foo Bar', $checkbox->getCustomData());
+    }
 }

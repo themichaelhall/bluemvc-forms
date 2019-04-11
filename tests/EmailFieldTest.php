@@ -288,4 +288,25 @@ class EmailFieldTest extends TestCase
 
         self::assertSame('My label', $emailField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $emailField = new EmailField('foo');
+
+        self::assertNull($emailField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setCustomData(1234.5);
+
+        self::assertSame(1234.5, $emailField->getCustomData());
+    }
 }

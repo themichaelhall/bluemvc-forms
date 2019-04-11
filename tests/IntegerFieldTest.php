@@ -342,4 +342,25 @@ class IntegerFieldTest extends TestCase
 
         self::assertSame('My label', $integerField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $integerField = new IntegerField('foo');
+
+        self::assertNull($integerField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setCustomData(null);
+
+        self::assertNull($integerField->getCustomData());
+    }
 }

@@ -329,4 +329,25 @@ class SelectTest extends TestCase
 
         self::assertSame('My label', $select->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $select = new Select('foo');
+
+        self::assertNull($select->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $select = new Select('foo');
+        $select->setCustomData('Bar');
+
+        self::assertSame('Bar', $select->getCustomData());
+    }
 }

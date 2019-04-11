@@ -293,4 +293,25 @@ class TextFieldTest extends TestCase
 
         self::assertSame('My label', $textField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $textField = new TextField('foo');
+
+        self::assertNull($textField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $textField = new TextField('foo');
+        $textField->setCustomData('Bar');
+
+        self::assertSame('Bar', $textField->getCustomData());
+    }
 }

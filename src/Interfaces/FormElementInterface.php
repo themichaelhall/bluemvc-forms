@@ -16,6 +16,15 @@ namespace BlueMvc\Forms\Interfaces;
 interface FormElementInterface
 {
     /**
+     * Returns the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData();
+
+    /**
      * Returns the element error or null if element has no error.
      *
      * @since 1.0.0
@@ -79,6 +88,15 @@ interface FormElementInterface
      * @return bool True if element value is required, false otherwise.
      */
     public function isRequired(): bool;
+
+    /**
+     * Sets the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void;
 
     /**
      * Sets the element error.

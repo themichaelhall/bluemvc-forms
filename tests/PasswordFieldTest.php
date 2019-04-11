@@ -249,4 +249,25 @@ class PasswordFieldTest extends TestCase
 
         self::assertSame('My label', $passwordField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertNull($passwordField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setCustomData(['Foo', 'Bar', 'Baz']);
+
+        self::assertSame(['Foo', 'Bar', 'Baz'], $passwordField->getCustomData());
+    }
 }

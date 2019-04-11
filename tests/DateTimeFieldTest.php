@@ -297,4 +297,25 @@ class DateTimeFieldTest extends TestCase
 
         self::assertSame('My label', $dateTimeField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $dateTimeField = new DateTimeField('foo');
+
+        self::assertNull($dateTimeField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setCustomData(true);
+
+        self::assertTrue($dateTimeField->getCustomData());
+    }
 }

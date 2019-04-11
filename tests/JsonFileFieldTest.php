@@ -211,4 +211,25 @@ class JsonFileFieldTest extends TestCase
 
         self::assertSame('My label', $jsonFileField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $jsonFileField = new JsonFileField('foo');
+
+        self::assertNull($jsonFileField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setCustomData([1, 2, 3]);
+
+        self::assertSame([1, 2, 3], $jsonFileField->getCustomData());
+    }
 }

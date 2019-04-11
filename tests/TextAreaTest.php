@@ -385,4 +385,25 @@ class TextAreaTest extends TestCase
 
         self::assertSame('My label', $textArea->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertNull($textArea->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setCustomData('Bar');
+
+        self::assertSame('Bar', $textArea->getCustomData());
+    }
 }
