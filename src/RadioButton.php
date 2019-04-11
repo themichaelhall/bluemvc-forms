@@ -34,6 +34,19 @@ class RadioButton implements RadioButtonInterface
         $this->label = $label;
         $this->name = '';
         $this->isSelected = false;
+        $this->customData = null;
+    }
+
+    /**
+     * Returns the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData()
+    {
+        return $this->customData;
     }
 
     /**
@@ -109,6 +122,18 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
+     * Sets the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void
+    {
+        $this->customData = $customData;
+    }
+
+    /**
      * Sets the label.
      *
      * @since 2.1.0
@@ -175,4 +200,9 @@ class RadioButton implements RadioButtonInterface
      * @var bool True if this radio button is selected, false otherwise.
      */
     private $isSelected;
+
+    /**
+     * @var mixed|null My custom data.
+     */
+    private $customData;
 }

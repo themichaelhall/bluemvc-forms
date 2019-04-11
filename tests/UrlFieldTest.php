@@ -288,4 +288,25 @@ class UrlFieldTest extends TestCase
 
         self::assertSame('My label', $urlField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $urlField = new UrlField('foo');
+
+        self::assertNull($urlField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setCustomData([false, true]);
+
+        self::assertSame([false, true], $urlField->getCustomData());
+    }
 }

@@ -16,6 +16,15 @@ namespace BlueMvc\Forms\Interfaces;
 interface OptionInterface
 {
     /**
+     * Returns the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData();
+
+    /**
      * Returns the option html.
      *
      * @since 1.0.0
@@ -52,6 +61,15 @@ interface OptionInterface
      * @return bool True if option is selected, false otherwise.
      */
     public function isSelected(): bool;
+
+    /**
+     * Sets the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void;
 
     /**
      * Sets whether this option is selected.

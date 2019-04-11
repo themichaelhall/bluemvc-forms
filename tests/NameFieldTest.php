@@ -286,4 +286,25 @@ class NameFieldTest extends TestCase
 
         self::assertSame('My label', $nameField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertNull($nameField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setCustomData('Foo Bar');
+
+        self::assertSame('Foo Bar', $nameField->getCustomData());
+    }
 }

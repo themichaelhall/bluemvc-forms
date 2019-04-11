@@ -201,4 +201,25 @@ class FileFieldTest extends TestCase
 
         self::assertSame('My label', $fileField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $fileField = new FileField('foo');
+
+        self::assertNull($fileField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $fileField = new FileField('foo');
+        $fileField->setCustomData(false);
+
+        self::assertFalse($fileField->getCustomData());
+    }
 }

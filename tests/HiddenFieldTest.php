@@ -228,4 +228,25 @@ class HiddenFieldTest extends TestCase
 
         self::assertSame('My label', $hiddenField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $hiddenField = new HiddenField('foo');
+
+        self::assertNull($hiddenField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setCustomData([]);
+
+        self::assertSame([], $hiddenField->getCustomData());
+    }
 }

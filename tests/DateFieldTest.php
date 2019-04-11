@@ -289,4 +289,25 @@ class DateFieldTest extends TestCase
 
         self::assertSame('My label', $dateField->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $dateField = new DateField('foo');
+
+        self::assertNull($dateField->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $dateField = new DateField('foo');
+        $dateField->setCustomData(42);
+
+        self::assertSame(42, $dateField->getCustomData());
+    }
 }
