@@ -130,4 +130,25 @@ class RadioButtonTest extends TestCase
 
         self::assertSame('My label', $radioButton->getLabel());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+
+        self::assertNull($radioButton->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setCustomData('Baz');
+
+        self::assertSame('Baz', $radioButton->getCustomData());
+    }
 }

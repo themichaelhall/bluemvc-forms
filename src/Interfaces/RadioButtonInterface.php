@@ -16,6 +16,15 @@ namespace BlueMvc\Forms\Interfaces;
 interface RadioButtonInterface
 {
     /**
+     * Returns the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData();
+
+    /**
      * Returns the radio button html.
      *
      * @since 1.0.0
@@ -61,6 +70,15 @@ interface RadioButtonInterface
      * @return bool True if radio button is selected, false otherwise.
      */
     public function isSelected(): bool;
+
+    /**
+     * Sets the custom data.
+     *
+     * @since 2.1.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void;
 
     /**
      * Sets the label.
