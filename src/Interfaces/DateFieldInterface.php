@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
+use DateTimeImmutable;
+
 /**
  * Interface for DateField class.
  *
@@ -20,9 +22,9 @@ interface DateFieldInterface extends SetFormValueElementInterface
      *
      * @since 1.0.0
      *
-     * @return \DateTimeImmutable|null The value of the date field.
+     * @return DateTimeImmutable|null The value of the date field.
      */
-    public function getValue(): ?\DateTimeImmutable;
+    public function getValue(): ?DateTimeImmutable;
 
     /**
      * Returns true if the value is invalid, false otherwise.

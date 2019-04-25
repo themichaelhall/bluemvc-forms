@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\DateTimeField;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -163,7 +164,7 @@ class DateTimeFieldTest extends TestCase
      */
     public function testIsEmptyForNonEmptyValue()
     {
-        $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable());
+        $dateTimeField = new DateTimeField('foo', new DateTimeImmutable());
 
         self::assertFalse($dateTimeField->isEmpty());
     }
@@ -183,7 +184,7 @@ class DateTimeFieldTest extends TestCase
      */
     public function testIsValidForNonEmptyValue()
     {
-        $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable());
+        $dateTimeField = new DateTimeField('foo', new DateTimeImmutable());
 
         self::assertFalse($dateTimeField->isInvalid());
     }
@@ -225,7 +226,7 @@ class DateTimeFieldTest extends TestCase
      */
     public function testConstructorWithDefaultValue()
     {
-        $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable('2000-01-02 03:04:05'));
+        $dateTimeField = new DateTimeField('foo', new DateTimeImmutable('2000-01-02 03:04:05'));
 
         self::assertSame('2000-01-02 03:04:00', $dateTimeField->getValue()->format('Y-m-d H:i:s'));
         self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02T03:04" required>', $dateTimeField->getHtml());
@@ -237,7 +238,7 @@ class DateTimeFieldTest extends TestCase
      */
     public function testGetHtmlWithAttributes()
     {
-        $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable('2000-01-02 03:04:05'));
+        $dateTimeField = new DateTimeField('foo', new DateTimeImmutable('2000-01-02 03:04:05'));
 
         self::assertSame('<input type="datetime-local" name="foo" value="2000-01-02T03:04" required id="baz" readonly>', $dateTimeField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
@@ -257,7 +258,7 @@ class DateTimeFieldTest extends TestCase
      */
     public function testSetRequired()
     {
-        $dateTimeField = new DateTimeField('foo', new \DateTimeImmutable('2017-10-15 18:00:00'));
+        $dateTimeField = new DateTimeField('foo', new DateTimeImmutable('2017-10-15 18:00:00'));
         $dateTimeField->setRequired(false);
 
         self::assertFalse($dateTimeField->isRequired());

@@ -8,12 +8,15 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
+use Countable;
+use IteratorAggregate;
+
 /**
  * Interface for RadioButtonCollection class.
  *
  * @since 1.0.0
  */
-interface RadioButtonCollectionInterface extends SetFormValueElementInterface, \Countable, \IteratorAggregate
+interface RadioButtonCollectionInterface extends SetFormValueElementInterface, Countable, IteratorAggregate
 {
     /**
      * Adds a radio button.

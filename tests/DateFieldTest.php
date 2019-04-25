@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Forms\DateField;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -155,7 +156,7 @@ class DateFieldTest extends TestCase
      */
     public function testIsEmptyForNonEmptyValue()
     {
-        $dateField = new DateField('foo', new \DateTimeImmutable());
+        $dateField = new DateField('foo', new DateTimeImmutable());
 
         self::assertFalse($dateField->isEmpty());
     }
@@ -175,7 +176,7 @@ class DateFieldTest extends TestCase
      */
     public function testIsValidForNonEmptyValue()
     {
-        $dateField = new DateField('foo', new \DateTimeImmutable());
+        $dateField = new DateField('foo', new DateTimeImmutable());
 
         self::assertFalse($dateField->isInvalid());
     }
@@ -217,7 +218,7 @@ class DateFieldTest extends TestCase
      */
     public function testConstructorWithDefaultValue()
     {
-        $dateField = new DateField('foo', new \DateTimeImmutable('2000-01-02 03:04:05'));
+        $dateField = new DateField('foo', new DateTimeImmutable('2000-01-02 03:04:05'));
 
         self::assertSame('2000-01-02 00:00:00', $dateField->getValue()->format('Y-m-d H:i:s'));
         self::assertSame('<input type="date" name="foo" value="2000-01-02" required>', $dateField->getHtml());
@@ -229,7 +230,7 @@ class DateFieldTest extends TestCase
      */
     public function testGetHtmlWithAttributes()
     {
-        $dateField = new DateField('foo', new \DateTimeImmutable('2000-01-02'));
+        $dateField = new DateField('foo', new DateTimeImmutable('2000-01-02'));
 
         self::assertSame('<input type="date" name="foo" value="2000-01-02" required id="baz" readonly>', $dateField->getHtml(['id' => 'baz', 'readonly' => true]));
     }
@@ -249,7 +250,7 @@ class DateFieldTest extends TestCase
      */
     public function testSetRequired()
     {
-        $dateField = new DateField('foo', new \DateTimeImmutable('2017-10-15'));
+        $dateField = new DateField('foo', new DateTimeImmutable('2017-10-15'));
         $dateField->setRequired(false);
 
         self::assertFalse($dateField->isRequired());

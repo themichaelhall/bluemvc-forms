@@ -12,6 +12,7 @@ use BlueMvc\Forms\Base\AbstractSetFormValueElement;
 use BlueMvc\Forms\Interfaces\OptionInterface;
 use BlueMvc\Forms\Interfaces\SelectInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
+use Traversable;
 
 /**
  * Class representing a select.
@@ -101,9 +102,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @since 2.1.0
      *
-     * @return \Traversable The iterator.
+     * @return Traversable The iterator.
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
         foreach ($this->options as $option) {
             yield $option->getValue() => $option;

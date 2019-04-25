@@ -10,6 +10,8 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
 use BlueMvc\Forms\Interfaces\DateFieldInterface;
+use DateTimeImmutable;
+use Exception;
 
 /**
  * Class representing a date field.
@@ -23,10 +25,10 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @since 1.0.0
      *
-     * @param string                  $name  The name.
-     * @param \DateTimeImmutable|null $value The value.
+     * @param string                 $name  The name.
+     * @param DateTimeImmutable|null $value The value.
      */
-    public function __construct(string $name, ?\DateTimeImmutable $value = null)
+    public function __construct(string $name, ?DateTimeImmutable $value = null)
     {
         parent::__construct($name, $value !== null ? $value->format('Y-m-d') : '', TextFormatOptions::TRIM);
 
@@ -39,9 +41,9 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @since 1.0.0
      *
-     * @return \DateTimeImmutable|null The value of the date field.
+     * @return DateTimeImmutable|null The value of the date field.
      */
-    public function getValue(): ?\DateTimeImmutable
+    public function getValue(): ?DateTimeImmutable
     {
         return $this->value;
     }
@@ -93,8 +95,8 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
         }
 
         try {
-            $this->setValue(new \DateTimeImmutable($text));
-        } catch (\Exception $exception) {
+            $this->setValue(new DateTimeImmutable($text));
+        } catch (Exception $exception) {
             $this->setError('Invalid value');
             $this->isInvalid = true;
         }
@@ -103,9 +105,9 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
     /**
      * Sets the value.
      *
-     * @param \DateTimeImmutable|null $value The value.
+     * @param DateTimeImmutable|null $value The value.
      */
-    private function setValue(\DateTimeImmutable $value = null): void
+    private function setValue(DateTimeImmutable $value = null): void
     {
         if ($value === null) {
             $this->value = null;
@@ -122,7 +124,7 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
     private $isInvalid;
 
     /**
-     * @var \DateTimeImmutable|null My value.
+     * @var DateTimeImmutable|null My value.
      */
     private $value;
 }
