@@ -461,7 +461,7 @@ class PostFormTest extends TestCase
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -471,7 +471,7 @@ class PostFormTest extends TestCase
     /**
      * Tear down.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
