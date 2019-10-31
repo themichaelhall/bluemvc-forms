@@ -11,6 +11,7 @@ namespace BlueMvc\Forms;
 use BlueMvc\Forms\Base\AbstractTextInputField;
 use BlueMvc\Forms\Interfaces\DateTimeFieldInterface;
 use DateTimeImmutable;
+use Exception;
 
 /**
  * Class representing a date time field.
@@ -95,7 +96,7 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
 
         try {
             $this->setValue(new DateTimeImmutable($text));
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->setError('Invalid value');
             $this->isInvalid = true;
         }
