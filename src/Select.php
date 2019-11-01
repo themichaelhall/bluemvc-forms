@@ -124,6 +124,24 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     }
 
     /**
+     * Returns the selected option or null if no option is selected.
+     *
+     * @since 2.2.0
+     *
+     * @return OptionInterface|null The selected option or null if no option is selected.
+     */
+    public function getSelectedOption(): ?OptionInterface
+    {
+        foreach ($this->options as $option) {
+            if ($option->getValue() === $this->value) {
+                return $option;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns the element value.
      *
      * @since 1.0.0

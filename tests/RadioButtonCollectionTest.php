@@ -347,4 +347,32 @@ class RadioButtonCollectionTest extends TestCase
 
         self::assertSame(0, $radioButtonCollection->getCustomData());
     }
+
+    /**
+     * Test get selected radio button with no radio button selected.
+     */
+    public function testGetSelectedRadioButtonWithNoRadioButtonSelected()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButton1 = new RadioButton('1', 'One');
+        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButtonCollection->addRadioButton($radioButton1);
+        $radioButtonCollection->addRadioButton($radioButton2);
+
+        self::assertNull($radioButtonCollection->getSelectedRadioButton());
+    }
+
+    /**
+     * Test get selected radio button with radio button selected.
+     */
+    public function testGetSelectedRadioButtonWithRadioButtonSelected()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '1');
+        $radioButton1 = new RadioButton('1', 'One');
+        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButtonCollection->addRadioButton($radioButton1);
+        $radioButtonCollection->addRadioButton($radioButton2);
+
+        self::assertSame($radioButton1, $radioButtonCollection->getSelectedRadioButton());
+    }
 }
