@@ -37,6 +37,15 @@ interface RadioButtonCollectionInterface extends SetFormValueElementInterface, C
     public function getRadioButtons(): array;
 
     /**
+     * Returns the selected radio button or null if no radio button is selected.
+     *
+     * @since 2.2.0
+     *
+     * @return RadioButtonInterface|null The selected radio button or null if no radio button is selected.
+     */
+    public function getSelectedRadioButton(): ?RadioButtonInterface;
+
+    /**
      * Returns the element value.
      *
      * @since 1.0.0
