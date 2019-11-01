@@ -350,4 +350,32 @@ class SelectTest extends TestCase
 
         self::assertSame('Bar', $select->getCustomData());
     }
+
+    /**
+     * Test get selected option with no option selected.
+     */
+    public function testGetSelectedOptionWithNoOptionSelected()
+    {
+        $select = new Select('foo');
+        $option1 = new Option('1', 'One');
+        $option2 = new Option('2', 'Two');
+        $select->addOption($option1);
+        $select->addOption($option2);
+
+        self::assertNull($select->getSelectedOption());
+    }
+
+    /**
+     * Test get selected option with option selected.
+     */
+    public function testGetSelectedOptionWithOptionSelected()
+    {
+        $select = new Select('foo', '2');
+        $option1 = new Option('1', 'One');
+        $option2 = new Option('2', 'Two');
+        $select->addOption($option1);
+        $select->addOption($option2);
+
+        self::assertSame($option2, $select->getSelectedOption());
+    }
 }

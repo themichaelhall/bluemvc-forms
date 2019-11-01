@@ -37,6 +37,15 @@ interface SelectInterface extends SetFormValueElementInterface, Countable, Itera
     public function getOptions(): array;
 
     /**
+     * Returns the selected option or null if no option is selected.
+     *
+     * @since 2.2.0
+     *
+     * @return OptionInterface|null The selected option or null if no option is selected.
+     */
+    public function getSelectedOption(): ?OptionInterface;
+
+    /**
      * Returns the element value.
      *
      * @since 1.0.0
