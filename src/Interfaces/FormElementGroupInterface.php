@@ -16,6 +16,15 @@ namespace BlueMvc\Forms\Interfaces;
 interface FormElementGroupInterface
 {
     /**
+     * Adds a form element.
+     *
+     * @since 2.2.0
+     *
+     * @param FormElementInterface $element The form element.
+     */
+    public function addElement(FormElementInterface $element): void;
+
+    /**
      * Returns the form elements.
      *
      * @since 2.2.0
