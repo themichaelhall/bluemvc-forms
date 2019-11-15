@@ -22,6 +22,7 @@ class FormElementGroupTest extends TestCase
         $formElementGroup = new FormElementGroup();
 
         self::assertSame([], $formElementGroup->getElements());
+        self::assertSame('', $formElementGroup->__toString());
     }
 
     /**
@@ -37,5 +38,6 @@ class FormElementGroupTest extends TestCase
         $formElementGroup->addElement($element2);
 
         self::assertSame([$element1, $element2], $formElementGroup->getElements());
+        self::assertSame('<input type="text" name="foo" value="bar" required><input type="checkbox" name="baz" required>', $formElementGroup->__toString());
     }
 }

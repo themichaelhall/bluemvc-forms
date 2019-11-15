@@ -32,4 +32,13 @@ interface FormElementGroupInterface
      * @return FormElementInterface[] The form elements.
      */
     public function getElements(): array;
+
+    /**
+     * Returns the group of elements as html.
+     *
+     * @since 2.2.0
+     *
+     * @return string The group of elements as html.
+     */
+    public function __toString(): string;
 }

@@ -53,6 +53,18 @@ class FormElementGroup implements FormElementGroupInterface
     }
 
     /**
+     * Returns the group of elements as html.
+     *
+     * @since 2.2.0
+     *
+     * @return string The group of elements as html.
+     */
+    public function __toString(): string
+    {
+        return implode('', $this->elements);
+    }
+
+    /**
      * @var FormElementInterface[] My form elements.
      */
     private $elements;
