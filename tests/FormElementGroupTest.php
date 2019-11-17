@@ -40,4 +40,36 @@ class FormElementGroupTest extends TestCase
         self::assertSame([$element1, $element2], $formElementGroup->getElements());
         self::assertSame('<input type="text" name="foo" value="bar" required><input type="checkbox" name="baz" required>', $formElementGroup->__toString());
     }
+
+    /**
+     * Test getError method.
+     */
+    public function testGetError()
+    {
+        $formElementGroup = new FormElementGroup();
+
+        self::assertNull($formElementGroup->getError());
+    }
+
+    /**
+     * Test hasError method.
+     */
+    public function testHasError()
+    {
+        $formElementGroup = new FormElementGroup();
+
+        self::assertFalse($formElementGroup->hasError());
+    }
+
+    /**
+     * Test setError method.
+     */
+    public function testSetError()
+    {
+        $formElementGroup = new FormElementGroup();
+        $formElementGroup->setError('Foo');
+
+        self::assertSame('Foo', $formElementGroup->getError());
+        self::assertTrue($formElementGroup->hasError());
+    }
 }

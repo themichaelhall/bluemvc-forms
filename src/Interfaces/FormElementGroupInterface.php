@@ -34,6 +34,33 @@ interface FormElementGroupInterface
     public function getElements(): array;
 
     /**
+     * Returns the error or null if group has no error.
+     *
+     * @since 2.2.0
+     *
+     * @return string|null The error or null if group has no error.
+     */
+    public function getError(): ?string;
+
+    /**
+     * Returns true if group has an error, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if group has an error, false otherwise.
+     */
+    public function hasError(): bool;
+
+    /**
+     * Sets the error for the group.
+     *
+     * @since 2.2.0
+     *
+     * @param string $error The error for the group.
+     */
+    public function setError(string $error): void;
+
+    /**
      * Returns the group of elements as html.
      *
      * @since 2.2.0
