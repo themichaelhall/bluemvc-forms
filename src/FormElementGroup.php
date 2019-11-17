@@ -25,6 +25,7 @@ class FormElementGroup implements FormElementGroupInterface
      */
     public function __construct()
     {
+        $this->customData = null;
         $this->elements = [];
         $this->error = null;
     }
@@ -39,6 +40,18 @@ class FormElementGroup implements FormElementGroupInterface
     public function addElement(FormElementInterface $element): void
     {
         $this->elements[] = $element;
+    }
+
+    /**
+     * Returns the custom data or null if no custom data is set.
+     *
+     * @since 2.2.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData()
+    {
+        return $this->customData;
     }
 
     /**
@@ -78,6 +91,18 @@ class FormElementGroup implements FormElementGroupInterface
     }
 
     /**
+     * Sets the custom data.
+     *
+     * @since 2.2.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void
+    {
+        $this->customData = $customData;
+    }
+
+    /**
      * Sets the error for the group.
      *
      * @since 2.2.0
@@ -100,6 +125,11 @@ class FormElementGroup implements FormElementGroupInterface
     {
         return implode('', $this->elements);
     }
+
+    /**
+     * @var mixed|null My custom data or null if no custom data is set.
+     */
+    private $customData;
 
     /**
      * @var FormElementInterface[] My form elements.

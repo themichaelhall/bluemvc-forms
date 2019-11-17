@@ -72,4 +72,25 @@ class FormElementGroupTest extends TestCase
         self::assertSame('Foo', $formElementGroup->getError());
         self::assertTrue($formElementGroup->hasError());
     }
+
+    /**
+     * Test getCustomData method.
+     */
+    public function testGetCustomData()
+    {
+        $formElementGroup = new FormElementGroup();
+
+        self::assertNull($formElementGroup->getCustomData());
+    }
+
+    /**
+     * Test setCustomData method.
+     */
+    public function testSetCustomData()
+    {
+        $formElementGroup = new FormElementGroup();
+        $formElementGroup->setCustomData(['Foo' => 'Bar']);
+
+        self::assertSame(['Foo' => 'Bar'], $formElementGroup->getCustomData());
+    }
 }

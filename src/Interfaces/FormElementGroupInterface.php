@@ -25,6 +25,15 @@ interface FormElementGroupInterface
     public function addElement(FormElementInterface $element): void;
 
     /**
+     * Returns the custom data or null if no custom data is set.
+     *
+     * @since 2.2.0
+     *
+     * @return mixed|null The custom data or null if no custom data is set.
+     */
+    public function getCustomData();
+
+    /**
      * Returns the form elements.
      *
      * @since 2.2.0
@@ -50,6 +59,15 @@ interface FormElementGroupInterface
      * @return bool True if group has an error, false otherwise.
      */
     public function hasError(): bool;
+
+    /**
+     * Sets the custom data.
+     *
+     * @since 2.2.0
+     *
+     * @param mixed|null $customData The custom data.
+     */
+    public function setCustomData($customData): void;
 
     /**
      * Sets the error for the group.
