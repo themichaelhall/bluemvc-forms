@@ -85,6 +85,18 @@ class PostFormTest extends TestCase
 
         self::assertSame('', $this->form->getPrivateField2()->getValue());
         self::assertFalse($this->form->getPrivateField2()->hasError());
+
+        self::assertSame('', $this->form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
     }
 
     /**
@@ -112,6 +124,10 @@ class PostFormTest extends TestCase
         $request->setFormParameter('datetime', '2017-12-01 10:20:30');
         $request->setFormParameter('private-1', '0');
         $request->setFormParameter('private-2', 'My private field 2 value');
+        $request->setFormParameter('group-text', 'My group text value');
+        $request->setFormParameter('group-checkbox', 'on');
+        $request->setFormParameter('private-group-text', 'My private group text value');
+        $request->setFormParameter('private-group-checkbox', 'on');
 
         $isProcessed = $this->form->process($request);
 
@@ -137,6 +153,8 @@ class PostFormTest extends TestCase
                 $this->form->getJsonFileField(),
                 $this->form->getRadioButtons(),
                 $this->form->getDateTimeField(),
+                $this->form->getFormElementGroup()->getElements()[0],
+                $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
             ],
             $this->form->getProcessedElements()
@@ -204,6 +222,18 @@ class PostFormTest extends TestCase
 
         self::assertSame('', $this->form->getPrivateField2()->getValue());
         self::assertFalse($this->form->getPrivateField2()->hasError());
+
+        self::assertSame('My group text value', $this->form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[0]->hasError());
+
+        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
     }
 
     /**
@@ -237,6 +267,8 @@ class PostFormTest extends TestCase
                 $this->form->getJsonFileField(),
                 $this->form->getRadioButtons(),
                 $this->form->getDateTimeField(),
+                $this->form->getFormElementGroup()->getElements()[0],
+                $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
             ],
             $this->form->getProcessedElements()
@@ -318,6 +350,22 @@ class PostFormTest extends TestCase
         self::assertSame('', $this->form->getPrivateField2()->getValue());
         self::assertFalse($this->form->getPrivateField2()->hasError());
         self::assertNull($this->form->getPrivateField2()->getError());
+
+        self::assertSame('', $this->form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertTrue($this->form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[1]->getError());
     }
 
     /**
@@ -345,6 +393,10 @@ class PostFormTest extends TestCase
         $request->setFormParameter('datetime', 'invalid');
         $request->setFormParameter('private-1', 'invalid');
         $request->setFormParameter('private-2', 'invalid');
+        $request->setFormParameter('group-text', 'invalid');
+        $request->setFormParameter('group-checkbox', 'invalid');
+        $request->setFormParameter('private-group-text', 'invalid');
+        $request->setFormParameter('private-group-checkbox', 'invalid');
 
         $isProcessed = $this->form->process($request);
 
@@ -370,6 +422,8 @@ class PostFormTest extends TestCase
                 $this->form->getJsonFileField(),
                 $this->form->getRadioButtons(),
                 $this->form->getDateTimeField(),
+                $this->form->getFormElementGroup()->getElements()[0],
+                $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
             ],
             $this->form->getProcessedElements()
@@ -456,6 +510,22 @@ class PostFormTest extends TestCase
         self::assertSame('', $this->form->getPrivateField2()->getValue());
         self::assertFalse($this->form->getPrivateField2()->hasError());
         self::assertNull($this->form->getPrivateField2()->getError());
+
+        self::assertSame('invalid', $this->form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertTrue($this->form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('Value of group text is invalid', $this->form->getFormElementGroup()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[1]->getError());
     }
 
     /**

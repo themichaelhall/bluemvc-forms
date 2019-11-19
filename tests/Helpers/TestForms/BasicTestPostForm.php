@@ -9,6 +9,7 @@ use BlueMvc\Forms\DateField;
 use BlueMvc\Forms\DateTimeField;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
+use BlueMvc\Forms\FormElementGroup;
 use BlueMvc\Forms\HiddenField;
 use BlueMvc\Forms\IntegerField;
 use BlueMvc\Forms\Interfaces\CheckBoxInterface;
@@ -16,6 +17,7 @@ use BlueMvc\Forms\Interfaces\DateFieldInterface;
 use BlueMvc\Forms\Interfaces\DateTimeFieldInterface;
 use BlueMvc\Forms\Interfaces\EmailFieldInterface;
 use BlueMvc\Forms\Interfaces\FileFieldInterface;
+use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\HiddenFieldInterface;
 use BlueMvc\Forms\Interfaces\IntegerFieldInterface;
 use BlueMvc\Forms\Interfaces\PasswordFieldInterface;
@@ -74,6 +76,14 @@ class BasicTestPostForm extends PostForm
         $this->privateField1 = new TextField('private-1');
         $this->addElement($this->privateField1);
         $this->privateField2 = new TextField('private-2');
+
+        $this->formElementGroup = new FormElementGroup();
+        $this->formElementGroup->addElement(new TextField('group-text'));
+        $this->formElementGroup->addElement(new CheckBox('group-checkbox'));
+
+        $this->privateFormElementGroup = new FormElementGroup();
+        $this->privateFormElementGroup->addElement(new TextField('private-group-text'));
+        $this->privateFormElementGroup->addElement(new CheckBox('private-group-checkbox'));
 
         $this->eventMethodsCalled = [];
     }
@@ -279,6 +289,26 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my form element group.
+     *
+     * @return FormElementGroupInterface
+     */
+    public function getFormElementGroup(): FormElementGroupInterface
+    {
+        return $this->formElementGroup;
+    }
+
+    /**
+     * Returns my private form element group.
+     *
+     * @return FormElementGroupInterface
+     */
+    public function getPrivateFormElementGroup(): FormElementGroupInterface
+    {
+        return $this->privateFormElementGroup;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate(): void
@@ -321,6 +351,14 @@ class BasicTestPostForm extends PostForm
 
         if ($this->privateField2->getValue() === 'invalid') {
             $this->privateField2->setError('Value of private field 2 is invalid.');
+        }
+
+        if ($this->formElementGroup->getElements()[0]->getValue() === 'invalid') {
+            $this->formElementGroup->getElements()[0]->setError('Value of group text is invalid');
+        }
+
+        if ($this->privateFormElementGroup->getElements()[0]->getValue() === 'invalid') {
+            $this->privateFormElementGroup->getElements()[0]->setError('Value of private group text is invalid');
         }
     }
 
@@ -440,6 +478,11 @@ class BasicTestPostForm extends PostForm
     protected $dateTimeField;
 
     /**
+     * @var FormElementGroupInterface My form element group.
+     */
+    protected $formElementGroup;
+
+    /**
      * @var TextFieldInterface My private field 1.
      */
     private $privateField1;
@@ -453,4 +496,9 @@ class BasicTestPostForm extends PostForm
      * @var string[] The names of the event methods called.
      */
     private $eventMethodsCalled;
+
+    /**
+     * @var FormElementGroupInterface My private form element group.
+     */
+    private $privateFormElementGroup;
 }

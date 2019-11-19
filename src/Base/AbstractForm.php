@@ -11,6 +11,7 @@ namespace BlueMvc\Forms\Base;
 use BlueMvc\Core\Interfaces\Collections\ParameterCollectionInterface;
 use BlueMvc\Core\Interfaces\Collections\UploadedFileCollectionInterface;
 use BlueMvc\Core\Interfaces\RequestInterface;
+use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
 use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
@@ -181,9 +182,11 @@ abstract class AbstractForm implements FormInterface
     {
         $result = [];
 
-        foreach (get_object_vars($this) as $element) {
-            if ($element instanceof FormElementInterface) {
-                $result[] = $element;
+        foreach (get_object_vars($this) as $elementOrGroup) {
+            if ($elementOrGroup instanceof FormElementInterface) {
+                $result[] = $elementOrGroup;
+            } elseif ($elementOrGroup instanceof FormElementGroupInterface) {
+                $result = array_merge($result, $elementOrGroup->getElements());
             }
         }
 
