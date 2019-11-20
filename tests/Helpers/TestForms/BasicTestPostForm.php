@@ -355,10 +355,14 @@ class BasicTestPostForm extends PostForm
 
         if ($this->formElementGroup->getElements()[0]->getValue() === 'invalid') {
             $this->formElementGroup->getElements()[0]->setError('Value of group text is invalid');
+        } elseif ($this->formElementGroup->getElements()[0]->getValue() === 'invalid-group') {
+            $this->formElementGroup->setError('Group is invalid');
         }
 
         if ($this->privateFormElementGroup->getElements()[0]->getValue() === 'invalid') {
             $this->privateFormElementGroup->getElements()[0]->setError('Value of private group text is invalid');
+        } elseif ($this->privateFormElementGroup->getElements()[0]->getValue() === 'invalid') {
+            $this->privateFormElementGroup->setError('Group is invalid');
         }
     }
 

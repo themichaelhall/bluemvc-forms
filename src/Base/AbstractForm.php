@@ -98,10 +98,10 @@ abstract class AbstractForm implements FormInterface
         $this->hasError = false;
         $this->processedElements = [];
 
-        $elements = $this->getElementsToProcess();
+        $this->getElementsAndGroups($elementsToProcess, $elementsOrGroupsToCheckForErrors);
 
         // Set form values for elements.
-        foreach ($elements as $element) {
+        foreach ($elementsToProcess as $element) {
             if ($element instanceof SetFormValueElementInterface) {
                 $formValue = $parameters->get($element->getName());
                 $element->setFormValue($formValue !== null ? $formValue : '');
@@ -118,8 +118,9 @@ abstract class AbstractForm implements FormInterface
         $this->onValidate();
 
         // Check for errors.
-        foreach ($elements as $element) {
-            if ($element->hasError()) {
+        foreach ($elementsOrGroupsToCheckForErrors as $elementOrGroup) {
+            /** @var FormElementInterface|FormElementGroupInterface $elementOrGroup */
+            if ($elementOrGroup->hasError()) {
                 $this->hasError = true;
                 break;
             }
@@ -174,25 +175,27 @@ abstract class AbstractForm implements FormInterface
     }
 
     /**
-     * Returns the elements to process.
+     * Returns the elements and element groups to use in form processing.
      *
-     * @return FormElementInterface[] The elements to process.
+     * @param FormElementInterface[]|null $elementsToProcess                The form elements to process.
+     * @param array|null                  $elementsOrGroupsToCheckForErrors The form elements or form element groups to check for errors.
      */
-    private function getElementsToProcess(): array
+    private function getElementsAndGroups(array &$elementsToProcess = null, array &$elementsOrGroupsToCheckForErrors = null): void
     {
-        $result = [];
+        $elementsToProcess = [];
+        $groups = [];
 
         foreach (get_object_vars($this) as $elementOrGroup) {
             if ($elementOrGroup instanceof FormElementInterface) {
-                $result[] = $elementOrGroup;
+                $elementsToProcess[] = $elementOrGroup;
             } elseif ($elementOrGroup instanceof FormElementGroupInterface) {
-                $result = array_merge($result, $elementOrGroup->getElements());
+                $elementsToProcess = array_merge($elementsToProcess, $elementOrGroup->getElements());
+                $groups[] = $elementOrGroup;
             }
         }
 
-        $result = array_merge($result, $this->extraElements);
-
-        return $result;
+        $elementsToProcess = array_merge($elementsToProcess, $this->extraElements);
+        $elementsOrGroupsToCheckForErrors = array_merge($elementsToProcess, $groups);
     }
 
     /**
