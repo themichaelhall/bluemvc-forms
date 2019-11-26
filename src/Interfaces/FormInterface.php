@@ -27,6 +27,15 @@ interface FormInterface
     public function addElement(FormElementInterface $element): void;
 
     /**
+     * Adds an element group to the form.
+     *
+     * @since 2.2.0
+     *
+     * @param FormElementGroupInterface $elementGroup The element group.
+     */
+    public function addElementGroup(FormElementGroupInterface $elementGroup): void;
+
+    /**
      * Returns the processed elements.
      *
      * @since 1.0.0

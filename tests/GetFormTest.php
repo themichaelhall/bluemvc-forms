@@ -87,13 +87,21 @@ class GetFormTest extends TestCase
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
     }
 
     /**
@@ -170,13 +178,21 @@ class GetFormTest extends TestCase
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
     }
 
     /**
@@ -205,8 +221,10 @@ class GetFormTest extends TestCase
             'private-2=My%20private%20field%202%20value&' .
             'group-text=My%20group%20text%20value&' .
             'group-checkbox=on&' .
-            'private-group-text=My%20private%20group%20text%20value&' .
-            'private-group-checkbox=on'
+            'private-group-text-1=My%20private%20group%201%20text%20value&' .
+            'private-group-checkbox-1=on&' .
+            'private-group-text-2=My%20private%20group%201%20text%20value&' .
+            'private-group-checkbox-2=on'
         );
 
         $isProcessed = $this->form->process($request);
@@ -234,6 +252,8 @@ class GetFormTest extends TestCase
                 $this->form->getFormElementGroup()->getElements()[0],
                 $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
+                $this->form->getPrivateFormElementGroup1()->getElements()[0],
+                $this->form->getPrivateFormElementGroup1()->getElements()[1],
             ],
             $this->form->getProcessedElements()
         );
@@ -298,13 +318,21 @@ class GetFormTest extends TestCase
         self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->getValue());
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('My private group 1 text value', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
     }
 
     /**
@@ -339,6 +367,8 @@ class GetFormTest extends TestCase
                 $this->form->getFormElementGroup()->getElements()[0],
                 $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
+                $this->form->getPrivateFormElementGroup1()->getElements()[0],
+                $this->form->getPrivateFormElementGroup1()->getElements()[1],
             ],
             $this->form->getProcessedElements()
         );
@@ -421,15 +451,25 @@ class GetFormTest extends TestCase
         self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
         self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[0]->getError());
+        self::assertSame('', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[1]->getError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[1]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[1]->getError());
     }
 
     /**
@@ -458,8 +498,10 @@ class GetFormTest extends TestCase
             'private-2=invalid&' .
             'group-text=invalid&' .
             'group-checkbox=invalid&' .
-            'private-group-text=invalid&' .
-            'private-group-checkbox=invalid'
+            'private-group-text-1=invalid&' .
+            'private-group-checkbox-1=invalid&' .
+            'private-group-text-2=invalid&' .
+            'private-group-checkbox-2=invalid'
         );
 
         $isProcessed = $this->form->process($request);
@@ -487,6 +529,8 @@ class GetFormTest extends TestCase
                 $this->form->getFormElementGroup()->getElements()[0],
                 $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
+                $this->form->getPrivateFormElementGroup1()->getElements()[0],
+                $this->form->getPrivateFormElementGroup1()->getElements()[1],
             ],
             $this->form->getProcessedElements()
         );
@@ -570,15 +614,25 @@ class GetFormTest extends TestCase
         self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
         self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[0]->getError());
+        self::assertSame('invalid', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('Value of private group 1 text is invalid', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup()->getElements()[1]->getError());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[1]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[0]->getError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[1]->getError());
     }
 
     /**
@@ -607,8 +661,10 @@ class GetFormTest extends TestCase
             'private-2=My%20private%20field%202%20value&' .
             'group-text=invalid-group&' .
             'group-checkbox=on&' .
-            'private-group-text=invalid-group&' .
-            'private-group-checkbox=on'
+            'private-group-text-1=invalid-group&' .
+            'private-group-checkbox-1=on&' .
+            'private-group-text-2=invalid-group&' .
+            'private-group-checkbox-2=on'
         );
 
         $isProcessed = $this->form->process($request);
@@ -636,6 +692,8 @@ class GetFormTest extends TestCase
                 $this->form->getFormElementGroup()->getElements()[0],
                 $this->form->getFormElementGroup()->getElements()[1],
                 $this->form->getPrivateField1(),
+                $this->form->getPrivateFormElementGroup1()->getElements()[0],
+                $this->form->getPrivateFormElementGroup1()->getElements()[1],
             ],
             $this->form->getProcessedElements()
         );
@@ -701,13 +759,22 @@ class GetFormTest extends TestCase
         self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->getValue());
         self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->hasError());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->hasError());
+        self::assertSame('Private group 1 is invalid', $this->form->getPrivateFormElementGroup1()->getError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('invalid-group', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup()->getElements()[1]->hasError());
+        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
     }
 
     /**
