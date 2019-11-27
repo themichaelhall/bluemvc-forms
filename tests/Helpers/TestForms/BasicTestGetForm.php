@@ -8,6 +8,7 @@ use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\DateField;
 use BlueMvc\Forms\DateTimeField;
 use BlueMvc\Forms\EmailField;
+use BlueMvc\Forms\FormElementGroup;
 use BlueMvc\Forms\GetForm;
 use BlueMvc\Forms\HiddenField;
 use BlueMvc\Forms\IntegerField;
@@ -15,6 +16,7 @@ use BlueMvc\Forms\Interfaces\CheckBoxInterface;
 use BlueMvc\Forms\Interfaces\DateFieldInterface;
 use BlueMvc\Forms\Interfaces\DateTimeFieldInterface;
 use BlueMvc\Forms\Interfaces\EmailFieldInterface;
+use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\HiddenFieldInterface;
 use BlueMvc\Forms\Interfaces\IntegerFieldInterface;
 use BlueMvc\Forms\Interfaces\PasswordFieldInterface;
@@ -69,6 +71,19 @@ class BasicTestGetForm extends GetForm
         $this->privateField1 = new TextField('private-1');
         $this->addElement($this->privateField1);
         $this->privateField2 = new TextField('private-2');
+
+        $this->formElementGroup = new FormElementGroup();
+        $this->formElementGroup->addElement(new TextField('group-text'));
+        $this->formElementGroup->addElement(new CheckBox('group-checkbox'));
+
+        $this->privateFormElementGroup1 = new FormElementGroup();
+        $this->privateFormElementGroup1->addElement(new TextField('private-group-text-1'));
+        $this->privateFormElementGroup1->addElement(new CheckBox('private-group-checkbox-1'));
+        $this->addElementGroup($this->privateFormElementGroup1);
+
+        $this->privateFormElementGroup2 = new FormElementGroup();
+        $this->privateFormElementGroup2->addElement(new TextField('private-group-text-2'));
+        $this->privateFormElementGroup2->addElement(new CheckBox('private-group-checkbox-2'));
 
         $this->eventMethodsCalled = [];
     }
@@ -254,6 +269,36 @@ class BasicTestGetForm extends GetForm
     }
 
     /**
+     * Returns my form element group.
+     *
+     * @return FormElementGroupInterface
+     */
+    public function getFormElementGroup(): FormElementGroupInterface
+    {
+        return $this->formElementGroup;
+    }
+
+    /**
+     * Returns my private form element group.
+     *
+     * @return FormElementGroupInterface
+     */
+    public function getPrivateFormElementGroup1(): FormElementGroupInterface
+    {
+        return $this->privateFormElementGroup1;
+    }
+
+    /**
+     * Returns my private form element group 2.
+     *
+     * @return FormElementGroupInterface
+     */
+    public function getPrivateFormElementGroup2(): FormElementGroupInterface
+    {
+        return $this->privateFormElementGroup2;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate(): void
@@ -292,6 +337,24 @@ class BasicTestGetForm extends GetForm
 
         if ($this->privateField2->getValue() === 'invalid') {
             $this->privateField2->setError('Value of private field 2 is invalid.');
+        }
+
+        if ($this->formElementGroup->getElements()[0]->getValue() === 'invalid') {
+            $this->formElementGroup->getElements()[0]->setError('Value of group text is invalid');
+        } elseif ($this->formElementGroup->getElements()[0]->getValue() === 'invalid-group') {
+            $this->formElementGroup->setError('Group is invalid');
+        }
+
+        if ($this->privateFormElementGroup1->getElements()[0]->getValue() === 'invalid') {
+            $this->privateFormElementGroup1->getElements()[0]->setError('Value of private group 1 text is invalid');
+        } elseif ($this->privateFormElementGroup1->getElements()[0]->getValue() === 'invalid-group') {
+            $this->privateFormElementGroup1->setError('Private group 1 is invalid');
+        }
+
+        if ($this->privateFormElementGroup2->getElements()[0]->getValue() === 'invalid') {
+            $this->privateFormElementGroup2->getElements()[0]->setError('Value of private group 2 text is invalid');
+        } elseif ($this->privateFormElementGroup2->getElements()[0]->getValue() === 'invalid-group') {
+            $this->privateFormElementGroup2->setError('Private group 2 is invalid');
         }
     }
 
@@ -401,6 +464,11 @@ class BasicTestGetForm extends GetForm
     protected $dateTimeField;
 
     /**
+     * @var FormElementGroupInterface My form element group.
+     */
+    protected $formElementGroup;
+
+    /**
      * @var TextFieldInterface My private field 1.
      */
     private $privateField1;
@@ -414,4 +482,14 @@ class BasicTestGetForm extends GetForm
      * @var string[] The names of the event methods called.
      */
     private $eventMethodsCalled;
+
+    /**
+     * @var FormElementGroupInterface My private form element group 1.
+     */
+    private $privateFormElementGroup1;
+
+    /**
+     * @var FormElementGroupInterface My private form element group 2.
+     */
+    private $privateFormElementGroup2;
 }
