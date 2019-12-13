@@ -232,4 +232,25 @@ class JsonFileFieldTest extends TestCase
 
         self::assertSame([1, 2, 3], $jsonFileField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $jsonFileField = new JsonFileField('foo');
+
+        self::assertFalse($jsonFileField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setDisabled(true);
+
+        self::assertTrue($jsonFileField->isDisabled());
+    }
 }

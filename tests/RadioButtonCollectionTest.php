@@ -375,4 +375,25 @@ class RadioButtonCollectionTest extends TestCase
 
         self::assertSame($radioButton1, $radioButtonCollection->getSelectedRadioButton());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertFalse($radioButtonCollection->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setDisabled(true);
+
+        self::assertTrue($radioButtonCollection->isDisabled());
+    }
 }

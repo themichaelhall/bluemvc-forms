@@ -306,4 +306,25 @@ class CustomValidatedFieldTest extends TestCase
 
         self::assertSame(['Foo Bar'], $customValidatedField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+
+        self::assertFalse($customValidatedField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setDisabled(true);
+
+        self::assertTrue($customValidatedField->isDisabled());
+    }
 }

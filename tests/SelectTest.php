@@ -378,4 +378,25 @@ class SelectTest extends TestCase
 
         self::assertSame($option2, $select->getSelectedOption());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $select = new Select('foo');
+
+        self::assertFalse($select->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $select = new Select('foo');
+        $select->setDisabled(true);
+
+        self::assertTrue($select->isDisabled());
+    }
 }

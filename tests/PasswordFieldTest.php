@@ -270,4 +270,25 @@ class PasswordFieldTest extends TestCase
 
         self::assertSame(['Foo', 'Bar', 'Baz'], $passwordField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertFalse($passwordField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setDisabled(true);
+
+        self::assertTrue($passwordField->isDisabled());
+    }
 }

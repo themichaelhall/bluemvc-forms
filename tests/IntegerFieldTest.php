@@ -363,4 +363,25 @@ class IntegerFieldTest extends TestCase
 
         self::assertNull($integerField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $integerField = new IntegerField('foo');
+
+        self::assertFalse($integerField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setDisabled(true);
+
+        self::assertTrue($integerField->isDisabled());
+    }
 }

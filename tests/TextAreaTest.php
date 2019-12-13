@@ -406,4 +406,25 @@ class TextAreaTest extends TestCase
 
         self::assertSame('Bar', $textArea->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertFalse($textArea->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setDisabled(true);
+
+        self::assertTrue($textArea->isDisabled());
+    }
 }
