@@ -398,5 +398,7 @@ class SelectTest extends TestCase
         $select->setDisabled(true);
 
         self::assertTrue($select->isDisabled());
+        self::assertSame('<select name="foo" disabled></select>', $select->getHtml());
+        self::assertSame('<select name="foo" disabled></select>', $select->__toString());
     }
 }

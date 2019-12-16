@@ -334,5 +334,7 @@ class TextFieldTest extends TestCase
         $textField->setDisabled(true);
 
         self::assertTrue($textField->isDisabled());
+        self::assertSame('<input type="text" name="foo" required disabled>', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" required disabled>', $textField->__toString());
     }
 }

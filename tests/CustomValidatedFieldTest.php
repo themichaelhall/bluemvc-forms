@@ -326,5 +326,7 @@ class CustomValidatedFieldTest extends TestCase
         $customValidatedField->setDisabled(true);
 
         self::assertTrue($customValidatedField->isDisabled());
+        self::assertSame('<input type="text" name="foo" required disabled>', $customValidatedField->getHtml());
+        self::assertSame('<input type="text" name="foo" required disabled>', $customValidatedField->__toString());
     }
 }

@@ -65,6 +65,7 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
                     'type'     => 'file',
                     'name'     => $this->getName(),
                     'required' => $this->isRequired(),
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             )

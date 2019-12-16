@@ -329,5 +329,7 @@ class UrlFieldTest extends TestCase
         $urlField->setDisabled(true);
 
         self::assertTrue($urlField->isDisabled());
+        self::assertSame('<input type="url" name="foo" required disabled>', $urlField->getHtml());
+        self::assertSame('<input type="url" name="foo" required disabled>', $urlField->__toString());
     }
 }

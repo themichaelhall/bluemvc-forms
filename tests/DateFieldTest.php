@@ -331,5 +331,7 @@ class DateFieldTest extends TestCase
         $dateField->setDisabled(true);
 
         self::assertTrue($dateField->isDisabled());
+        self::assertSame('<input type="date" name="foo" required disabled>', $dateField->getHtml());
+        self::assertSame('<input type="date" name="foo" required disabled>', $dateField->__toString());
     }
 }

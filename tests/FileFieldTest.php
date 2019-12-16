@@ -242,5 +242,7 @@ class FileFieldTest extends TestCase
         $fileField->setDisabled(true);
 
         self::assertTrue($fileField->isDisabled());
+        self::assertSame('<input type="file" name="foo" required disabled>', $fileField->getHtml());
+        self::assertSame('<input type="file" name="foo" required disabled>', $fileField->__toString());
     }
 }

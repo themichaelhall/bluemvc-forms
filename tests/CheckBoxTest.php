@@ -257,5 +257,7 @@ class CheckBoxTest extends TestCase
         $checkbox->setDisabled(true);
 
         self::assertTrue($checkbox->isDisabled());
+        self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->getHtml());
+        self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->__toString());
     }
 }

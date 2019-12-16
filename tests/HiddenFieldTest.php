@@ -267,6 +267,8 @@ class HiddenFieldTest extends TestCase
     {
         $hiddenField = new HiddenField('foo');
         $hiddenField->setDisabled(true);
+        self::assertSame('<input type="hidden" name="foo" disabled>', $hiddenField->getHtml());
+        self::assertSame('<input type="hidden" name="foo" disabled>', $hiddenField->__toString());
 
         self::assertTrue($hiddenField->isDisabled());
     }

@@ -393,7 +393,11 @@ class RadioButtonCollectionTest extends TestCase
     {
         $radioButtonCollection = new RadioButtonCollection('foo');
         $radioButtonCollection->setDisabled(true);
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
 
         self::assertTrue($radioButtonCollection->isDisabled());
+        self::assertSame('<input type="radio" name="foo" value="1" disabled>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1" disabled>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->__toString());
     }
 }

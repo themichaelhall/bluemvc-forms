@@ -252,5 +252,7 @@ class JsonFileFieldTest extends TestCase
         $jsonFileField->setDisabled(true);
 
         self::assertTrue($jsonFileField->isDisabled());
+        self::assertSame('<input type="file" name="foo" required disabled>', $jsonFileField->getHtml());
+        self::assertSame('<input type="file" name="foo" required disabled>', $jsonFileField->__toString());
     }
 }

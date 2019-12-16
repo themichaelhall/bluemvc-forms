@@ -426,5 +426,7 @@ class TextAreaTest extends TestCase
         $textArea->setDisabled(true);
 
         self::assertTrue($textArea->isDisabled());
+        self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->getHtml());
+        self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->__toString());
     }
 }

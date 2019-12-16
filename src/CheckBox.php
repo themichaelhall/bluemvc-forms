@@ -54,6 +54,7 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
                     'name'     => $this->getName(),
                     'checked'  => $this->value,
                     'required' => $this->isRequired(),
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             )

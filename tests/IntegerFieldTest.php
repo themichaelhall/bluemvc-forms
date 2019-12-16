@@ -383,5 +383,7 @@ class IntegerFieldTest extends TestCase
         $integerField->setDisabled(true);
 
         self::assertTrue($integerField->isDisabled());
+        self::assertSame('<input type="number" name="foo" required disabled>', $integerField->getHtml());
+        self::assertSame('<input type="number" name="foo" required disabled>', $integerField->__toString());
     }
 }

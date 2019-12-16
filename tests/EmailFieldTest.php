@@ -329,5 +329,7 @@ class EmailFieldTest extends TestCase
         $emailField->setDisabled(true);
 
         self::assertTrue($emailField->isDisabled());
+        self::assertSame('<input type="email" name="foo" required disabled>', $emailField->getHtml());
+        self::assertSame('<input type="email" name="foo" required disabled>', $emailField->__toString());
     }
 }

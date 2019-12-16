@@ -290,5 +290,7 @@ class PasswordFieldTest extends TestCase
         $passwordField->setDisabled(true);
 
         self::assertTrue($passwordField->isDisabled());
+        self::assertSame('<input type="password" name="foo" required disabled>', $passwordField->getHtml());
+        self::assertSame('<input type="password" name="foo" required disabled>', $passwordField->__toString());
     }
 }

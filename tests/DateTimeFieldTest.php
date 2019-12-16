@@ -339,5 +339,7 @@ class DateTimeFieldTest extends TestCase
         $dateTimeField->setDisabled(true);
 
         self::assertTrue($dateTimeField->isDisabled());
+        self::assertSame('<input type="datetime-local" name="foo" required disabled>', $dateTimeField->getHtml());
+        self::assertSame('<input type="datetime-local" name="foo" required disabled>', $dateTimeField->__toString());
     }
 }
