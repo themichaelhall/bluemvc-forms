@@ -26,7 +26,12 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
      */
     public function setFormValue(string $value): void
     {
+        /** @noinspection PhpDeprecationInspection */
         $this->onSetFormValue($value);
+
+        if ($this->isEmpty() && $this->isRequired() && !$this->hasError()) {
+            $this->setError('Missing value');
+        }
     }
 
     /**
@@ -35,15 +40,10 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
      * @since 1.0.0
      *
      * @param string $value The value from form.
+     *
+     * @deprecated This method will be declared abstract in next major version.
      */
-    protected function onSetFormValue(
-        /** @noinspection PhpUnusedParameterInspection */
-        string $value
-    ): void {
-        if ($this->isEmpty() && $this->isRequired()) {
-            $this->setError('Missing value');
-
-            return;
-        }
+    protected function onSetFormValue(string $value): void
+    {
     }
 }

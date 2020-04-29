@@ -95,6 +95,7 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     {
         $this->file = $uploadedFile;
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetUploadedFile();
     }
 

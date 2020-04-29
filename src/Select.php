@@ -184,6 +184,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
             }
         }
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
     }
 

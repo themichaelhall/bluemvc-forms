@@ -172,6 +172,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
             }
         }
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
     }
 

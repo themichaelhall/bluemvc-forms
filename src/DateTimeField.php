@@ -86,10 +86,6 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
         $this->isInvalid = false;
         $this->value = null;
 
-        if ($this->hasError()) {
-            return;
-        }
-
         if ($this->isEmpty()) {
             return;
         }

@@ -86,10 +86,6 @@ class EmailField extends AbstractTextInputField implements EmailFieldInterface
         $this->isInvalid = false;
         $this->value = null;
 
-        if ($this->hasError()) {
-            return;
-        }
-
         if ($this->isEmpty()) {
             return;
         }
