@@ -43,47 +43,92 @@ class BasicTestGetForm extends GetForm
 {
     /**
      * Constructs the basic test get form.
+     *
+     * @param bool $disableElements It true, disable all elements.
      */
-    public function __construct()
+    public function __construct(bool $disableElements = false)
     {
         $this->notRequiredField = new TextField('not-required');
         $this->notRequiredField->setRequired(false);
+        $this->notRequiredField->setDisabled($disableElements);
+
         $this->customValidatedField = new CustomValidatedField('custom-validated');
+        $this->customValidatedField->setDisabled($disableElements);
 
         $this->textField = new TextField('text');
+        $this->textField->setDisabled($disableElements);
+
         $this->passwordField = new PasswordField('password');
+        $this->passwordField->setDisabled($disableElements);
+
         $this->nameField = new NameField('name');
+        $this->nameField->setDisabled($disableElements);
+
         $this->urlField = new UrlField('url');
+        $this->urlField->setDisabled($disableElements);
+
         $this->checkBox = new CheckBox('checkbox');
+        $this->checkBox->setDisabled($disableElements);
+
         $this->textArea = new TextArea('textarea');
+        $this->textArea->setDisabled($disableElements);
+
         $this->select = new Select('select');
+        $this->select->setDisabled($disableElements);
         $this->select->addOption(new Option('foo', 'Foo option'));
         $this->select->addOption(new Option('bar', 'Bar option'));
+
         $this->emailField = new EmailField('email');
+        $this->emailField->setDisabled($disableElements);
+
         $this->hiddenField = new HiddenField('hidden');
+        $this->hiddenField->setDisabled($disableElements);
+
         $this->integerField = new IntegerField('integer');
+        $this->integerField->setDisabled($disableElements);
+
         $this->dateField = new DateField('date');
+        $this->dateField->setDisabled($disableElements);
+
         $this->radioButtons = new RadioButtonCollection('radio');
         $this->radioButtons->addRadioButton(new RadioButton('foo', 'Foo radio button'));
         $this->radioButtons->addRadioButton(new RadioButton('bar', 'Bar radio button'));
+        $this->radioButtons->setDisabled($disableElements);
+
         $this->dateTimeField = new DateTimeField('datetime');
+        $this->dateTimeField->setDisabled($disableElements);
 
         $this->privateField1 = new TextField('private-1');
+        $this->privateField1->setDisabled($disableElements);
         $this->addElement($this->privateField1);
+
         $this->privateField2 = new TextField('private-2');
+        $this->privateField2->setDisabled($disableElements);
 
         $this->formElementGroup = new FormElementGroup();
-        $this->formElementGroup->addElement(new TextField('group-text'));
-        $this->formElementGroup->addElement(new CheckBox('group-checkbox'));
+        $groupText = new TextField('group-text');
+        $groupText->setDisabled($disableElements);
+        $this->formElementGroup->addElement($groupText);
+        $groupCheckBox = new CheckBox('group-checkbox');
+        $groupCheckBox->setDisabled($disableElements);
+        $this->formElementGroup->addElement($groupCheckBox);
 
         $this->privateFormElementGroup1 = new FormElementGroup();
-        $this->privateFormElementGroup1->addElement(new TextField('private-group-text-1'));
-        $this->privateFormElementGroup1->addElement(new CheckBox('private-group-checkbox-1'));
+        $privateGroup1Text = new TextField('private-group-text-1');
+        $privateGroup1Text->setDisabled($disableElements);
+        $this->privateFormElementGroup1->addElement($privateGroup1Text);
+        $privateGroup1CheckBox = new CheckBox('private-group-checkbox-1');
+        $privateGroup1CheckBox->setDisabled($disableElements);
+        $this->privateFormElementGroup1->addElement($privateGroup1CheckBox);
         $this->addElementGroup($this->privateFormElementGroup1);
 
         $this->privateFormElementGroup2 = new FormElementGroup();
-        $this->privateFormElementGroup2->addElement(new TextField('private-group-text-2'));
-        $this->privateFormElementGroup2->addElement(new CheckBox('private-group-checkbox-2'));
+        $privateGroup2Text = new TextField('private-group-text-2');
+        $privateGroup2Text->setDisabled($disableElements);
+        $this->privateFormElementGroup2->addElement($privateGroup2Text);
+        $privateGroup2CheckBox = new CheckBox('private-group-checkbox-2');
+        $privateGroup2CheckBox->setDisabled($disableElements);
+        $this->privateFormElementGroup2->addElement($privateGroup2CheckBox);
 
         $this->eventMethodsCalled = [];
     }

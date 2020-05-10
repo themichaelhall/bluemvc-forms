@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection InconsistentLineSeparators */
-
 declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;

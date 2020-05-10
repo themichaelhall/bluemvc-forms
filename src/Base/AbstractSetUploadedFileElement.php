@@ -27,8 +27,10 @@ abstract class AbstractSetUploadedFileElement extends AbstractFormElement implem
      */
     public function setUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
-        /** @noinspection PhpDeprecationInspection */
-        $this->onSetUploadedFile($uploadedFile);
+        if (!$this->isDisabled()) {
+            /** @noinspection PhpDeprecationInspection */
+            $this->onSetUploadedFile($uploadedFile);
+        }
 
         if ($this->isEmpty() && $this->isRequired() && !$this->hasError()) {
             $this->setError('Missing file');
