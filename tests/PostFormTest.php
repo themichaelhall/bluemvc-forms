@@ -110,6 +110,9 @@ class PostFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -143,6 +146,7 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'on');
         $request->setFormParameter('private-group-text-2', 'My private group 2 text value');
         $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
         $form = new BasicTestPostForm();
         $isProcessed = $form->process($request);
@@ -171,6 +175,7 @@ class PostFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -264,6 +269,9 @@ class PostFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -300,6 +308,7 @@ class PostFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -317,7 +326,7 @@ class PostFormTest extends TestCase
 
         self::assertSame('', $form->getTextField()->getValue());
         self::assertTrue($form->getTextField()->hasError());
-        self::assertSame('Missing value', $form->getTextField()->getError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
 
         self::assertSame('', $form->getPasswordField()->getValue());
         self::assertTrue($form->getPasswordField()->hasError());
@@ -413,6 +422,10 @@ class PostFormTest extends TestCase
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
         self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Missing value', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -446,6 +459,7 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'invalid');
         $request->setFormParameter('private-group-text-2', 'invalid');
         $request->setFormParameter('private-group-checkbox-2', 'invalid');
+        $request->setFormParameter('default-value', 'invalid');
 
         $form = new BasicTestPostForm();
         $isProcessed = $form->process($request);
@@ -474,6 +488,7 @@ class PostFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -592,6 +607,10 @@ class PostFormTest extends TestCase
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
         self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('invalid', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Value is invalid.', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -625,6 +644,7 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'on');
         $request->setFormParameter('private-group-text-2', 'invalid-group');
         $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
         $form = new BasicTestPostForm();
         $isProcessed = $form->process($request);
@@ -653,6 +673,7 @@ class PostFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -748,6 +769,9 @@ class PostFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -781,6 +805,7 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'on');
         $request->setFormParameter('private-group-text-2', 'My private group 2 text value');
         $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
         $form = new BasicTestPostForm(true);
         $isProcessed = $form->process($request);
@@ -809,6 +834,7 @@ class PostFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -826,7 +852,7 @@ class PostFormTest extends TestCase
 
         self::assertSame('', $form->getTextField()->getValue());
         self::assertTrue($form->getTextField()->hasError());
-        self::assertSame('Missing value', $form->getTextField()->getError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
 
         self::assertSame('', $form->getPasswordField()->getValue());
         self::assertTrue($form->getPasswordField()->hasError());
@@ -919,5 +945,8 @@ class PostFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 }

@@ -103,6 +103,9 @@ class GetFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -195,6 +198,9 @@ class GetFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -226,7 +232,8 @@ class GetFormTest extends TestCase
             'private-group-text-1=My%20private%20group%201%20text%20value&' .
             'private-group-checkbox-1=on&' .
             'private-group-text-2=My%20private%20group%201%20text%20value&' .
-            'private-group-checkbox-2=on'
+            'private-group-checkbox-2=on&' .
+            'default-value=A%20new%20value'
         );
 
         $form = new BasicTestGetForm();
@@ -254,6 +261,7 @@ class GetFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -336,6 +344,9 @@ class GetFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -370,6 +381,7 @@ class GetFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -387,7 +399,7 @@ class GetFormTest extends TestCase
 
         self::assertSame('', $form->getTextField()->getValue());
         self::assertTrue($form->getTextField()->hasError());
-        self::assertSame('Missing value', $form->getTextField()->getError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
 
         self::assertSame('', $form->getPasswordField()->getValue());
         self::assertTrue($form->getPasswordField()->hasError());
@@ -474,6 +486,10 @@ class GetFormTest extends TestCase
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
         self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Missing value', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -505,7 +521,8 @@ class GetFormTest extends TestCase
             'private-group-text-1=invalid&' .
             'private-group-checkbox-1=invalid&' .
             'private-group-text-2=invalid&' .
-            'private-group-checkbox-2=invalid'
+            'private-group-checkbox-2=invalid&' .
+            'default-value=invalid'
         );
 
         $form = new BasicTestGetForm();
@@ -533,6 +550,7 @@ class GetFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -638,6 +656,10 @@ class GetFormTest extends TestCase
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
         self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('invalid', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Value is invalid.', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -669,7 +691,8 @@ class GetFormTest extends TestCase
             'private-group-text-1=invalid-group&' .
             'private-group-checkbox-1=on&' .
             'private-group-text-2=invalid-group&' .
-            'private-group-checkbox-2=on'
+            'private-group-checkbox-2=on&' .
+            'default-value=A%20new%20value'
         );
 
         $form = new BasicTestGetForm();
@@ -697,6 +720,7 @@ class GetFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -781,6 +805,9 @@ class GetFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -812,7 +839,8 @@ class GetFormTest extends TestCase
             'private-group-text-1=My%20private%20group%201%20text%20value&' .
             'private-group-checkbox-1=on&' .
             'private-group-text-2=My%20private%20group%201%20text%20value&' .
-            'private-group-checkbox-2=on'
+            'private-group-checkbox-2=on&' .
+            'default-value=A%20new%20value'
         );
 
         $form = new BasicTestGetForm(true);
@@ -840,6 +868,7 @@ class GetFormTest extends TestCase
                 $form->getDateTimeField(),
                 $form->getFormElementGroup()->getElements()[0],
                 $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
                 $form->getPrivateField1(),
                 $form->getPrivateFormElementGroup1()->getElements()[0],
                 $form->getPrivateFormElementGroup1()->getElements()[1],
@@ -857,7 +886,7 @@ class GetFormTest extends TestCase
 
         self::assertSame('', $form->getTextField()->getValue());
         self::assertTrue($form->getTextField()->hasError());
-        self::assertSame('Missing value', $form->getTextField()->getError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
 
         self::assertSame('', $form->getPasswordField()->getValue());
         self::assertTrue($form->getPasswordField()->hasError());
@@ -941,5 +970,8 @@ class GetFormTest extends TestCase
 
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
         self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 }

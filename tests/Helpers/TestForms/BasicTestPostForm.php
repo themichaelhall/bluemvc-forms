@@ -139,6 +139,9 @@ class BasicTestPostForm extends PostForm
         $privateGroup2CheckBox->setDisabled($disableElements);
         $this->privateFormElementGroup2->addElement($privateGroup2CheckBox);
 
+        $this->defaultValueElement = new TextField('default-value', 'This is the default value');
+        $this->defaultValueElement->setDisabled($disableElements);
+
         $this->eventMethodsCalled = [];
     }
 
@@ -373,6 +376,16 @@ class BasicTestPostForm extends PostForm
     }
 
     /**
+     * Returns my element with a default value.
+     *
+     * @return TextFieldInterface
+     */
+    public function getDefaultValueElement(): TextFieldInterface
+    {
+        return $this->defaultValueElement;
+    }
+
+    /**
      * Called when form elements should be validated.
      */
     protected function onValidate(): void
@@ -385,7 +398,9 @@ class BasicTestPostForm extends PostForm
             $this->notRequiredField->setError('Value of not required field is invalid.');
         }
 
-        if ($this->textField->getValue() === 'invalid') {
+        if ($this->textField->isEmpty()) {
+            $this->textField->setError('Value of text field is empty.');
+        } elseif ($this->textField->getValue() === 'invalid') {
             $this->textField->setError('Value of text field is invalid.');
         }
 
@@ -433,6 +448,10 @@ class BasicTestPostForm extends PostForm
             $this->privateFormElementGroup2->getElements()[0]->setError('Value of private group 2 text is invalid');
         } elseif ($this->privateFormElementGroup2->getElements()[0]->getValue() === 'invalid-group') {
             $this->privateFormElementGroup2->setError('Private group 2 is invalid');
+        }
+
+        if ($this->defaultValueElement->getValue() === 'invalid') {
+            $this->defaultValueElement->setError('Value is invalid.');
         }
     }
 
@@ -580,4 +599,9 @@ class BasicTestPostForm extends PostForm
      * @var FormElementGroupInterface My private form element group 2.
      */
     private $privateFormElementGroup2;
+
+    /**
+     * @var TextFieldInterface My element with a default value.
+     */
+    protected $defaultValueElement;
 }
