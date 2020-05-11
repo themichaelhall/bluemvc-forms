@@ -30,7 +30,9 @@ abstract class AbstractTextInputField extends AbstractTextElement
      */
     public function getHtml(array $attributes = []): string
     {
-        return self::buildTag('input', null,
+        return self::buildTag(
+            'input',
+            null,
             array_merge(
                 [
                     'type'     => $this->getType(),

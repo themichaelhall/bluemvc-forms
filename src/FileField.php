@@ -59,7 +59,9 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
      */
     public function getHtml(array $attributes = []): string
     {
-        return self::buildTag('input', null,
+        return self::buildTag(
+            'input',
+            null,
             array_merge(
                 [
                     'type'     => 'file',

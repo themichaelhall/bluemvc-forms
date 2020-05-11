@@ -60,7 +60,9 @@ class RadioButton implements RadioButtonInterface
      */
     public function getHtml(array $attributes = []): string
     {
-        return self::buildTag('input', null,
+        return self::buildTag(
+            'input',
+            null,
             array_merge(
                 [
                     'type'    => 'radio',

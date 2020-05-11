@@ -59,13 +59,16 @@ class Option implements OptionInterface
      */
     public function getHtml(array $attributes = []): string
     {
-        return self::buildTag('option', $this->getLabel(),
+        return self::buildTag(
+            'option',
+            $this->getLabel(),
             array_merge(
                 [
                     'value'    => $this->getValue(),
                     'selected' => $this->isSelected,
                 ],
-                $attributes)
+                $attributes
+            )
         );
     }
 

@@ -86,7 +86,9 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
             $optionsHtml .= $option->getHtml();
         }
 
-        return self::buildTag('select', $optionsHtml,
+        return self::buildTag(
+            'select',
+            $optionsHtml,
             array_merge(
                 [
                     'name'     => $this->getName(),
@@ -94,7 +96,8 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
                     'disabled' => $this->isDisabled(),
                 ],
                 $attributes
-            ), true
+            ),
+            true
         );
     }
 

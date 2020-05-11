@@ -58,7 +58,9 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      */
     public function getHtml(array $attributes = []): string
     {
-        return self::buildTag('textarea', $this->getText(),
+        return self::buildTag(
+            'textarea',
+            $this->getText(),
             array_merge(
                 [
                     'name'     => $this->getName(),
