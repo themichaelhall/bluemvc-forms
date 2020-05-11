@@ -63,6 +63,7 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
                 [
                     'name'     => $this->getName(),
                     'required' => $this->isRequired(),
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             )

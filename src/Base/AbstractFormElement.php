@@ -89,6 +89,18 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
+     * Returns true if element is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if element is disabled, false otherwise.
+     */
+    public function isDisabled(): bool
+    {
+        return $this->isDisabled;
+    }
+
+    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
@@ -146,6 +158,18 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
+     * Sets whether the element is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if the element is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void
+    {
+        $this->isDisabled = $isDisabled;
+    }
+
+    /**
      * Sets the label.
      *
      * @since 2.1.0
@@ -183,6 +207,7 @@ abstract class AbstractFormElement implements FormElementInterface
         $this->isRequired = true;
         $this->label = '';
         $this->customData = null;
+        $this->isDisabled = false;
     }
 
     /**
@@ -209,4 +234,9 @@ abstract class AbstractFormElement implements FormElementInterface
      * @var mixed|null My custom data.
      */
     private $customData;
+
+    /**
+     * @var bool If true, element is disabled, false otherwise.
+     */
+    private $isDisabled;
 }

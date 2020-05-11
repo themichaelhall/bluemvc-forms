@@ -132,10 +132,6 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
         $this->isInvalid = false;
         $this->value = null;
 
-        if ($this->hasError()) {
-            return;
-        }
-
         if ($this->isEmpty()) {
             return;
         }

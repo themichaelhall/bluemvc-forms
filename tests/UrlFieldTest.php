@@ -309,4 +309,27 @@ class UrlFieldTest extends TestCase
 
         self::assertSame([false, true], $urlField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $urlField = new UrlField('foo');
+
+        self::assertFalse($urlField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setDisabled(true);
+
+        self::assertTrue($urlField->isDisabled());
+        self::assertSame('<input type="url" name="foo" required disabled>', $urlField->getHtml());
+        self::assertSame('<input type="url" name="foo" required disabled>', $urlField->__toString());
+    }
 }

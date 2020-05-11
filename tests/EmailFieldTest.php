@@ -309,4 +309,27 @@ class EmailFieldTest extends TestCase
 
         self::assertSame(1234.5, $emailField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $emailField = new EmailField('foo');
+
+        self::assertFalse($emailField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setDisabled(true);
+
+        self::assertTrue($emailField->isDisabled());
+        self::assertSame('<input type="email" name="foo" required disabled>', $emailField->getHtml());
+        self::assertSame('<input type="email" name="foo" required disabled>', $emailField->__toString());
+    }
 }

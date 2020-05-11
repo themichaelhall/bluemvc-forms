@@ -1,7 +1,5 @@
 <?php
 
-/** @noinspection InconsistentLineSeparators */
-
 declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
@@ -405,5 +403,28 @@ class TextAreaTest extends TestCase
         $textArea->setCustomData('Bar');
 
         self::assertSame('Bar', $textArea->getCustomData());
+    }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertFalse($textArea->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setDisabled(true);
+
+        self::assertTrue($textArea->isDisabled());
+        self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->getHtml());
+        self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->__toString());
     }
 }

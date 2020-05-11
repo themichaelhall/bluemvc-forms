@@ -237,4 +237,27 @@ class CheckBoxTest extends TestCase
 
         self::assertSame('Foo Bar', $checkbox->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $checkbox = new CheckBox('foo');
+
+        self::assertFalse($checkbox->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $checkbox = new CheckBox('foo');
+        $checkbox->setDisabled(true);
+
+        self::assertTrue($checkbox->isDisabled());
+        self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->getHtml());
+        self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->__toString());
+    }
 }

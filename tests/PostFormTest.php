@@ -20,95 +20,99 @@ class PostFormTest extends TestCase
     {
         $request = new FakeRequest('/', 'GET');
 
-        $isProcessed = $this->form->process($request);
+        $form = new BasicTestPostForm();
+        $isProcessed = $form->process($request);
 
         self::assertFalse($isProcessed);
-        self::assertSame([], $this->form->getEventMethodsCalled());
-        self::assertFalse($this->form->hasError());
-        self::assertSame([], $this->form->getProcessedElements());
-        self::assertFalse($this->form->isProcessed());
+        self::assertSame([], $form->getEventMethodsCalled());
+        self::assertFalse($form->hasError());
+        self::assertSame([], $form->getProcessedElements());
+        self::assertFalse($form->isProcessed());
 
-        self::assertSame('', $this->form->getNotRequiredField()->getValue());
-        self::assertFalse($this->form->getNotRequiredField()->hasError());
+        self::assertSame('', $form->getNotRequiredField()->getValue());
+        self::assertFalse($form->getNotRequiredField()->hasError());
 
-        self::assertSame('', $this->form->getCustomValidatedField()->getValue());
-        self::assertFalse($this->form->getCustomValidatedField()->hasError());
+        self::assertSame('', $form->getCustomValidatedField()->getValue());
+        self::assertFalse($form->getCustomValidatedField()->hasError());
 
-        self::assertSame('', $this->form->getTextField()->getValue());
-        self::assertFalse($this->form->getTextField()->hasError());
+        self::assertSame('', $form->getTextField()->getValue());
+        self::assertFalse($form->getTextField()->hasError());
 
-        self::assertSame('', $this->form->getPasswordField()->getValue());
-        self::assertFalse($this->form->getPasswordField()->hasError());
+        self::assertSame('', $form->getPasswordField()->getValue());
+        self::assertFalse($form->getPasswordField()->hasError());
 
-        self::assertSame('', $this->form->getNameField()->getValue());
-        self::assertFalse($this->form->getNameField()->hasError());
+        self::assertSame('', $form->getNameField()->getValue());
+        self::assertFalse($form->getNameField()->hasError());
 
-        self::assertSame(null, $this->form->getUrlField()->getValue());
-        self::assertFalse($this->form->getUrlField()->hasError());
+        self::assertSame(null, $form->getUrlField()->getValue());
+        self::assertFalse($form->getUrlField()->hasError());
 
-        self::assertSame(false, $this->form->getCheckBox()->getValue());
-        self::assertFalse($this->form->getCheckBox()->hasError());
+        self::assertSame(false, $form->getCheckBox()->getValue());
+        self::assertFalse($form->getCheckBox()->hasError());
 
-        self::assertSame('', $this->form->getTextArea()->getValue());
-        self::assertFalse($this->form->getTextArea()->hasError());
+        self::assertSame('', $form->getTextArea()->getValue());
+        self::assertFalse($form->getTextArea()->hasError());
 
-        self::assertSame('', $this->form->getSelect()->getValue());
-        self::assertFalse($this->form->getSelect()->hasError());
+        self::assertSame('', $form->getSelect()->getValue());
+        self::assertFalse($form->getSelect()->hasError());
 
-        self::assertNull($this->form->getFileField()->getFile());
-        self::assertFalse($this->form->getFileField()->hasError());
+        self::assertNull($form->getFileField()->getFile());
+        self::assertFalse($form->getFileField()->hasError());
 
-        self::assertNull($this->form->getEmailField()->getValue());
-        self::assertFalse($this->form->getEmailField()->hasError());
+        self::assertNull($form->getEmailField()->getValue());
+        self::assertFalse($form->getEmailField()->hasError());
 
-        self::assertSame('', $this->form->getHiddenField()->getValue());
-        self::assertFalse($this->form->getHiddenField()->hasError());
+        self::assertSame('', $form->getHiddenField()->getValue());
+        self::assertFalse($form->getHiddenField()->hasError());
 
-        self::assertNull($this->form->getIntegerField()->getValue());
-        self::assertFalse($this->form->getIntegerField()->hasError());
+        self::assertNull($form->getIntegerField()->getValue());
+        self::assertFalse($form->getIntegerField()->hasError());
 
-        self::assertNull($this->form->getDateField()->getValue());
-        self::assertFalse($this->form->getDateField()->hasError());
+        self::assertNull($form->getDateField()->getValue());
+        self::assertFalse($form->getDateField()->hasError());
 
-        self::assertNull($this->form->getJsonFileField()->getFile());
-        self::assertSame([], $this->form->getJsonFileField()->getJson());
-        self::assertFalse($this->form->getJsonFileField()->hasError());
+        self::assertNull($form->getJsonFileField()->getFile());
+        self::assertSame([], $form->getJsonFileField()->getJson());
+        self::assertFalse($form->getJsonFileField()->hasError());
 
-        self::assertSame('', $this->form->getRadioButtons()->getValue());
-        self::assertFalse($this->form->getRadioButtons()->hasError());
+        self::assertSame('', $form->getRadioButtons()->getValue());
+        self::assertFalse($form->getRadioButtons()->hasError());
 
-        self::assertNull($this->form->getDateTimeField()->getValue());
-        self::assertFalse($this->form->getDateTimeField()->hasError());
+        self::assertNull($form->getDateTimeField()->getValue());
+        self::assertFalse($form->getDateTimeField()->hasError());
 
-        self::assertSame('', $this->form->getPrivateField1()->getValue());
-        self::assertFalse($this->form->getPrivateField1()->hasError());
+        self::assertSame('', $form->getPrivateField1()->getValue());
+        self::assertFalse($form->getPrivateField1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateField2()->getValue());
-        self::assertFalse($this->form->getPrivateField2()->hasError());
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
 
-        self::assertFalse($this->form->getFormElementGroup()->hasError());
+        self::assertFalse($form->getFormElementGroup()->hasError());
 
-        self::assertSame('', $this->form->getFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -142,126 +146,132 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'on');
         $request->setFormParameter('private-group-text-2', 'My private group 2 text value');
         $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
-        $isProcessed = $this->form->process($request);
+        $form = new BasicTestPostForm();
+        $isProcessed = $form->process($request);
 
         self::assertTrue($isProcessed);
-        self::assertSame(['onValidate', 'onSuccess', 'onProcessed'], $this->form->getEventMethodsCalled());
-        self::assertFalse($this->form->hasError());
+        self::assertSame(['onValidate', 'onSuccess', 'onProcessed'], $form->getEventMethodsCalled());
+        self::assertFalse($form->hasError());
         self::assertSame(
             [
-                $this->form->getNotRequiredField(),
-                $this->form->getCustomValidatedField(),
-                $this->form->getTextField(),
-                $this->form->getPasswordField(),
-                $this->form->getNameField(),
-                $this->form->getUrlField(),
-                $this->form->getCheckBox(),
-                $this->form->getTextArea(),
-                $this->form->getSelect(),
-                $this->form->getFileField(),
-                $this->form->getEmailField(),
-                $this->form->getHiddenField(),
-                $this->form->getIntegerField(),
-                $this->form->getDateField(),
-                $this->form->getJsonFileField(),
-                $this->form->getRadioButtons(),
-                $this->form->getDateTimeField(),
-                $this->form->getFormElementGroup()->getElements()[0],
-                $this->form->getFormElementGroup()->getElements()[1],
-                $this->form->getPrivateField1(),
-                $this->form->getPrivateFormElementGroup1()->getElements()[0],
-                $this->form->getPrivateFormElementGroup1()->getElements()[1],
+                $form->getNotRequiredField(),
+                $form->getCustomValidatedField(),
+                $form->getTextField(),
+                $form->getPasswordField(),
+                $form->getNameField(),
+                $form->getUrlField(),
+                $form->getCheckBox(),
+                $form->getTextArea(),
+                $form->getSelect(),
+                $form->getFileField(),
+                $form->getEmailField(),
+                $form->getHiddenField(),
+                $form->getIntegerField(),
+                $form->getDateField(),
+                $form->getJsonFileField(),
+                $form->getRadioButtons(),
+                $form->getDateTimeField(),
+                $form->getFormElementGroup()->getElements()[0],
+                $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
+                $form->getPrivateField1(),
+                $form->getPrivateFormElementGroup1()->getElements()[0],
+                $form->getPrivateFormElementGroup1()->getElements()[1],
             ],
-            $this->form->getProcessedElements()
+            $form->getProcessedElements()
         );
-        self::assertTrue($this->form->isProcessed());
+        self::assertTrue($form->isProcessed());
 
-        self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
-        self::assertFalse($this->form->getNotRequiredField()->hasError());
+        self::assertSame('My not required value', $form->getNotRequiredField()->getValue());
+        self::assertFalse($form->getNotRequiredField()->hasError());
 
-        self::assertSame('My custom validated value', $this->form->getCustomValidatedField()->getValue());
-        self::assertFalse($this->form->getCustomValidatedField()->hasError());
+        self::assertSame('My custom validated value', $form->getCustomValidatedField()->getValue());
+        self::assertFalse($form->getCustomValidatedField()->hasError());
 
-        self::assertSame('My text value', $this->form->getTextField()->getValue());
-        self::assertFalse($this->form->getTextField()->hasError());
+        self::assertSame('My text value', $form->getTextField()->getValue());
+        self::assertFalse($form->getTextField()->hasError());
 
-        self::assertSame('My password', $this->form->getPasswordField()->getValue());
-        self::assertFalse($this->form->getPasswordField()->hasError());
+        self::assertSame('My password', $form->getPasswordField()->getValue());
+        self::assertFalse($form->getPasswordField()->hasError());
 
-        self::assertSame('My Name', $this->form->getNameField()->getValue());
-        self::assertFalse($this->form->getNameField()->hasError());
+        self::assertSame('My Name', $form->getNameField()->getValue());
+        self::assertFalse($form->getNameField()->hasError());
 
-        self::assertSame('https://domain.com/foo', $this->form->getUrlField()->getValue()->__toString());
-        self::assertFalse($this->form->getUrlField()->hasError());
+        self::assertSame('https://domain.com/foo', $form->getUrlField()->getValue()->__toString());
+        self::assertFalse($form->getUrlField()->hasError());
 
-        self::assertTrue($this->form->getCheckBox()->getValue());
-        self::assertFalse($this->form->getCheckBox()->hasError());
+        self::assertTrue($form->getCheckBox()->getValue());
+        self::assertFalse($form->getCheckBox()->hasError());
 
-        self::assertSame("My\r\nText", $this->form->getTextArea()->getValue());
-        self::assertFalse($this->form->getTextArea()->hasError());
+        self::assertSame("My\r\nText", $form->getTextArea()->getValue());
+        self::assertFalse($form->getTextArea()->hasError());
 
-        self::assertSame('bar', $this->form->getSelect()->getValue());
-        self::assertFalse($this->form->getSelect()->hasError());
+        self::assertSame('bar', $form->getSelect()->getValue());
+        self::assertFalse($form->getSelect()->hasError());
 
-        self::assertSame('Hello World!', file_get_contents($this->form->getFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('file.txt', basename($this->form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $this->form->getFileField()->getFile()->getSize());
-        self::assertFalse($this->form->getFileField()->hasError());
+        self::assertSame('Hello World!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
+        self::assertSame(12, $form->getFileField()->getFile()->getSize());
+        self::assertFalse($form->getFileField()->hasError());
 
-        self::assertSame('foo.bar@example.com', $this->form->getEmailField()->getValue()->__toString());
-        self::assertFalse($this->form->getEmailField()->hasError());
+        self::assertSame('foo.bar@example.com', $form->getEmailField()->getValue()->__toString());
+        self::assertFalse($form->getEmailField()->hasError());
 
-        self::assertSame('My hidden value', $this->form->getHiddenField()->getValue());
-        self::assertFalse($this->form->getHiddenField()->hasError());
+        self::assertSame('My hidden value', $form->getHiddenField()->getValue());
+        self::assertFalse($form->getHiddenField()->hasError());
 
-        self::assertSame(12345, $this->form->getIntegerField()->getValue());
-        self::assertFalse($this->form->getIntegerField()->hasError());
+        self::assertSame(12345, $form->getIntegerField()->getValue());
+        self::assertFalse($form->getIntegerField()->hasError());
 
-        self::assertSame('2017-10-15 00:00:00', $this->form->getDateField()->getValue()->format('Y-m-d H:i:s'));
-        self::assertFalse($this->form->getDateField()->hasError());
+        self::assertSame('2017-10-15 00:00:00', $form->getDateField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($form->getDateField()->hasError());
 
-        self::assertSame('{"Foo": "Bar"}', file_get_contents($this->form->getJsonFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('file.json', basename($this->form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(14, $this->form->getJsonFileField()->getFile()->getSize());
-        self::assertSame(['Foo' => 'Bar'], $this->form->getJsonFileField()->getJson());
-        self::assertFalse($this->form->getJsonFileField()->hasError());
+        self::assertSame('{"Foo": "Bar"}', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.json', basename($form->getJsonFileField()->getFile()->getOriginalName()));
+        self::assertSame(14, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame(['Foo' => 'Bar'], $form->getJsonFileField()->getJson());
+        self::assertFalse($form->getJsonFileField()->hasError());
 
-        self::assertSame('foo', $this->form->getRadioButtons()->getValue());
-        self::assertFalse($this->form->getRadioButtons()->hasError());
+        self::assertSame('foo', $form->getRadioButtons()->getValue());
+        self::assertFalse($form->getRadioButtons()->hasError());
 
-        self::assertSame('2017-12-01 10:20:00', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
-        self::assertFalse($this->form->getDateTimeField()->hasError());
+        self::assertSame('2017-12-01 10:20:00', $form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($form->getDateTimeField()->hasError());
 
-        self::assertSame('0', $this->form->getPrivateField1()->getValue());
-        self::assertFalse($this->form->getPrivateField1()->hasError());
+        self::assertSame('0', $form->getPrivateField1()->getValue());
+        self::assertFalse($form->getPrivateField1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateField2()->getValue());
-        self::assertFalse($this->form->getPrivateField2()->hasError());
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
 
-        self::assertFalse($this->form->getFormElementGroup()->hasError());
+        self::assertFalse($form->getFormElementGroup()->hasError());
 
-        self::assertSame('My group text value', $this->form->getFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('My group text value', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[0]->hasError());
 
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertTrue($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('My private group 1 text value', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('My private group 1 text value', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
@@ -271,145 +281,151 @@ class PostFormTest extends TestCase
     {
         $request = new FakeRequest('/', 'POST');
 
-        $isProcessed = $this->form->process($request);
+        $form = new BasicTestPostForm();
+        $isProcessed = $form->process($request);
 
         self::assertFalse($isProcessed);
-        self::assertSame(['onValidate', 'onError', 'onProcessed'], $this->form->getEventMethodsCalled());
-        self::assertTrue($this->form->hasError());
+        self::assertSame(['onValidate', 'onError', 'onProcessed'], $form->getEventMethodsCalled());
+        self::assertTrue($form->hasError());
         self::assertSame(
             [
-                $this->form->getNotRequiredField(),
-                $this->form->getCustomValidatedField(),
-                $this->form->getTextField(),
-                $this->form->getPasswordField(),
-                $this->form->getNameField(),
-                $this->form->getUrlField(),
-                $this->form->getCheckBox(),
-                $this->form->getTextArea(),
-                $this->form->getSelect(),
-                $this->form->getFileField(),
-                $this->form->getEmailField(),
-                $this->form->getHiddenField(),
-                $this->form->getIntegerField(),
-                $this->form->getDateField(),
-                $this->form->getJsonFileField(),
-                $this->form->getRadioButtons(),
-                $this->form->getDateTimeField(),
-                $this->form->getFormElementGroup()->getElements()[0],
-                $this->form->getFormElementGroup()->getElements()[1],
-                $this->form->getPrivateField1(),
-                $this->form->getPrivateFormElementGroup1()->getElements()[0],
-                $this->form->getPrivateFormElementGroup1()->getElements()[1],
+                $form->getNotRequiredField(),
+                $form->getCustomValidatedField(),
+                $form->getTextField(),
+                $form->getPasswordField(),
+                $form->getNameField(),
+                $form->getUrlField(),
+                $form->getCheckBox(),
+                $form->getTextArea(),
+                $form->getSelect(),
+                $form->getFileField(),
+                $form->getEmailField(),
+                $form->getHiddenField(),
+                $form->getIntegerField(),
+                $form->getDateField(),
+                $form->getJsonFileField(),
+                $form->getRadioButtons(),
+                $form->getDateTimeField(),
+                $form->getFormElementGroup()->getElements()[0],
+                $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
+                $form->getPrivateField1(),
+                $form->getPrivateFormElementGroup1()->getElements()[0],
+                $form->getPrivateFormElementGroup1()->getElements()[1],
             ],
-            $this->form->getProcessedElements()
+            $form->getProcessedElements()
         );
-        self::assertTrue($this->form->isProcessed());
+        self::assertTrue($form->isProcessed());
 
-        self::assertSame('', $this->form->getNotRequiredField()->getValue());
-        self::assertFalse($this->form->getNotRequiredField()->hasError());
+        self::assertSame('', $form->getNotRequiredField()->getValue());
+        self::assertFalse($form->getNotRequiredField()->hasError());
 
-        self::assertSame('', $this->form->getCustomValidatedField()->getValue());
-        self::assertTrue($this->form->getCustomValidatedField()->hasError());
-        self::assertSame('Missing value', $this->form->getCustomValidatedField()->getError());
+        self::assertSame('', $form->getCustomValidatedField()->getValue());
+        self::assertTrue($form->getCustomValidatedField()->hasError());
+        self::assertSame('Missing value', $form->getCustomValidatedField()->getError());
 
-        self::assertSame('', $this->form->getTextField()->getValue());
-        self::assertTrue($this->form->getTextField()->hasError());
-        self::assertSame('Missing value', $this->form->getTextField()->getError());
+        self::assertSame('', $form->getTextField()->getValue());
+        self::assertTrue($form->getTextField()->hasError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
 
-        self::assertSame('', $this->form->getPasswordField()->getValue());
-        self::assertTrue($this->form->getPasswordField()->hasError());
-        self::assertSame('Missing value', $this->form->getPasswordField()->getError());
+        self::assertSame('', $form->getPasswordField()->getValue());
+        self::assertTrue($form->getPasswordField()->hasError());
+        self::assertSame('Missing value', $form->getPasswordField()->getError());
 
-        self::assertSame('', $this->form->getNameField()->getValue());
-        self::assertTrue($this->form->getNameField()->hasError());
-        self::assertSame('Missing value', $this->form->getNameField()->getError());
+        self::assertSame('', $form->getNameField()->getValue());
+        self::assertTrue($form->getNameField()->hasError());
+        self::assertSame('Missing value', $form->getNameField()->getError());
 
-        self::assertNull($this->form->getUrlField()->getValue());
-        self::assertTrue($this->form->getUrlField()->hasError());
-        self::assertSame('Missing value', $this->form->getUrlField()->getError());
+        self::assertNull($form->getUrlField()->getValue());
+        self::assertTrue($form->getUrlField()->hasError());
+        self::assertSame('Missing value', $form->getUrlField()->getError());
 
-        self::assertFalse($this->form->getCheckBox()->getValue());
-        self::assertTrue($this->form->getCheckBox()->hasError());
-        self::assertSame('Missing value', $this->form->getCheckBox()->getError());
+        self::assertFalse($form->getCheckBox()->getValue());
+        self::assertTrue($form->getCheckBox()->hasError());
+        self::assertSame('Missing value', $form->getCheckBox()->getError());
 
-        self::assertSame('', $this->form->getTextArea()->getValue());
-        self::assertTrue($this->form->getTextArea()->hasError());
-        self::assertSame('Missing value', $this->form->getTextArea()->getError());
+        self::assertSame('', $form->getTextArea()->getValue());
+        self::assertTrue($form->getTextArea()->hasError());
+        self::assertSame('Missing value', $form->getTextArea()->getError());
 
-        self::assertSame('', $this->form->getSelect()->getValue());
-        self::assertTrue($this->form->getSelect()->hasError());
-        self::assertSame('Missing value', $this->form->getSelect()->getError());
+        self::assertSame('', $form->getSelect()->getValue());
+        self::assertTrue($form->getSelect()->hasError());
+        self::assertSame('Missing value', $form->getSelect()->getError());
 
-        self::assertNull($this->form->getFileField()->getFile());
-        self::assertTrue($this->form->getFileField()->hasError());
-        self::assertSame('Missing file', $this->form->getFileField()->getError());
+        self::assertNull($form->getFileField()->getFile());
+        self::assertTrue($form->getFileField()->hasError());
+        self::assertSame('Missing file', $form->getFileField()->getError());
 
-        self::assertNull($this->form->getEmailField()->getValue());
-        self::assertTrue($this->form->getEmailField()->hasError());
-        self::assertSame('Missing value', $this->form->getEmailField()->getError());
+        self::assertNull($form->getEmailField()->getValue());
+        self::assertTrue($form->getEmailField()->hasError());
+        self::assertSame('Missing value', $form->getEmailField()->getError());
 
-        self::assertSame('', $this->form->getHiddenField()->getValue());
-        self::assertTrue($this->form->getHiddenField()->hasError());
-        self::assertSame('Missing value', $this->form->getHiddenField()->getError());
+        self::assertSame('', $form->getHiddenField()->getValue());
+        self::assertTrue($form->getHiddenField()->hasError());
+        self::assertSame('Missing value', $form->getHiddenField()->getError());
 
-        self::assertNull($this->form->getIntegerField()->getValue());
-        self::assertTrue($this->form->getIntegerField()->hasError());
-        self::assertSame('Missing value', $this->form->getIntegerField()->getError());
+        self::assertNull($form->getIntegerField()->getValue());
+        self::assertTrue($form->getIntegerField()->hasError());
+        self::assertSame('Missing value', $form->getIntegerField()->getError());
 
-        self::assertNull($this->form->getDateField()->getValue());
-        self::assertTrue($this->form->getDateField()->hasError());
-        self::assertSame('Missing value', $this->form->getDateField()->getError());
+        self::assertNull($form->getDateField()->getValue());
+        self::assertTrue($form->getDateField()->hasError());
+        self::assertSame('Missing value', $form->getDateField()->getError());
 
-        self::assertNull($this->form->getJsonFileField()->getFile());
-        self::assertSame([], $this->form->getJsonFileField()->getJson());
-        self::assertTrue($this->form->getJsonFileField()->hasError());
-        self::assertSame('Missing file', $this->form->getJsonFileField()->getError());
+        self::assertNull($form->getJsonFileField()->getFile());
+        self::assertSame([], $form->getJsonFileField()->getJson());
+        self::assertTrue($form->getJsonFileField()->hasError());
+        self::assertSame('Missing file', $form->getJsonFileField()->getError());
 
-        self::assertSame('', $this->form->getRadioButtons()->getValue());
-        self::assertTrue($this->form->getRadioButtons()->hasError());
-        self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
+        self::assertSame('', $form->getRadioButtons()->getValue());
+        self::assertTrue($form->getRadioButtons()->hasError());
+        self::assertSame('Missing value', $form->getRadioButtons()->getError());
 
-        self::assertNull($this->form->getDateTimeField()->getValue());
-        self::assertTrue($this->form->getDateTimeField()->hasError());
-        self::assertSame('Missing value', $this->form->getDateTimeField()->getError());
+        self::assertNull($form->getDateTimeField()->getValue());
+        self::assertTrue($form->getDateTimeField()->hasError());
+        self::assertSame('Missing value', $form->getDateTimeField()->getError());
 
-        self::assertSame('', $this->form->getPrivateField1()->getValue());
-        self::assertTrue($this->form->getPrivateField1()->hasError());
-        self::assertSame('Missing value', $this->form->getPrivateField1()->getError());
+        self::assertSame('', $form->getPrivateField1()->getValue());
+        self::assertTrue($form->getPrivateField1()->hasError());
+        self::assertSame('Missing value', $form->getPrivateField1()->getError());
 
-        self::assertSame('', $this->form->getPrivateField2()->getValue());
-        self::assertFalse($this->form->getPrivateField2()->hasError());
-        self::assertNull($this->form->getPrivateField2()->getError());
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
+        self::assertNull($form->getPrivateField2()->getError());
 
-        self::assertFalse($this->form->getFormElementGroup()->hasError());
+        self::assertFalse($form->getFormElementGroup()->hasError());
 
-        self::assertSame('', $this->form->getFormElementGroup()->getElements()[0]->getValue());
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[0]->hasError());
-        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[0]->getError());
+        self::assertSame('', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $form->getFormElementGroup()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
-        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getFormElementGroup()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
-        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getError());
+        self::assertSame('', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $form->getPrivateFormElementGroup1()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
-        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[1]->getError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getPrivateFormElementGroup1()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[0]->getError());
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertNull($form->getPrivateFormElementGroup2()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Missing value', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -443,151 +459,158 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'invalid');
         $request->setFormParameter('private-group-text-2', 'invalid');
         $request->setFormParameter('private-group-checkbox-2', 'invalid');
+        $request->setFormParameter('default-value', 'invalid');
 
-        $isProcessed = $this->form->process($request);
+        $form = new BasicTestPostForm();
+        $isProcessed = $form->process($request);
 
         self::assertFalse($isProcessed);
-        self::assertSame(['onValidate', 'onError', 'onProcessed'], $this->form->getEventMethodsCalled());
-        self::assertTrue($this->form->hasError());
+        self::assertSame(['onValidate', 'onError', 'onProcessed'], $form->getEventMethodsCalled());
+        self::assertTrue($form->hasError());
         self::assertSame(
             [
-                $this->form->getNotRequiredField(),
-                $this->form->getCustomValidatedField(),
-                $this->form->getTextField(),
-                $this->form->getPasswordField(),
-                $this->form->getNameField(),
-                $this->form->getUrlField(),
-                $this->form->getCheckBox(),
-                $this->form->getTextArea(),
-                $this->form->getSelect(),
-                $this->form->getFileField(),
-                $this->form->getEmailField(),
-                $this->form->getHiddenField(),
-                $this->form->getIntegerField(),
-                $this->form->getDateField(),
-                $this->form->getJsonFileField(),
-                $this->form->getRadioButtons(),
-                $this->form->getDateTimeField(),
-                $this->form->getFormElementGroup()->getElements()[0],
-                $this->form->getFormElementGroup()->getElements()[1],
-                $this->form->getPrivateField1(),
-                $this->form->getPrivateFormElementGroup1()->getElements()[0],
-                $this->form->getPrivateFormElementGroup1()->getElements()[1],
+                $form->getNotRequiredField(),
+                $form->getCustomValidatedField(),
+                $form->getTextField(),
+                $form->getPasswordField(),
+                $form->getNameField(),
+                $form->getUrlField(),
+                $form->getCheckBox(),
+                $form->getTextArea(),
+                $form->getSelect(),
+                $form->getFileField(),
+                $form->getEmailField(),
+                $form->getHiddenField(),
+                $form->getIntegerField(),
+                $form->getDateField(),
+                $form->getJsonFileField(),
+                $form->getRadioButtons(),
+                $form->getDateTimeField(),
+                $form->getFormElementGroup()->getElements()[0],
+                $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
+                $form->getPrivateField1(),
+                $form->getPrivateFormElementGroup1()->getElements()[0],
+                $form->getPrivateFormElementGroup1()->getElements()[1],
             ],
-            $this->form->getProcessedElements()
+            $form->getProcessedElements()
         );
-        self::assertTrue($this->form->isProcessed());
+        self::assertTrue($form->isProcessed());
 
-        self::assertSame('invalid', $this->form->getNotRequiredField()->getValue());
-        self::assertTrue($this->form->getNotRequiredField()->hasError());
-        self::assertSame('Value of not required field is invalid.', $this->form->getNotRequiredField()->getError());
+        self::assertSame('invalid', $form->getNotRequiredField()->getValue());
+        self::assertTrue($form->getNotRequiredField()->hasError());
+        self::assertSame('Value of not required field is invalid.', $form->getNotRequiredField()->getError());
 
-        self::assertSame('invalid', $this->form->getCustomValidatedField()->getValue());
-        self::assertTrue($this->form->getCustomValidatedField()->hasError());
-        self::assertSame('Value of custom validated field is invalid.', $this->form->getCustomValidatedField()->getError());
+        self::assertSame('invalid', $form->getCustomValidatedField()->getValue());
+        self::assertTrue($form->getCustomValidatedField()->hasError());
+        self::assertSame('Value of custom validated field is invalid.', $form->getCustomValidatedField()->getError());
 
-        self::assertSame('invalid', $this->form->getTextField()->getValue());
-        self::assertTrue($this->form->getTextField()->hasError());
-        self::assertSame('Value of text field is invalid.', $this->form->getTextField()->getError());
+        self::assertSame('invalid', $form->getTextField()->getValue());
+        self::assertTrue($form->getTextField()->hasError());
+        self::assertSame('Value of text field is invalid.', $form->getTextField()->getError());
 
-        self::assertSame('invalid', $this->form->getPasswordField()->getValue());
-        self::assertTrue($this->form->getPasswordField()->hasError());
-        self::assertSame('Value of password field is invalid.', $this->form->getPasswordField()->getError());
+        self::assertSame('invalid', $form->getPasswordField()->getValue());
+        self::assertTrue($form->getPasswordField()->hasError());
+        self::assertSame('Value of password field is invalid.', $form->getPasswordField()->getError());
 
-        self::assertSame('Invalid', $this->form->getNameField()->getValue());
-        self::assertTrue($this->form->getNameField()->hasError());
-        self::assertSame('Value of name field is invalid.', $this->form->getNameField()->getError());
+        self::assertSame('Invalid', $form->getNameField()->getValue());
+        self::assertTrue($form->getNameField()->hasError());
+        self::assertSame('Value of name field is invalid.', $form->getNameField()->getError());
 
-        self::assertNull($this->form->getUrlField()->getValue());
-        self::assertTrue($this->form->getUrlField()->hasError());
-        self::assertSame('Invalid value', $this->form->getUrlField()->getError());
+        self::assertNull($form->getUrlField()->getValue());
+        self::assertTrue($form->getUrlField()->hasError());
+        self::assertSame('Invalid value', $form->getUrlField()->getError());
 
-        self::assertFalse($this->form->getCheckBox()->getValue());
-        self::assertTrue($this->form->getCheckBox()->hasError());
-        self::assertSame('Missing value', $this->form->getCheckBox()->getError());
+        self::assertFalse($form->getCheckBox()->getValue());
+        self::assertTrue($form->getCheckBox()->hasError());
+        self::assertSame('Missing value', $form->getCheckBox()->getError());
 
-        self::assertSame('invalid', $this->form->getTextArea()->getValue());
-        self::assertTrue($this->form->getTextArea()->hasError());
-        self::assertSame('Value of text area is invalid.', $this->form->getTextArea()->getError());
+        self::assertSame('invalid', $form->getTextArea()->getValue());
+        self::assertTrue($form->getTextArea()->hasError());
+        self::assertSame('Value of text area is invalid.', $form->getTextArea()->getError());
 
-        self::assertSame('', $this->form->getSelect()->getValue());
-        self::assertTrue($this->form->getSelect()->hasError());
-        self::assertSame('Missing value', $this->form->getSelect()->getError());
+        self::assertSame('', $form->getSelect()->getValue());
+        self::assertTrue($form->getSelect()->hasError());
+        self::assertSame('Missing value', $form->getSelect()->getError());
 
-        self::assertSame('This is an invalid file!', file_get_contents($this->form->getFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('invalid-file.txt', basename($this->form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(24, $this->form->getFileField()->getFile()->getSize());
-        self::assertTrue($this->form->getFileField()->hasError());
-        self::assertSame('File content is invalid.', $this->form->getFileField()->getError());
+        self::assertSame('This is an invalid file!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('invalid-file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
+        self::assertSame(24, $form->getFileField()->getFile()->getSize());
+        self::assertTrue($form->getFileField()->hasError());
+        self::assertSame('File content is invalid.', $form->getFileField()->getError());
 
-        self::assertNull($this->form->getEmailField()->getValue());
-        self::assertTrue($this->form->getEmailField()->hasError());
-        self::assertSame('Invalid value', $this->form->getEmailField()->getError());
+        self::assertNull($form->getEmailField()->getValue());
+        self::assertTrue($form->getEmailField()->hasError());
+        self::assertSame('Invalid value', $form->getEmailField()->getError());
 
-        self::assertSame('invalid', $this->form->getHiddenField()->getValue());
-        self::assertTrue($this->form->getHiddenField()->hasError());
-        self::assertSame('Value of hidden field is invalid.', $this->form->getHiddenField()->getError());
+        self::assertSame('invalid', $form->getHiddenField()->getValue());
+        self::assertTrue($form->getHiddenField()->hasError());
+        self::assertSame('Value of hidden field is invalid.', $form->getHiddenField()->getError());
 
-        self::assertNull($this->form->getIntegerField()->getValue());
-        self::assertTrue($this->form->getIntegerField()->hasError());
-        self::assertSame('Invalid value', $this->form->getIntegerField()->getError());
+        self::assertNull($form->getIntegerField()->getValue());
+        self::assertTrue($form->getIntegerField()->hasError());
+        self::assertSame('Invalid value', $form->getIntegerField()->getError());
 
-        self::assertNull($this->form->getDateField()->getValue());
-        self::assertTrue($this->form->getDateField()->hasError());
-        self::assertSame('Invalid value', $this->form->getDateField()->getError());
+        self::assertNull($form->getDateField()->getValue());
+        self::assertTrue($form->getDateField()->hasError());
+        self::assertSame('Invalid value', $form->getDateField()->getError());
 
-        self::assertSame('Hello World!', file_get_contents($this->form->getJsonFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('file.txt', basename($this->form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $this->form->getJsonFileField()->getFile()->getSize());
-        self::assertSame([], $this->form->getJsonFileField()->getJson());
-        self::assertTrue($this->form->getJsonFileField()->hasError());
-        self::assertSame('Invalid json content.', $this->form->getJsonFileField()->getError());
+        self::assertSame('Hello World!', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($form->getJsonFileField()->getFile()->getOriginalName()));
+        self::assertSame(12, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame([], $form->getJsonFileField()->getJson());
+        self::assertTrue($form->getJsonFileField()->hasError());
+        self::assertSame('Invalid json content.', $form->getJsonFileField()->getError());
 
-        self::assertSame('', $this->form->getRadioButtons()->getValue());
-        self::assertTrue($this->form->getRadioButtons()->hasError());
-        self::assertSame('Missing value', $this->form->getRadioButtons()->getError());
+        self::assertSame('', $form->getRadioButtons()->getValue());
+        self::assertTrue($form->getRadioButtons()->hasError());
+        self::assertSame('Missing value', $form->getRadioButtons()->getError());
 
-        self::assertNull($this->form->getDateTimeField()->getValue());
-        self::assertTrue($this->form->getDateTimeField()->hasError());
-        self::assertSame('Invalid value', $this->form->getDateTimeField()->getError());
+        self::assertNull($form->getDateTimeField()->getValue());
+        self::assertTrue($form->getDateTimeField()->hasError());
+        self::assertSame('Invalid value', $form->getDateTimeField()->getError());
 
-        self::assertSame('invalid', $this->form->getPrivateField1()->getValue());
-        self::assertTrue($this->form->getPrivateField1()->hasError());
-        self::assertSame('Value of private field 1 is invalid.', $this->form->getPrivateField1()->getError());
+        self::assertSame('invalid', $form->getPrivateField1()->getValue());
+        self::assertTrue($form->getPrivateField1()->hasError());
+        self::assertSame('Value of private field 1 is invalid.', $form->getPrivateField1()->getError());
 
-        self::assertSame('', $this->form->getPrivateField2()->getValue());
-        self::assertFalse($this->form->getPrivateField2()->hasError());
-        self::assertNull($this->form->getPrivateField2()->getError());
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
+        self::assertNull($form->getPrivateField2()->getError());
 
-        self::assertFalse($this->form->getFormElementGroup()->hasError());
+        self::assertFalse($form->getFormElementGroup()->hasError());
 
-        self::assertSame('invalid', $this->form->getFormElementGroup()->getElements()[0]->getValue());
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[0]->hasError());
-        self::assertSame('Value of group text is invalid', $this->form->getFormElementGroup()->getElements()[0]->getError());
+        self::assertSame('invalid', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('Value of group text is invalid', $form->getFormElementGroup()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->getValue());
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->hasError());
-        self::assertSame('Missing value', $this->form->getFormElementGroup()->getElements()[1]->getError());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getFormElementGroup()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->hasError());
 
-        self::assertSame('invalid', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
-        self::assertSame('Value of private group 1 text is invalid', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getError());
+        self::assertSame('invalid', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('Value of private group 1 text is invalid', $form->getPrivateFormElementGroup1()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
-        self::assertSame('Missing value', $this->form->getPrivateFormElementGroup1()->getElements()[1]->getError());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getPrivateFormElementGroup1()->getElements()[1]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[0]->getError());
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertNull($form->getPrivateFormElementGroup2()->getElements()[0]->getError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
-        self::assertNull($this->form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertNull($form->getPrivateFormElementGroup2()->getElements()[1]->getError());
+
+        self::assertSame('invalid', $form->getDefaultValueElement()->getValue());
+        self::assertTrue($form->getDefaultValueElement()->hasError());
+        self::assertSame('Value is invalid.', $form->getDefaultValueElement()->getError());
     }
 
     /**
@@ -621,152 +644,309 @@ class PostFormTest extends TestCase
         $request->setFormParameter('private-group-checkbox-1', 'on');
         $request->setFormParameter('private-group-text-2', 'invalid-group');
         $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
-        $isProcessed = $this->form->process($request);
+        $form = new BasicTestPostForm();
+        $isProcessed = $form->process($request);
 
         self::assertFalse($isProcessed);
-        self::assertSame(['onValidate', 'onError', 'onProcessed'], $this->form->getEventMethodsCalled());
-        self::assertTrue($this->form->hasError());
+        self::assertSame(['onValidate', 'onError', 'onProcessed'], $form->getEventMethodsCalled());
+        self::assertTrue($form->hasError());
         self::assertSame(
             [
-                $this->form->getNotRequiredField(),
-                $this->form->getCustomValidatedField(),
-                $this->form->getTextField(),
-                $this->form->getPasswordField(),
-                $this->form->getNameField(),
-                $this->form->getUrlField(),
-                $this->form->getCheckBox(),
-                $this->form->getTextArea(),
-                $this->form->getSelect(),
-                $this->form->getFileField(),
-                $this->form->getEmailField(),
-                $this->form->getHiddenField(),
-                $this->form->getIntegerField(),
-                $this->form->getDateField(),
-                $this->form->getJsonFileField(),
-                $this->form->getRadioButtons(),
-                $this->form->getDateTimeField(),
-                $this->form->getFormElementGroup()->getElements()[0],
-                $this->form->getFormElementGroup()->getElements()[1],
-                $this->form->getPrivateField1(),
-                $this->form->getPrivateFormElementGroup1()->getElements()[0],
-                $this->form->getPrivateFormElementGroup1()->getElements()[1],
+                $form->getNotRequiredField(),
+                $form->getCustomValidatedField(),
+                $form->getTextField(),
+                $form->getPasswordField(),
+                $form->getNameField(),
+                $form->getUrlField(),
+                $form->getCheckBox(),
+                $form->getTextArea(),
+                $form->getSelect(),
+                $form->getFileField(),
+                $form->getEmailField(),
+                $form->getHiddenField(),
+                $form->getIntegerField(),
+                $form->getDateField(),
+                $form->getJsonFileField(),
+                $form->getRadioButtons(),
+                $form->getDateTimeField(),
+                $form->getFormElementGroup()->getElements()[0],
+                $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
+                $form->getPrivateField1(),
+                $form->getPrivateFormElementGroup1()->getElements()[0],
+                $form->getPrivateFormElementGroup1()->getElements()[1],
             ],
-            $this->form->getProcessedElements()
+            $form->getProcessedElements()
         );
-        self::assertTrue($this->form->isProcessed());
+        self::assertTrue($form->isProcessed());
 
-        self::assertSame('My not required value', $this->form->getNotRequiredField()->getValue());
-        self::assertFalse($this->form->getNotRequiredField()->hasError());
+        self::assertSame('My not required value', $form->getNotRequiredField()->getValue());
+        self::assertFalse($form->getNotRequiredField()->hasError());
 
-        self::assertSame('My custom validated value', $this->form->getCustomValidatedField()->getValue());
-        self::assertFalse($this->form->getCustomValidatedField()->hasError());
+        self::assertSame('My custom validated value', $form->getCustomValidatedField()->getValue());
+        self::assertFalse($form->getCustomValidatedField()->hasError());
 
-        self::assertSame('My text value', $this->form->getTextField()->getValue());
-        self::assertFalse($this->form->getTextField()->hasError());
+        self::assertSame('My text value', $form->getTextField()->getValue());
+        self::assertFalse($form->getTextField()->hasError());
 
-        self::assertSame('My password', $this->form->getPasswordField()->getValue());
-        self::assertFalse($this->form->getPasswordField()->hasError());
+        self::assertSame('My password', $form->getPasswordField()->getValue());
+        self::assertFalse($form->getPasswordField()->hasError());
 
-        self::assertSame('My Name', $this->form->getNameField()->getValue());
-        self::assertFalse($this->form->getNameField()->hasError());
+        self::assertSame('My Name', $form->getNameField()->getValue());
+        self::assertFalse($form->getNameField()->hasError());
 
-        self::assertSame('https://domain.com/foo', $this->form->getUrlField()->getValue()->__toString());
-        self::assertFalse($this->form->getUrlField()->hasError());
+        self::assertSame('https://domain.com/foo', $form->getUrlField()->getValue()->__toString());
+        self::assertFalse($form->getUrlField()->hasError());
 
-        self::assertTrue($this->form->getCheckBox()->getValue());
-        self::assertFalse($this->form->getCheckBox()->hasError());
+        self::assertTrue($form->getCheckBox()->getValue());
+        self::assertFalse($form->getCheckBox()->hasError());
 
-        self::assertSame("My\r\nText", $this->form->getTextArea()->getValue());
-        self::assertFalse($this->form->getTextArea()->hasError());
+        self::assertSame("My\r\nText", $form->getTextArea()->getValue());
+        self::assertFalse($form->getTextArea()->hasError());
 
-        self::assertSame('bar', $this->form->getSelect()->getValue());
-        self::assertFalse($this->form->getSelect()->hasError());
+        self::assertSame('bar', $form->getSelect()->getValue());
+        self::assertFalse($form->getSelect()->hasError());
 
-        self::assertSame('Hello World!', file_get_contents($this->form->getFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('file.txt', basename($this->form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $this->form->getFileField()->getFile()->getSize());
-        self::assertFalse($this->form->getFileField()->hasError());
+        self::assertSame('Hello World!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
+        self::assertSame(12, $form->getFileField()->getFile()->getSize());
+        self::assertFalse($form->getFileField()->hasError());
 
-        self::assertSame('foo.bar@example.com', $this->form->getEmailField()->getValue()->__toString());
-        self::assertFalse($this->form->getEmailField()->hasError());
+        self::assertSame('foo.bar@example.com', $form->getEmailField()->getValue()->__toString());
+        self::assertFalse($form->getEmailField()->hasError());
 
-        self::assertSame('My hidden value', $this->form->getHiddenField()->getValue());
-        self::assertFalse($this->form->getHiddenField()->hasError());
+        self::assertSame('My hidden value', $form->getHiddenField()->getValue());
+        self::assertFalse($form->getHiddenField()->hasError());
 
-        self::assertSame(12345, $this->form->getIntegerField()->getValue());
-        self::assertFalse($this->form->getIntegerField()->hasError());
+        self::assertSame(12345, $form->getIntegerField()->getValue());
+        self::assertFalse($form->getIntegerField()->hasError());
 
-        self::assertSame('2017-10-15 00:00:00', $this->form->getDateField()->getValue()->format('Y-m-d H:i:s'));
-        self::assertFalse($this->form->getDateField()->hasError());
+        self::assertSame('2017-10-15 00:00:00', $form->getDateField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($form->getDateField()->hasError());
 
-        self::assertSame('{"Foo": "Bar"}', file_get_contents($this->form->getJsonFileField()->getFile()->getPath()->__toString()));
-        self::assertSame('file.json', basename($this->form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(14, $this->form->getJsonFileField()->getFile()->getSize());
-        self::assertSame(['Foo' => 'Bar'], $this->form->getJsonFileField()->getJson());
-        self::assertFalse($this->form->getJsonFileField()->hasError());
+        self::assertSame('{"Foo": "Bar"}', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        self::assertSame('file.json', basename($form->getJsonFileField()->getFile()->getOriginalName()));
+        self::assertSame(14, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame(['Foo' => 'Bar'], $form->getJsonFileField()->getJson());
+        self::assertFalse($form->getJsonFileField()->hasError());
 
-        self::assertSame('foo', $this->form->getRadioButtons()->getValue());
-        self::assertFalse($this->form->getRadioButtons()->hasError());
+        self::assertSame('foo', $form->getRadioButtons()->getValue());
+        self::assertFalse($form->getRadioButtons()->hasError());
 
-        self::assertSame('2017-12-01 10:20:00', $this->form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
-        self::assertFalse($this->form->getDateTimeField()->hasError());
+        self::assertSame('2017-12-01 10:20:00', $form->getDateTimeField()->getValue()->format('Y-m-d H:i:s'));
+        self::assertFalse($form->getDateTimeField()->hasError());
 
-        self::assertSame('0', $this->form->getPrivateField1()->getValue());
-        self::assertFalse($this->form->getPrivateField1()->hasError());
+        self::assertSame('0', $form->getPrivateField1()->getValue());
+        self::assertFalse($form->getPrivateField1()->hasError());
 
-        self::assertSame('', $this->form->getPrivateField2()->getValue());
-        self::assertFalse($this->form->getPrivateField2()->hasError());
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
 
-        self::assertTrue($this->form->getFormElementGroup()->hasError());
-        self::assertSame('Group is invalid', $this->form->getFormElementGroup()->getError());
+        self::assertTrue($form->getFormElementGroup()->hasError());
+        self::assertSame('Group is invalid', $form->getFormElementGroup()->getError());
 
-        self::assertSame('invalid-group', $this->form->getFormElementGroup()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('invalid-group', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[0]->hasError());
 
-        self::assertTrue($this->form->getFormElementGroup()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertTrue($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->hasError());
 
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->hasError());
-        self::assertSame('Private group 1 is invalid', $this->form->getPrivateFormElementGroup1()->getError());
+        self::assertTrue($form->getPrivateFormElementGroup1()->hasError());
+        self::assertSame('Private group 1 is invalid', $form->getPrivateFormElementGroup1()->getError());
 
-        self::assertSame('invalid-group', $this->form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('invalid-group', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
 
-        self::assertTrue($this->form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
 
-        self::assertSame('', $this->form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
 
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
-        self::assertFalse($this->form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('A new value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
 
     /**
-     * Set up.
+     * Test process with elements disabled.
      */
-    public function setUp(): void
+    public function testProcessWithElementsDisabled()
     {
-        parent::setUp();
+        $request = new FakeRequest('/', 'POST');
+        $request->setFormParameter('not-required', 'My not required value');
+        $request->setFormParameter('custom-validated', 'My custom validated value');
+        $request->setFormParameter('text', 'My text value');
+        $request->setFormParameter('password', 'My password');
+        $request->setFormParameter('name', 'My name');
+        $request->setFormParameter('url', 'https://domain.com/foo');
+        $request->setFormParameter('checkbox', 'on');
+        $request->setFormParameter('textarea', "My\nText");
+        $request->setFormParameter('select', 'bar');
+        $request->uploadFile('file', __DIR__ . '/Helpers/TestFiles/file.txt');
+        $request->setFormParameter('email', 'foo.bar@example.com');
+        $request->setFormParameter('hidden', 'My hidden value');
+        $request->setFormParameter('integer', '12345');
+        $request->setFormParameter('date', '2017-10-15');
+        $request->uploadFile('json', __DIR__ . '/Helpers/TestFiles/file.json');
+        $request->setFormParameter('radio', 'foo');
+        $request->setFormParameter('datetime', '2017-12-01 10:20:30');
+        $request->setFormParameter('private-1', '0');
+        $request->setFormParameter('private-2', 'My private field 2 value');
+        $request->setFormParameter('group-text', 'My group text value');
+        $request->setFormParameter('group-checkbox', 'on');
+        $request->setFormParameter('private-group-text-1', 'My private group 1 text value');
+        $request->setFormParameter('private-group-checkbox-1', 'on');
+        $request->setFormParameter('private-group-text-2', 'My private group 2 text value');
+        $request->setFormParameter('private-group-checkbox-2', 'on');
+        $request->setFormParameter('default-value', 'A new value');
 
-        $this->form = new BasicTestPostForm();
+        $form = new BasicTestPostForm(true);
+        $isProcessed = $form->process($request);
+
+        self::assertFalse($isProcessed);
+        self::assertSame(['onValidate', 'onError', 'onProcessed'], $form->getEventMethodsCalled());
+        self::assertTrue($form->hasError());
+        self::assertSame(
+            [
+                $form->getNotRequiredField(),
+                $form->getCustomValidatedField(),
+                $form->getTextField(),
+                $form->getPasswordField(),
+                $form->getNameField(),
+                $form->getUrlField(),
+                $form->getCheckBox(),
+                $form->getTextArea(),
+                $form->getSelect(),
+                $form->getFileField(),
+                $form->getEmailField(),
+                $form->getHiddenField(),
+                $form->getIntegerField(),
+                $form->getDateField(),
+                $form->getJsonFileField(),
+                $form->getRadioButtons(),
+                $form->getDateTimeField(),
+                $form->getFormElementGroup()->getElements()[0],
+                $form->getFormElementGroup()->getElements()[1],
+                $form->getDefaultValueElement(),
+                $form->getPrivateField1(),
+                $form->getPrivateFormElementGroup1()->getElements()[0],
+                $form->getPrivateFormElementGroup1()->getElements()[1],
+            ],
+            $form->getProcessedElements()
+        );
+        self::assertTrue($form->isProcessed());
+
+        self::assertSame('', $form->getNotRequiredField()->getValue());
+        self::assertFalse($form->getNotRequiredField()->hasError());
+
+        self::assertSame('', $form->getCustomValidatedField()->getValue());
+        self::assertTrue($form->getCustomValidatedField()->hasError());
+        self::assertSame('Missing value', $form->getCustomValidatedField()->getError());
+
+        self::assertSame('', $form->getTextField()->getValue());
+        self::assertTrue($form->getTextField()->hasError());
+        self::assertSame('Value of text field is empty.', $form->getTextField()->getError());
+
+        self::assertSame('', $form->getPasswordField()->getValue());
+        self::assertTrue($form->getPasswordField()->hasError());
+        self::assertSame('Missing value', $form->getPasswordField()->getError());
+
+        self::assertSame('', $form->getNameField()->getValue());
+        self::assertTrue($form->getNameField()->hasError());
+        self::assertSame('Missing value', $form->getNameField()->getError());
+
+        self::assertNull($form->getUrlField()->getValue());
+        self::assertTrue($form->getUrlField()->hasError());
+        self::assertSame('Missing value', $form->getUrlField()->getError());
+
+        self::assertFalse($form->getCheckBox()->getValue());
+        self::assertTrue($form->getCheckBox()->hasError());
+        self::assertSame('Missing value', $form->getCheckBox()->getError());
+
+        self::assertSame('', $form->getTextArea()->getValue());
+        self::assertTrue($form->getTextArea()->hasError());
+        self::assertSame('Missing value', $form->getTextArea()->getError());
+
+        self::assertSame('', $form->getSelect()->getValue());
+        self::assertTrue($form->getSelect()->hasError());
+        self::assertSame('Missing value', $form->getSelect()->getError());
+
+        self::assertNull($form->getFileField()->getFile());
+        self::assertTrue($form->getFileField()->hasError());
+        self::assertSame('Missing file', $form->getFileField()->getError());
+
+        self::assertNull($form->getEmailField()->getValue());
+        self::assertTrue($form->getEmailField()->hasError());
+        self::assertSame('Missing value', $form->getEmailField()->getError());
+
+        self::assertSame('', $form->getHiddenField()->getValue());
+        self::assertTrue($form->getHiddenField()->hasError());
+        self::assertSame('Missing value', $form->getHiddenField()->getError());
+
+        self::assertNull($form->getIntegerField()->getValue());
+        self::assertTrue($form->getIntegerField()->hasError());
+        self::assertSame('Missing value', $form->getIntegerField()->getError());
+
+        self::assertNull($form->getDateField()->getValue());
+        self::assertTrue($form->getDateField()->hasError());
+        self::assertSame('Missing value', $form->getDateField()->getError());
+
+        self::assertNull($form->getJsonFileField()->getFile());
+        self::assertSame([], $form->getJsonFileField()->getJson());
+        self::assertTrue($form->getJsonFileField()->hasError());
+        self::assertSame('Missing file', $form->getJsonFileField()->getError());
+
+        self::assertSame('', $form->getRadioButtons()->getValue());
+        self::assertTrue($form->getRadioButtons()->hasError());
+        self::assertSame('Missing value', $form->getRadioButtons()->getError());
+
+        self::assertNull($form->getDateTimeField()->getValue());
+        self::assertTrue($form->getDateTimeField()->hasError());
+        self::assertSame('Missing value', $form->getDateTimeField()->getError());
+
+        self::assertSame('', $form->getPrivateField1()->getValue());
+        self::assertTrue($form->getPrivateField1()->hasError());
+        self::assertSame('Missing value', $form->getPrivateField1()->getError());
+
+        self::assertSame('', $form->getPrivateField2()->getValue());
+        self::assertFalse($form->getPrivateField2()->hasError());
+
+        self::assertFalse($form->getFormElementGroup()->hasError());
+
+        self::assertSame('', $form->getFormElementGroup()->getElements()[0]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $form->getFormElementGroup()->getElements()[0]->getError());
+
+        self::assertFalse($form->getFormElementGroup()->getElements()[1]->getValue());
+        self::assertTrue($form->getFormElementGroup()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getFormElementGroup()->getElements()[1]->getError());
+
+        self::assertFalse($form->getPrivateFormElementGroup1()->hasError());
+
+        self::assertSame('', $form->getPrivateFormElementGroup1()->getElements()[0]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[0]->hasError());
+        self::assertSame('Missing value', $form->getPrivateFormElementGroup1()->getElements()[0]->getError());
+
+        self::assertFalse($form->getPrivateFormElementGroup1()->getElements()[1]->getValue());
+        self::assertTrue($form->getPrivateFormElementGroup1()->getElements()[1]->hasError());
+        self::assertSame('Missing value', $form->getPrivateFormElementGroup1()->getElements()[1]->getError());
+
+        self::assertFalse($form->getPrivateFormElementGroup2()->hasError());
+
+        self::assertSame('', $form->getPrivateFormElementGroup2()->getElements()[0]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[0]->hasError());
+
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->getValue());
+        self::assertFalse($form->getPrivateFormElementGroup2()->getElements()[1]->hasError());
+
+        self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
+        self::assertFalse($form->getDefaultValueElement()->hasError());
     }
-
-    /**
-     * Tear down.
-     */
-    public function tearDown(): void
-    {
-        parent::tearDown();
-
-        $this->form = null;
-    }
-
-    /**
-     * @var BasicTestPostForm My form.
-     */
-    private $form;
 }

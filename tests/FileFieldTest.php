@@ -222,4 +222,27 @@ class FileFieldTest extends TestCase
 
         self::assertFalse($fileField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $fileField = new FileField('foo');
+
+        self::assertFalse($fileField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $fileField = new FileField('foo');
+        $fileField->setDisabled(true);
+
+        self::assertTrue($fileField->isDisabled());
+        self::assertSame('<input type="file" name="foo" required disabled>', $fileField->getHtml());
+        self::assertSame('<input type="file" name="foo" required disabled>', $fileField->__toString());
+    }
 }

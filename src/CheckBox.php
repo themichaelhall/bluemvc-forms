@@ -54,6 +54,7 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
                     'name'     => $this->getName(),
                     'checked'  => $this->value,
                     'required' => $this->isRequired(),
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             )
@@ -95,6 +96,7 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
     {
         $this->value = strtolower($value) === 'on';
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
     }
 

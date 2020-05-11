@@ -314,4 +314,27 @@ class TextFieldTest extends TestCase
 
         self::assertSame('Bar', $textField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $textField = new TextField('foo');
+
+        self::assertFalse($textField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $textField = new TextField('foo');
+        $textField->setDisabled(true);
+
+        self::assertTrue($textField->isDisabled());
+        self::assertSame('<input type="text" name="foo" required disabled>', $textField->getHtml());
+        self::assertSame('<input type="text" name="foo" required disabled>', $textField->__toString());
+    }
 }

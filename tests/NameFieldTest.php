@@ -307,4 +307,27 @@ class NameFieldTest extends TestCase
 
         self::assertSame('Foo Bar', $nameField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertFalse($nameField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setDisabled(true);
+
+        self::assertTrue($nameField->isDisabled());
+        self::assertSame('<input type="text" name="foo" required disabled>', $nameField->getHtml());
+        self::assertSame('<input type="text" name="foo" required disabled>', $nameField->__toString());
+    }
 }

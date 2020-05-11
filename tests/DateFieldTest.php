@@ -311,4 +311,27 @@ class DateFieldTest extends TestCase
 
         self::assertSame(42, $dateField->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $dateField = new DateField('foo');
+
+        self::assertFalse($dateField->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $dateField = new DateField('foo');
+        $dateField->setDisabled(true);
+
+        self::assertTrue($dateField->isDisabled());
+        self::assertSame('<input type="date" name="foo" required disabled>', $dateField->getHtml());
+        self::assertSame('<input type="date" name="foo" required disabled>', $dateField->__toString());
+    }
 }

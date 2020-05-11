@@ -72,6 +72,15 @@ interface FormElementInterface
     public function hasError(): bool;
 
     /**
+     * Returns true if element is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if element is disabled, false otherwise.
+     */
+    public function isDisabled(): bool;
+
+    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
@@ -106,6 +115,15 @@ interface FormElementInterface
      * @param string $error The element error.
      */
     public function setError(string $error): void;
+
+    /**
+     * Sets whether the element is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if the element is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void;
 
     /**
      * Sets the label.

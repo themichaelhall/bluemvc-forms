@@ -2,6 +2,7 @@
 - Added getSelectedRadioButton method to RadioButtonCollection.
 - Added getSelectedOption method to Select.
 - Added FormElementGroup class.
+- Added isDisabled and setDisabled methods to all form elements.
 
 ## [2.1.0] - 2019-06-14
 - Made RadioButtonCollection and Select countable.

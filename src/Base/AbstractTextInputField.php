@@ -37,6 +37,7 @@ abstract class AbstractTextInputField extends AbstractTextElement
                     'name'     => $this->getName(),
                     'value'    => $this->getText() !== '' ? $this->getText() : false,
                     'required' => $this->isRequired(),
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             )

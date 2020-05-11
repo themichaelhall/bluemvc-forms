@@ -74,6 +74,10 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      */
     public function getHtml(array $attributes = []): string
     {
+        if ($this->isDisabled()) {
+            $attributes['disabled'] = true;
+        }
+
         $result = '';
         foreach ($this->radioButtons as $radioButton) {
             $result .= $radioButton->getHtml($attributes) . htmlspecialchars($radioButton->getLabel());
@@ -168,6 +172,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
             }
         }
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
     }
 

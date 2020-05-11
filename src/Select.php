@@ -91,6 +91,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
                 [
                     'name'     => $this->getName(),
                     'required' => $this->isRequired() && $this->hasEmptyOption,
+                    'disabled' => $this->isDisabled(),
                 ],
                 $attributes
             ), true
@@ -183,6 +184,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
             }
         }
 
+        /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
     }
 
