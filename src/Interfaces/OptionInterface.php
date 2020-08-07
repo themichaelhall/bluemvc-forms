@@ -63,6 +63,15 @@ interface OptionInterface
     public function isSelected(): bool;
 
     /**
+     * Returns true if option is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if option is disabled, false otherwise.
+     */
+    public function isDisabled(): bool;
+
+    /**
      * Sets the custom data.
      *
      * @since 2.1.0
@@ -70,6 +79,15 @@ interface OptionInterface
      * @param mixed|null $customData The custom data.
      */
     public function setCustomData($customData): void;
+
+    /**
+     * Sets whether this option is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if option is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void;
 
     /**
      * Sets whether this option is selected.

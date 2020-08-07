@@ -107,4 +107,25 @@ class OptionTest extends TestCase
 
         self::assertSame('Baz', $option->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertFalse($option->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setDisabled(true);
+
+        self::assertTrue($option->isDisabled());
+    }
 }
