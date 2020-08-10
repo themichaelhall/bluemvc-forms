@@ -67,6 +67,7 @@ class Option implements OptionInterface
                 [
                     'value'    => $this->getValue(),
                     'selected' => $this->isSelected,
+                    'disabled' => $this->isDisabled,
                 ],
                 $attributes
             )
