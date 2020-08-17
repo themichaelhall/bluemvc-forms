@@ -34,6 +34,7 @@ class Option implements OptionInterface
         $this->label = $label;
         $this->isSelected = false;
         $this->customData = null;
+        $this->isDisabled = false;
     }
 
     /**
@@ -66,6 +67,7 @@ class Option implements OptionInterface
                 [
                     'value'    => $this->getValue(),
                     'selected' => $this->isSelected,
+                    'disabled' => $this->isDisabled,
                 ],
                 $attributes
             )
@@ -97,6 +99,18 @@ class Option implements OptionInterface
     }
 
     /**
+     * Returns true if option is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if option is disabled, false otherwise.
+     */
+    public function isDisabled(): bool
+    {
+        return $this->isDisabled;
+    }
+
+    /**
      * Returns true if option is selected, false otherwise.
      *
      * @since 1.0.0
@@ -118,6 +132,18 @@ class Option implements OptionInterface
     public function setCustomData($customData): void
     {
         $this->customData = $customData;
+    }
+
+    /**
+     * Sets whether this option is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if option is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void
+    {
+        $this->isDisabled = $isDisabled;
     }
 
     /**
@@ -163,4 +189,9 @@ class Option implements OptionInterface
      * @var mixed|null My custom data.
      */
     private $customData;
+
+    /**
+     * @var bool True if this options is disabled, false otherwise.
+     */
+    private $isDisabled;
 }

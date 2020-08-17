@@ -136,13 +136,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      */
     public function getSelectedOption(): ?OptionInterface
     {
-        foreach ($this->options as $option) {
-            if ($option->getValue() === $this->value) {
-                return $option;
-            }
-        }
-
-        return null;
+        return $this->findOptionWithValue($this->value);
     }
 
     /**
@@ -178,17 +172,38 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      */
     protected function onSetFormValue(string $value): void
     {
-        foreach ($this->options as $option) {
-            $isMatch = ($value === $option->getValue());
-            $option->setSelected($isMatch);
+        $newSelectedOption = $this->findOptionWithValue($value);
+        if ($newSelectedOption === null || $newSelectedOption->isDisabled()) {
+            return;
+        }
 
-            if ($isMatch) {
-                $this->value = $value;
-            }
+        $this->value = $newSelectedOption->getValue();
+
+        foreach ($this->options as $option) {
+            $optionIsSelected = $option->getValue() === $this->value;
+            $option->setSelected($optionIsSelected);
         }
 
         /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
+    }
+
+    /**
+     * Returns the option with the specified value or null if no option was found.
+     *
+     * @param string $value The value.
+     *
+     * @return OptionInterface|null The option with the specified value or null if no option was found.
+     */
+    private function findOptionWithValue(string $value): ?OptionInterface
+    {
+        foreach ($this->options as $option) {
+            if ($option->getValue() === $value) {
+                return $option;
+            }
+        }
+
+        return null;
     }
 
     /**

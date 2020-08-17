@@ -61,7 +61,7 @@ class OptionTest extends TestCase
     {
         $option = new Option('foo', 'bar');
 
-        self::assertSame('<option value="foo" class="baz" disabled>bar</option>', $option->getHtml(['class' => 'baz', 'disabled' => true]));
+        self::assertSame('<option value="foo" class="baz" id="foo-bar">bar</option>', $option->getHtml(['class' => 'baz', 'id' => 'foo-bar']));
     }
 
     /**
@@ -106,5 +106,28 @@ class OptionTest extends TestCase
         $option->setCustomData('Baz');
 
         self::assertSame('Baz', $option->getCustomData());
+    }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertFalse($option->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setDisabled(true);
+
+        self::assertTrue($option->isDisabled());
+        self::assertSame('<option value="foo" disabled>bar</option>', $option->getHtml());
+        self::assertSame('<option value="foo" disabled>bar</option>', $option->__toString());
     }
 }
