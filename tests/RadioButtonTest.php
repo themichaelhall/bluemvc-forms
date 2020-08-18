@@ -151,4 +151,25 @@ class RadioButtonTest extends TestCase
 
         self::assertSame('Baz', $radioButton->getCustomData());
     }
+
+    /**
+     * Test isDisabled method.
+     */
+    public function testIsDisabled()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+
+        self::assertFalse($radioButton->isDisabled());
+    }
+
+    /**
+     * Test setDisabled method.
+     */
+    public function testSetDisabled()
+    {
+        $radioButton = new RadioButton('foo', 'bar');
+        $radioButton->setDisabled(true);
+
+        self::assertTrue($radioButton->isDisabled());
+    }
 }

@@ -35,6 +35,7 @@ class RadioButton implements RadioButtonInterface
         $this->name = '';
         $this->isSelected = false;
         $this->customData = null;
+        $this->isDisabled = false;
     }
 
     /**
@@ -112,6 +113,18 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
+     * Returns true if radio button is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if radio button is disabled, false otherwise.
+     */
+    public function isDisabled(): bool
+    {
+        return $this->isDisabled;
+    }
+
+    /**
      * Returns true if radio button is selected, false otherwise.
      *
      * @since 1.0.0
@@ -133,6 +146,18 @@ class RadioButton implements RadioButtonInterface
     public function setCustomData($customData): void
     {
         $this->customData = $customData;
+    }
+
+    /**
+     * Sets whether this radio button is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if radio button is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void
+    {
+        $this->isDisabled = $isDisabled;
     }
 
     /**
@@ -207,4 +232,9 @@ class RadioButton implements RadioButtonInterface
      * @var mixed|null My custom data.
      */
     private $customData;
+
+    /**
+     * @var bool True if this radio button is disabled, false otherwise.
+     */
+    private $isDisabled;
 }
