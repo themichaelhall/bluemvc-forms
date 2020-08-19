@@ -71,7 +71,7 @@ class RadioButtonTest extends TestCase
     {
         $radioButton = new RadioButton('foo', 'bar');
 
-        self::assertSame('<input type="radio" value="foo" class="baz" disabled>', $radioButton->getHtml(['class' => 'baz', 'disabled' => true]));
+        self::assertSame('<input type="radio" value="foo" class="baz">', $radioButton->getHtml(['class' => 'baz']));
     }
 
     /**
@@ -171,5 +171,7 @@ class RadioButtonTest extends TestCase
         $radioButton->setDisabled(true);
 
         self::assertTrue($radioButton->isDisabled());
+        self::assertSame('<input type="radio" value="foo" disabled>', $radioButton->getHtml());
+        self::assertSame('<input type="radio" value="foo" disabled>', $radioButton->__toString());
     }
 }

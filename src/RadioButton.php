@@ -66,10 +66,11 @@ class RadioButton implements RadioButtonInterface
             null,
             array_merge(
                 [
-                    'type'    => 'radio',
-                    'name'    => $this->name !== '' ? $this->name : false,
-                    'value'   => $this->value,
-                    'checked' => $this->isSelected,
+                    'type'     => 'radio',
+                    'name'     => $this->name !== '' ? $this->name : false,
+                    'value'    => $this->value,
+                    'checked'  => $this->isSelected,
+                    'disabled' => $this->isDisabled,
                 ],
                 $attributes
             )
