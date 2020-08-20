@@ -423,7 +423,6 @@ class RadioButtonCollectionTest extends TestCase
     /**
      * Test setFormValue method with disabled radio button does not change default value.
      */
-
     public function testSetFormValueWithDisabledRadioButtonDoesNotChangeDefaultValue()
     {
         $radioButtonCollection = new RadioButtonCollection('foo', '1');
