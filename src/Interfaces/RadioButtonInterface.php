@@ -63,6 +63,15 @@ interface RadioButtonInterface
     public function getValue(): string;
 
     /**
+     * Returns true if radio button is disabled, false otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @return bool True if radio button is disabled, false otherwise.
+     */
+    public function isDisabled(): bool;
+
+    /**
      * Returns true if radio button is selected, false otherwise.
      *
      * @since 1.0.0
@@ -79,6 +88,15 @@ interface RadioButtonInterface
      * @param mixed|null $customData The custom data.
      */
     public function setCustomData($customData): void;
+
+    /**
+     * Sets whether this radio button is disabled.
+     *
+     * @since 2.2.0
+     *
+     * @param bool $isDisabled True if radio button is disabled, false otherwise.
+     */
+    public function setDisabled(bool $isDisabled): void;
 
     /**
      * Sets the label.

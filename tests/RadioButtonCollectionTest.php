@@ -273,8 +273,8 @@ class RadioButtonCollectionTest extends TestCase
         $radioButtonCollection->addRadioButton(new RadioButton('2', 'Two'));
         $radioButtonCollection->setFormValue('3');
 
-        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->getHtml());
-        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->__toString());
+        self::assertSame('<input type="radio" name="foo" value="1" checked>One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1" checked>One<input type="radio" name="foo" value="2">Two', $radioButtonCollection->__toString());
         self::assertSame('1', $radioButtonCollection->getValue());
         self::assertFalse($radioButtonCollection->hasError());
         self::assertNull($radioButtonCollection->getError());
@@ -399,5 +399,43 @@ class RadioButtonCollectionTest extends TestCase
         self::assertTrue($radioButtonCollection->isDisabled());
         self::assertSame('<input type="radio" name="foo" value="1" disabled>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->getHtml());
         self::assertSame('<input type="radio" name="foo" value="1" disabled>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->__toString());
+    }
+
+    /**
+     * Test setFormValue method with disabled radio button.
+     */
+    public function testSetFormValueWithDisabledRadioButton()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButton2->setDisabled(true);
+        $radioButtonCollection->addRadioButton($radioButton2);
+        $radioButtonCollection->setFormValue('2');
+
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1">One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->__toString());
+        self::assertSame('', $radioButtonCollection->getValue());
+        self::assertTrue($radioButtonCollection->hasError());
+        self::assertSame('Missing value', $radioButtonCollection->getError());
+    }
+
+    /**
+     * Test setFormValue method with disabled radio button does not change default value.
+     */
+    public function testSetFormValueWithDisabledRadioButtonDoesNotChangeDefaultValue()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo', '1');
+        $radioButtonCollection->addRadioButton(new RadioButton('1', 'One'));
+        $radioButton2 = new RadioButton('2', 'Two');
+        $radioButton2->setDisabled(true);
+        $radioButtonCollection->addRadioButton($radioButton2);
+        $radioButtonCollection->setFormValue('2');
+
+        self::assertSame('<input type="radio" name="foo" value="1" checked>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->getHtml());
+        self::assertSame('<input type="radio" name="foo" value="1" checked>One<input type="radio" name="foo" value="2" disabled>Two', $radioButtonCollection->__toString());
+        self::assertSame('1', $radioButtonCollection->getValue());
+        self::assertFalse($radioButtonCollection->hasError());
+        self::assertNull($radioButtonCollection->getError());
     }
 }
