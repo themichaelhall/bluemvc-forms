@@ -121,13 +121,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      */
     public function getSelectedRadioButton(): ?RadioButtonInterface
     {
-        foreach ($this->radioButtons as $radioButton) {
-            if ($radioButton->getValue() === $this->value) {
-                return $radioButton;
-            }
-        }
-
-        return null;
+        return $this->findRadioButtonWithValue($this->value);
     }
 
     /**
@@ -163,17 +157,38 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      */
     protected function onSetFormValue(string $value): void
     {
-        foreach ($this->radioButtons as $radioButton) {
-            $isMatch = ($value === $radioButton->getValue());
-            $radioButton->setSelected($isMatch);
+        $newSelectedRadioButton = $this->findRadioButtonWithValue($value);
+        if ($newSelectedRadioButton === null || $newSelectedRadioButton->isDisabled()) {
+            return;
+        }
 
-            if ($isMatch) {
-                $this->value = $value;
-            }
+        $this->value = $newSelectedRadioButton->getValue();
+
+        foreach ($this->radioButtons as $radioButton) {
+            $radioButtonIsSelected = $radioButton->getValue() === $this->value;
+            $radioButton->setSelected($radioButtonIsSelected);
         }
 
         /** @noinspection PhpDeprecationInspection */
         parent::onSetFormValue($value);
+    }
+
+    /**
+     * Returns the radio button with the specified value or null if no radio button was found.
+     *
+     * @param string $value The value.
+     *
+     * @return RadioButtonInterface|null The radio button with the specified value or null if no radio button was found.
+     */
+    private function findRadioButtonWithValue(string $value): ?RadioButtonInterface
+    {
+        foreach ($this->radioButtons as $radioButton) {
+            if ($radioButton->getValue() === $value) {
+                return $radioButton;
+            }
+        }
+
+        return null;
     }
 
     /**
