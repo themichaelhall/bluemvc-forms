@@ -16,7 +16,7 @@ Forms extension for the [BlueMvc PHP framework](https://github.com/themichaelhal
 
 ## Requirements
 
-- PHP >= 7.1
+- PHP >= 7.3
 
 ## Install with Composer
 
