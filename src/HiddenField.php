@@ -28,7 +28,7 @@ class HiddenField extends AbstractTextInputField implements HiddenFieldInterface
      */
     public function __construct(string $name, string $value = '')
     {
-        parent::__construct($name, $value, TextFormatOptions::NONE);
+        parent::__construct($name, $value);
     }
 
     /**

@@ -111,7 +111,7 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
             return;
         }
 
-        $this->value = $value->setTime((int) $value->format('H'), (int) $value->format('i'), 0);
+        $this->value = $value->setTime((int) $value->format('H'), (int) $value->format('i'));
     }
 
     /**
