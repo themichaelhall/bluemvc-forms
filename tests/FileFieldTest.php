@@ -79,7 +79,7 @@ class FileFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setUploadedFileDataProvider()
+    public function setUploadedFileDataProvider(): array
     {
         $textFile = new UploadedFile(
             FilePath::parse(__DIR__ . '/Helpers/TestFiles/file.txt'),

@@ -25,7 +25,7 @@ trait BuildTagTrait
      *
      * @return string The tag.
      */
-    private static function buildTag(string $name, ?string $content = null, array $attributes = [], bool $contentIsEncoded = false)
+    private static function buildTag(string $name, ?string $content = null, array $attributes = [], bool $contentIsEncoded = false): string
     {
         $result = '<' . htmlspecialchars($name);
         foreach ($attributes as $attributeName => $attributeValue) {

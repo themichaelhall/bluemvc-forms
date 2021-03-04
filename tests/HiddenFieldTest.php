@@ -72,7 +72,7 @@ class HiddenFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', '', true, false, null],

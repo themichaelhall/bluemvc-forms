@@ -60,7 +60,7 @@ class JsonFileFieldTest extends TestCase
      * @param bool                       $expectedHasError The expected value from hasError method.
      * @param string|null                $expectedError    The expected error or null if no error.
      */
-    public function testSetUploadedFile(bool $isRequired, ?UploadedFileInterface $uploadedFile, ?UploadedFileInterface $expectedValue, array $expectedJson, string $expectedHtml, bool $expectedIsEmpty, $expectedHasError, $expectedError)
+    public function testSetUploadedFile(bool $isRequired, ?UploadedFileInterface $uploadedFile, ?UploadedFileInterface $expectedValue, array $expectedJson, string $expectedHtml, bool $expectedIsEmpty, bool $expectedHasError, ?string $expectedError)
     {
         $jsonFileField = new JsonFileField('foo');
         $jsonFileField->setRequired($isRequired);
@@ -81,7 +81,7 @@ class JsonFileFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setUploadedFileDataProvider()
+    public function setUploadedFileDataProvider(): array
     {
         $textFile = new UploadedFile(
             FilePath::parse(__DIR__ . '/Helpers/TestFiles/file.txt'),

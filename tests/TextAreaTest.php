@@ -73,7 +73,7 @@ class TextAreaTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', '', true, false, null],
@@ -116,7 +116,7 @@ class TextAreaTest extends TestCase
      *
      * @return array The data.
      */
-    public function textFormattingDataProvider()
+    public function textFormattingDataProvider(): array
     {
         return [
             ['', null, '', '<textarea name="foo" required></textarea>'],

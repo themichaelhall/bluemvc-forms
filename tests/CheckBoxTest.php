@@ -75,7 +75,7 @@ class CheckBoxTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', false, '<input type="checkbox" name="foo">', true, false, null],

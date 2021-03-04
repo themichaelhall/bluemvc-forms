@@ -73,7 +73,7 @@ class TextFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', '', true, false, null],
@@ -114,7 +114,7 @@ class TextFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function textFormattingDataProvider()
+    public function textFormattingDataProvider(): array
     {
         return [
             ['', null, '', '<input type="text" name="foo" required>'],

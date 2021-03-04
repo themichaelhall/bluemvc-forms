@@ -75,7 +75,7 @@ class EmailFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', null, true, false, false, null],
@@ -115,7 +115,7 @@ class EmailFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function textFormattingDataProvider()
+    public function textFormattingDataProvider(): array
     {
         return [
             ['', null, '<input type="email" name="foo" required>'],
