@@ -358,6 +358,8 @@ class BasicTestGetForm extends GetForm
 
     /**
      * Called when form elements should be validated.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     protected function onValidate(): void
     {
