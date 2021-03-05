@@ -68,7 +68,7 @@ class CheckOriginTest extends TestCase
      *
      * @return array The data.
      */
-    public function checkOriginDataProvider()
+    public function checkOriginDataProvider(): array
     {
         return [
             ['http://example.com/form', true, null, null, true],

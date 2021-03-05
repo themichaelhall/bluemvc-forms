@@ -15,6 +15,8 @@ class PostFormTest extends TestCase
 {
     /**
      * Test process with get request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithGetRequest()
     {
@@ -117,6 +119,8 @@ class PostFormTest extends TestCase
 
     /**
      * Test process with post request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithPostRequest()
     {
@@ -276,6 +280,8 @@ class PostFormTest extends TestCase
 
     /**
      * Test process with empty post request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithEmptyPostRequest()
     {
@@ -430,6 +436,8 @@ class PostFormTest extends TestCase
 
     /**
      * Test process with invalid values in post request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithInvalidValuesInPostRequest()
     {
@@ -615,6 +623,8 @@ class PostFormTest extends TestCase
 
     /**
      * Test process with element group error.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithElementGroupError()
     {
@@ -776,6 +786,8 @@ class PostFormTest extends TestCase
 
     /**
      * Test process with elements disabled.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithElementsDisabled()
     {

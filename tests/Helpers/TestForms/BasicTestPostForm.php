@@ -387,6 +387,8 @@ class BasicTestPostForm extends PostForm
 
     /**
      * Called when form elements should be validated.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     protected function onValidate(): void
     {

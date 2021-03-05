@@ -119,7 +119,7 @@ class RadioButtonCollectionTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', '', '<input type="radio" name="foo" value="" checked>None<input type="radio" name="foo" value="1">One', true, false, null],

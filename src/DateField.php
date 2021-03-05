@@ -111,7 +111,7 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
             return;
         }
 
-        $this->value = $value->setTime(0, 0, 0);
+        $this->value = $value->setTime(0, 0);
     }
 
     /**

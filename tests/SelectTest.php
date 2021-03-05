@@ -120,7 +120,7 @@ class SelectTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', '', '<select name="foo"><option value="" selected>None</option><option value="1">One</option></select>', true, false, null],

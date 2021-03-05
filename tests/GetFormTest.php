@@ -15,6 +15,8 @@ class GetFormTest extends TestCase
 {
     /**
      * Test process with no query request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithNoQueryRequest()
     {
@@ -110,6 +112,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with post request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithPostRequest()
     {
@@ -205,6 +209,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with get request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithGetRequest()
     {
@@ -351,6 +357,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with empty get request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithEmptyGetRequest()
     {
@@ -494,6 +502,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with invalid values in get request.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithInvalidValuesInGetRequest()
     {
@@ -664,6 +674,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with element group error.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithElementGroupError()
     {
@@ -812,6 +824,8 @@ class GetFormTest extends TestCase
 
     /**
      * Test process with elements disabled.
+     *
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     public function testProcessWithElementsDisabled()
     {

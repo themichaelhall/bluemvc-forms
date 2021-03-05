@@ -75,7 +75,7 @@ class DateTimeFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function setFormValueDataProvider()
+    public function setFormValueDataProvider(): array
     {
         return [
             [false, '', null, true, false, false, null],
@@ -121,7 +121,7 @@ class DateTimeFieldTest extends TestCase
      *
      * @return array The data.
      */
-    public function textFormattingDataProvider()
+    public function textFormattingDataProvider(): array
     {
         return [
             ['', null, '<input type="datetime-local" name="foo" required>'],
