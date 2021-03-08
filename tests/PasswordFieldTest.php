@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\PasswordField;
 use PHPUnit\Framework\TestCase;
 
@@ -292,5 +293,60 @@ class PasswordFieldTest extends TestCase
         self::assertTrue($passwordField->isDisabled());
         self::assertSame('<input type="password" name="foo" required disabled>', $passwordField->getHtml());
         self::assertSame('<input type="password" name="foo" required disabled>', $passwordField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $passwordField = new PasswordField('foo');
+
+        self::assertNull($passwordField->getCustomItem('Foo'));
+        self::assertNull($passwordField->getCustomItem('Bar'));
+        self::assertNull($passwordField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setCustomItem('Foo', 1234);
+        $passwordField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $passwordField->getCustomItem('Foo'));
+        self::assertTrue($passwordField->getCustomItem('Bar'));
+        self::assertNull($passwordField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setCustomItem('Bar', 0.0);
+        $passwordField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($passwordField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $passwordField = new PasswordField('foo');
+        $passwordField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $passwordField->getCustomItem('Foo'));
+        self::assertNull($passwordField->getCustomItem('Bar'));
+        self::assertFalse($passwordField->getCustomItem('Baz'));
     }
 }

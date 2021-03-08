@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\TextFormatOptions;
 use PHPUnit\Framework\TestCase;
@@ -328,5 +329,60 @@ class CustomValidatedFieldTest extends TestCase
         self::assertTrue($customValidatedField->isDisabled());
         self::assertSame('<input type="text" name="foo" required disabled>', $customValidatedField->getHtml());
         self::assertSame('<input type="text" name="foo" required disabled>', $customValidatedField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+
+        self::assertNull($customValidatedField->getCustomItem('Foo'));
+        self::assertNull($customValidatedField->getCustomItem('Bar'));
+        self::assertNull($customValidatedField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setCustomItem('Foo', 1234);
+        $customValidatedField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $customValidatedField->getCustomItem('Foo'));
+        self::assertTrue($customValidatedField->getCustomItem('Bar'));
+        self::assertNull($customValidatedField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setCustomItem('Bar', 0.0);
+        $customValidatedField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($customValidatedField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $customValidatedField = new CustomValidatedField('foo');
+        $customValidatedField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $customValidatedField->getCustomItem('Foo'));
+        self::assertNull($customValidatedField->getCustomItem('Bar'));
+        self::assertFalse($customValidatedField->getCustomItem('Baz'));
     }
 }

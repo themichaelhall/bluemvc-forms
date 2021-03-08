@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Base;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
+use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 
 /**
@@ -17,6 +19,8 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
  */
 abstract class AbstractFormElement implements FormElementInterface
 {
+    use CustomItemsTrait;
+
     /**
      * Returns the element html.
      *
@@ -208,6 +212,7 @@ abstract class AbstractFormElement implements FormElementInterface
         $this->label = '';
         $this->customData = null;
         $this->isDisabled = false;
+        $this->customItems = new CustomItemCollection();
     }
 
     /**

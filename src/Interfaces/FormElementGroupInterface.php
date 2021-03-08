@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
+use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
+
 /**
  * Interface for a group of form elements.
  *
@@ -32,6 +34,26 @@ interface FormElementGroupInterface
      * @return mixed|null The custom data or null if no custom data is set.
      */
     public function getCustomData();
+
+    /**
+     * Returns a custom item by name if it exists, null otherwise.
+     *
+     * @since 2.2.0
+     *
+     * @param string $name The custom item name.
+     *
+     * @return mixed|null The custom item if it exists, null otherwise.
+     */
+    public function getCustomItem(string $name);
+
+    /**
+     * Returns the custom items.
+     *
+     * @since 2.2.0
+     *
+     * @return CustomItemCollectionInterface The custom items.
+     */
+    public function getCustomItems(): CustomItemCollectionInterface;
 
     /**
      * Returns the form elements.
@@ -68,6 +90,25 @@ interface FormElementGroupInterface
      * @param mixed|null $customData The custom data.
      */
     public function setCustomData($customData): void;
+
+    /**
+     * Sets a custom item.
+     *
+     * @since 2.2.0
+     *
+     * @param string $name  The custom item name.
+     * @param mixed  $value The custom item value.
+     */
+    public function setCustomItem(string $name, $value): void;
+
+    /**
+     * Sets the custom items.
+     *
+     * @since 2.2.0
+     *
+     * @param CustomItemCollectionInterface $customItems The custom items.
+     */
+    public function setCustomItems(CustomItemCollectionInterface $customItems): void;
 
     /**
      * Sets the error for the group.

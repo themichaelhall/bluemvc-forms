@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
+use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 
@@ -18,6 +20,8 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
  */
 class FormElementGroup implements FormElementGroupInterface
 {
+    use CustomItemsTrait;
+
     /**
      * Constructs the group of form elements.
      *
@@ -28,6 +32,7 @@ class FormElementGroup implements FormElementGroupInterface
         $this->customData = null;
         $this->elements = [];
         $this->error = null;
+        $this->customItems = new CustomItemCollection();
     }
 
     /**

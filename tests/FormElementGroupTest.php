@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\CheckBox;
 use BlueMvc\Forms\FormElementGroup;
 use BlueMvc\Forms\TextField;
@@ -92,5 +93,60 @@ class FormElementGroupTest extends TestCase
         $formElementGroup->setCustomData(['Foo' => 'Bar']);
 
         self::assertSame(['Foo' => 'Bar'], $formElementGroup->getCustomData());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $formElementGroup = new FormElementGroup();
+
+        self::assertNull($formElementGroup->getCustomItem('Foo'));
+        self::assertNull($formElementGroup->getCustomItem('Bar'));
+        self::assertNull($formElementGroup->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $formElementGroup = new FormElementGroup();
+        $formElementGroup->setCustomItem('Foo', 1234);
+        $formElementGroup->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $formElementGroup->getCustomItem('Foo'));
+        self::assertTrue($formElementGroup->getCustomItem('Bar'));
+        self::assertNull($formElementGroup->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $formElementGroup = new FormElementGroup();
+        $formElementGroup->setCustomItem('Bar', 0.0);
+        $formElementGroup->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($formElementGroup->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $formElementGroup = new FormElementGroup();
+        $formElementGroup->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $formElementGroup->getCustomItem('Foo'));
+        self::assertNull($formElementGroup->getCustomItem('Bar'));
+        self::assertFalse($formElementGroup->getCustomItem('Baz'));
     }
 }

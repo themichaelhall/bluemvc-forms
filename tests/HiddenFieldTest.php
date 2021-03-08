@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\HiddenField;
 use PHPUnit\Framework\TestCase;
 
@@ -271,5 +272,60 @@ class HiddenFieldTest extends TestCase
         self::assertSame('<input type="hidden" name="foo" disabled>', $hiddenField->__toString());
 
         self::assertTrue($hiddenField->isDisabled());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $hiddenField = new HiddenField('foo');
+
+        self::assertNull($hiddenField->getCustomItem('Foo'));
+        self::assertNull($hiddenField->getCustomItem('Bar'));
+        self::assertNull($hiddenField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setCustomItem('Foo', 1234);
+        $hiddenField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $hiddenField->getCustomItem('Foo'));
+        self::assertTrue($hiddenField->getCustomItem('Bar'));
+        self::assertNull($hiddenField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setCustomItem('Bar', 0.0);
+        $hiddenField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($hiddenField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $hiddenField->getCustomItem('Foo'));
+        self::assertNull($hiddenField->getCustomItem('Bar'));
+        self::assertFalse($hiddenField->getCustomItem('Baz'));
     }
 }

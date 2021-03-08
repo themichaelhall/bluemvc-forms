@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\RadioButton;
 use BlueMvc\Forms\RadioButtonCollection;
 use PHPUnit\Framework\TestCase;
@@ -437,5 +438,60 @@ class RadioButtonCollectionTest extends TestCase
         self::assertSame('1', $radioButtonCollection->getValue());
         self::assertFalse($radioButtonCollection->hasError());
         self::assertNull($radioButtonCollection->getError());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+
+        self::assertNull($radioButtonCollection->getCustomItem('Foo'));
+        self::assertNull($radioButtonCollection->getCustomItem('Bar'));
+        self::assertNull($radioButtonCollection->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setCustomItem('Foo', 1234);
+        $radioButtonCollection->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $radioButtonCollection->getCustomItem('Foo'));
+        self::assertTrue($radioButtonCollection->getCustomItem('Bar'));
+        self::assertNull($radioButtonCollection->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setCustomItem('Bar', 0.0);
+        $radioButtonCollection->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($radioButtonCollection->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $radioButtonCollection = new RadioButtonCollection('foo');
+        $radioButtonCollection->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $radioButtonCollection->getCustomItem('Foo'));
+        self::assertNull($radioButtonCollection->getCustomItem('Bar'));
+        self::assertFalse($radioButtonCollection->getCustomItem('Baz'));
     }
 }

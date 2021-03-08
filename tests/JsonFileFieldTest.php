@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
@@ -254,5 +255,60 @@ class JsonFileFieldTest extends TestCase
         self::assertTrue($jsonFileField->isDisabled());
         self::assertSame('<input type="file" name="foo" required disabled>', $jsonFileField->getHtml());
         self::assertSame('<input type="file" name="foo" required disabled>', $jsonFileField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $jsonFileField = new JsonFileField('foo');
+
+        self::assertNull($jsonFileField->getCustomItem('Foo'));
+        self::assertNull($jsonFileField->getCustomItem('Bar'));
+        self::assertNull($jsonFileField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setCustomItem('Foo', 1234);
+        $jsonFileField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $jsonFileField->getCustomItem('Foo'));
+        self::assertTrue($jsonFileField->getCustomItem('Bar'));
+        self::assertNull($jsonFileField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setCustomItem('Bar', 0.0);
+        $jsonFileField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($jsonFileField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $jsonFileField = new JsonFileField('foo');
+        $jsonFileField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $jsonFileField->getCustomItem('Foo'));
+        self::assertNull($jsonFileField->getCustomItem('Bar'));
+        self::assertFalse($jsonFileField->getCustomItem('Baz'));
     }
 }

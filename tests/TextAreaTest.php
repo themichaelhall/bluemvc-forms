@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\TextArea;
 use BlueMvc\Forms\TextFormatOptions;
 use PHPUnit\Framework\TestCase;
@@ -426,5 +427,60 @@ class TextAreaTest extends TestCase
         self::assertTrue($textArea->isDisabled());
         self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->getHtml());
         self::assertSame('<textarea name="foo" required disabled></textarea>', $textArea->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $textArea = new TextArea('foo');
+
+        self::assertNull($textArea->getCustomItem('Foo'));
+        self::assertNull($textArea->getCustomItem('Bar'));
+        self::assertNull($textArea->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setCustomItem('Foo', 1234);
+        $textArea->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $textArea->getCustomItem('Foo'));
+        self::assertTrue($textArea->getCustomItem('Bar'));
+        self::assertNull($textArea->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setCustomItem('Bar', 0.0);
+        $textArea->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($textArea->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $textArea = new TextArea('foo');
+        $textArea->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $textArea->getCustomItem('Foo'));
+        self::assertNull($textArea->getCustomItem('Bar'));
+        self::assertFalse($textArea->getCustomItem('Baz'));
     }
 }

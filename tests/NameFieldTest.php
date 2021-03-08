@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
 use BlueMvc\Forms\TextFormatOptions;
 use PHPUnit\Framework\TestCase;
@@ -329,5 +330,60 @@ class NameFieldTest extends TestCase
         self::assertTrue($nameField->isDisabled());
         self::assertSame('<input type="text" name="foo" required disabled>', $nameField->getHtml());
         self::assertSame('<input type="text" name="foo" required disabled>', $nameField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $nameField = new NameField('foo');
+
+        self::assertNull($nameField->getCustomItem('Foo'));
+        self::assertNull($nameField->getCustomItem('Bar'));
+        self::assertNull($nameField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setCustomItem('Foo', 1234);
+        $nameField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $nameField->getCustomItem('Foo'));
+        self::assertTrue($nameField->getCustomItem('Bar'));
+        self::assertNull($nameField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $nameField = new NameField('foo');
+        $nameField->setCustomItem('Bar', 0.0);
+        $nameField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($nameField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $nameField = new NameField('foo');
+        $nameField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $nameField->getCustomItem('Foo'));
+        self::assertNull($nameField->getCustomItem('Bar'));
+        self::assertFalse($nameField->getCustomItem('Baz'));
     }
 }

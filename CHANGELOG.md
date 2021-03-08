@@ -3,6 +3,7 @@
 - Added getSelectedOption method to Select.
 - Added FormElementGroup class.
 - Added isDisabled and setDisabled methods to all form elements.
+- Added getCustomItem, getCustomItems, setCustomItem and setCustomItems methods to all form elements.
 - Changed required PHP version to >= 7.3.
 
 ## [2.1.0] - 2019-06-14
