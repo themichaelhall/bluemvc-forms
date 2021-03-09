@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\EmailField;
 use DataTypes\EmailAddress;
 use PHPUnit\Framework\TestCase;
@@ -291,6 +292,8 @@ class EmailFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -301,6 +304,8 @@ class EmailFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -331,5 +336,60 @@ class EmailFieldTest extends TestCase
         self::assertTrue($emailField->isDisabled());
         self::assertSame('<input type="email" name="foo" required disabled>', $emailField->getHtml());
         self::assertSame('<input type="email" name="foo" required disabled>', $emailField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $emailField = new EmailField('foo');
+
+        self::assertNull($emailField->getCustomItem('Foo'));
+        self::assertNull($emailField->getCustomItem('Bar'));
+        self::assertNull($emailField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setCustomItem('Foo', 1234);
+        $emailField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $emailField->getCustomItem('Foo'));
+        self::assertTrue($emailField->getCustomItem('Bar'));
+        self::assertNull($emailField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setCustomItem('Bar', 0.0);
+        $emailField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($emailField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $emailField = new EmailField('foo');
+        $emailField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $emailField->getCustomItem('Foo'));
+        self::assertNull($emailField->getCustomItem('Bar'));
+        self::assertFalse($emailField->getCustomItem('Baz'));
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\TextField;
 use BlueMvc\Forms\TextFormatOptions;
 use PHPUnit\Framework\TestCase;
@@ -296,6 +297,8 @@ class TextFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -306,6 +309,8 @@ class TextFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -336,5 +341,60 @@ class TextFieldTest extends TestCase
         self::assertTrue($textField->isDisabled());
         self::assertSame('<input type="text" name="foo" required disabled>', $textField->getHtml());
         self::assertSame('<input type="text" name="foo" required disabled>', $textField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $textField = new TextField('foo');
+
+        self::assertNull($textField->getCustomItem('Foo'));
+        self::assertNull($textField->getCustomItem('Bar'));
+        self::assertNull($textField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $textField = new TextField('foo');
+        $textField->setCustomItem('Foo', 1234);
+        $textField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $textField->getCustomItem('Foo'));
+        self::assertTrue($textField->getCustomItem('Bar'));
+        self::assertNull($textField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $textField = new TextField('foo');
+        $textField->setCustomItem('Bar', 0.0);
+        $textField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($textField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $textField = new TextField('foo');
+        $textField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $textField->getCustomItem('Foo'));
+        self::assertNull($textField->getCustomItem('Bar'));
+        self::assertFalse($textField->getCustomItem('Baz'));
     }
 }

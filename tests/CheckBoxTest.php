@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\CheckBox;
 use PHPUnit\Framework\TestCase;
 
@@ -219,6 +220,8 @@ class CheckBoxTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -229,6 +232,8 @@ class CheckBoxTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -259,5 +264,60 @@ class CheckBoxTest extends TestCase
         self::assertTrue($checkbox->isDisabled());
         self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->getHtml());
         self::assertSame('<input type="checkbox" name="foo" required disabled>', $checkbox->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $checkbox = new CheckBox('foo');
+
+        self::assertNull($checkbox->getCustomItem('Foo'));
+        self::assertNull($checkbox->getCustomItem('Bar'));
+        self::assertNull($checkbox->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $checkbox = new CheckBox('foo');
+        $checkbox->setCustomItem('Foo', 1234);
+        $checkbox->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $checkbox->getCustomItem('Foo'));
+        self::assertTrue($checkbox->getCustomItem('Bar'));
+        self::assertNull($checkbox->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $checkbox = new CheckBox('foo');
+        $checkbox->setCustomItem('Bar', 0.0);
+        $checkbox->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($checkbox->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $checkbox = new CheckBox('foo');
+        $checkbox->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $checkbox->getCustomItem('Foo'));
+        self::assertNull($checkbox->getCustomItem('Bar'));
+        self::assertFalse($checkbox->getCustomItem('Baz'));
     }
 }

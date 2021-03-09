@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\UrlField;
 use DataTypes\Url;
 use PHPUnit\Framework\TestCase;
@@ -291,6 +292,8 @@ class UrlFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -301,6 +304,8 @@ class UrlFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -331,5 +336,60 @@ class UrlFieldTest extends TestCase
         self::assertTrue($urlField->isDisabled());
         self::assertSame('<input type="url" name="foo" required disabled>', $urlField->getHtml());
         self::assertSame('<input type="url" name="foo" required disabled>', $urlField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $urlField = new UrlField('foo');
+
+        self::assertNull($urlField->getCustomItem('Foo'));
+        self::assertNull($urlField->getCustomItem('Bar'));
+        self::assertNull($urlField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setCustomItem('Foo', 1234);
+        $urlField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $urlField->getCustomItem('Foo'));
+        self::assertTrue($urlField->getCustomItem('Bar'));
+        self::assertNull($urlField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setCustomItem('Bar', 0.0);
+        $urlField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($urlField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $urlField = new UrlField('foo');
+        $urlField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $urlField->getCustomItem('Foo'));
+        self::assertNull($urlField->getCustomItem('Bar'));
+        self::assertFalse($urlField->getCustomItem('Baz'));
     }
 }

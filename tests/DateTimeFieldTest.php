@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\DateTimeField;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -301,6 +302,8 @@ class DateTimeFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -311,6 +314,8 @@ class DateTimeFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -341,5 +346,60 @@ class DateTimeFieldTest extends TestCase
         self::assertTrue($dateTimeField->isDisabled());
         self::assertSame('<input type="datetime-local" name="foo" required disabled>', $dateTimeField->getHtml());
         self::assertSame('<input type="datetime-local" name="foo" required disabled>', $dateTimeField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $dateTimeField = new DateTimeField('foo');
+
+        self::assertNull($dateTimeField->getCustomItem('Foo'));
+        self::assertNull($dateTimeField->getCustomItem('Bar'));
+        self::assertNull($dateTimeField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setCustomItem('Foo', 1234);
+        $dateTimeField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $dateTimeField->getCustomItem('Foo'));
+        self::assertTrue($dateTimeField->getCustomItem('Bar'));
+        self::assertNull($dateTimeField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setCustomItem('Bar', 0.0);
+        $dateTimeField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($dateTimeField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $dateTimeField->getCustomItem('Foo'));
+        self::assertNull($dateTimeField->getCustomItem('Bar'));
+        self::assertFalse($dateTimeField->getCustomItem('Baz'));
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\Option;
 use PHPUnit\Framework\TestCase;
 
@@ -89,6 +90,8 @@ class OptionTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -99,6 +102,8 @@ class OptionTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -129,5 +134,60 @@ class OptionTest extends TestCase
         self::assertTrue($option->isDisabled());
         self::assertSame('<option value="foo" disabled>bar</option>', $option->getHtml());
         self::assertSame('<option value="foo" disabled>bar</option>', $option->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $option = new Option('foo', 'bar');
+
+        self::assertNull($option->getCustomItem('Foo'));
+        self::assertNull($option->getCustomItem('Bar'));
+        self::assertNull($option->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setCustomItem('Foo', 1234);
+        $option->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $option->getCustomItem('Foo'));
+        self::assertTrue($option->getCustomItem('Bar'));
+        self::assertNull($option->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $option = new Option('foo', 'bar');
+        $option->setCustomItem('Bar', 0.0);
+        $option->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($option->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $option = new Option('foo', 'bar');
+        $option->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $option->getCustomItem('Foo'));
+        self::assertNull($option->getCustomItem('Bar'));
+        self::assertFalse($option->getCustomItem('Baz'));
     }
 }

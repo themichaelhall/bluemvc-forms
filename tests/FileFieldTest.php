@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\FileField;
@@ -204,6 +205,8 @@ class FileFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -214,6 +217,8 @@ class FileFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -244,5 +249,60 @@ class FileFieldTest extends TestCase
         self::assertTrue($fileField->isDisabled());
         self::assertSame('<input type="file" name="foo" required disabled>', $fileField->getHtml());
         self::assertSame('<input type="file" name="foo" required disabled>', $fileField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $fileField = new FileField('foo');
+
+        self::assertNull($fileField->getCustomItem('Foo'));
+        self::assertNull($fileField->getCustomItem('Bar'));
+        self::assertNull($fileField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $fileField = new FileField('foo');
+        $fileField->setCustomItem('Foo', 1234);
+        $fileField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $fileField->getCustomItem('Foo'));
+        self::assertTrue($fileField->getCustomItem('Bar'));
+        self::assertNull($fileField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $fileField = new FileField('foo');
+        $fileField->setCustomItem('Bar', 0.0);
+        $fileField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($fileField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $fileField = new FileField('foo');
+        $fileField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $fileField->getCustomItem('Foo'));
+        self::assertNull($fileField->getCustomItem('Bar'));
+        self::assertFalse($fileField->getCustomItem('Baz'));
     }
 }

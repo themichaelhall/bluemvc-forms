@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\IntegerField;
 use PHPUnit\Framework\TestCase;
 
@@ -345,6 +346,8 @@ class IntegerFieldTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -355,6 +358,8 @@ class IntegerFieldTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -385,5 +390,60 @@ class IntegerFieldTest extends TestCase
         self::assertTrue($integerField->isDisabled());
         self::assertSame('<input type="number" name="foo" required disabled>', $integerField->getHtml());
         self::assertSame('<input type="number" name="foo" required disabled>', $integerField->__toString());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $integerField = new IntegerField('foo');
+
+        self::assertNull($integerField->getCustomItem('Foo'));
+        self::assertNull($integerField->getCustomItem('Bar'));
+        self::assertNull($integerField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setCustomItem('Foo', 1234);
+        $integerField->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $integerField->getCustomItem('Foo'));
+        self::assertTrue($integerField->getCustomItem('Bar'));
+        self::assertNull($integerField->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setCustomItem('Bar', 0.0);
+        $integerField->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($integerField->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $integerField = new IntegerField('foo');
+        $integerField->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $integerField->getCustomItem('Foo'));
+        self::assertNull($integerField->getCustomItem('Bar'));
+        self::assertFalse($integerField->getCustomItem('Baz'));
     }
 }

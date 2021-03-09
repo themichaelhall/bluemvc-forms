@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Tests;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\Option;
 use BlueMvc\Forms\Select;
 use PHPUnit\Framework\TestCase;
@@ -332,6 +333,8 @@ class SelectTest extends TestCase
 
     /**
      * Test getCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testGetCustomData()
     {
@@ -342,6 +345,8 @@ class SelectTest extends TestCase
 
     /**
      * Test setCustomData method.
+     *
+     * @noinspection PhpDeprecationInspection
      */
     public function testSetCustomData()
     {
@@ -438,5 +443,60 @@ class SelectTest extends TestCase
         self::assertSame('1', $select->getValue());
         self::assertFalse($select->hasError());
         self::assertNull($select->getError());
+    }
+
+    /**
+     * Test getCustomItem method.
+     */
+    public function testGetCustomItem()
+    {
+        $select = new Select('foo');
+
+        self::assertNull($select->getCustomItem('Foo'));
+        self::assertNull($select->getCustomItem('Bar'));
+        self::assertNull($select->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test setCustomItem method.
+     */
+    public function testSetCustomItem()
+    {
+        $select = new Select('foo');
+        $select->setCustomItem('Foo', 1234);
+        $select->setCustomItem('Bar', true);
+
+        self::assertSame(1234, $select->getCustomItem('Foo'));
+        self::assertTrue($select->getCustomItem('Bar'));
+        self::assertNull($select->getCustomItem('Baz'));
+    }
+
+    /**
+     * Test getCustomItems method.
+     */
+    public function testGetCustomItems()
+    {
+        $select = new Select('foo');
+        $select->setCustomItem('Bar', 0.0);
+        $select->setCustomItem('Baz', 'Foo');
+
+        self::assertSame(['Bar' => 0.0, 'Baz' => 'Foo'], iterator_to_array($select->getCustomItems()));
+    }
+
+    /**
+     * Test setCustomItems method.
+     */
+    public function testSetCustomItems()
+    {
+        $customItemCollection = new CustomItemCollection();
+        $customItemCollection->set('Foo', [1, 2]);
+        $customItemCollection->set('Baz', false);
+
+        $select = new Select('foo');
+        $select->setCustomItems($customItemCollection);
+
+        self::assertSame([1, 2], $select->getCustomItem('Foo'));
+        self::assertNull($select->getCustomItem('Bar'));
+        self::assertFalse($select->getCustomItem('Baz'));
     }
 }

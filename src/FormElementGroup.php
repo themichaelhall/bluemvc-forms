@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
+use BlueMvc\Core\Collections\CustomItemCollection;
+use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
 
@@ -18,6 +20,8 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
  */
 class FormElementGroup implements FormElementGroupInterface
 {
+    use CustomItemsTrait;
+
     /**
      * Constructs the group of form elements.
      *
@@ -28,6 +32,7 @@ class FormElementGroup implements FormElementGroupInterface
         $this->customData = null;
         $this->elements = [];
         $this->error = null;
+        $this->customItems = new CustomItemCollection();
     }
 
     /**
@@ -45,7 +50,8 @@ class FormElementGroup implements FormElementGroupInterface
     /**
      * Returns the custom data or null if no custom data is set.
      *
-     * @since 2.2.0
+     * @deprecated Use getCustomItem instead.
+     * @since      2.2.0
      *
      * @return mixed|null The custom data or null if no custom data is set.
      */
@@ -93,7 +99,8 @@ class FormElementGroup implements FormElementGroupInterface
     /**
      * Sets the custom data.
      *
-     * @since 2.2.0
+     * @deprecated Use setCustomItem instead.
+     * @since      2.2.0
      *
      * @param mixed|null $customData The custom data.
      */
