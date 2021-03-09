@@ -30,7 +30,6 @@ interface FormElementGroupInterface
      * Returns the custom data or null if no custom data is set.
      *
      * @deprecated Use getCustomItem instead.
-     *
      * @since      2.2.0
      *
      * @return mixed|null The custom data or null if no custom data is set.
@@ -97,7 +96,6 @@ interface FormElementGroupInterface
      * Sets a custom item.
      *
      * @deprecated Use setCustomItem instead.
-     *
      * @since      2.2.0
      *
      * @param string $name  The custom item name.

@@ -51,7 +51,6 @@ class FormElementGroup implements FormElementGroupInterface
      * Returns the custom data or null if no custom data is set.
      *
      * @deprecated Use getCustomItem instead.
-     *
      * @since      2.2.0
      *
      * @return mixed|null The custom data or null if no custom data is set.
@@ -101,7 +100,6 @@ class FormElementGroup implements FormElementGroupInterface
      * Sets the custom data.
      *
      * @deprecated Use setCustomItem instead.
-     *
      * @since      2.2.0
      *
      * @param mixed|null $customData The custom data.

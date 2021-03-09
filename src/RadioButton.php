@@ -46,7 +46,6 @@ class RadioButton implements RadioButtonInterface
      * Returns the custom data.
      *
      * @deprecated Use getCustomItem instead.
-     *
      * @since      2.1.0
      *
      * @return mixed|null The custom data or null if no custom data is set.
@@ -147,7 +146,6 @@ class RadioButton implements RadioButtonInterface
      * Sets the custom data.
      *
      * @deprecated Use setCustomItem instead.
-     *
      * @since      2.1.0
      *
      * @param mixed|null $customData The custom data.
