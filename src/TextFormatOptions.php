@@ -20,33 +20,33 @@ class TextFormatOptions
      *
      * @since 1.0.0
      */
-    const NONE = 0;
+    public const NONE = 0;
 
     /**
      * Trim text.
      *
      * @since 1.0.0
      */
-    const TRIM = 1;
+    public const TRIM = 1;
 
     /**
      * Compacts adjacent whitespaces into one.
      *
      * @since 1.0.0
      */
-    const COMPACT = 2;
+    public const COMPACT = 2;
 
     /**
      * Removes empty lines from start and end.
      *
      * @since 1.0.0
      */
-    const TRIM_LINES = 4;
+    public const TRIM_LINES = 4;
 
     /**
      * Compact adjacent empty lines into one.
      *
      * @since 1.0.0
      */
-    const COMPACT_LINES = 8;
+    public const COMPACT_LINES = 8;
 }
