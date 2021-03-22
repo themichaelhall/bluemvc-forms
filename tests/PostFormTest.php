@@ -215,9 +215,10 @@ class PostFormTest extends TestCase
         self::assertSame('bar', $form->getSelect()->getValue());
         self::assertFalse($form->getSelect()->hasError());
 
-        self::assertSame('Hello World!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        $testTextFileContent = file_get_contents($form->getFileField()->getFile()->getPath()->__toString());
+        self::assertSame("Hello World!\n", self::normalizeEndOfLine($testTextFileContent));
         self::assertSame('file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $form->getFileField()->getFile()->getSize());
+        self::assertSame(strlen($testTextFileContent), $form->getFileField()->getFile()->getSize());
         self::assertFalse($form->getFileField()->hasError());
 
         self::assertSame('foo.bar@example.com', $form->getEmailField()->getValue()->__toString());
@@ -232,9 +233,10 @@ class PostFormTest extends TestCase
         self::assertSame('2017-10-15 00:00:00', $form->getDateField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($form->getDateField()->hasError());
 
-        self::assertSame('{"Foo": "Bar"}', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        $testJsonFileContent = file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString());
+        self::assertSame("{\"Foo\": \"Bar\"}\n", self::normalizeEndOfLine($testJsonFileContent));
         self::assertSame('file.json', basename($form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(14, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame(strlen($testJsonFileContent), $form->getJsonFileField()->getFile()->getSize());
         self::assertSame(['Foo' => 'Bar'], $form->getJsonFileField()->getJson());
         self::assertFalse($form->getJsonFileField()->hasError());
 
@@ -541,9 +543,10 @@ class PostFormTest extends TestCase
         self::assertTrue($form->getSelect()->hasError());
         self::assertSame('Missing value', $form->getSelect()->getError());
 
-        self::assertSame('This is an invalid file!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        $testTextFileContent = file_get_contents($form->getFileField()->getFile()->getPath()->__toString());
+        self::assertSame("This is an invalid file!\n", self::normalizeEndOfLine($testTextFileContent));
         self::assertSame('invalid-file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(24, $form->getFileField()->getFile()->getSize());
+        self::assertSame(strlen($testTextFileContent), $form->getFileField()->getFile()->getSize());
         self::assertTrue($form->getFileField()->hasError());
         self::assertSame('File content is invalid.', $form->getFileField()->getError());
 
@@ -563,9 +566,10 @@ class PostFormTest extends TestCase
         self::assertTrue($form->getDateField()->hasError());
         self::assertSame('Invalid value', $form->getDateField()->getError());
 
-        self::assertSame('Hello World!', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        $testJsonFileContent = file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString());
+        self::assertSame("Hello World!\n", self::normalizeEndOfLine($testJsonFileContent));
         self::assertSame('file.txt', basename($form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame(strlen($testJsonFileContent), $form->getJsonFileField()->getFile()->getSize());
         self::assertSame([], $form->getJsonFileField()->getJson());
         self::assertTrue($form->getJsonFileField()->hasError());
         self::assertSame('Invalid json content.', $form->getJsonFileField()->getError());
@@ -719,9 +723,10 @@ class PostFormTest extends TestCase
         self::assertSame('bar', $form->getSelect()->getValue());
         self::assertFalse($form->getSelect()->hasError());
 
-        self::assertSame('Hello World!', file_get_contents($form->getFileField()->getFile()->getPath()->__toString()));
+        $testTextFileContent = file_get_contents($form->getFileField()->getFile()->getPath()->__toString());
+        self::assertSame("Hello World!\n", self::normalizeEndOfLine($testTextFileContent));
         self::assertSame('file.txt', basename($form->getFileField()->getFile()->getOriginalName()));
-        self::assertSame(12, $form->getFileField()->getFile()->getSize());
+        self::assertSame(strlen($testTextFileContent), $form->getFileField()->getFile()->getSize());
         self::assertFalse($form->getFileField()->hasError());
 
         self::assertSame('foo.bar@example.com', $form->getEmailField()->getValue()->__toString());
@@ -736,9 +741,10 @@ class PostFormTest extends TestCase
         self::assertSame('2017-10-15 00:00:00', $form->getDateField()->getValue()->format('Y-m-d H:i:s'));
         self::assertFalse($form->getDateField()->hasError());
 
-        self::assertSame('{"Foo": "Bar"}', file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString()));
+        $testJsonFileContent = file_get_contents($form->getJsonFileField()->getFile()->getPath()->__toString());
+        self::assertSame("{\"Foo\": \"Bar\"}\n", self::normalizeEndOfLine($testJsonFileContent));
         self::assertSame('file.json', basename($form->getJsonFileField()->getFile()->getOriginalName()));
-        self::assertSame(14, $form->getJsonFileField()->getFile()->getSize());
+        self::assertSame(strlen($testJsonFileContent), $form->getJsonFileField()->getFile()->getSize());
         self::assertSame(['Foo' => 'Bar'], $form->getJsonFileField()->getJson());
         self::assertFalse($form->getJsonFileField()->hasError());
 
@@ -960,5 +966,17 @@ class PostFormTest extends TestCase
 
         self::assertSame('This is the default value', $form->getDefaultValueElement()->getValue());
         self::assertFalse($form->getDefaultValueElement()->hasError());
+    }
+
+    /**
+     * Normalizes the end of line character(s) to \n, so tests will pass, even if the newline(s) in tests files are converted, e.g. by Git.
+     *
+     * @param string $s
+     *
+     * @return string
+     */
+    private static function normalizeEndOfLine(string $s): string
+    {
+        return str_replace("\r\n", "\n", $s);
     }
 }
