@@ -12,8 +12,8 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
 use BlueMvc\Forms\Interfaces\EmailFieldInterface;
-use DataTypes\EmailAddress;
-use DataTypes\Interfaces\EmailAddressInterface;
+use DataTypes\Net\EmailAddress;
+use DataTypes\Net\EmailAddressInterface;
 
 /**
  * Class representing an email field.

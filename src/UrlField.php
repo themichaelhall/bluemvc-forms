@@ -12,8 +12,8 @@ namespace BlueMvc\Forms;
 
 use BlueMvc\Forms\Base\AbstractTextInputField;
 use BlueMvc\Forms\Interfaces\UrlFieldInterface;
-use DataTypes\Interfaces\UrlInterface;
-use DataTypes\Url;
+use DataTypes\Net\Url;
+use DataTypes\Net\UrlInterface;
 
 /**
  * Class representing a url field.

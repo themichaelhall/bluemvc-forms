@@ -13,7 +13,7 @@ namespace BlueMvc\Forms;
 use BlueMvc\Core\Interfaces\RequestInterface;
 use BlueMvc\Forms\Base\AbstractForm;
 use BlueMvc\Forms\Interfaces\PostFormInterface;
-use DataTypes\Url;
+use DataTypes\Net\Url;
 
 /**
  * Class representing a post form.

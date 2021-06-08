@@ -8,7 +8,7 @@ use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Interfaces\UploadedFileInterface;
 use BlueMvc\Core\UploadedFile;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
-use DataTypes\FilePath;
+use DataTypes\System\FilePath;
 use PHPUnit\Framework\TestCase;
 
 /**

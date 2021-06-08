@@ -6,7 +6,7 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\UrlField;
-use DataTypes\Url;
+use DataTypes\Net\Url;
 use PHPUnit\Framework\TestCase;
 
 /**

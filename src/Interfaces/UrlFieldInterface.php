@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
-use DataTypes\Interfaces\UrlInterface;
+use DataTypes\Net\UrlInterface;
 
 /**
  * Interface for UrlField class.

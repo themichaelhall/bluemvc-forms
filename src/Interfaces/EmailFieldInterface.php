@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms\Interfaces;
 
-use DataTypes\Interfaces\EmailAddressInterface;
+use DataTypes\Net\EmailAddressInterface;
 
 /**
  * Interface for EmailField class.

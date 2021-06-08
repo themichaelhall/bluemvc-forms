@@ -6,7 +6,7 @@ namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Forms\EmailField;
-use DataTypes\EmailAddress;
+use DataTypes\Net\EmailAddress;
 use PHPUnit\Framework\TestCase;
 
 /**
