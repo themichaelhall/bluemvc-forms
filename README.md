@@ -5,7 +5,6 @@
 # BlueMvc Forms
 
 [![Tests](https://github.com/themichaelhall/bluemvc-forms/workflows/tests/badge.svg?branch=master)](https://github.com/themichaelhall/bluemvc-forms/actions)
-[![codecov.io](https://codecov.io/gh/themichaelhall/bluemvc-forms/coverage.svg?branch=master)](https://codecov.io/gh/themichaelhall/bluemvc-forms?branch=master)
 [![StyleCI](https://styleci.io/repos/89946368/shield?style=flat)](https://styleci.io/repos/89946368)
 [![License](https://poser.pugx.org/bluemvc/bluemvc-forms/license)](https://packagist.org/packages/bluemvc/bluemvc-forms)
 [![Latest Stable Version](https://poser.pugx.org/bluemvc/bluemvc-forms/v/stable)](https://packagist.org/packages/bluemvc/bluemvc-forms)
