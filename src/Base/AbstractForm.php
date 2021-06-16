@@ -18,6 +18,7 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
 use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
 use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
+use BlueMvc\Forms\Traits\FindContainedFormElementsTrait;
 
 /**
  * Abstract class representing a form.
@@ -26,29 +27,7 @@ use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
  */
 abstract class AbstractForm implements FormInterface
 {
-    /**
-     * Adds an element to the form.
-     *
-     * @since 1.0.0
-     *
-     * @param FormElementInterface $element The element.
-     */
-    public function addElement(FormElementInterface $element): void
-    {
-        $this->extraElements[] = $element;
-    }
-
-    /**
-     * Adds an element group to the form.
-     *
-     * @since 2.2.0
-     *
-     * @param FormElementGroupInterface $elementGroup The element group.
-     */
-    public function addElementGroup(FormElementGroupInterface $elementGroup): void
-    {
-        $this->extraElements[] = $elementGroup;
-    }
+    use FindContainedFormElementsTrait;
 
     /**
      * Returns the processed elements.
@@ -112,12 +91,12 @@ abstract class AbstractForm implements FormInterface
         $this->hasError = false;
         $this->processedElements = [];
 
-        $processableElements = $this->getProcessableElements();
-        $this->setValuesForElements($processableElements, $parameters, $uploadedFiles);
+        $elements = $this->findContainedElements();
+        $this->setValuesForElements($elements, $parameters, $uploadedFiles);
 
         $this->onValidate();
 
-        $this->checkElementsForError($processableElements);
+        $this->checkElementsForError($elements);
 
         if (!$this->hasError) {
             $this->onSuccess();
@@ -168,26 +147,6 @@ abstract class AbstractForm implements FormInterface
     }
 
     /**
-     * Returns all the processable elements for this instance.
-     *
-     * @return array<FormElementInterface|FormElementGroupInterface>
-     */
-    private function getProcessableElements(): array
-    {
-        $result = [];
-
-        foreach (get_object_vars($this) as $element) {
-            if ($element instanceof FormElementInterface || $element instanceof FormElementGroupInterface) {
-                $result[] = $element;
-            }
-        }
-
-        $result = array_merge($result, $this->extraElements);
-
-        return $result;
-    }
-
-    /**
      * Sets the form values for an array of form elements.
      *
      * @param array<FormElementInterface|FormElementGroupInterface> $elements      The form elements.
@@ -233,11 +192,6 @@ abstract class AbstractForm implements FormInterface
             }
         }
     }
-
-    /**
-     * @var FormElementInterface[] My extra elements to process.
-     */
-    private $extraElements = [];
 
     /**
      * @var bool True if form has error, false otherwise.
