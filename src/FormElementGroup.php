@@ -21,7 +21,7 @@ use BlueMvc\Forms\Traits\FindContainedFormElementsTrait;
  *
  * @since 2.2.0
  */
-class FormElementGroup implements FormElementGroupInterface
+abstract class FormElementGroup implements FormElementGroupInterface
 {
     use CustomItemsTrait;
     use FindContainedFormElementsTrait;
