@@ -13,18 +13,26 @@ use BlueMvc\Forms\TextField;
 /**
  * A basic form element group.
  */
-class TestBasicFormElementGroup extends FormElementGroup
+class BasicFormElementGroup extends FormElementGroup
 {
     /**
      * TestBasicFormElementGroup constructor.
+     *
+     * @param string $id              The base id of this form element group.
+     * @param bool   $disableElements If true, disable all elements.
      */
-    public function __construct(string $id)
+    public function __construct(string $id, bool $disableElements = false)
     {
         parent::__construct();
 
         $this->textField = new TextField($id . '-text');
+        $this->textField->setDisabled($disableElements);
+
         $this->checkBox = new CheckBox($id . '-checkbox');
+        $this->checkBox->setDisabled($disableElements);
+
         $this->privateTextField = new TextField($id . '-private-text');
+        $this->privateTextField->setDisabled($disableElements);
     }
 
     /**

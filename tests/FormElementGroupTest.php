@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Core\Collections\CustomItemCollection;
-use BlueMvc\Forms\Tests\Helpers\TestFormElementGroups\TestBasicFormElementGroup;
+use BlueMvc\Forms\Tests\Helpers\TestFormElementGroups\BasicFormElementGroup;
 use BlueMvc\Forms\TextField;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetElements()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertSame([
             $formElementGroup->getTextField(),
@@ -35,7 +35,7 @@ class FormElementGroupTest extends TestCase
     {
         $newElement = new TextField('foo', 'bar');
 
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->addElement($newElement);
 
         self::assertSame([
@@ -51,9 +51,9 @@ class FormElementGroupTest extends TestCase
      */
     public function testAddElementGroup()
     {
-        $newElementGroup = new TestBasicFormElementGroup('bar');
+        $newElementGroup = new BasicFormElementGroup('bar');
 
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->addElementGroup($newElementGroup);
 
         self::assertSame([
@@ -69,7 +69,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetError()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertNull($formElementGroup->getError());
     }
@@ -79,7 +79,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testHasError()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertFalse($formElementGroup->hasError());
     }
@@ -89,7 +89,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testSetError()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setError('Foo');
 
         self::assertSame('Foo', $formElementGroup->getError());
@@ -101,7 +101,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetCustomItem()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertNull($formElementGroup->getCustomItem('Foo'));
         self::assertNull($formElementGroup->getCustomItem('Bar'));
@@ -113,7 +113,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testSetCustomItem()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItem('Foo', 1234);
         $formElementGroup->setCustomItem('Bar', true);
 
@@ -127,7 +127,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetCustomItems()
     {
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItem('Bar', 0.0);
         $formElementGroup->setCustomItem('Baz', 'Foo');
 
@@ -143,7 +143,7 @@ class FormElementGroupTest extends TestCase
         $customItemCollection->set('Foo', [1, 2]);
         $customItemCollection->set('Baz', false);
 
-        $formElementGroup = new TestBasicFormElementGroup('foo');
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItems($customItemCollection);
 
         self::assertSame([1, 2], $formElementGroup->getCustomItem('Foo'));
