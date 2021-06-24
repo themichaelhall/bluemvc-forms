@@ -9,7 +9,6 @@ use BlueMvc\Forms\DateField;
 use BlueMvc\Forms\DateTimeField;
 use BlueMvc\Forms\EmailField;
 use BlueMvc\Forms\FileField;
-use BlueMvc\Forms\FormElementGroup;
 use BlueMvc\Forms\HiddenField;
 use BlueMvc\Forms\IntegerField;
 use BlueMvc\Forms\Interfaces\CheckBoxInterface;
@@ -17,7 +16,6 @@ use BlueMvc\Forms\Interfaces\DateFieldInterface;
 use BlueMvc\Forms\Interfaces\DateTimeFieldInterface;
 use BlueMvc\Forms\Interfaces\EmailFieldInterface;
 use BlueMvc\Forms\Interfaces\FileFieldInterface;
-use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\HiddenFieldInterface;
 use BlueMvc\Forms\Interfaces\IntegerFieldInterface;
 use BlueMvc\Forms\Interfaces\PasswordFieldInterface;
@@ -32,6 +30,8 @@ use BlueMvc\Forms\PostForm;
 use BlueMvc\Forms\RadioButton;
 use BlueMvc\Forms\RadioButtonCollection;
 use BlueMvc\Forms\Select;
+use BlueMvc\Forms\Tests\Helpers\TestFormElementGroups\BasicFormElementGroup;
+use BlueMvc\Forms\Tests\Helpers\TestFormElementGroups\OuterFormElementGroup;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\CustomValidatedField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\JsonFileField;
 use BlueMvc\Forms\Tests\Helpers\TestFormElements\NameField;
@@ -47,7 +47,7 @@ class BasicTestPostForm extends PostForm
     /**
      * Constructs the basic test post form.
      *
-     * @param bool $disableElements It true, disable all elements.
+     * @param bool $disableElements If true, disable all elements.
      */
     public function __construct(bool $disableElements = false)
     {
@@ -114,30 +114,12 @@ class BasicTestPostForm extends PostForm
         $this->privateField2 = new TextField('private-2');
         $this->privateField2->setDisabled($disableElements);
 
-        $this->formElementGroup = new FormElementGroup();
-        $groupText = new TextField('group-text');
-        $groupText->setDisabled($disableElements);
-        $this->formElementGroup->addElement($groupText);
-        $groupCheckBox = new CheckBox('group-checkbox');
-        $groupCheckBox->setDisabled($disableElements);
-        $this->formElementGroup->addElement($groupCheckBox);
+        $this->outerFormElementGroup = new OuterFormElementGroup('group-1', 'group-2', $disableElements);
 
-        $this->privateFormElementGroup1 = new FormElementGroup();
-        $privateGroup1Text = new TextField('private-group-text-1');
-        $privateGroup1Text->setDisabled($disableElements);
-        $this->privateFormElementGroup1->addElement($privateGroup1Text);
-        $privateGroup1CheckBox = new CheckBox('private-group-checkbox-1');
-        $privateGroup1CheckBox->setDisabled($disableElements);
-        $this->privateFormElementGroup1->addElement($privateGroup1CheckBox);
+        $this->privateFormElementGroup1 = new BasicFormElementGroup('group-3', $disableElements);
         $this->addElementGroup($this->privateFormElementGroup1);
 
-        $this->privateFormElementGroup2 = new FormElementGroup();
-        $privateGroup2Text = new TextField('private-group-text-2');
-        $privateGroup2Text->setDisabled($disableElements);
-        $this->privateFormElementGroup2->addElement($privateGroup2Text);
-        $privateGroup2CheckBox = new CheckBox('private-group-checkbox-2');
-        $privateGroup2CheckBox->setDisabled($disableElements);
-        $this->privateFormElementGroup2->addElement($privateGroup2CheckBox);
+        $this->privateFormElementGroup2 = new BasicFormElementGroup('group-4', $disableElements);
 
         $this->defaultValueElement = new TextField('default-value', 'This is the default value');
         $this->defaultValueElement->setDisabled($disableElements);
@@ -348,19 +330,19 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my form element group.
      *
-     * @return FormElementGroupInterface
+     * @return OuterFormElementGroup
      */
-    public function getFormElementGroup(): FormElementGroupInterface
+    public function getOuterFormElementGroup(): OuterFormElementGroup
     {
-        return $this->formElementGroup;
+        return $this->outerFormElementGroup;
     }
 
     /**
      * Returns my private form element group 1.
      *
-     * @return FormElementGroupInterface
+     * @return BasicFormElementGroup
      */
-    public function getPrivateFormElementGroup1(): FormElementGroupInterface
+    public function getPrivateFormElementGroup1(): BasicFormElementGroup
     {
         return $this->privateFormElementGroup1;
     }
@@ -368,9 +350,9 @@ class BasicTestPostForm extends PostForm
     /**
      * Returns my private form element group 2.
      *
-     * @return FormElementGroupInterface
+     * @return BasicFormElementGroup
      */
-    public function getPrivateFormElementGroup2(): FormElementGroupInterface
+    public function getPrivateFormElementGroup2(): BasicFormElementGroup
     {
         return $this->privateFormElementGroup2;
     }
@@ -387,8 +369,6 @@ class BasicTestPostForm extends PostForm
 
     /**
      * Called when form elements should be validated.
-     *
-     * @noinspection PhpPossiblePolymorphicInvocationInspection
      */
     protected function onValidate(): void
     {
@@ -434,22 +414,64 @@ class BasicTestPostForm extends PostForm
             $this->privateField2->setError('Value of private field 2 is invalid.');
         }
 
-        if ($this->formElementGroup->getElements()[0]->getValue() === 'invalid') {
-            $this->formElementGroup->getElements()[0]->setError('Value of group text is invalid');
-        } elseif ($this->formElementGroup->getElements()[0]->getValue() === 'invalid-group') {
-            $this->formElementGroup->setError('Group is invalid');
+        if ($this->outerFormElementGroup->getTextField1()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getTextField1()->setError('Value of outer group text field 1 is invalid.');
+        } elseif ($this->outerFormElementGroup->getTextField1()->getValue() === 'invalid-group') {
+            $this->outerFormElementGroup->setError('Outer group is invalid.');
         }
 
-        if ($this->privateFormElementGroup1->getElements()[0]->getValue() === 'invalid') {
-            $this->privateFormElementGroup1->getElements()[0]->setError('Value of private group 1 text is invalid');
-        } elseif ($this->privateFormElementGroup1->getElements()[0]->getValue() === 'invalid-group') {
-            $this->privateFormElementGroup1->setError('Private group 1 is invalid');
+        if ($this->outerFormElementGroup->getTextField2()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getTextField2()->setError('Value of outer group text field 2 is invalid.');
         }
 
-        if ($this->privateFormElementGroup2->getElements()[0]->getValue() === 'invalid') {
-            $this->privateFormElementGroup2->getElements()[0]->setError('Value of private group 2 text is invalid');
-        } elseif ($this->privateFormElementGroup2->getElements()[0]->getValue() === 'invalid-group') {
-            $this->privateFormElementGroup2->setError('Private group 2 is invalid');
+        if ($this->outerFormElementGroup->getFormElementGroup1()->getTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getFormElementGroup1()->getTextField()->setError('Value of inner group 1 text field is invalid.');
+        } elseif ($this->outerFormElementGroup->getFormElementGroup1()->getTextField()->getValue() === 'invalid-group') {
+            $this->outerFormElementGroup->getFormElementGroup1()->setError('Inner group 1 is invalid.');
+        }
+
+        if ($this->outerFormElementGroup->getFormElementGroup1()->getPrivateTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getFormElementGroup1()->getPrivateTextField()->setError('Value of inner group 1 private text field is invalid.');
+        }
+
+        if ($this->outerFormElementGroup->getFormElementGroup2()->getTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getFormElementGroup2()->getTextField()->setError('Value of inner group 2 text field is invalid.');
+        } elseif ($this->outerFormElementGroup->getFormElementGroup2()->getTextField()->getValue() === 'invalid-group') {
+            $this->outerFormElementGroup->getFormElementGroup2()->setError('Inner group 2 is invalid.');
+        }
+
+        if ($this->outerFormElementGroup->getFormElementGroup2()->getPrivateTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getFormElementGroup2()->getPrivateTextField()->setError('Value of inner group 2 private text field is invalid.');
+        }
+
+        if ($this->outerFormElementGroup->getPrivateFormElementGroup()->getTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getPrivateFormElementGroup()->getTextField()->setError('Value of inner private group text field is invalid.');
+        } elseif ($this->outerFormElementGroup->getPrivateFormElementGroup()->getTextField()->getValue() === 'invalid-group') {
+            $this->outerFormElementGroup->getPrivateFormElementGroup()->setError('Inner private group is invalid.');
+        }
+
+        if ($this->outerFormElementGroup->getPrivateFormElementGroup()->getPrivateTextField()->getValue() === 'invalid') {
+            $this->outerFormElementGroup->getPrivateFormElementGroup()->getPrivateTextField()->setError('Value of inner private group private text field is invalid.');
+        }
+
+        if ($this->privateFormElementGroup1->getTextField()->getValue() === 'invalid') {
+            $this->privateFormElementGroup1->getTextField()->setError('Value of private group 1 text field is invalid.');
+        } elseif ($this->privateFormElementGroup1->getTextField()->getValue() === 'invalid-group') {
+            $this->privateFormElementGroup1->setError('Private group 1 is invalid.');
+        }
+
+        if ($this->privateFormElementGroup1->getPrivateTextField()->getValue() === 'invalid') {
+            $this->privateFormElementGroup1->getPrivateTextField()->setError('Value of private group 1 text field is invalid.');
+        }
+
+        if ($this->privateFormElementGroup2->getTextField()->getValue() === 'invalid') {
+            $this->privateFormElementGroup2->getTextField()->setError('Value of private group 2 text field is invalid.');
+        } elseif ($this->privateFormElementGroup2->getTextField()->getValue() === 'invalid-group') {
+            $this->privateFormElementGroup2->setError('Private group 2 is invalid.');
+        }
+
+        if ($this->privateFormElementGroup2->getPrivateTextField()->getValue() === 'invalid') {
+            $this->privateFormElementGroup2->getPrivateTextField()->setError('Value of private group 2 text field is invalid.');
         }
 
         if ($this->defaultValueElement->getValue() === 'invalid') {
@@ -573,9 +595,14 @@ class BasicTestPostForm extends PostForm
     protected $dateTimeField;
 
     /**
-     * @var FormElementGroupInterface My form element group.
+     * @var OuterFormElementGroup My outer form element group.
      */
-    protected $formElementGroup;
+    protected $outerFormElementGroup;
+
+    /**
+     * @var TextFieldInterface My element with a default value.
+     */
+    protected $defaultValueElement;
 
     /**
      * @var TextFieldInterface My private field 1.
@@ -593,17 +620,12 @@ class BasicTestPostForm extends PostForm
     private $eventMethodsCalled;
 
     /**
-     * @var FormElementGroupInterface My private form element group 1.
+     * @var BasicFormElementGroup My private form element group 1.
      */
     private $privateFormElementGroup1;
 
     /**
-     * @var FormElementGroupInterface My private form element group 2.
+     * @var BasicFormElementGroup My private form element group 2.
      */
     private $privateFormElementGroup2;
-
-    /**
-     * @var TextFieldInterface My element with a default value.
-     */
-    protected $defaultValueElement;
 }

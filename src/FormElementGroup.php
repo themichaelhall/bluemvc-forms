@@ -14,15 +14,17 @@ use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
+use BlueMvc\Forms\Traits\FindContainedFormElementsTrait;
 
 /**
  * Class representing a group of form elements.
  *
  * @since 2.2.0
  */
-class FormElementGroup implements FormElementGroupInterface
+abstract class FormElementGroup implements FormElementGroupInterface
 {
     use CustomItemsTrait;
+    use FindContainedFormElementsTrait;
 
     /**
      * Constructs the group of form elements.
@@ -31,35 +33,8 @@ class FormElementGroup implements FormElementGroupInterface
      */
     public function __construct()
     {
-        $this->customData = null;
-        $this->elements = [];
         $this->error = null;
         $this->customItems = new CustomItemCollection();
-    }
-
-    /**
-     * Adds a form element.
-     *
-     * @since 2.2.0
-     *
-     * @param FormElementInterface $element The form element.
-     */
-    public function addElement(FormElementInterface $element): void
-    {
-        $this->elements[] = $element;
-    }
-
-    /**
-     * Returns the custom data or null if no custom data is set.
-     *
-     * @deprecated Use getCustomItem instead.
-     * @since      2.2.0
-     *
-     * @return mixed|null The custom data or null if no custom data is set.
-     */
-    public function getCustomData()
-    {
-        return $this->customData;
     }
 
     /**
@@ -67,11 +42,11 @@ class FormElementGroup implements FormElementGroupInterface
      *
      * @since 2.2.0
      *
-     * @return FormElementInterface[] The form elements.
+     * @return array<FormElementInterface|FormElementGroupInterface> The form elements.
      */
     public function getElements(): array
     {
-        return $this->elements;
+        return $this->findContainedElements();
     }
 
     /**
@@ -99,19 +74,6 @@ class FormElementGroup implements FormElementGroupInterface
     }
 
     /**
-     * Sets the custom data.
-     *
-     * @deprecated Use setCustomItem instead.
-     * @since      2.2.0
-     *
-     * @param mixed|null $customData The custom data.
-     */
-    public function setCustomData($customData): void
-    {
-        $this->customData = $customData;
-    }
-
-    /**
      * Sets the error for the group.
      *
      * @since 2.2.0
@@ -132,18 +94,13 @@ class FormElementGroup implements FormElementGroupInterface
      */
     public function __toString(): string
     {
-        return implode('', $this->elements);
+        return implode('', $this->getElements());
     }
 
     /**
      * @var mixed|null My custom data or null if no custom data is set.
      */
     private $customData;
-
-    /**
-     * @var FormElementInterface[] My form elements.
-     */
-    private $elements;
 
     /**
      * @var string|null My error or null if no error.

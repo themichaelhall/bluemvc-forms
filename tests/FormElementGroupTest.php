@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Tests;
 
 use BlueMvc\Core\Collections\CustomItemCollection;
-use BlueMvc\Forms\CheckBox;
-use BlueMvc\Forms\FormElementGroup;
+use BlueMvc\Forms\Tests\Helpers\TestFormElementGroups\BasicFormElementGroup;
 use BlueMvc\Forms\TextField;
 use PHPUnit\Framework\TestCase;
 
@@ -20,10 +19,13 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetElements()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
 
-        self::assertSame([], $formElementGroup->getElements());
-        self::assertSame('', $formElementGroup->__toString());
+        self::assertSame([
+            $formElementGroup->getTextField(),
+            $formElementGroup->getCheckBox(),
+        ], $formElementGroup->getElements());
+        self::assertSame('<input type="text" name="foo-text" required><input type="checkbox" name="foo-checkbox" required>', $formElementGroup->__toString());
     }
 
     /**
@@ -31,15 +33,35 @@ class FormElementGroupTest extends TestCase
      */
     public function testAddElement()
     {
-        $element1 = new TextField('foo', 'bar');
-        $element2 = new CheckBox('baz');
+        $newElement = new TextField('foo', 'bar');
 
-        $formElementGroup = new FormElementGroup();
-        $formElementGroup->addElement($element1);
-        $formElementGroup->addElement($element2);
+        $formElementGroup = new BasicFormElementGroup('foo');
+        $formElementGroup->addElement($newElement);
 
-        self::assertSame([$element1, $element2], $formElementGroup->getElements());
-        self::assertSame('<input type="text" name="foo" value="bar" required><input type="checkbox" name="baz" required>', $formElementGroup->__toString());
+        self::assertSame([
+            $formElementGroup->getTextField(),
+            $formElementGroup->getCheckBox(),
+            $newElement,
+        ], $formElementGroup->getElements());
+        self::assertSame('<input type="text" name="foo-text" required><input type="checkbox" name="foo-checkbox" required><input type="text" name="foo" value="bar" required>', $formElementGroup->__toString());
+    }
+
+    /**
+     * Test addElementGroup method.
+     */
+    public function testAddElementGroup()
+    {
+        $newElementGroup = new BasicFormElementGroup('bar');
+
+        $formElementGroup = new BasicFormElementGroup('foo');
+        $formElementGroup->addElementGroup($newElementGroup);
+
+        self::assertSame([
+            $formElementGroup->getTextField(),
+            $formElementGroup->getCheckBox(),
+            $newElementGroup,
+        ], $formElementGroup->getElements());
+        self::assertSame('<input type="text" name="foo-text" required><input type="checkbox" name="foo-checkbox" required><input type="text" name="bar-text" required><input type="checkbox" name="bar-checkbox" required>', $formElementGroup->__toString());
     }
 
     /**
@@ -47,7 +69,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetError()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertNull($formElementGroup->getError());
     }
@@ -57,7 +79,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testHasError()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertFalse($formElementGroup->hasError());
     }
@@ -67,7 +89,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testSetError()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setError('Foo');
 
         self::assertSame('Foo', $formElementGroup->getError());
@@ -75,36 +97,11 @@ class FormElementGroupTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $formElementGroup = new FormElementGroup();
-
-        self::assertNull($formElementGroup->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $formElementGroup = new FormElementGroup();
-        $formElementGroup->setCustomData(['Foo' => 'Bar']);
-
-        self::assertSame(['Foo' => 'Bar'], $formElementGroup->getCustomData());
-    }
-
-    /**
      * Test getCustomItem method.
      */
     public function testGetCustomItem()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
 
         self::assertNull($formElementGroup->getCustomItem('Foo'));
         self::assertNull($formElementGroup->getCustomItem('Bar'));
@@ -116,7 +113,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testSetCustomItem()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItem('Foo', 1234);
         $formElementGroup->setCustomItem('Bar', true);
 
@@ -130,7 +127,7 @@ class FormElementGroupTest extends TestCase
      */
     public function testGetCustomItems()
     {
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItem('Bar', 0.0);
         $formElementGroup->setCustomItem('Baz', 'Foo');
 
@@ -146,7 +143,7 @@ class FormElementGroupTest extends TestCase
         $customItemCollection->set('Foo', [1, 2]);
         $customItemCollection->set('Baz', false);
 
-        $formElementGroup = new FormElementGroup();
+        $formElementGroup = new BasicFormElementGroup('foo');
         $formElementGroup->setCustomItems($customItemCollection);
 
         self::assertSame([1, 2], $formElementGroup->getCustomItem('Foo'));

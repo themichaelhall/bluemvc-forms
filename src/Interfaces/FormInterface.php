@@ -42,7 +42,7 @@ interface FormInterface
      *
      * @since 1.0.0
      *
-     * @return FormElementInterface[] The processed elements.
+     * @return array<FormElementInterface|FormElementGroupInterface> The processed elements.
      */
     public function getProcessedElements(): array;
 

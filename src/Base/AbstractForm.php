@@ -18,6 +18,7 @@ use BlueMvc\Forms\Interfaces\FormElementInterface;
 use BlueMvc\Forms\Interfaces\FormInterface;
 use BlueMvc\Forms\Interfaces\SetFormValueElementInterface;
 use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
+use BlueMvc\Forms\Traits\FindContainedFormElementsTrait;
 
 /**
  * Abstract class representing a form.
@@ -26,36 +27,14 @@ use BlueMvc\Forms\Interfaces\SetUploadedFileElementInterface;
  */
 abstract class AbstractForm implements FormInterface
 {
-    /**
-     * Adds an element to the form.
-     *
-     * @since 1.0.0
-     *
-     * @param FormElementInterface $element The element.
-     */
-    public function addElement(FormElementInterface $element): void
-    {
-        $this->extraElements[] = $element;
-    }
-
-    /**
-     * Adds an element group to the form.
-     *
-     * @since 2.2.0
-     *
-     * @param FormElementGroupInterface $elementGroup The element group.
-     */
-    public function addElementGroup(FormElementGroupInterface $elementGroup): void
-    {
-        $this->extraElementGroups[] = $elementGroup;
-    }
+    use FindContainedFormElementsTrait;
 
     /**
      * Returns the processed elements.
      *
      * @since 1.0.0
      *
-     * @return FormElementInterface[] The processed elements.
+     * @return array<FormElementInterface|FormElementGroupInterface> The processed elements.
      */
     public function getProcessedElements(): array
     {
@@ -112,33 +91,12 @@ abstract class AbstractForm implements FormInterface
         $this->hasError = false;
         $this->processedElements = [];
 
-        $this->getElementsAndGroups($elementsToProcess, $elementsOrGroupsToCheckForErrors);
-
-        // Set form values for elements.
-        foreach ($elementsToProcess as $element) {
-            if ($element instanceof SetFormValueElementInterface) {
-                $formValue = $parameters->get($element->getName());
-                $element->setFormValue($formValue !== null ? $formValue : '');
-            }
-
-            if ($element instanceof SetUploadedFileElementInterface && $uploadedFiles !== null) {
-                $uploadedFile = $uploadedFiles->get($element->getName());
-                $element->setUploadedFile($uploadedFile);
-            }
-
-            $this->processedElements[] = $element;
-        }
+        $elements = $this->findContainedElements();
+        $this->setValuesForElements($elements, $parameters, $uploadedFiles);
 
         $this->onValidate();
 
-        // Check for errors.
-        foreach ($elementsOrGroupsToCheckForErrors as $elementOrGroup) {
-            /** @var FormElementInterface|FormElementGroupInterface $elementOrGroup */
-            if ($elementOrGroup->hasError()) {
-                $this->hasError = true;
-                break;
-            }
-        }
+        $this->checkElementsForError($elements);
 
         if (!$this->hasError) {
             $this->onSuccess();
@@ -189,74 +147,51 @@ abstract class AbstractForm implements FormInterface
     }
 
     /**
-     * Returns the elements and element groups to use in form processing.
+     * Sets the form values for an array of form elements.
      *
-     * @param FormElementInterface[]|null $elementsToProcess                The form elements to process.
-     * @param array|null                  $elementsOrGroupsToCheckForErrors The form elements or form element groups to check for errors.
+     * @param array<FormElementInterface|FormElementGroupInterface> $elements      The form elements.
+     * @param ParameterCollectionInterface                          $parameters    The form parameters.
+     * @param UploadedFileCollectionInterface|null                  $uploadedFiles The uploaded files or null if no files were uploaded.
      */
-    private function getElementsAndGroups(array &$elementsToProcess = null, array &$elementsOrGroupsToCheckForErrors = null): void
+    private function setValuesForElements(array $elements, ParameterCollectionInterface $parameters, ?UploadedFileCollectionInterface $uploadedFiles): void
     {
-        $elementsToProcess = [];
-        $elementsOrGroupsToCheckForErrors = [];
+        foreach ($elements as $element) {
+            $this->processedElements[] = $element;
 
-        // Elements and groups as properties in form.
-        foreach (get_object_vars($this) as $elementOrGroup) {
-            if ($elementOrGroup instanceof FormElementInterface) {
-                self::addElementToFormProcessingArrays($elementOrGroup, $elementsToProcess, $elementsOrGroupsToCheckForErrors);
-            } elseif ($elementOrGroup instanceof FormElementGroupInterface) {
-                self::addGroupToFormProcessingArrays($elementOrGroup, $elementsToProcess, $elementsOrGroupsToCheckForErrors);
+            if ($element instanceof SetFormValueElementInterface) {
+                $formValue = $parameters->get($element->getName());
+                $element->setFormValue($formValue !== null ? $formValue : '');
+            }
+
+            if ($element instanceof SetUploadedFileElementInterface && $uploadedFiles !== null) {
+                $uploadedFile = $uploadedFiles->get($element->getName());
+                $element->setUploadedFile($uploadedFile);
+            }
+
+            if ($element instanceof FormElementGroupInterface) {
+                $this->setValuesForElements($element->getElements(), $parameters, $uploadedFiles);
             }
         }
-
-        // Extra elements.
-        foreach ($this->extraElements as $extraElement) {
-            self::addElementToFormProcessingArrays($extraElement, $elementsToProcess, $elementsOrGroupsToCheckForErrors);
-        }
-
-        // Extra groups.
-        foreach ($this->extraElementGroups as $extraElementGroup) {
-            self::addGroupToFormProcessingArrays($extraElementGroup, $elementsToProcess, $elementsOrGroupsToCheckForErrors);
-        }
     }
 
     /**
-     * Adds an element group to arrays used in form processing.
+     * Checks an array of form elements for errors. Returns on first error found.
      *
-     * @param FormElementGroupInterface $group                            The element group.
-     * @param array                     $elementsToProcess                The form elements to process.
-     * @param array                     $elementsOrGroupsToCheckForErrors The form elements or form element groups to check for errors.
+     * @param array<FormElementInterface|FormElementGroupInterface> $elements
      */
-    private static function addGroupToFormProcessingArrays(FormElementGroupInterface $group, array &$elementsToProcess, array &$elementsOrGroupsToCheckForErrors): void
+    private function checkElementsForError(array $elements): void
     {
-        $elementsOrGroupsToCheckForErrors[] = $group;
+        foreach ($elements as $element) {
+            if ($element->hasError()) {
+                $this->hasError = true;
+                break;
+            }
 
-        foreach ($group->getElements() as $element) {
-            self::addElementToFormProcessingArrays($element, $elementsToProcess, $elementsOrGroupsToCheckForErrors);
+            if ($element instanceof FormElementGroupInterface) {
+                $this->checkElementsForError($element->getElements());
+            }
         }
     }
-
-    /**
-     * Adds an element to arrays used in form processing.
-     *
-     * @param FormElementInterface $element                          The element.
-     * @param array                $elementsToProcess                The form elements to process.
-     * @param array                $elementsOrGroupsToCheckForErrors The form elements or form element groups to check for errors.
-     */
-    private static function addElementToFormProcessingArrays(FormElementInterface $element, array &$elementsToProcess, array &$elementsOrGroupsToCheckForErrors): void
-    {
-        $elementsToProcess[] = $element;
-        $elementsOrGroupsToCheckForErrors[] = $element;
-    }
-
-    /**
-     * @var FormElementInterface[] My extra elements to process.
-     */
-    private $extraElements = [];
-
-    /**
-     * @var FormElementGroupInterface[] My extra element groups to process.
-     */
-    private $extraElementGroups = [];
 
     /**
      * @var bool True if form has error, false otherwise.

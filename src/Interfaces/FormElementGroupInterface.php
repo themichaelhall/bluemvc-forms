@@ -29,14 +29,13 @@ interface FormElementGroupInterface
     public function addElement(FormElementInterface $element): void;
 
     /**
-     * Returns the custom data or null if no custom data is set.
+     * Adds an element group.
      *
-     * @deprecated Use getCustomItem instead.
-     * @since      2.2.0
+     * @since 2.2.0
      *
-     * @return mixed|null The custom data or null if no custom data is set.
+     * @param FormElementGroupInterface $elementGroup The element group.
      */
-    public function getCustomData();
+    public function addElementGroup(FormElementGroupInterface $elementGroup): void;
 
     /**
      * Returns a custom item by name if it exists, null otherwise.
@@ -63,7 +62,7 @@ interface FormElementGroupInterface
      *
      * @since 2.2.0
      *
-     * @return FormElementInterface[] The form elements.
+     * @return array<FormElementInterface|FormElementGroupInterface> The form elements.
      */
     public function getElements(): array;
 
@@ -84,15 +83,6 @@ interface FormElementGroupInterface
      * @return bool True if group has an error, false otherwise.
      */
     public function hasError(): bool;
-
-    /**
-     * Sets the custom data.
-     *
-     * @since 2.2.0
-     *
-     * @param mixed|null $customData The custom data.
-     */
-    public function setCustomData($customData): void;
 
     /**
      * Sets a custom item.
