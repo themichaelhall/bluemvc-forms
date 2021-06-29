@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\FormElementGroupInterface;
 use BlueMvc\Forms\Interfaces\FormElementInterface;
@@ -25,17 +24,6 @@ abstract class FormElementGroup implements FormElementGroupInterface
 {
     use CustomItemsTrait;
     use FindContainedFormElementsTrait;
-
-    /**
-     * Constructs the group of form elements.
-     *
-     * @since 2.2.0
-     */
-    public function __construct()
-    {
-        $this->error = null;
-        $this->customItems = new CustomItemCollection();
-    }
 
     /**
      * Returns the form elements.
@@ -98,12 +86,7 @@ abstract class FormElementGroup implements FormElementGroupInterface
     }
 
     /**
-     * @var mixed|null My custom data or null if no custom data is set.
-     */
-    private $customData;
-
-    /**
      * @var string|null My error or null if no error.
      */
-    private $error;
+    private $error = null;
 }

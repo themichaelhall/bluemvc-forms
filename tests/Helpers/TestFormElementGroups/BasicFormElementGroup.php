@@ -23,8 +23,6 @@ class BasicFormElementGroup extends FormElementGroup
      */
     public function __construct(string $id, bool $disableElements = false)
     {
-        parent::__construct();
-
         $this->textField = new TextField($id . '-text');
         $this->textField->setDisabled($disableElements);
 

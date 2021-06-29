@@ -24,8 +24,6 @@ class OuterFormElementGroup extends FormElementGroup
      */
     public function __construct(string $id, string $innerId, bool $disableElements = false)
     {
-        parent::__construct();
-
         $this->textField1 = new TextField($id . '-text-1');
         $this->textField1->setDisabled($disableElements);
 

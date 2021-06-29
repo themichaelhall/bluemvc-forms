@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\RadioButtonInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
@@ -41,7 +40,6 @@ class RadioButton implements RadioButtonInterface
         $this->isSelected = false;
         $this->customData = null;
         $this->isDisabled = false;
-        $this->customItems = new CustomItemCollection();
     }
 
     /**

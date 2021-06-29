@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace BlueMvc\Forms;
 
-use BlueMvc\Core\Collections\CustomItemCollection;
 use BlueMvc\Core\Traits\CustomItemsTrait;
 use BlueMvc\Forms\Interfaces\OptionInterface;
 use BlueMvc\Forms\Traits\BuildTagTrait;
@@ -40,7 +39,6 @@ class Option implements OptionInterface
         $this->isSelected = false;
         $this->customData = null;
         $this->isDisabled = false;
-        $this->customItems = new CustomItemCollection();
     }
 
     /**
