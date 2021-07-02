@@ -392,4 +392,15 @@ class EmailFieldTest extends TestCase
         self::assertNull($emailField->getCustomItem('Bar'));
         self::assertFalse($emailField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $emailField = new EmailField('foo');
+        $emailField->setFormValue('Foo' . chr(128));
+
+        self::assertNull($emailField->getValue());
+    }
 }

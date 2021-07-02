@@ -397,4 +397,15 @@ class TextFieldTest extends TestCase
         self::assertNull($textField->getCustomItem('Bar'));
         self::assertFalse($textField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $textField = new TextField('foo');
+        $textField->setFormValue('Foo' . chr(128));
+
+        self::assertSame('', $textField->getValue());
+    }
 }

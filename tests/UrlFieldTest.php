@@ -392,4 +392,15 @@ class UrlFieldTest extends TestCase
         self::assertNull($urlField->getCustomItem('Bar'));
         self::assertFalse($urlField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $urlField = new UrlField('foo');
+        $urlField->setFormValue('Foo' . chr(128));
+
+        self::assertNull($urlField->getValue());
+    }
 }

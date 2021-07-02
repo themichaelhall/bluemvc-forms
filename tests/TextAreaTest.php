@@ -487,4 +487,15 @@ class TextAreaTest extends TestCase
         self::assertNull($textArea->getCustomItem('Bar'));
         self::assertFalse($textArea->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $textArea = new TextArea('foo');
+        $textArea->setFormValue('Foo' . chr(128));
+
+        self::assertSame('', $textArea->getValue());
+    }
 }

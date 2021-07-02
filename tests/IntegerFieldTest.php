@@ -446,4 +446,15 @@ class IntegerFieldTest extends TestCase
         self::assertNull($integerField->getCustomItem('Bar'));
         self::assertFalse($integerField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $integerField = new IntegerField('foo');
+        $integerField->setFormValue('Foo' . chr(128));
+
+        self::assertNull($integerField->getValue());
+    }
 }

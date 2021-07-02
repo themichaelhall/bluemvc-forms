@@ -332,4 +332,15 @@ class HiddenFieldTest extends TestCase
         self::assertNull($hiddenField->getCustomItem('Bar'));
         self::assertFalse($hiddenField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $hiddenField = new HiddenField('foo');
+        $hiddenField->setFormValue('Foo' . chr(128));
+
+        self::assertSame('', $hiddenField->getValue());
+    }
 }

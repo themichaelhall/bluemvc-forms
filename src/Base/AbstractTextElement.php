@@ -170,6 +170,9 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
     private function sanitizeText(string $text): string
     {
         $text = preg_replace($this->isMultiLine() ? '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/u' : '/[\x00-\x1F\x7F]/u', '', $text);
+        if ($text === null) {
+            return '';
+        }
 
         return $text;
     }

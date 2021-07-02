@@ -353,4 +353,15 @@ class PasswordFieldTest extends TestCase
         self::assertNull($passwordField->getCustomItem('Bar'));
         self::assertFalse($passwordField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $passwordField = new PasswordField('foo');
+        $passwordField->setFormValue('Foo' . chr(128));
+
+        self::assertSame('', $passwordField->getValue());
+    }
 }

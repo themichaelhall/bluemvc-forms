@@ -402,4 +402,15 @@ class DateTimeFieldTest extends TestCase
         self::assertNull($dateTimeField->getCustomItem('Bar'));
         self::assertFalse($dateTimeField->getCustomItem('Baz'));
     }
+
+    /**
+     * Test set an invalid text.
+     */
+    public function testSetInvalidText()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setFormValue('Foo' . chr(128));
+
+        self::assertNull($dateTimeField->getValue());
+    }
 }
