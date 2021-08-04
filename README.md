@@ -10,7 +10,7 @@
 [![Latest Stable Version](https://poser.pugx.org/bluemvc/bluemvc-forms/v/stable)](https://packagist.org/packages/bluemvc/bluemvc-forms)
 [![Total Downloads](https://poser.pugx.org/bluemvc/bluemvc-forms/downloads)](https://packagist.org/packages/bluemvc/bluemvc-forms)
 
-Forms extension for the [BlueMvc PHP framework](https://github.com/themichaelhall/bluemvc).
+Easy and secure form processing for the [BlueMvc PHP framework](https://github.com/themichaelhall/bluemvc).
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 {
   "name": "bluemvc/bluemvc-forms",
-  "description": "Forms extension for the BlueMvc PHP framework",
+  "description": "Easy and secure form processing for the BlueMvc PHP framework",
   "homepage": "https://bluemvc.com/",
   "license": "MIT",
   "type": "library",
