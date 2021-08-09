@@ -55,7 +55,7 @@ class RadioButtonTest extends TestCase
     }
 
     /**
-     * Test that output is html-encoded..
+     * Test that output is html-encoded.
      */
     public function testOutputIsHtmlEncoded()
     {

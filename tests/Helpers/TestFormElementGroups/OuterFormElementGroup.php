@@ -11,7 +11,7 @@ use BlueMvc\Forms\TextField;
 use BlueMvc\Forms\UrlField;
 
 /**
- * A "outer" form element group, containing another form element groups.
+ * An "outer" form element group, containing another form element groups.
  */
 class OuterFormElementGroup extends FormElementGroup
 {
