@@ -14,7 +14,7 @@ Easy and secure form processing for the [BlueMvc PHP framework](https://github.c
 
 ## Requirements
 
-- PHP >= 7.3
+- PHP >= 8.0
 
 ## Install with Composer
 
