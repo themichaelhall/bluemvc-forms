@@ -64,7 +64,7 @@ class DateFieldTest extends TestCase
         $dateField->setRequired($isRequired);
         $dateField->setFormValue($value);
 
-        self::assertSame($expectedValue, $dateField->getValue() !== null ? $dateField->getValue()->format('Y-m-d H:i:s') : null);
+        self::assertSame($expectedValue, $dateField->getValue()?->format('Y-m-d H:i:s'));
         self::assertSame($expectedIsEmpty, $dateField->isEmpty());
         self::assertSame($expectedIsInvalid, $dateField->isInvalid());
         self::assertSame($expectedHasError, $dateField->hasError());
@@ -108,7 +108,7 @@ class DateFieldTest extends TestCase
         $dateField = new DateField('foo');
         $dateField->setFormValue($value);
 
-        self::assertSame($expectedValue, $dateField->getValue() !== null ? $dateField->getValue()->format('Y-m-d H:i:s') : null);
+        self::assertSame($expectedValue, $dateField->getValue()?->format('Y-m-d H:i:s'));
         self::assertSame($expectedHtmlString, $dateField->getHtml());
         self::assertSame($expectedHtmlString, $dateField->__toString());
     }

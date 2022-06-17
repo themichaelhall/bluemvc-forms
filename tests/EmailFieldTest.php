@@ -64,7 +64,7 @@ class EmailFieldTest extends TestCase
         $emailField->setRequired($isRequired);
         $emailField->setFormValue($value);
 
-        self::assertSame($expectedValue, $emailField->getValue() !== null ? $emailField->getValue()->__toString() : null);
+        self::assertSame($expectedValue, $emailField->getValue()?->__toString());
         self::assertSame($expectedIsEmpty, $emailField->isEmpty());
         self::assertSame($expectedIsInvalid, $emailField->isInvalid());
         self::assertSame($expectedHasError, $emailField->hasError());
@@ -106,7 +106,7 @@ class EmailFieldTest extends TestCase
         $emailField = new EmailField('foo');
         $emailField->setFormValue($value);
 
-        self::assertSame($expectedValue, $emailField->getValue() !== null ? $emailField->getValue()->__toString() : null);
+        self::assertSame($expectedValue, $emailField->getValue()?->__toString());
         self::assertSame($expectedHtmlString, $emailField->getHtml());
         self::assertSame($expectedHtmlString, $emailField->__toString());
     }

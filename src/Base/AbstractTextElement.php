@@ -20,6 +20,25 @@ use BlueMvc\Forms\TextFormatOptions;
 abstract class AbstractTextElement extends AbstractSetFormValueElement
 {
     /**
+     * Constructs the text element.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name              The name.
+     * @param string $value             The value to display in input field.
+     * @param int    $textFormatOptions The text format options.
+     */
+    public function __construct(string $name, string $value = '', int $textFormatOptions = TextFormatOptions::NONE)
+    {
+        parent::__construct($name);
+
+        $this->textFormatOptions = $textFormatOptions;
+        $value = $this->sanitizeText($value);
+        $this->formatText($value);
+        $this->text = $value;
+    }
+
+    /**
      * Returns true if element value is empty, false otherwise.
      *
      * @since 1.0.0
@@ -29,25 +48,6 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
     public function isEmpty(): bool
     {
         return $this->text === '';
-    }
-
-    /**
-     * Constructs the text element.
-     *
-     * @since 1.0.0
-     *
-     * @param string $name              The name.
-     * @param string $value             The value to display in input field.
-     * @param int    $textFormatOptions The text format options.
-     */
-    protected function __construct(string $name, string $value = '', int $textFormatOptions = TextFormatOptions::NONE)
-    {
-        parent::__construct($name);
-
-        $this->textFormatOptions = $textFormatOptions;
-        $value = $this->sanitizeText($value);
-        $this->formatText($value);
-        $this->text = $value;
     }
 
     /**

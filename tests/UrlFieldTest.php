@@ -64,7 +64,7 @@ class UrlFieldTest extends TestCase
         $urlField->setRequired($isRequired);
         $urlField->setFormValue($value);
 
-        self::assertSame($expectedValue, $urlField->getValue() !== null ? $urlField->getValue()->__toString() : null);
+        self::assertSame($expectedValue, $urlField->getValue()?->__toString());
         self::assertSame($expectedIsEmpty, $urlField->isEmpty());
         self::assertSame($expectedIsInvalid, $urlField->isInvalid());
         self::assertSame($expectedHasError, $urlField->hasError());
@@ -106,7 +106,7 @@ class UrlFieldTest extends TestCase
         $urlField = new UrlField('foo');
         $urlField->setFormValue($value);
 
-        self::assertSame($expectedValue, $urlField->getValue() !== null ? $urlField->getValue()->__toString() : null);
+        self::assertSame($expectedValue, $urlField->getValue()?->__toString());
         self::assertSame($expectedHtmlString, $urlField->getHtml());
         self::assertSame($expectedHtmlString, $urlField->__toString());
     }

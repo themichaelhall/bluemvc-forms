@@ -23,6 +23,23 @@ abstract class AbstractFormElement implements FormElementInterface
     use CustomItemsTrait;
 
     /**
+     * Constructs the form element.
+     *
+     * @since 1.0.0
+     *
+     * @param string $name The name.
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+        $this->error = null;
+        $this->isRequired = true;
+        $this->label = '';
+        $this->customData = null;
+        $this->isDisabled = false;
+    }
+
+    /**
      * Returns the element html.
      *
      * @since 1.0.0
@@ -198,23 +215,6 @@ abstract class AbstractFormElement implements FormElementInterface
     public function __toString(): string
     {
         return $this->getHtml();
-    }
-
-    /**
-     * Constructs the form element.
-     *
-     * @since 1.0.0
-     *
-     * @param string $name The name.
-     */
-    protected function __construct(string $name)
-    {
-        $this->name = $name;
-        $this->error = null;
-        $this->isRequired = true;
-        $this->label = '';
-        $this->customData = null;
-        $this->isDisabled = false;
     }
 
     /**

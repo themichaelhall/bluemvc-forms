@@ -94,7 +94,7 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
 
         try {
             $this->setValue(new DateTimeImmutable($text));
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->setError('Invalid value');
             $this->isInvalid = true;
         }
@@ -113,7 +113,7 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
             return;
         }
 
-        $this->value = $value->setTime((int) $value->format('H'), (int) $value->format('i'));
+        $this->value = $value->setTime(intval($value->format('H')), intval($value->format('i')));
     }
 
     /**

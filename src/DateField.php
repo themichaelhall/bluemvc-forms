@@ -94,7 +94,7 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
 
         try {
             $this->setValue(new DateTimeImmutable($text));
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->setError('Invalid value');
             $this->isInvalid = true;
         }
