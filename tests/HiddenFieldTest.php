@@ -231,31 +231,6 @@ class HiddenFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $hiddenField = new HiddenField('foo');
-
-        self::assertNull($hiddenField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $hiddenField = new HiddenField('foo');
-        $hiddenField->setCustomData([]);
-
-        self::assertSame([], $hiddenField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

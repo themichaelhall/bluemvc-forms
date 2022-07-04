@@ -252,31 +252,6 @@ class PasswordFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $passwordField = new PasswordField('foo');
-
-        self::assertNull($passwordField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $passwordField = new PasswordField('foo');
-        $passwordField->setCustomData(['Foo', 'Bar', 'Baz']);
-
-        self::assertSame(['Foo', 'Bar', 'Baz'], $passwordField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

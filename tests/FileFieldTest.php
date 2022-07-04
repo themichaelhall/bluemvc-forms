@@ -204,31 +204,6 @@ class FileFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $fileField = new FileField('foo');
-
-        self::assertNull($fileField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $fileField = new FileField('foo');
-        $fileField->setCustomData(false);
-
-        self::assertFalse($fileField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

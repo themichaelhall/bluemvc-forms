@@ -87,8 +87,7 @@ interface FormElementGroupInterface
     /**
      * Sets a custom item.
      *
-     * @deprecated Use setCustomItem instead.
-     * @since      2.2.0
+     * @since 2.2.0
      *
      * @param string $name  The custom item name.
      * @param mixed  $value The custom item value.

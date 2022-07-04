@@ -89,31 +89,6 @@ class OptionTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $option = new Option('foo', 'bar');
-
-        self::assertNull($option->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $option = new Option('foo', 'bar');
-        $option->setCustomData('Baz');
-
-        self::assertSame('Baz', $option->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

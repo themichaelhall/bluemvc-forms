@@ -214,31 +214,6 @@ class JsonFileFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $jsonFileField = new JsonFileField('foo');
-
-        self::assertNull($jsonFileField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $jsonFileField = new JsonFileField('foo');
-        $jsonFileField->setCustomData([1, 2, 3]);
-
-        self::assertSame([1, 2, 3], $jsonFileField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

@@ -219,31 +219,6 @@ class CheckBoxTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $checkbox = new CheckBox('foo');
-
-        self::assertNull($checkbox->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $checkbox = new CheckBox('foo');
-        $checkbox->setCustomData('Foo Bar');
-
-        self::assertSame('Foo Bar', $checkbox->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

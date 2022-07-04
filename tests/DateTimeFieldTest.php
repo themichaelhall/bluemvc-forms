@@ -301,31 +301,6 @@ class DateTimeFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $dateTimeField = new DateTimeField('foo');
-
-        self::assertNull($dateTimeField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $dateTimeField = new DateTimeField('foo');
-        $dateTimeField->setCustomData(true);
-
-        self::assertTrue($dateTimeField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

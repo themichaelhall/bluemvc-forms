@@ -386,31 +386,6 @@ class TextAreaTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $textArea = new TextArea('foo');
-
-        self::assertNull($textArea->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $textArea = new TextArea('foo');
-        $textArea->setCustomData('Bar');
-
-        self::assertSame('Bar', $textArea->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

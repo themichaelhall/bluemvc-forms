@@ -293,31 +293,6 @@ class DateFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $dateField = new DateField('foo');
-
-        self::assertNull($dateField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $dateField = new DateField('foo');
-        $dateField->setCustomData(42);
-
-        self::assertSame(42, $dateField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

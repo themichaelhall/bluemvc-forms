@@ -332,31 +332,6 @@ class SelectTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $select = new Select('foo');
-
-        self::assertNull($select->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $select = new Select('foo');
-        $select->setCustomData('Bar');
-
-        self::assertSame('Bar', $select->getCustomData());
-    }
-
-    /**
      * Test get selected option with no option selected.
      */
     public function testGetSelectedOptionWithNoOptionSelected()

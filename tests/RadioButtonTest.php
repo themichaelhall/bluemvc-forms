@@ -133,31 +133,6 @@ class RadioButtonTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $radioButton = new RadioButton('foo', 'bar');
-
-        self::assertNull($radioButton->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $radioButton = new RadioButton('foo', 'bar');
-        $radioButton->setCustomData('Baz');
-
-        self::assertSame('Baz', $radioButton->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

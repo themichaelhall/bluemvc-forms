@@ -289,31 +289,6 @@ class NameFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $nameField = new NameField('foo');
-
-        self::assertNull($nameField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $nameField = new NameField('foo');
-        $nameField->setCustomData('Foo Bar');
-
-        self::assertSame('Foo Bar', $nameField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

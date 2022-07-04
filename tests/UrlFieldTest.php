@@ -291,31 +291,6 @@ class UrlFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $urlField = new UrlField('foo');
-
-        self::assertNull($urlField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $urlField = new UrlField('foo');
-        $urlField->setCustomData([false, true]);
-
-        self::assertSame([false, true], $urlField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

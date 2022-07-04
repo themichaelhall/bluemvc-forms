@@ -345,31 +345,6 @@ class IntegerFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $integerField = new IntegerField('foo');
-
-        self::assertNull($integerField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $integerField = new IntegerField('foo');
-        $integerField->setCustomData(null);
-
-        self::assertNull($integerField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

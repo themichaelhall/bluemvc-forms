@@ -1,4 +1,5 @@
 ## Unreleased
+- **Backward compatibility break**: Removed getCustomData and setCustomData methods from all form elements.
 - Changed required PHP version to >= 8.0.
 
 ## [2.2.0] - 2021-09-02

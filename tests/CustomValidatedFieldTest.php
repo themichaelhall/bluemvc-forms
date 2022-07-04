@@ -288,31 +288,6 @@ class CustomValidatedFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $customValidatedField = new CustomValidatedField('foo');
-
-        self::assertNull($customValidatedField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $customValidatedField = new CustomValidatedField('foo');
-        $customValidatedField->setCustomData(['Foo Bar']);
-
-        self::assertSame(['Foo Bar'], $customValidatedField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

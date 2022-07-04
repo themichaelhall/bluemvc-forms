@@ -38,21 +38,7 @@ class RadioButton implements RadioButtonInterface
         $this->label = $label;
         $this->name = '';
         $this->isSelected = false;
-        $this->customData = null;
         $this->isDisabled = false;
-    }
-
-    /**
-     * Returns the custom data.
-     *
-     * @deprecated Use getCustomItem instead.
-     * @since      2.1.0
-     *
-     * @return mixed|null The custom data or null if no custom data is set.
-     */
-    public function getCustomData()
-    {
-        return $this->customData;
     }
 
     /**
@@ -143,19 +129,6 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
-     * Sets the custom data.
-     *
-     * @deprecated Use setCustomItem instead.
-     * @since      2.1.0
-     *
-     * @param mixed|null $customData The custom data.
-     */
-    public function setCustomData($customData): void
-    {
-        $this->customData = $customData;
-    }
-
-    /**
      * Sets whether this radio button is disabled.
      *
      * @since 2.2.0
@@ -234,11 +207,6 @@ class RadioButton implements RadioButtonInterface
      * @var bool True if this radio button is selected, false otherwise.
      */
     private $isSelected;
-
-    /**
-     * @var mixed|null My custom data.
-     */
-    private $customData;
 
     /**
      * @var bool True if this radio button is disabled, false otherwise.

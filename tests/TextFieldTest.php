@@ -296,31 +296,6 @@ class TextFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $textField = new TextField('foo');
-
-        self::assertNull($textField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $textField = new TextField('foo');
-        $textField->setCustomData('Bar');
-
-        self::assertSame('Bar', $textField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

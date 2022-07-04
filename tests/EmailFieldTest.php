@@ -291,31 +291,6 @@ class EmailFieldTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $emailField = new EmailField('foo');
-
-        self::assertNull($emailField->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $emailField = new EmailField('foo');
-        $emailField->setCustomData(1234.5);
-
-        self::assertSame(1234.5, $emailField->getCustomData());
-    }
-
-    /**
      * Test isDisabled method.
      */
     public function testIsDisabled()

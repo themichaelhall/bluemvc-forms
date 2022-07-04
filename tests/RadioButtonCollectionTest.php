@@ -329,31 +329,6 @@ class RadioButtonCollectionTest extends TestCase
     }
 
     /**
-     * Test getCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testGetCustomData()
-    {
-        $radioButtonCollection = new RadioButtonCollection('foo');
-
-        self::assertNull($radioButtonCollection->getCustomData());
-    }
-
-    /**
-     * Test setCustomData method.
-     *
-     * @noinspection PhpDeprecationInspection
-     */
-    public function testSetCustomData()
-    {
-        $radioButtonCollection = new RadioButtonCollection('foo');
-        $radioButtonCollection->setCustomData(0);
-
-        self::assertSame(0, $radioButtonCollection->getCustomData());
-    }
-
-    /**
      * Test get selected radio button with no radio button selected.
      */
     public function testGetSelectedRadioButtonWithNoRadioButtonSelected()

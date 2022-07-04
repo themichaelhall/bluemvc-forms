@@ -35,7 +35,6 @@ abstract class AbstractFormElement implements FormElementInterface
         $this->error = null;
         $this->isRequired = true;
         $this->label = '';
-        $this->customData = null;
         $this->isDisabled = false;
     }
 
@@ -49,19 +48,6 @@ abstract class AbstractFormElement implements FormElementInterface
      * @return string The element html.
      */
     abstract public function getHtml(array $attributes = []): string;
-
-    /**
-     * Returns the custom data.
-     *
-     * @deprecated Use getCustomItem instead.
-     * @since      2.1.0
-     *
-     * @return mixed|null The custom data or null if no custom data is set.
-     */
-    public function getCustomData()
-    {
-        return $this->customData;
-    }
 
     /**
      * Returns the element error or null if element has no error.
@@ -145,19 +131,6 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
-     * Sets the custom data.
-     *
-     * @deprecated Use setCustomItem instead.
-     * @since      2.1.0
-     *
-     * @param mixed|null $customData The custom data.
-     */
-    public function setCustomData($customData): void
-    {
-        $this->customData = $customData;
-    }
-
-    /**
      * Sets whether element value is required.
      *
      * @since 1.0.0
@@ -236,11 +209,6 @@ abstract class AbstractFormElement implements FormElementInterface
      * @var string My label.
      */
     private $label;
-
-    /**
-     * @var mixed|null My custom data.
-     */
-    private $customData;
 
     /**
      * @var bool If true, element is disabled, false otherwise.

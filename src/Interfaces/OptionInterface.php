@@ -20,16 +20,6 @@ use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
 interface OptionInterface
 {
     /**
-     * Returns the custom data.
-     *
-     * @deprecated Use getCustomItem instead.
-     * @since      2.1.0
-     *
-     * @return mixed|null The custom data or null if no custom data is set.
-     */
-    public function getCustomData();
-
-    /**
      * Returns a custom item by name if it exists, null otherwise.
      *
      * @since 2.2.0
@@ -95,16 +85,6 @@ interface OptionInterface
      * @return bool True if option is disabled, false otherwise.
      */
     public function isDisabled(): bool;
-
-    /**
-     * Sets the custom data.
-     *
-     * @deprecated Use setCustomItem instead.
-     * @since      2.1.0
-     *
-     * @param mixed|null $customData The custom data.
-     */
-    public function setCustomData($customData): void;
 
     /**
      * Sets a custom item.
