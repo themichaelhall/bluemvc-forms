@@ -98,9 +98,6 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     protected function onSetUploadedFile(?UploadedFileInterface $uploadedFile = null): void
     {
         $this->file = $uploadedFile;
-
-        /** @noinspection PhpDeprecationInspection */
-        parent::onSetUploadedFile();
     }
 
     /**

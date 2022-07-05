@@ -29,7 +29,6 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
     public function setFormValue(string $value): void
     {
         if (!$this->isDisabled()) {
-            /** @noinspection PhpDeprecationInspection */
             $this->onSetFormValue($value);
         }
 
@@ -44,10 +43,6 @@ abstract class AbstractSetFormValueElement extends AbstractFormElement implement
      * @since 1.0.0
      *
      * @param string $value The value from form.
-     *
-     * @deprecated This method will be declared abstract in next major version.
      */
-    protected function onSetFormValue(string $value): void
-    {
-    }
+    abstract protected function onSetFormValue(string $value): void;
 }

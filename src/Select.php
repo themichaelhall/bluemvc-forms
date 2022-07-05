@@ -185,9 +185,6 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
             $optionIsSelected = $option->getValue() === $this->value;
             $option->setSelected($optionIsSelected);
         }
-
-        /** @noinspection PhpDeprecationInspection */
-        parent::onSetFormValue($value);
     }
 
     /**

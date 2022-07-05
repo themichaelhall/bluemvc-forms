@@ -95,9 +95,6 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
         $this->formatText($value);
         $this->text = $value;
 
-        /** @noinspection PhpDeprecationInspection */
-        parent::onSetFormValue($value);
-
         $this->onSetText($value);
     }
 

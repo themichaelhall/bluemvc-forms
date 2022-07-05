@@ -170,9 +170,6 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
             $radioButtonIsSelected = $radioButton->getValue() === $this->value;
             $radioButton->setSelected($radioButtonIsSelected);
         }
-
-        /** @noinspection PhpDeprecationInspection */
-        parent::onSetFormValue($value);
     }
 
     /**
