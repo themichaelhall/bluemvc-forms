@@ -150,22 +150,22 @@ class Option implements OptionInterface
     }
 
     /**
-     * @var string My value.
+     * @var string The value.
      */
-    private $value;
+    private string $value;
 
     /**
-     * @var string My label.
+     * @var string The label.
      */
-    private $label;
+    private string $label;
 
     /**
      * @var bool True if this option is selected, false otherwise.
      */
-    private $isSelected;
+    private bool $isSelected;
 
     /**
      * @var bool True if this options is disabled, false otherwise.
      */
-    private $isDisabled;
+    private bool $isDisabled;
 }

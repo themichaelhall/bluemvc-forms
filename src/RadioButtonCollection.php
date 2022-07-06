@@ -191,12 +191,12 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
     }
 
     /**
-     * @var string My value.
+     * @var string The value.
      */
-    private $value;
+    private string $value;
 
     /**
-     * @var RadioButtonInterface[] My radio buttons.
+     * @var RadioButtonInterface[] The radio buttons.
      */
-    private $radioButtons;
+    private array $radioButtons;
 }

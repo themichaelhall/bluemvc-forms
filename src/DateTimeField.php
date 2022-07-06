@@ -119,10 +119,10 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $isInvalid;
+    private bool $isInvalid;
 
     /**
-     * @var DateTimeImmutable|null My value.
+     * @var DateTimeImmutable|null The value.
      */
-    private $value;
+    private ?DateTimeImmutable $value;
 }

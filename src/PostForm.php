@@ -116,5 +116,5 @@ abstract class PostForm extends AbstractForm implements PostFormInterface
     /**
      * @var bool True if check origin is enabled, false otherwise.
      */
-    private $checkOriginEnabled = true;
+    private bool $checkOriginEnabled = true;
 }

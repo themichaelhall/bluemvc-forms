@@ -196,15 +196,15 @@ abstract class AbstractForm implements FormInterface
     /**
      * @var bool True if form has error, false otherwise.
      */
-    private $hasError = false;
+    private bool $hasError = false;
 
     /**
      * @var bool True if form is processed, false otherwise.
      */
-    private $isProcessed = false;
+    private bool $isProcessed = false;
 
     /**
-     * @var FormElementInterface[] My processed elements.
+     * @var FormElementInterface[] The processed elements.
      */
-    private $processedElements = [];
+    private array $processedElements = [];
 }

@@ -191,27 +191,27 @@ abstract class AbstractFormElement implements FormElementInterface
     }
 
     /**
-     * @var string My name.
+     * @var string The name.
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var string|null My error or null if no error.
+     * @var string|null The error or null if no error.
      */
-    private $error;
+    private ?string $error;
 
     /**
      * @var bool If true element value is required, false otherwise.
      */
-    private $isRequired;
+    private bool $isRequired;
 
     /**
-     * @var string My label.
+     * @var string The label.
      */
-    private $label;
+    private string $label;
 
     /**
      * @var bool If true, element is disabled, false otherwise.
      */
-    private $isDisabled;
+    private bool $isDisabled;
 }

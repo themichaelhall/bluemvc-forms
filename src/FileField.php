@@ -101,7 +101,7 @@ class FileField extends AbstractSetUploadedFileElement implements FileFieldInter
     }
 
     /**
-     * @var UploadedFileInterface|null My file.
+     * @var UploadedFileInterface|null The file.
      */
-    private $file;
+    private ?UploadedFileInterface $file;
 }

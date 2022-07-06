@@ -92,30 +92,30 @@ class OuterFormElementGroup extends FormElementGroup
     /**
      * @var TextFieldInterface
      */
-    protected $textField1;
+    protected TextFieldInterface $textField1;
 
     /**
      * @var BasicFormElementGroup
      */
-    protected $formElementGroup1;
+    protected BasicFormElementGroup $formElementGroup1;
 
     /**
      * @var TextFieldInterface
      */
-    private $textField2;
+    private TextFieldInterface $textField2;
 
     /**
      * @var BasicFormElementGroup
      */
-    private $formElementGroup2;
+    private BasicFormElementGroup $formElementGroup2;
 
     /**
      * @var UrlFieldInterface
      */
-    private $privateUrlField;
+    private UrlFieldInterface $privateUrlField;
 
     /**
      * @var BasicFormElementGroup
      */
-    private $privateFormElementGroup;
+    private BasicFormElementGroup $privateFormElementGroup;
 }

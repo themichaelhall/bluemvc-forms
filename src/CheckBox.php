@@ -102,7 +102,7 @@ class CheckBox extends AbstractSetFormValueElement implements CheckBoxInterface
     }
 
     /**
-     * @var bool My value.
+     * @var bool The value.
      */
-    private $value;
+    private bool $value;
 }

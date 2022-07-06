@@ -103,10 +103,10 @@ class EmailField extends AbstractTextInputField implements EmailFieldInterface
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $isInvalid;
+    private bool $isInvalid;
 
     /**
-     * @var EmailAddressInterface|null My value.
+     * @var EmailAddressInterface|null The value.
      */
-    private $value;
+    private ?EmailAddressInterface $value;
 }

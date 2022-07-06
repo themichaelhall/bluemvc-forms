@@ -26,9 +26,9 @@ interface RadioButtonInterface
      *
      * @param string $name The custom item name.
      *
-     * @return mixed|null The custom item if it exists, null otherwise.
+     * @return mixed The custom item if it exists, null otherwise.
      */
-    public function getCustomItem(string $name);
+    public function getCustomItem(string $name): mixed;
 
     /**
      * Returns the custom items.
@@ -103,7 +103,7 @@ interface RadioButtonInterface
      * @param string $name  The custom item name.
      * @param mixed  $value The custom item value.
      */
-    public function setCustomItem(string $name, $value): void;
+    public function setCustomItem(string $name, mixed $value): void;
 
     /**
      * Sets the custom items.

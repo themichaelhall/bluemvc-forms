@@ -189,27 +189,27 @@ class RadioButton implements RadioButtonInterface
     }
 
     /**
-     * @var string My value.
+     * @var string The value.
      */
-    private $value;
+    private string $value;
 
     /**
-     * @var string My label.
+     * @var string The label.
      */
-    private $label;
+    private string $label;
 
     /**
-     * @var string My name.
+     * @var string The name.
      */
-    private $name;
+    private string $name;
 
     /**
      * @var bool True if this radio button is selected, false otherwise.
      */
-    private $isSelected;
+    private bool $isSelected;
 
     /**
      * @var bool True if this radio button is disabled, false otherwise.
      */
-    private $isDisabled;
+    private bool $isDisabled;
 }

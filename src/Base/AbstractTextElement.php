@@ -175,12 +175,12 @@ abstract class AbstractTextElement extends AbstractSetFormValueElement
     }
 
     /**
-     * @var int My text format options.
+     * @var int The text format options.
      */
-    private $textFormatOptions;
+    private int $textFormatOptions;
 
     /**
-     * @var string My text to display in input form.
+     * @var string The text to display in input form.
      */
-    private $text;
+    private string $text;
 }

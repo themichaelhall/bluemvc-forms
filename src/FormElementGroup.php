@@ -86,7 +86,7 @@ abstract class FormElementGroup implements FormElementGroupInterface
     }
 
     /**
-     * @var string|null My error or null if no error.
+     * @var string|null The error or null if no error.
      */
-    private $error = null;
+    private ?string $error = null;
 }

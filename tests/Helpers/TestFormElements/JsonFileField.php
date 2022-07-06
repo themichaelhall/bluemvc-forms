@@ -66,7 +66,7 @@ class JsonFileField extends FileField
     }
 
     /**
-     * @var array My json content.
+     * @var array The json content.
      */
-    private $json;
+    private array $json;
 }

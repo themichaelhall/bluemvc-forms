@@ -14,9 +14,9 @@ use BlueMvc\Forms\TextField;
 class SimpleTestPostForm extends PostForm
 {
     /**
-     * @var TextFieldInterface My text field.
+     * @var TextFieldInterface The text field.
      */
-    public $Text;
+    public TextFieldInterface $Text;
 
     /**
      * Constructs the simple test post form.

@@ -160,20 +160,20 @@ class IntegerField extends AbstractTextInputField implements IntegerFieldInterfa
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $isInvalid;
+    private bool $isInvalid;
 
     /**
-     * @var int|null My value.
+     * @var int|null The value.
      */
-    private $value;
+    private ?int $value;
 
     /**
-     * @var int|null My minimum value.
+     * @var int|null The minimum value.
      */
-    private $minimumValue;
+    private ?int $minimumValue;
 
     /**
-     * @var int|null My maximum value.
+     * @var int|null The maximum value.
      */
-    private $maximumValue;
+    private ?int $maximumValue;
 }

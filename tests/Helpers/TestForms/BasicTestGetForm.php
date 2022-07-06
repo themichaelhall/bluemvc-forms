@@ -477,112 +477,112 @@ class BasicTestGetForm extends GetForm
     }
 
     /**
-     * @var TextFieldInterface My form field that not requires a value.
+     * @var TextFieldInterface The form field that not requires a value.
      */
-    protected $notRequiredField;
+    protected TextFieldInterface $notRequiredField;
 
     /**
-     * @var CustomValidatedField My field that has a custom validation.
+     * @var CustomValidatedField The field that has a custom validation.
      */
-    protected $customValidatedField;
+    protected CustomValidatedField $customValidatedField;
 
     /**
-     * @var TextFieldInterface My text field.
+     * @var TextFieldInterface The text field.
      */
-    protected $textField;
+    protected TextFieldInterface $textField;
 
     /**
-     * @var PasswordFieldInterface My password field.
+     * @var PasswordFieldInterface The password field.
      */
-    protected $passwordField;
+    protected PasswordFieldInterface $passwordField;
 
     /**
-     * @var NameField My name field.
+     * @var NameField The name field.
      */
-    protected $nameField;
+    protected NameField $nameField;
 
     /**
-     * @var UrlFieldInterface My url field.
+     * @var UrlFieldInterface The url field.
      */
-    protected $urlField;
+    protected UrlFieldInterface $urlField;
 
     /**
-     * @var CheckBoxInterface My checkbox.
+     * @var CheckBoxInterface The checkbox.
      */
-    protected $checkBox;
+    protected CheckBoxInterface $checkBox;
 
     /**
-     * @var TextAreaInterface My text area.
+     * @var TextAreaInterface The text area.
      */
-    protected $textArea;
+    protected TextAreaInterface $textArea;
 
     /**
-     * @var SelectInterface My select.
+     * @var SelectInterface The select.
      */
-    protected $select;
+    protected SelectInterface $select;
 
     /**
-     * @var EmailFieldInterface My email field.
+     * @var EmailFieldInterface The email field.
      */
-    protected $emailField;
+    protected EmailFieldInterface $emailField;
 
     /**
-     * @var HiddenFieldInterface My hidden field.
+     * @var HiddenFieldInterface The hidden field.
      */
-    protected $hiddenField;
+    protected HiddenFieldInterface $hiddenField;
 
     /**
-     * @var IntegerFieldInterface My integer field.
+     * @var IntegerFieldInterface The integer field.
      */
-    protected $integerField;
+    protected IntegerFieldInterface $integerField;
 
     /**
-     * @var DateFieldInterface My date field.
+     * @var DateFieldInterface The date field.
      */
-    protected $dateField;
+    protected DateFieldInterface $dateField;
 
     /**
-     * @var RadioButtonCollectionInterface My radio buttons.
+     * @var RadioButtonCollectionInterface The radio buttons.
      */
-    protected $radioButtons;
+    protected RadioButtonCollectionInterface $radioButtons;
 
     /**
-     * @var DateTimeFieldInterface My date time field.
+     * @var DateTimeFieldInterface The date time field.
      */
-    protected $dateTimeField;
+    protected DateTimeFieldInterface $dateTimeField;
 
     /**
-     * @var OuterFormElementGroup My outer form element group.
+     * @var OuterFormElementGroup The outer form element group.
      */
-    protected $outerFormElementGroup;
+    protected OuterFormElementGroup $outerFormElementGroup;
 
     /**
-     * @var TextFieldInterface My element with a default value.
+     * @var TextFieldInterface The element with a default value.
      */
-    protected $defaultValueElement;
+    protected TextFieldInterface $defaultValueElement;
 
     /**
-     * @var TextFieldInterface My private field 1.
+     * @var TextFieldInterface The private field 1.
      */
-    private $privateField1;
+    private TextFieldInterface $privateField1;
 
     /**
-     * @var TextFieldInterface My private field 2.
+     * @var TextFieldInterface The private field 2.
      */
-    private $privateField2;
+    private TextFieldInterface $privateField2;
 
     /**
      * @var string[] The names of the event methods called.
      */
-    private $eventMethodsCalled;
+    private array $eventMethodsCalled;
 
     /**
-     * @var BasicFormElementGroup My private form element group 1.
+     * @var BasicFormElementGroup The private form element group 1.
      */
-    private $privateFormElementGroup1;
+    private BasicFormElementGroup $privateFormElementGroup1;
 
     /**
-     * @var BasicFormElementGroup My private form element group 2.
+     * @var BasicFormElementGroup The private form element group 2.
      */
-    private $privateFormElementGroup2;
+    private BasicFormElementGroup $privateFormElementGroup2;
 }

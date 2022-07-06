@@ -60,15 +60,15 @@ class BasicFormElementGroup extends FormElementGroup
     /**
      * @var TextFieldInterface
      */
-    protected $textField;
+    protected TextFieldInterface $textField;
 
     /**
      * @var CheckBoxInterface
      */
-    protected $checkBox;
+    protected CheckBoxInterface $checkBox;
 
     /**
      * @var TextFieldInterface
      */
-    private $privateTextField;
+    private TextFieldInterface $privateTextField;
 }

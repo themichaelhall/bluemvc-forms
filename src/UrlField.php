@@ -103,10 +103,10 @@ class UrlField extends AbstractTextInputField implements UrlFieldInterface
     /**
      * @var bool True if the value is invalid, false otherwise.
      */
-    private $isInvalid;
+    private bool $isInvalid;
 
     /**
-     * @var UrlInterface|null My value.
+     * @var UrlInterface|null The value.
      */
-    private $value;
+    private ?UrlInterface $value;
 }

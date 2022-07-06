@@ -32,7 +32,7 @@ class TextArea extends AbstractTextElement implements TextAreaInterface
      * @param string $value             The value.
      * @param int    $textFormatOptions The text format options.
      */
-    public function __construct(string $name, string $value = '', $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT | TextFormatOptions::TRIM_LINES | TextFormatOptions::COMPACT_LINES)
+    public function __construct(string $name, string $value = '', int $textFormatOptions = TextFormatOptions::TRIM | TextFormatOptions::COMPACT | TextFormatOptions::TRIM_LINES | TextFormatOptions::COMPACT_LINES)
     {
         parent::__construct($name, $value, $textFormatOptions);
     }

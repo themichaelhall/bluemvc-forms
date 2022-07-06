@@ -206,17 +206,17 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
     }
 
     /**
-     * @var string My value.
+     * @var string The value.
      */
-    private $value;
+    private string $value;
 
     /**
-     * @var OptionInterface[] My options.
+     * @var OptionInterface[] The options.
      */
-    private $options;
+    private array $options;
 
     /**
      * @var bool True if select has at least one empty option, false otherwise.
      */
-    private $hasEmptyOption;
+    private bool $hasEmptyOption;
 }
