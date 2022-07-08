@@ -11,13 +11,14 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Interfaces;
 
 use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
+use Stringable;
 
 /**
  * Interface for a group of form elements.
  *
  * @since 2.2.0
  */
-interface FormElementGroupInterface
+interface FormElementGroupInterface extends Stringable
 {
     /**
      * Adds a form element.
@@ -111,13 +112,4 @@ interface FormElementGroupInterface
      * @param string $error The error for the group.
      */
     public function setError(string $error): void;
-
-    /**
-     * Returns the group of elements as html.
-     *
-     * @since 2.2.0
-     *
-     * @return string The group of elements as html.
-     */
-    public function __toString(): string;
 }

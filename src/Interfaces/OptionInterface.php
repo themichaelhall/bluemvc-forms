@@ -11,13 +11,14 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Interfaces;
 
 use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
+use Stringable;
 
 /**
  * Interface for Option class.
  *
  * @since 1.0.0
  */
-interface OptionInterface
+interface OptionInterface extends Stringable
 {
     /**
      * Returns a custom item by name if it exists, null otherwise.
@@ -122,13 +123,4 @@ interface OptionInterface
      * @param bool $isSelected True if option is selected, false otherwise.
      */
     public function setSelected(bool $isSelected): void;
-
-    /**
-     * Returns the option as a string.
-     *
-     * @since 1.0.0
-     *
-     * @return string The option as a string.
-     */
-    public function __toString(): string;
 }

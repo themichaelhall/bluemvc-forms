@@ -11,13 +11,14 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Interfaces;
 
 use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
+use Stringable;
 
 /**
  * Interface for form elements.
  *
  * @since 1.0.0
  */
-interface FormElementInterface
+interface FormElementInterface extends Stringable
 {
     /**
      * Returns a custom item by name if it exists, null otherwise.
@@ -167,13 +168,4 @@ interface FormElementInterface
      * @param bool $isRequired True if element value is required, false otherwise.
      */
     public function setRequired(bool $isRequired): void;
-
-    /**
-     * Returns the element html.
-     *
-     * @since 1.0.0
-     *
-     * @return string The element html.
-     */
-    public function __toString(): string;
 }

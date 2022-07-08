@@ -11,13 +11,14 @@ declare(strict_types=1);
 namespace BlueMvc\Forms\Interfaces;
 
 use BlueMvc\Core\Interfaces\Collections\CustomItemCollectionInterface;
+use Stringable;
 
 /**
  * Interface for RadioButton class.
  *
  * @since 1.0.0
  */
-interface RadioButtonInterface
+interface RadioButtonInterface extends Stringable
 {
     /**
      * Returns a custom item by name if it exists, null otherwise.
@@ -149,13 +150,4 @@ interface RadioButtonInterface
      * @param bool $isSelected True if radio button is selected, false otherwise.
      */
     public function setSelected(bool $isSelected): void;
-
-    /**
-     * Returns the radio button as a string.
-     *
-     * @since 1.0.0
-     *
-     * @return string The radio button as a string.
-     */
-    public function __toString(): string;
 }
