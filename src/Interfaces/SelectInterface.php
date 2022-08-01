@@ -17,6 +17,8 @@ use IteratorAggregate;
  * Interface for Select class.
  *
  * @since 1.0.0
+ *
+ * @extends IteratorAggregate<string, OptionInterface>
  */
 interface SelectInterface extends SetFormValueElementInterface, Countable, IteratorAggregate
 {

@@ -77,7 +77,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @since 1.0.0
      *
-     * @param array $attributes The attributes.
+     * @param array<string|int, mixed> $attributes The attributes.
      *
      * @return string The element html.
      */
@@ -108,7 +108,7 @@ class Select extends AbstractSetFormValueElement implements SelectInterface
      *
      * @since 2.1.0
      *
-     * @return Traversable The iterator.
+     * @return Traversable<string, OptionInterface> The iterator.
      */
     public function getIterator(): Traversable
     {

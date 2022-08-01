@@ -20,10 +20,10 @@ trait BuildTagTrait
     /**
      * Builds a tag from a name and attributes array.
      *
-     * @param string      $name             The name.
-     * @param string|null $content          The content or null if no content.
-     * @param array       $attributes       The attributes.
-     * @param bool        $contentIsEncoded If true, content is already encoded, false otherwise.
+     * @param string                   $name             The name.
+     * @param string|null              $content          The content or null if no content.
+     * @param array<string|int, mixed> $attributes       The attributes.
+     * @param bool                     $contentIsEncoded If true, content is already encoded, false otherwise.
      *
      * @return string The tag.
      */

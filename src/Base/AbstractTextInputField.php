@@ -26,7 +26,7 @@ abstract class AbstractTextInputField extends AbstractTextElement
      *
      * @since 1.0.0
      *
-     * @param array $attributes The attributes.
+     * @param array<string|int, mixed> $attributes The attributes.
      *
      * @return string The element html.
      */

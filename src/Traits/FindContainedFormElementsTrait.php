@@ -63,7 +63,7 @@ trait FindContainedFormElementsTrait
     }
 
     /**
-     * @var FormElementInterface[] The extra elements.
+     * @var array<FormElementInterface|FormElementGroupInterface> The extra elements.
      */
     private array $extraElements = [];
 }

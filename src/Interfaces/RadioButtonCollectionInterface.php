@@ -17,6 +17,8 @@ use IteratorAggregate;
  * Interface for RadioButtonCollection class.
  *
  * @since 1.0.0
+ *
+ * @extends IteratorAggregate<string, RadioButtonInterface>
  */
 interface RadioButtonCollectionInterface extends SetFormValueElementInterface, Countable, IteratorAggregate
 {

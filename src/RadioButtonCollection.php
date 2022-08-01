@@ -70,7 +70,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @since 1.0.0
      *
-     * @param array $attributes The attributes which will be passed to each individual radio button.
+     * @param array<string|int, mixed> $attributes The attributes which will be passed to each individual radio button.
      *
      * @return string The element html.
      */
@@ -93,7 +93,7 @@ class RadioButtonCollection extends AbstractSetFormValueElement implements Radio
      *
      * @since 2.1.0
      *
-     * @return Traversable The iterator.
+     * @return Traversable<string, RadioButtonInterface> The iterator.
      */
     public function getIterator(): Traversable
     {

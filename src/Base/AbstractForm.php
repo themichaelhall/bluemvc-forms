@@ -204,7 +204,7 @@ abstract class AbstractForm implements FormInterface
     private bool $isProcessed = false;
 
     /**
-     * @var FormElementInterface[] The processed elements.
+     * @var array<FormElementInterface|FormElementGroupInterface> The processed elements.
      */
     private array $processedElements = [];
 }
