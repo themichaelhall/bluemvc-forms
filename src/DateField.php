@@ -105,7 +105,7 @@ class DateField extends AbstractTextInputField implements DateFieldInterface
      *
      * @param DateTimeImmutable|null $value The value.
      */
-    private function setValue(DateTimeImmutable $value = null): void
+    private function setValue(?DateTimeImmutable $value = null): void
     {
         if ($value === null) {
             $this->value = null;

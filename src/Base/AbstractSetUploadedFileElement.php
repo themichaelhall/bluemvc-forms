@@ -45,5 +45,5 @@ abstract class AbstractSetUploadedFileElement extends AbstractFormElement implem
      *
      * @param UploadedFileInterface|null $uploadedFile The file from form.
      */
-    abstract protected function onSetUploadedFile(UploadedFileInterface $uploadedFile = null): void;
+    abstract protected function onSetUploadedFile(?UploadedFileInterface $uploadedFile = null): void;
 }
