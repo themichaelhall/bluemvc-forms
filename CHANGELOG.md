@@ -1,4 +1,5 @@
 ## Unreleased
+- Added setMinimumValue and setMaximumValue methods to DateField and DateTimeField classes.
 
 ## [3.0.0] - 2022-10-03
 - **Backward compatibility break**: Removed getCustomData and setCustomData methods from all form elements.
