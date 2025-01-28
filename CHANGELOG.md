@@ -1,4 +1,4 @@
-## Unreleased
+## [3.1.0] - 2025-01-28
 - Added setMinimumValue and setMaximumValue methods to DateField and DateTimeField classes.
 
 ## [3.0.0] - 2022-10-03
@@ -32,6 +32,7 @@
 ## 1.0.0 - 2018-02-03
 - First stable revision.
 
+[3.1.0]: https://github.com/themichaelhall/bluemvc-forms/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/themichaelhall/bluemvc-forms/compare/v2.2.0...v3.0.0
 [2.2.0]: https://github.com/themichaelhall/bluemvc-forms/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/themichaelhall/bluemvc-forms/compare/v2.0.0...v2.1.0
