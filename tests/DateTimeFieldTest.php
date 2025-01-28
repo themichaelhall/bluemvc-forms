@@ -52,16 +52,36 @@ class DateTimeFieldTest extends TestCase
      *
      * @param bool        $isRequired        True of value is required, false otherwise.
      * @param string      $value             The value.
+     * @param string|null $minimumValue      The minimum value or null if no minimum value.
+     * @param string|null $maximumValue      The maximum value or null if no maximum value.
      * @param string|null $expectedValue     The expected value or null if no value.
      * @param bool        $expectedIsEmpty   The expected value from isEmpty method.
      * @param bool        $expectedIsInvalid The expected value from isInvalid method.
      * @param bool        $expectedHasError  The expected value from hasError method.
      * @param string|null $expectedError     The expected error or null if no error.
      */
-    public function testSetFormValue(bool $isRequired, string $value, ?string $expectedValue, bool $expectedIsEmpty, bool $expectedIsInvalid, bool $expectedHasError, ?string $expectedError)
-    {
+    public function testSetFormValue(
+        bool $isRequired,
+        string $value,
+        ?string $minimumValue,
+        ?string $maximumValue,
+        ?string $expectedValue,
+        bool $expectedIsEmpty,
+        bool $expectedIsInvalid,
+        bool $expectedHasError,
+        ?string $expectedError
+    ) {
         $dateTimeField = new DateTimeField('foo');
         $dateTimeField->setRequired($isRequired);
+
+        if ($minimumValue !== null) {
+            $dateTimeField->setMinimumValue(new DateTimeImmutable($minimumValue));
+        }
+
+        if ($maximumValue !== null) {
+            $dateTimeField->setMaximumValue(new DateTimeImmutable($maximumValue));
+        }
+
         $dateTimeField->setFormValue($value);
 
         self::assertSame($expectedValue, $dateTimeField->getValue()?->format('Y-m-d H:i:s'));
@@ -79,22 +99,28 @@ class DateTimeFieldTest extends TestCase
     public function setFormValueDataProvider(): array
     {
         return [
-            [false, '', null, true, false, false, null],
-            [true, '', null, true, false, true, 'Missing value'],
-            [false, ' ', null, true, false, false, null],
-            [true, ' ', null, true, false, true, 'Missing value'],
-            [false, 'FooBar', null, false, true, true, 'Invalid value'],
-            [true, 'FooBar', null, false, true, true, 'Invalid value'],
-            [false, '2017-10-15', '2017-10-15 00:00:00', false, false, false, null],
-            [true, '2017-10-15', '2017-10-15 00:00:00', false, false, false, null],
-            [false, ' 2017-10-15 ', '2017-10-15 00:00:00', false, false, false, null],
-            [true, ' 2017-10-15 ', '2017-10-15 00:00:00', false, false, false, null],
-            [false, '2017-10-15 12:34:56', '2017-10-15 12:34:00', false, false, false, null],
-            [true, '2017-10-15 12:34:56', '2017-10-15 12:34:00', false, false, false, null],
-            [false, ' 2017-10-15 12:34:56 ', '2017-10-15 12:34:00', false, false, false, null],
-            [true, ' 2017-10-15 12:34:56 ', '2017-10-15 12:34:00', false, false, false, null],
-            [false, ' 2017-10-15T12:34 ', '2017-10-15 12:34:00', false, false, false, null],
-            [true, ' 2017-10-15T12:34 ', '2017-10-15 12:34:00', false, false, false, null],
+            [false, '', null, null, null, true, false, false, null],
+            [true, '', null, null, null, true, false, true, 'Missing value'],
+            [false, ' ', null, null, null, true, false, false, null],
+            [true, ' ', null, null, null, true, false, true, 'Missing value'],
+            [false, 'FooBar', null, null, null, false, true, true, 'Invalid value'],
+            [true, 'FooBar', null, null, null, false, true, true, 'Invalid value'],
+            [false, '2017-10-15', null, null, '2017-10-15 00:00:00', false, false, false, null],
+            [true, '2017-10-15', null, null, '2017-10-15 00:00:00', false, false, false, null],
+            [false, ' 2017-10-15 ', null, null, '2017-10-15 00:00:00', false, false, false, null],
+            [true, ' 2017-10-15 ', null, null, '2017-10-15 00:00:00', false, false, false, null],
+            [false, '2017-10-15 12:34:56', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [true, '2017-10-15 12:34:56', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [false, ' 2017-10-15 12:34:56 ', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [true, ' 2017-10-15 12:34:56 ', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [false, ' 2017-10-15T12:34 ', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [true, ' 2017-10-15T12:34 ', null, null, '2017-10-15 12:34:00', false, false, false, null],
+            [true, '2017-10-15T12:34', '2017-10-16 12:34:56', null, null, false, true, true, 'Invalid value'],
+            [true, '2017-10-16T12:34', '2017-10-16 12:34:00', '2017-10-18 12:34:56', '2017-10-16 12:34:00', false, false, false, null],
+            [true, '2017-10-16T12:34', '2017-10-16 12:34:56', '2017-10-18 12:34:56', '2017-10-16 12:34:00', false, false, false, null],
+            [true, '2017-10-17T00:00', '2017-10-16 12:34:56', '2017-10-18 12:34:56', '2017-10-17 00:00:00', false, false, false, null],
+            [true, '2017-10-18T00:00', '2017-10-16 12:34:56', '2017-10-18 00:00:00', '2017-10-18 00:00:00', false, false, false, null],
+            [true, '2017-10-18T00:01', null, '2017-10-18 00:00:00', null, false, true, true, 'Invalid value'],
         ];
     }
 
@@ -387,5 +413,29 @@ class DateTimeFieldTest extends TestCase
         $dateTimeField->setFormValue('Foo' . chr(128));
 
         self::assertNull($dateTimeField->getValue());
+    }
+
+    /**
+     * Test setMinimumValue method.
+     */
+    public function testSetMinimumValue()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setMinimumValue(new DateTimeImmutable('2025-01-08 18:19:20'));
+
+        self::assertSame('<input type="datetime-local" name="foo" required min="2025-01-08T18:19">', $dateTimeField->getHtml());
+        self::assertSame('<input type="datetime-local" name="foo" required min="2025-01-08T18:19">', $dateTimeField->__toString());
+    }
+
+    /**
+     * Test setMaximumValue method.
+     */
+    public function testSetMaximumValue()
+    {
+        $dateTimeField = new DateTimeField('foo');
+        $dateTimeField->setMaximumValue(new DateTimeImmutable('2025-01-08 18:19:20'));
+
+        self::assertSame('<input type="datetime-local" name="foo" required max="2025-01-08T18:19">', $dateTimeField->getHtml());
+        self::assertSame('<input type="datetime-local" name="foo" required max="2025-01-08T18:19">', $dateTimeField->__toString());
     }
 }

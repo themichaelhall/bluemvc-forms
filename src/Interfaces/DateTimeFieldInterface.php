@@ -36,4 +36,22 @@ interface DateTimeFieldInterface extends SetFormValueElementInterface
      * @return bool True if the value is invalid, false otherwise.
      */
     public function isInvalid(): bool;
+
+    /**
+     * Sets the maximum value.
+     *
+     * @since 3.1.0
+     *
+     * @param DateTimeImmutable $maximumValue The maximum value.
+     */
+    public function setMaximumValue(DateTimeImmutable $maximumValue): void;
+
+    /**
+     * Sets the minimum value.
+     *
+     * @since 3.1.0
+     *
+     * @param DateTimeImmutable $minimumValue The minimum value.
+     */
+    public function setMinimumValue(DateTimeImmutable $minimumValue): void;
 }

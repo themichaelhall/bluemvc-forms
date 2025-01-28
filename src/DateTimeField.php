@@ -35,7 +35,31 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
         parent::__construct($name, $value !== null ? $value->format('Y-m-d\\TH:i') : '', TextFormatOptions::TRIM);
 
         $this->isInvalid = false;
-        $this->setValue($value);
+        $this->value = self::toZeroSeconds($value);
+        $this->minimumValue = null;
+        $this->maximumValue = null;
+    }
+
+    /**
+     * Returns the element html.
+     *
+     * @since 3.1.0
+     *
+     * @param array<string|int, mixed> $attributes The attributes.
+     *
+     * @return string The element html.
+     */
+    public function getHtml(array $attributes = []): string
+    {
+        if ($this->minimumValue !== null) {
+            $attributes['min'] = $this->minimumValue->format('Y-m-d\\TH:i');
+        }
+
+        if ($this->maximumValue !== null) {
+            $attributes['max'] = $this->maximumValue->format('Y-m-d\\TH:i');
+        }
+
+        return parent::getHtml($attributes);
     }
 
     /**
@@ -60,6 +84,30 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
     public function isInvalid(): bool
     {
         return $this->isInvalid;
+    }
+
+    /**
+     * Sets the maximum value.
+     *
+     * @since 3.1.0
+     *
+     * @param DateTimeImmutable $maximumValue The maximum value.
+     */
+    public function setMaximumValue(DateTimeImmutable $maximumValue): void
+    {
+        $this->maximumValue = self::toZeroSeconds($maximumValue);
+    }
+
+    /**
+     * Sets the minimum value.
+     *
+     * @since 3.1.0
+     *
+     * @param DateTimeImmutable $minimumValue The minimum value.
+     */
+    public function setMinimumValue(DateTimeImmutable $minimumValue): void
+    {
+        $this->minimumValue = self::toZeroSeconds($minimumValue);
     }
 
     /**
@@ -93,27 +141,38 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
         }
 
         try {
-            $this->setValue(new DateTimeImmutable($text));
+            $value = self::toZeroSeconds(new DateTimeImmutable($text));
         } catch (Exception) {
             $this->setError('Invalid value');
             $this->isInvalid = true;
-        }
-    }
-
-    /**
-     * Sets the value.
-     *
-     * @param DateTimeImmutable|null $value The value.
-     */
-    private function setValue(?DateTimeImmutable $value = null): void
-    {
-        if ($value === null) {
-            $this->value = null;
 
             return;
         }
 
-        $this->value = $value->setTime(intval($value->format('H')), intval($value->format('i')));
+        if ($this->minimumValue !== null && $value < $this->minimumValue || $this->maximumValue !== null && $value > $this->maximumValue) {
+            $this->setError('Invalid value');
+            $this->isInvalid = true;
+
+            return;
+        }
+
+        $this->value = $value;
+    }
+
+    /**
+     * Sets the seconds part to zero if value is not null.
+     *
+     * @param DateTimeImmutable|null $value The value or null.
+     *
+     * @return DateTimeImmutable|null The value with seconds set to zero or null.
+     */
+    private static function toZeroSeconds(?DateTimeImmutable $value): ?DateTimeImmutable
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return $value->setTime(intval($value->format('H')), intval($value->format('i')));
     }
 
     /**
@@ -125,4 +184,14 @@ class DateTimeField extends AbstractTextInputField implements DateTimeFieldInter
      * @var DateTimeImmutable|null The value.
      */
     private ?DateTimeImmutable $value;
+
+    /**
+     * @var DateTimeImmutable|null The minimum value.
+     */
+    private ?DateTimeImmutable $minimumValue;
+
+    /**
+     * @var DateTimeImmutable|null The maximum value.
+     */
+    private ?DateTimeImmutable $maximumValue;
 }
